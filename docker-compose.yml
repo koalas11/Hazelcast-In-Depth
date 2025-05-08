@@ -1,0 +1,45 @@
+name: hazelcast-cluster
+
+services:
+  hazelcast-node1: &hazelcast-service
+    image: hazelcast/hazelcast:latest
+    container_name: hazelcast-node1
+    ports:
+      - "5701:5701"
+    networks:
+      - hazelcast-network
+    environment:
+      - HZ_NETWORK_PUBLICADDRESS=host.docker.internal:5701
+      - HZ_CLUSTERNAME=dev
+
+  hazelcast-node2:
+    <<: *hazelcast-service
+    container_name: hazelcast-node2
+    ports:
+      - "5702:5701"
+    environment:  
+      - HZ_NETWORK_PUBLICADDRESS=host.docker.internal:5702
+
+  hazelcast-node3:
+    <<: *hazelcast-service
+    container_name: hazelcast-node3
+    ports:
+      - "5703:5701"
+    environment:  
+      - HZ_NETWORK_PUBLICADDRESS=host.docker.internal:5703
+
+  hazelcast-management-center:
+    image: hazelcast/management-center:latest
+    container_name: hazelcast-management
+    ports:
+      - "8080:8080"
+    networks:
+      - hazelcast-network
+    depends_on:
+      - hazelcast-node1
+      - hazelcast-node2
+      - hazelcast-node3
+
+networks:
+  hazelcast-network:
+    driver: bridge
