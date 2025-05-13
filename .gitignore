@@ -1,5 +1,2 @@
 # Ignore Python Virtual Environment files
 .venv/
-
-# Ignore LaTeX build files
-report/latex_build/

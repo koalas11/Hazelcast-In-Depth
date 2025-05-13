@@ -1,3 +1,6 @@
 {
-    "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%/report/latex_build"
+    "tinymist.lint.enabled": true,
+    "[typst]": {
+        "editor.formatOnSave": true
+    }
 }
