@@ -69,53 +69,132 @@ Hazelcast offre molteplici approcci alla configurazione:
 - *Variabili d'ambiente*: Per deployment containerizzati
 - *Configuration files override*: Caricamento di configurazioni da percorsi personalizzati
 
+È sia possibile configurare hazelcast sia in modo statico, attraverso file di configurazione, sia in modo dinamico, utilizzando le API di configurazione programmatica. Questo consente di adattare il comportamento del cluster senza necessità di riavvio.
+
 === Aree Principali di Configurazione
 
 ==== Configurazione del Cluster
 
+La configurazione del cluster rappresenta il fondamento del sistema Hazelcast. Come possiamo vedere nell'esempio seguente, è possibile definire non solo il nome del cluster ma anche impostare in dettaglio le modalità di comunicazione tra i nodi:
+
 ```xml
 <hazelcast>
+    <!-- Diamo un nome significativo al nostro cluster per identificarlo -->
     <cluster-name>mio-cluster-produzione</cluster-name>
+
+    <!-- Configurazione della rete per la comunicazione tra i nodi -->
     <network>
+        <!-- La porta di base con incremento automatico permette di avviare più membri sulla stessa macchina -->
         <port auto-increment="true" port-count="100">5701</port>
         <join>
+            <!-- Disabilitiamo il multicast per ambienti di produzione più controllati -->
             <multicast enabled="false"/>
+            <!-- Utilizziamo invece TCP/IP specificando manualmente gli indirizzi dei membri -->
             <tcp-ip enabled="true">
                 <member>10.0.0.1</member>
                 <member>10.0.0.2</member>
             </tcp-ip>
         </join>
     </network>
+
+    <!-- Configurazione avanzata per cluster multi-zona -->
     <partition-group enabled="true" group-type="ZONE_AWARE"/>
 </hazelcast>
 ```
 
-==== Configurazione di Partizionamento e Backup
+==== Configurazione di Partizionamento, Backup e Strutture Dati
+
+Hazelcast offre un controllo granulare su come i dati vengono distribuiti e replicati nel cluster. Possiamo configurare ogni struttura dati con politiche specifiche per il nostro caso d'uso:
 
 ```xml
 <hazelcast>
+    <!-- Configurazione di una Map con esigenze di alta affidabilità -->
     <map name="dati-critici">
+        <!-- 2 backup sincroni per massima resilienza -->
         <backup-count>2</backup-count>
+        <!-- 1 backup asincrono per bilanciare prestazioni e sicurezza -->
         <async-backup-count>1</async-backup-count>
+        <!-- Strategia di partizionamento personalizzata per distribuire i dati in modo ottimale -->
         <partition-strategy>com.esempio.CustomPartitioningStrategy</partition-strategy>
     </map>
+
+    <!-- Configurazione di altre strutture dati distribuite -->
+    <list name="lista-operazioni">
+        <!-- Backup per garantire la persistenza delle operazioni -->
+        <backup-count>1</backup-count>
+        <!-- Dimensione massima per prevenire consumo eccessivo di memoria -->
+        <max-size>10000</max-size>
+    </list>
+
+    <set name="utenti-attivi">
+        <!-- Configurazione per un set con accesso frequente -->
+        <backup-count>1</backup-count>
+        <in-memory-format>OBJECT</in-memory-format>
+    </set>
+
+    <queue name="coda-eventi">
+        <!-- Backup per garantire che nessun evento venga perso -->
+        <backup-count>2</backup-count>
+        <!-- Capacità massima della coda -->
+        <max-size>5000</max-size>
+        <!-- Comportamento quando la coda è piena -->
+        <queue-store enabled="true">
+            <class-name>com.esempio.EventQueueStore</class-name>
+        </queue-store>
+    </queue>
 </hazelcast>
 ```
 
-==== Configurazione di Prestazioni e Memoria
+==== Configurazione di Prestazioni, Memoria e Comportamento Runtime
+
+Il controllo fine delle prestazioni e dell'utilizzo della memoria è fondamentale in sistemi distribuiti. Hazelcast offre numerose opzioni per ottimizzare questi aspetti:
 
 ```xml
 <hazelcast>
+    <!-- Configurazione di una Map ottimizzata per uso cache -->
     <map name="cache-frequente">
+        <!-- Politica di eviction per gestire la memoria quando si raggiunge il 25% libero dell'heap -->
         <eviction eviction-policy="LRU" max-size-policy="FREE_HEAP_PERCENTAGE" size="25"/>
+
+        <!-- Near Cache per migliorare drasticamente le performance di lettura -->
         <near-cache>
+            <!-- Configurazione specifica dell'eviction per la near cache -->
             <eviction eviction-policy="LFU" max-size-policy="ENTRY_COUNT" size="10000"/>
+            <!-- Time-to-live per mantenere la coerenza dei dati -->
             <time-to-live-seconds>600</time-to-live-seconds>
         </near-cache>
+
+        <!-- Formato binario per ottimizzare l'uso della memoria -->
         <in-memory-format>BINARY</in-memory-format>
+
+        <!-- Configurazione per la scadenza automatica degli elementi -->
+        <time-to-live-seconds>3600</time-to-live-seconds>
+        <max-idle-seconds>1800</max-idle-seconds>
     </map>
+
+    <!-- Configurazione dell'executor service per task distribuiti -->
+    <executor-service name="task-processor">
+        <pool-size>16</pool-size>
+        <queue-capacity>1000</queue-capacity>
+    </executor-service>
+
+    <!-- Configurazione dei thread pools per ottimizzare le risorse -->
+    <property name="hazelcast.operation.thread.count">16</property>
+    <property name="hazelcast.io.thread.count">8</property>
+
+    <!-- Configurazione della serializzazione per migliorare le performance di rete -->
+    <serialization>
+        <portable-factories>
+            <portable-factory factory-id="1">com.esempio.DataPortableFactory</portable-factory>
+        </portable-factories>
+        <data-serializable-factories>
+            <data-serializable-factory factory-id="2">com.esempio.BusinessObjectFactory</data-serializable-factory>
+        </data-serializable-factories>
+    </serialization>
 </hazelcast>
 ```
+
+Queste configurazioni mostrano la flessibilità di Hazelcast nel gestire diversi aspetti del sistema distribuito. È possibile adattare ogni elemento alle specifiche esigenze del proprio ambiente, bilanciando prestazioni, resilienza e utilizzo delle risorse in base ai requisiti applicativi.
 
 === Impatto della Configurazione sulle Prestazioni
 
@@ -324,7 +403,7 @@ Nel panorama delle tecnologie distribuite, Hazelcast si posiziona in modo distin
 
 - Rispetto a *Infinispan*: Offre un ecosistema più ampio di connettori e integrazioni, ma l'alternativa JBoss potrebbe integrarsi meglio in ambienti Red Hat.
 
-=== Considerazioni Finali
+=== Considerazioni
 
 Hazelcast rappresenta una soluzione potente e versatile per una vasta gamma di problemi di computing distribuito. La scelta tra l'edizione Open Source ed Enterprise dipende principalmente dalle esigenze di consistenza, sicurezza e supporto.
 

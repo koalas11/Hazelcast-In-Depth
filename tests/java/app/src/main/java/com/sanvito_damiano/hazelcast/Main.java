@@ -1,6 +1,5 @@
 package com.sanvito_damiano.hazelcast;
 
-import java.io.File;
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -56,8 +55,6 @@ public class Main {
         System.setProperty("LOG_DIR", folder);
 
         try {
-            new File(folder, "logs").mkdirs(); // Ensure logs directory exists
-
             // Configure first member
             Config config1 = new Config();
             config1.getJetConfig().setEnabled(true);
