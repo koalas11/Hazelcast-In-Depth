@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <!-- Main application console -->
+        <Console name="ApplicationConsole" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [APP] %highlight{%-5level} %logger{36} - %msg%n"/>
+        </Console>
+        
+        <!-- Hazelcast log files -->
+        <RollingRandomAccessFile name="HazelcastLogs" 
+            fileName="logs/${sys:LOG_DIR:-default}/hazelcast.log" filePattern="logs/${sys:LOG_DIR:-default}/hazelcast-%d{MM-dd-yyyy}-%i.log.gz"  append="false">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [HAZELCAST] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+        </RollingRandomAccessFile>
+        
+    </Appenders>
+    
+    <Loggers>
+        <!-- Hazelcast instance-specific loggers -->
+        <Logger name="com.hazelcast" level="info" additivity="false">
+            <AppenderRef ref="HazelcastLogs"/>
+        </Logger>
+        
+        <!-- Root logger -->
+        <Root level="info">
+            <AppenderRef ref="ApplicationConsole"/>
+        </Root>
+    </Loggers>
+</Configuration>

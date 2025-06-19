@@ -2,5 +2,11 @@
     "tinymist.lint.enabled": true,
     "[typst]": {
         "editor.formatOnSave": true
-    }
+    },
+    "editor.wordWrap": "on",
+    "gradle.nestedProjects": [
+        "tests/java"
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.compile.nullAnalysis.mode": "automatic"
 }

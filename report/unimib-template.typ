@@ -7,6 +7,8 @@
   reportOf: "Report of",
   academic-year: "Academic year",
   chapter: "Chapter",
+  appendix: "Appendix",
+  introduction: "Introduction",
   abstract: "Abstract",
 )
 
@@ -16,6 +18,8 @@
   reportOf: "Relazione di",
   academic-year: "Anno accademico",
   chapter: "Capitolo",
+  appendix: "Appendice",
+  introduction: "Introduzione",
   abstract: "Sommario",
 )
 
@@ -94,10 +98,11 @@
   set outline(depth: 3, indent: 1em)
 
   // Style paragraph
-  set par(spacing: .75em, leading: 0.58em, justify: false)
+  set par(spacing: 1.25em, leading: 0.58em, justify: false)
 
-  // Set run-in subheadings, starting at level 3.
+  // Style headings
   set heading(numbering: "1.1.1.")
+  // Set run-in subheadings, starting at level 3.
   show heading: it => {
     if it.level > 3 {
       parbreak()
@@ -105,6 +110,46 @@
     } else {
       it
     }
+  }
+  // Configure appearance of first level headings
+  show heading.where(level: 1): it => {
+    let isIntro = it.body == [#langStrings.introduction]
+
+    if it.numbering == none and not isIntro {
+      return it
+    }
+
+    pagebreak(weak: true)
+    block(
+      breakable: false,
+      {
+        v(3em)
+        if isIntro {
+          text(
+            size: 1.5em,
+            it.body,
+          )
+          v(1.25em)
+        } else {
+          let firstNumbering = it.numbering.first()
+
+          let supplement = if firstNumbering == "1" { langStrings.chapter } else if firstNumbering == "A" {
+            langStrings.appendix
+          } else {
+            return it
+          }
+
+          set heading(
+            supplement: supplement,
+            numbering: it.numbering.first(),
+          )
+          text(size: 1.5em)[#supplement #context counter(heading).display()]
+          v(.25em)
+          it.body
+        }
+        v(.5em)
+      },
+    )
   }
 
   // Style lists
@@ -114,6 +159,7 @@
   // Style bibliography
   show _std-bibliography: set text(8pt)
   set _std-bibliography(style: "ieee")
+  set cite(form: "prose")
 
   // Style math equation
   set math.equation(numbering: "(1)")
@@ -211,11 +257,12 @@
   set page(
     header: text(
       style: "italic",
-      [
-        #title - #context counter(page).display()
-        #h(1fr)
-        #context authors.at(calc.rem(counter(page).at(here()).first(), authors.len()))
-      ],
+      grid(
+        columns: (1fr, auto),
+        align: top,
+        [#title - #context counter(page).display()],
+        context authors.at(calc.rem(counter(page).at(here()).first(), authors.len())),
+      ),
     ),
     footer: text(
       style: "italic",

@@ -10,7 +10,7 @@
     "Sanvito Marco 886493",
   ),
   bibliography: bibliography(style: "ieee", "citations.bib"),
-  abstract: include("chapters/abstract.typ"),
+  abstract: include "chapters/abstract.typ",
   dark: false,
   lang: "it",
   // flipped: true
@@ -24,6 +24,12 @@
 
 #set heading(numbering: "1.1.")
 
-#include "chapters/1.hazelcast.intro.typ"
+#include "chapters/1.architecture.typ"
+#include "chapters/2.data.structures.typ"
+#include "chapters/3.distributed.computing.typ"
+#include "chapters/4.data.ingestion.typ"
+#include "chapters/5.sql.typ"
+#include "chapters/6.advanced.features.typ"
+#include "chapters/7.comments.typ"
 
 #set heading(numbering: none)

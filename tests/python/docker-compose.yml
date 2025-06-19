@@ -8,9 +8,11 @@ services:
       - "5701:5701"
     networks:
       - hazelcast-network
+    volumes:
+      - ./config/${HZ_CONFIG:-default.yaml}:/opt/hazelcast/config/hazelcast.yaml
     environment:
       - HZ_NETWORK_PUBLICADDRESS=host.docker.internal:5701
-      - HZ_CLUSTERNAME=dev
+      - JAVA_OPTS=-Dhazelcast.config=/opt/hazelcast/config/hazelcast.yaml
 
   hazelcast-node2:
     <<: *hazelcast-service
@@ -19,14 +21,16 @@ services:
       - "5702:5701"
     environment:  
       - HZ_NETWORK_PUBLICADDRESS=host.docker.internal:5702
+      - JAVA_OPTS=-Dhazelcast.config=/opt/hazelcast/config/hazelcast.yaml
 
   hazelcast-node3:
     <<: *hazelcast-service
     container_name: hazelcast-node3
     ports:
       - "5703:5701"
-    environment:  
+    environment:
       - HZ_NETWORK_PUBLICADDRESS=host.docker.internal:5703
+      - JAVA_OPTS=-Dhazelcast.config=/opt/hazelcast/config/hazelcast.yaml
 
   hazelcast-management-center:
     image: hazelcast/management-center:latest

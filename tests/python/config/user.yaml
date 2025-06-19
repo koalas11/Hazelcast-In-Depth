@@ -1,0 +1,35 @@
+# Hazelcast User Configuration
+
+hazelcast:
+  cluster-name: dev
+  
+  # Security configuration with proper schema
+  security:
+    enabled: true
+    client-permissions:
+      on-join-operation: RECEIVE
+
+      all:
+        principal: admin,root
+
+      map:
+        - name: "*"
+          principal: dev
+          endpoints:
+            - 10.10.*.*
+            - 127.0.0.1
+          actions:
+            - put
+            - read
+            - remove
+
+      queue:
+        - name: "*"
+          principal: dev
+          endpoints:
+            - 192.168.1.1-100
+            - 192.168.2.*
+          actions:
+            - create
+            - add
+            - remove
