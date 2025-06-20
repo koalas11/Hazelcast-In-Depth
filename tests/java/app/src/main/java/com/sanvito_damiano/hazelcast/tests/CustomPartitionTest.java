@@ -1,8 +1,10 @@
 package com.sanvito_damiano.hazelcast.tests;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.client.config.ClientConfig;
@@ -88,12 +90,6 @@ public class CustomPartitionTest extends AbstractTest {
         memberInstance1.getCluster().shutdown();
     }
 
-    private void addData(int count) {
-        for (int i = 0; i < count; i++) {
-            distributedMap.put("key-" + i, "value-" + i);
-        }
-    }
-
     public void testCustomPartitioning() throws Exception {
         for (int dataSize : partitionCounts) {
             reset();
@@ -106,21 +102,19 @@ public class CustomPartitionTest extends AbstractTest {
      */
     private void _testCustomPartitioning(int dataSize) throws Exception {
         System.out.println("\n=== Testing Custom Partitioning Strategy ===");
-
-        addData(dataSize);
         
         // Insert data with regional prefixes
         System.out.println("Inserting region-based data...");
-        // Insert 100 elements for each region
+        // Insert elements for each region
         String[] regions = {"EU", "US", "ASIA", "AF"};
         for (String region : regions) {
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < dataSize; i++) {
                 distributedMap.put(region + "-key-" + i, "value-" + i);
             }
         }
         
         // Analyze data distribution
-        Map<String, Object> customPartitioningResults = analyzeCustomPartitioning(regions);
+        Map<String, Object> customPartitioningResults = analyzeCustomPartitioning(regions, dataSize);
 
         StringBuilder message = new StringBuilder();
         message.append("Custom partitioning results: { ");
@@ -143,11 +137,11 @@ public class CustomPartitionTest extends AbstractTest {
     /**
      * Analyze how data is distributed using the custom strategy
      */
-    private Map<String, Object> analyzeCustomPartitioning(String[] regions) {
+    private Map<String, Object> analyzeCustomPartitioning(String[] regions, int dataSize) {
         PartitionService partitionService = clientInstance.getPartitionService();
         Map<String, Object> results = new HashMap<>();
         
-        System.out.println("\nAnalyzing custom partition distribution by region:");
+        System.out.println("Analyzing custom partition distribution by region:");
         
         // For each region, count in which partitions the keys end up
         Map<String, Set<Integer>> regionPartitions = new HashMap<>();
@@ -155,10 +149,11 @@ public class CustomPartitionTest extends AbstractTest {
         
         for (String region : regions) {
             Map<Integer, Integer> partitionCounts = new HashMap<>();
-            Set<Integer> partitionIds = new java.util.HashSet<>();
+            Set<Integer> partitionIds = new HashSet<>();
+            Map<UUID, Integer> partitionOwners = new HashMap<>();
             
             // Examine keys for each region
-            for (int i = 0; i < 50; i++) {
+            for (int i = 0; i < dataSize; i++) {
                 String key = region + "-key-" + i;
                 Partition partition = partitionService.getPartition(key);
                 int partitionId = partition.getPartitionId();
@@ -166,15 +161,22 @@ public class CustomPartitionTest extends AbstractTest {
                 partitionCounts.put(partitionId, partitionCounts.getOrDefault(partitionId, 0) + 1);
                 partitionIds.add(partitionId);
                 
+                Member owner = partition.getOwner();
+                if (owner == null) {
+                    System.out.println("Partition " + partitionId + " has no owner!");
+                    continue;
+                }
                 // Print detailed information for the first 3 keys
                 if (i < 3) {
-                    Member owner = partition.getOwner();
+                    
                     System.out.println("Key '" + key + "' -> Partition " + partitionId + 
                             " -> Node " + (owner != null ? owner.getUuid() : "unknown"));
                 }
+                partitionOwners.put(owner.getUuid(), partitionOwners.getOrDefault(owner.getUuid(), 0) + 1);
             }
             
             regionPartitions.put(region, partitionIds);
+            results.put(region, partitionCounts);
             totalDistinctPartitions += partitionIds.size();
             
             // Print statistics for the region
@@ -194,7 +196,7 @@ public class CustomPartitionTest extends AbstractTest {
         
         for (int i = 0; i < regions.length; i++) {
             for (int j = i + 1; j < regions.length; j++) {
-                Set<Integer> commonPartitions = new java.util.HashSet<>(regionPartitions.get(regions[i]));
+                Set<Integer> commonPartitions = new HashSet<>(regionPartitions.get(regions[i]));
                 commonPartitions.retainAll(regionPartitions.get(regions[j]));
                 
                 int overlapPercentage = commonPartitions.size() * 100 / 

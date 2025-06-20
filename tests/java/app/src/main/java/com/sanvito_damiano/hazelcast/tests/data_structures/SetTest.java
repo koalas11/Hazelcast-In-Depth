@@ -100,9 +100,6 @@ public class SetTest extends AbstractTest {
         } else {
             System.out.println("✗ Clear operation failed");
         }
-        
-        // Restore data for next tests
-        setup();
     }
 
     public void testSetUniqueElements() {
@@ -131,12 +128,6 @@ public class SetTest extends AbstractTest {
 
     public void testBulkOperations() {
         System.out.println("\n=== Testing Set Bulk Operations ===");
-        
-        // Reset the set
-        set.clear();
-        set.add("item1");
-        set.add("item2");
-        set.add("item3");
         
         // Test addAll
         System.out.println("Testing addAll operation...");
@@ -185,9 +176,6 @@ public class SetTest extends AbstractTest {
 
     public void testListeners() throws Exception {
         System.out.println("\n=== Testing Set Listeners ===");
-        
-        // Reset the set
-        set.clear();
         
         // Create a countdown latch to synchronize the test
         final CountDownLatch latch = new CountDownLatch(1);

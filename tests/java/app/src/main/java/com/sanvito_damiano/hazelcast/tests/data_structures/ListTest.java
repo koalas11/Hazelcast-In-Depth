@@ -129,14 +129,6 @@ public class ListTest extends AbstractTest {
 
     public void testListIteration() {
         System.out.println("\n=== Testing List Iteration ===");
-
-        reset();
-        
-        // Reset the list
-        list.clear();
-        for (int i = 1; i <= 5; i++) {
-            list.add("item" + i);
-        }
         
         System.out.println("Testing foreach iteration...");
         StringBuilder result = new StringBuilder();
@@ -156,8 +148,6 @@ public class ListTest extends AbstractTest {
 
     public void testIndexOperations() {
         System.out.println("\n=== Testing List Index Operations ===");
-
-        reset();
         
         // Test add at index
         System.out.println("Testing add at index operation...");
@@ -213,12 +203,6 @@ public class ListTest extends AbstractTest {
 
     public void testBulkOperations() {
         System.out.println("\n=== Testing List Bulk Operations ===");
-        
-        // Reset the list
-        list.clear();
-        for (int i = 1; i <= 5; i++) {
-            list.add("item" + i);
-        }
         
         // Test addAll
         System.out.println("Testing addAll operation...");
@@ -292,9 +276,6 @@ public class ListTest extends AbstractTest {
     public void testListeners() throws Exception {
         System.out.println("\n=== Testing List Listeners ===");
         
-        // Reset the list
-        list.clear();
-        
         // Create a countdown latch to synchronize the test
         final CountDownLatch latch = new CountDownLatch(1);
         final boolean[] itemAdded = new boolean[1];
@@ -336,13 +317,7 @@ public class ListTest extends AbstractTest {
 
     public void testConcurrentModification() throws Exception {
         System.out.println("\n=== Testing Concurrent List Modifications ===");
-        
-        // Reset the list
-        list.clear();
-        for (int i = 1; i <= 100; i++) {
-            list.add("item" + i);
-        }
-        
+
         // Number of concurrent threads
         int numThreads = 5;
         final CountDownLatch startLatch = new CountDownLatch(1);

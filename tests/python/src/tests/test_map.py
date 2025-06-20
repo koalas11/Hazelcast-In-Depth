@@ -16,8 +16,6 @@ class MapTest(Test):
         try:
             logger.info("Starting base map operations test...")
 
-
-
             logger.info("Base map operations test passed successfully.")
             self.report.add_result("base_map_operations", "PASS", "Basic map operations test passed successfully")
 

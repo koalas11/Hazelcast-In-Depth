@@ -111,9 +111,6 @@ public class QueueTest extends AbstractTest {
     public void testBlockingOperations() throws Exception {
         System.out.println("\n=== Testing Blocking Queue Operations ===");
         
-        // Clear the queue
-        queue.clear();
-        
         // Test put operation
         System.out.println("Testing put operation...");
         queue.put("item1");
@@ -160,9 +157,6 @@ public class QueueTest extends AbstractTest {
 
     public void testBulkOperations() {
         System.out.println("\n=== Testing Queue Bulk Operations ===");
-        
-        // Clear the queue
-        queue.clear();
         
         // Test addAll
         System.out.println("Testing addAll operation...");
@@ -214,8 +208,6 @@ public class QueueTest extends AbstractTest {
     public void testDrainOperations() {
         System.out.println("\n=== Testing Queue Drain Operations ===");
         
-        // Clear the queue
-        queue.clear();
         queue.addAll(Arrays.asList("item1", "item2", "item3", "item4", "item5"));
         
         // Test drainTo operation
@@ -244,9 +236,6 @@ public class QueueTest extends AbstractTest {
 
     public void testListeners() throws Exception {
         System.out.println("\n=== Testing Queue Listeners ===");
-        
-        // Clear the queue
-        queue.clear();
         
         // Create a countdown latch to synchronize the test
         final CountDownLatch latch = new CountDownLatch(1);
@@ -285,9 +274,6 @@ public class QueueTest extends AbstractTest {
 
     public void testProducerConsumerPattern() throws Exception {
         System.out.println("\n=== Testing Producer-Consumer Pattern ===");
-        
-        // Clear the queue
-        queue.clear();
         
         // Number of items to produce/consume
         final int itemCount = 100;
@@ -373,6 +359,6 @@ public class QueueTest extends AbstractTest {
         }
         
         // Clean up
-        boundedQueue.clear();
+        boundedQueue.destroy();
     }
 }

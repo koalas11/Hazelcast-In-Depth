@@ -10,13 +10,22 @@ import com.hazelcast.partition.PartitionService;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.Collection;
 import java.util.UUID;
 
 /**
  * Test program for Hazelcast Data Partitioning, Failover and Custom Partitioning
  */
 public class PartitionTest extends AbstractTest {
+
+    public class IntegerPair {
+        public Integer f0;
+        public Integer f1;
+
+        public IntegerPair(Integer f0, Integer f1) {
+            this.f0 = f0;
+            this.f1 = f1;
+        }
+    }
 
     private static int[] partitionCounts = {100, 500, 1000, 5000, 10000};
 
@@ -65,7 +74,7 @@ public class PartitionTest extends AbstractTest {
         
         // Analyze partition distribution
         System.out.println("\n=== Partition Distribution for " + dataSize + " Items ===");
-        Map<UUID, Integer> partitionStats = analyzePartitionDistribution();
+        Map<UUID, IntegerPair> partitionStats = analyzePartitionDistribution(dataSize);
 
         String message = getPartitionChangeMessage(partitionStats, dataSize);
 
@@ -94,7 +103,7 @@ public class PartitionTest extends AbstractTest {
         
         // Record initial partition distribution
         System.out.println("Initial partition distribution before adding node:");
-        Map<UUID, Integer> initialPartitionStats = analyzePartitionDistribution();
+        Map<UUID, IntegerPair> initialPartitionStats = analyzePartitionDistribution(dataSize);
         
         String message = getPartitionChangeMessage(initialPartitionStats, dataSize);
 
@@ -117,7 +126,7 @@ public class PartitionTest extends AbstractTest {
         
         // Analyze partition distribution after adding node
         System.out.println("Partition distribution after adding node:");
-        Map<UUID, Integer> newPartitionStats = analyzePartitionDistribution();
+        Map<UUID, IntegerPair> newPartitionStats = analyzePartitionDistribution(dataSize);
 
         message = getPartitionChangeMessage(newPartitionStats, dataSize);
 
@@ -154,7 +163,7 @@ public class PartitionTest extends AbstractTest {
         
         // Record initial partition distribution
         System.out.println("Initial partition distribution before node shutdown:");
-        Map<UUID, Integer> initialPartitionStats = analyzePartitionDistribution();
+        Map<UUID, IntegerPair> initialPartitionStats = analyzePartitionDistribution(dataSize);
 
         String message = getPartitionChangeMessage(initialPartitionStats, dataSize);
         System.out.println(message);
@@ -183,7 +192,7 @@ public class PartitionTest extends AbstractTest {
         
         // Analyze partition distribution after shutdown
         System.out.println("Partition distribution after node shutdown:");
-        Map<UUID, Integer> newPartitionStats = analyzePartitionDistribution();
+        Map<UUID, IntegerPair> newPartitionStats = analyzePartitionDistribution(dataSize);
 
         message = getPartitionChangeMessage(newPartitionStats, dataSize);
         System.out.println(message);
@@ -213,7 +222,7 @@ public class PartitionTest extends AbstractTest {
         
         // Record initial partition distribution
         System.out.println("Initial partition distribution before node termination:");
-        Map<UUID, Integer> initialPartitionStats = analyzePartitionDistribution();
+        Map<UUID, IntegerPair> initialPartitionStats = analyzePartitionDistribution(dataSize);
 
         String message = getPartitionChangeMessage(initialPartitionStats, dataSize);
         System.out.println(message);
@@ -242,7 +251,7 @@ public class PartitionTest extends AbstractTest {
         
         // Analyze partition distribution after Termination
         System.out.println("Partition distribution after node termination:");
-        Map<UUID, Integer> newPartitionStats = analyzePartitionDistribution();
+        Map<UUID, IntegerPair> newPartitionStats = analyzePartitionDistribution(dataSize);
 
         message = getPartitionChangeMessage(newPartitionStats, dataSize);
         System.out.println(message);
@@ -258,18 +267,20 @@ public class PartitionTest extends AbstractTest {
     /**
      * Analyze and return the partition distribution among nodes
      */
-    private Map<UUID, Integer> analyzePartitionDistribution() {
+    private Map<UUID, IntegerPair> analyzePartitionDistribution(int dataSize) {
         PartitionService partitionService = hazelcastInstance.getPartitionService();
         Set<Partition> partitions = partitionService.getPartitions();
         
         // Count partitions per node
-        Map<UUID, Integer> partitionsPerNode = new HashMap<>();
+        Map<UUID, IntegerPair> partitionsPerNode = new HashMap<>();
         
         for (Partition partition : partitions) {
             Member owner = partition.getOwner();
             if (owner != null) {
                 UUID memberId = owner.getUuid();
-                partitionsPerNode.put(memberId, partitionsPerNode.getOrDefault(memberId, 0) + 1);
+                partitionsPerNode.putIfAbsent(memberId, new IntegerPair(0, 0));
+                IntegerPair current = partitionsPerNode.get(memberId);
+                current.f0 += 1; // Increment partition count
             }
         }
         
@@ -277,35 +288,30 @@ public class PartitionTest extends AbstractTest {
         System.out.println("Total partitions: " + partitions.size());
         System.out.println("Partition distribution across nodes:");
         
-        for (Map.Entry<UUID, Integer> entry : partitionsPerNode.entrySet()) {
-            System.out.println("Node " + entry.getKey() + ": " + entry.getValue() + " partitions");
+        for (Map.Entry<UUID, IntegerPair> entry : partitionsPerNode.entrySet()) {
+            System.out.println("Node " + entry.getKey() + ": " + entry.getValue().f0 + " partitions");
         }
         
         // Examine some specific keys
         System.out.println("Partition locations for sample keys:");
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < dataSize; i++) {
             String key = "key-" + i;
             Partition partition = partitionService.getPartition(key);
             Member owner = partition.getOwner();
             if (owner != null) {
-                System.out.println("Key '" + key + "' -> Partition " + partition.getPartitionId() + 
-                        " -> Node " + owner.getUuid());
+                if (i < 5) {
+                    System.out.println("Key '" + key + "' -> Partition " + partition.getPartitionId() + 
+                                       " -> Node " + owner.getUuid());
+                }
+                IntegerPair current = partitionsPerNode.get(owner.getUuid());
+                if (current == null) {
+                    continue; // Skip if no entry for this node
+                }
+                current.f1 += 1; // Increment partition count
             }
         }
         
         return partitionsPerNode;
-    }
-    
-    /**
-     * Calculate standard deviation of partition distribution
-     */
-    private double calculateStandardDeviation(Collection<Integer> values) {
-        double mean = values.stream().mapToInt(Integer::intValue).average().orElse(0);
-        double variance = values.stream()
-                .mapToDouble(value -> Math.pow(value - mean, 2))
-                .average()
-                .orElse(0);
-        return Math.sqrt(variance);
     }
     
     /**
@@ -340,24 +346,25 @@ public class PartitionTest extends AbstractTest {
     /**
      * Get partition change message
      */
-    private String getPartitionChangeMessage(Map<UUID, Integer> partitionStats, int dataSize) {
-                // Measure data distribution evenness
-        double stdDev = calculateStandardDeviation(partitionStats.values());
-        double meanPartitionsPerNode = partitionStats.values().stream()
-                .mapToInt(Integer::intValue)
-                .average()
-                .orElse(0);
+    private String getPartitionChangeMessage(Map<UUID, IntegerPair> partitionStats, int dataSize) {
+        double totalPartitions = partitionStats.values().stream().map(f -> f.f0).mapToInt(Integer::intValue).sum();
+        double totalEntries = partitionStats.values().stream().map(f -> f.f1).mapToInt(Integer::intValue).sum();
 
         StringBuilder message = new StringBuilder();
         message.append("Total Partitions: ").append(partitionStats.size()).append("; ");
-        message.append("Mean Partitions per Node: ").append(String.format("%.2f; ", meanPartitionsPerNode));
-        message.append("Standard Deviation of Partitions: ").append(String.format("%.2f; ", stdDev));
 
         message.append("Partition distribution for ").append(dataSize).append(" items: [");
         int count = 0;
-        for (Map.Entry<UUID, Integer> entry : partitionStats.entrySet()) {
-            message.append("Node ").append(count++).append(": ")
-                   .append(entry.getValue()).append(" partitions; ");
+        for (Map.Entry<UUID, IntegerPair> entry : partitionStats.entrySet()) {
+            message.append("Node ").append(count++).append(": ");
+            message.append(entry.getValue().f0).append(" partitions (");
+            message.append(String.format("%.2f", (entry.getValue().f0 / totalPartitions) * 100)).append("% of total partitions");
+            message.append("), ");
+            message.append("Entries: ").append(entry.getValue().f1);
+            message.append(" (").append(String.format("%.2f", (entry.getValue().f1 / totalEntries) * 100)).append("% of total entries)");
+            if (count < partitionStats.size()) {
+                message.append("; ");
+            }
         }
         message.append("]");
 
