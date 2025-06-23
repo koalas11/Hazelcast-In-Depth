@@ -260,7 +260,7 @@
       grid(
         columns: (1fr, auto),
         align: top,
-        [#title - #context counter(page).display()],
+        [#title -- #context counter(page).display()],
         context authors.at(calc.rem(counter(page).at(here()).first(), authors.len())),
       ),
     ),

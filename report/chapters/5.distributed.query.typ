@@ -15,13 +15,18 @@ Il supporto SQL di Hazelcast si basa sui seguenti principi chiave:
 
 Hazelcast SQL può interrogare dati da molteplici fonti:
 
-| *Fonte Dati* | *Descrizione* |
-|----------------|-----------------|
-| Maps | Interroga le map distribuite di Hazelcast |
-| Kafka | Interroga dati da topic Kafka |
-| File Systems | Accede ai dati in file esterni |
-| JDBC | Connette a database esterni |
-| MongoDB | Interroga collezioni MongoDB |
+#figure(
+  caption: [Fonte dati e azione intrapresa da Hazelcast],
+  table(
+    columns: (auto,) * 2,
+    table.header([Fonte Dati], [Descrizione azione]),
+    [Maps], [Interroga le map distribuite di Hazelcast],
+    [Kafka], [Interroga dati da topic Kafka],
+    [File], [Systems Accede ai dati in file esterni],
+    [JDBC], [Connette a database esterni],
+    [MongoDB], [Interroga collezioni MongoDB],
+  ),
+)
 
 == Meccanismo di Esecuzione Distribuita delle Query
 
@@ -284,12 +289,17 @@ Questa funzionalità si integra perfettamente con le pipeline di dati descritte 
 
 Hazelcast SQL supporta i tipi di dati SQL standard:
 
-| *Categoria* | *Tipi* |
-|---------------|----------|
-| Numerici | TINYINT, SMALLINT, INT, BIGINT, DECIMAL, REAL, DOUBLE |
-| Stringa | VARCHAR, CHAR |
-| Temporali | DATE, TIME, TIMESTAMP, TIMESTAMP WITH TIME ZONE |
-| Altri | BOOLEAN, JSON, OBJECT |
+#figure(
+  caption: [Tipi supportati da Hazelcast SQL],
+  table(
+    columns: (auto,) * 8,
+    table.header([Categoria], table.cell(colspan: 7)[Tipi]),
+    [Numerici], [TINYINT], [SMALLINT], [INT], [BIGINT], [DECIMAL], [REAL], [DOUBLE],
+    [Stringa], table.cell(colspan: 4)[VARCHAR], table.cell(colspan: 3)[CHAR],
+    [Temporali], [DATE], [TIME], table.cell(colspan: 2)[TIMESTAMP], table.cell(colspan: 3)[TIMESTAMP WITH TIME ZONE],
+    [Altri], table.cell(colspan: 3)[BOOLEAN], table.cell(colspan: 2)[JSON], table.cell(colspan: 2)[OBJECT],
+  ),
+)
 
 === Conversione di Tipo
 

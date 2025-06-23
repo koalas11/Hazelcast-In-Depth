@@ -1,3 +1,5 @@
+#import "../packages.typ": colorGrad
+
 = Data Ingestion in Hazelcast
 
 Hazelcast offre diverse opzioni per il data ingestion che permettono di trasferire dati da sistemi esterni a Hazelcast. Questi metodi di ingestione consentono di integrare Hazelcast con l'infrastruttura esistente e di costruire pipeline di dati complete.
@@ -92,15 +94,18 @@ MapStore è un meccanismo alternativo per l'integrazione con storage esterni, or
 
 == Confronto tra Pipeline/CDC e MapStore
 
-#table(
-  columns: (auto, auto, auto),
-  [*Caratteristica*], [*Pipeline con CDC*], [*MapStore*],
-  [Modello di integrazione], [Push (basato su eventi)], [Pull (read-through) e Push (write-through/behind)],
-  [Tipo di dati], [Stream di modifiche], [Operazioni individuali su mappa],
-  [Supporto per trasformazioni], [Completo (mapping, filtraggio, aggregazioni)], [Limitato (solo durante store/load)],
-  [Latenza], [Generalmente bassa], [Bassa per cache-hit, variabile per cache-miss],
-  [Scalabilità], [Eccellente per grandi volumi], [Buona per carichi moderati],
-  [Complessità], [Media], [Bassa],
+#figure(
+  caption: [Confronto tra Pipeline/CDC e MapStore],
+  table(
+    columns: (auto,) * 3,
+    table.header([Caratteristica], [Pipeline con CDC], [MapStore]),
+    [Modello di integrazione], [Push (basato su eventi)], [Pull (read-through) e Push (write-through/behind)],
+    [Tipo di dati], [Stream di modifiche], [Operazioni individuali su mappa],
+    [Supporto per trasformazioni], [Completo (mapping, filtraggio, aggregazioni)], [Limitato (solo durante store/load)],
+    [Latenza], [Generalmente bassa], [Bassa per cache-hit, variabile per cache-miss],
+    [Scalabilità], [Eccellente per grandi volumi], [Buona per carichi moderati],
+    [Complessità], [Media], [Bassa],
+  ),
 )
 
 == Quando Usare i Diversi Metodi di Ingestione

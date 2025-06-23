@@ -1,4 +1,4 @@
-#import "../packages.typ": codly, codly-languages
+#import "../packages.typ": codly, codly-languages, cetz
 
 = Distributed Computing in Hazelcast
 
@@ -82,27 +82,45 @@ Hazelcast implementa gli User Code Namespaces attraverso un sistema gerarchico d
 3. *Versioning del codice* per supportare aggiornamenti graduali
 
 #figure(
-  grid(
-    columns: 1,
-    rows: 6,
-    gutter: 5pt,
-    align(center)[```
-                      ┌─────────────────────┐
-                      │  System ClassLoader │
-                      └──────────┬──────────┘
-                                 │
-                ┌───────────────┴───────────────┐
-                │                               │
-      ┌─────────▼─────────┐         ┌──────────▼─────────┐
-      │ Hazelcast Core CL │         │ Application Base CL│
-      └─────────┬─────────┘         └──────────┬─────────┘
-                │                               │
-                │             ┌─────────────────┴─────────────┐
-                │             │                               │
-      ┌─────────▼─────────┐  ┌▼─────────────────┐  ┌─────────▼─────────┐
-      │ Namespace A CL    │  │ Namespace B CL   │  │ Namespace C CL    │
-      └───────────────────┘  └───────────────────┘  └───────────────────┘
-      ```],
+  box(
+    inset: 1.5em,
+    fill: tiling(
+      size: (16pt, 16pt),
+      relative: "parent",
+      place(
+        dx: 5pt,
+        dy: 5pt,
+        rotate(
+          45deg,
+          square(
+            size: 2pt,
+            fill: black.transparentize(90%),
+          ),
+        ),
+      ),
+    ),
+    cetz.canvas({
+      import cetz.tree
+      import cetz.draw
+
+      draw.set-style(
+        content: (
+          padding: .3,
+          frame: "rect",
+          fill: white,
+          stroke: (paint: gradient.radial(center: (0%, 0%), radius: 150%, ..color.map.inferno)),
+        ),
+      )
+      tree.tree(
+        (
+          [Root],
+          ([Hazelcast Core CL], [Namespace A CL]),
+          ([Application Base CL], [Namespace B CL], [Namespace C CL]),
+        ),
+        grow: 2,
+        spread: 4,
+      )
+    }),
   ),
   caption: [Gerarchia dei ClassLoader in Hazelcast User Code Namespaces],
 )

@@ -1,3 +1,5 @@
+#import "../packages.typ": codly
+
 = Architettura di Hazelcast
 
 == Panoramica Architetturale
@@ -124,6 +126,8 @@ Svantaggi:
 - Consumo di risorse maggiore
 - Il ciclo di vita dell'applicazione e del member Hazelcast sono legati
 
+
+#codly.codly-disable()
 ```
 Applicazione Java <-> Hazelcast Embedded Member <-> Hazelcast Cluster
 ```
@@ -135,6 +139,7 @@ In questa modalità, l'applicazione utilizza un client leggero che si connette a
 ```
 Applicazione Java/C++/C#/Node.js/Go <-> Hazelcast Client <-> Hazelcast Cluster
 ```
+#codly.codly-enable()
 
 I client sono leggeri, non archiviano dati e non partecipano alla distribuzione delle partizioni. Hazelcast offre client per molteplici linguaggi: Java, .NET, C++, Node.js, Python, Go e REST.
 

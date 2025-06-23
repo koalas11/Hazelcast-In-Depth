@@ -38,21 +38,24 @@ L'edizione Enterprise è disponibile con licenza commerciale e include supporto 
 
 === Tabella Comparativa
 
-#table(
-  columns: (auto, auto, auto),
-  inset: 10pt,
-  align: center + horizon,
-  [*Funzionalità*], [*Open Source*], [*Enterprise*],
-  [Strutture dati distribuite], [✓], [✓],
-  [Consistenza AP], [✓], [✓],
-  [Consistenza CP (Raft)], [✗], [✓],
-  [Scalabilità orizzontale], [✓], [✓],
-  [Hot Restart Store], [Limitato], [✓],
-  [WAN Replication], [✗], [✓],
-  [Security Suite], [Base], [Completa],
-  [High-Density Memory], [✗], [✓],
-  [Management Center], [Base], [Avanzato],
-  [SLA e supporto], [Community], [24/7 Professionale],
+#figure(
+  caption: [Tabella comparativa tra versione community ed enterprise],
+  table(
+    columns: (auto, auto, auto),
+    inset: 10pt,
+    align: center + horizon,
+    table.header([Funzionalità], [Open Source], [Enterprise]),
+    [Strutture dati distribuite], $checkmark$, $checkmark$,
+    [Consistenza AP], $checkmark$, $checkmark$,
+    [Consistenza CP (Raft)], $crossmark$, $checkmark$,
+    [Scalabilità orizzontale], $checkmark$, $checkmark$,
+    [Hot Restart Store], [Limitato], $checkmark$,
+    [WAN Replication], $crossmark$, $checkmark$,
+    [Security Suite], [Base], [Completa],
+    [High-Density Memory], $crossmark$, $checkmark$,
+    [Management Center], [Base], [Avanzato],
+    [SLA e supporto], [Community], [24/7 Professionale],
+  ),
 )
 
 == Configurabilità di Hazelcast

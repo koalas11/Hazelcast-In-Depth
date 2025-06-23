@@ -19,7 +19,7 @@ Hazelcast fornisce diverse opzioni di serializzazione con differenti compromessi
     columns: (auto, auto, auto),
     align: center + horizon,
     inset: 10pt,
-    [*Metodo di Serializzazione*], [*Prestazioni*], [*Caso d'uso*],
+    table.header([Metodo di Serializzazione], [Prestazioni], [Caso d'uso]),
     [Serializzazione Java], [Più basse], [Casi semplici, prototipazione],
     [Serializzazione Compact], [Più alte], [Produzione, schemi in evoluzione],
     [JSON], [Medie], [Applicazioni web, integrazione con sistemi esterni],
