@@ -1,3 +1,5 @@
+#import "../packages.typ": fletcher
+
 = Confronto tra Hazelcast e Altre Tecnologie Distribuite
 
 Hazelcast si posiziona in un ecosistema di tecnologie distribuite dove diverse soluzioni offrono approcci alternativi per risolvere sfide simili. In questo capitolo, analizzeremo come Hazelcast si confronta con altre tecnologie popolari, evidenziando somiglianze e differenze architetturali.
@@ -19,21 +21,36 @@ Hazelcast si posiziona in un ecosistema di tecnologie distribuite dove diverse s
 - *Query*: Hazelcast supporta SQL completo, Cassandra usa CQL con limitazioni significative
 - *Computing*: Hazelcast include capacità di computing distribuito, Cassandra è principalmente orientato allo storage
 
-```
-┌─────────────────────────┐     ┌─────────────────────────┐
-│      HAZELCAST          │     │      CASSANDRA          │
-│  ┌─────┐     ┌─────┐    │     │  ┌─────┐     ┌─────┐    │
-│  │Node1│<===>│Node2│    │     │  │Node1│<===>│Node2│    │
-│  └──┬──┘     └──┬──┘    │     │  └──┬──┘     └──┬──┘    │
-│     │           │       │     │     │           │       │
-│     ▼           ▼       │     │     ▼           ▼       │
-│  ┌─────┐     ┌─────┐    │     │  ┌─────┐     ┌─────┐    │
-│  │Node4│<===>│Node3│    │     │  │Node4│<===>│Node3│    │
-│  └─────┘     └─────┘    │     │  └─────┘     └─────┘    │
-└─────────────────────────┘     └─────────────────────────┘
-     In-Memory Storage              Disk-Based Storage
-  Strutture Dati + Compute            Wide-Column DB
-```
+#let diagramma(title, description) = {
+  import fletcher: *
+  stack(
+    dir: direction.ttb,
+    spacing: 1em,
+    title,
+    diagram(
+      node-stroke: black + 1pt,
+      edge-stroke: black + .75pt,
+      node((0, 0), [Node1]),
+      edge("<=>"),
+      node((2, 0), [Node2]),
+      edge("-|>"),
+      node((2, 2), [Node3]),
+      edge("<=>"),
+      node((0, 2), [Node4]),
+      edge((0, 0), "<|-"),
+    ),
+    description,
+  )
+}
+
+#figure(caption: [Schema di confronto tra nodi: Hazelcast vs Cassandra], {
+  grid(
+    columns: (auto,) * 2,
+    column-gutter: 1em,
+    diagramma(strong[Hazelcast], align()[In-Memory Storage\ Strutture Dati + Compute]),
+    diagramma(strong[Cassandra], align()[Disk-Based Storage\ Wide-Column DB]),
+  )
+})
 
 === Hazelcast vs Redis
 
@@ -49,20 +66,31 @@ Hazelcast si posiziona in un ecosistema di tecnologie distribuite dove diverse s
 - *Linguaggio*: Hazelcast è basato su Java/JVM, Redis è scritto in C
 - *Consistenza*: Hazelcast offre un sottosistema CP, Redis ha consistenza più limitata nel cluster
 
-```
-┌─────────────────────────┐     ┌─────────────────────────┐
-│      HAZELCAST          │     │        REDIS            │
-│  ┌─────┐     ┌─────┐    │     │  ┌─────────┐            │
-│  │Node1│<===>│Node2│    │     │  │  Master ├───┐        │
-│  └──┬──┘     └──┬──┘    │     │  └─────────┘   │        │
-│     │           │       │     │        ▲       │        │
-│     ▼           ▼       │     │        │       ▼        │
-│  ┌─────┐     ┌─────┐    │     │  ┌─────┴───┐ ┌─────┐    │
-│  │Node4│<===>│Node3│    │     │  │  Slave  │ │Slave│    │
-│  └─────┘     └─────┘    │     │  └─────────┘ └─────┘    │
-└─────────────────────────┘     └─────────────────────────┘
-   Peer-to-Peer, Symmetric          Master-Slave Model
-```
+#figure(caption: [Schema di confronto tra nodi: Hazelcast vs Redis], {
+  grid(
+    columns: (auto,) * 2,
+    column-gutter: 1em,
+    diagramma(strong[Hazelcast], align()[Peer-to-Peer, Symmetric]),
+    stack(
+      dir: direction.ttb,
+      spacing: 1em,
+      strong[Redis],
+      {
+        import fletcher: *
+        diagram(
+          node-stroke: black + 1pt,
+          edge-stroke: black + .75pt,
+          node((1, 0), [Master]),
+          edge("<|-|>", corner: right),
+          node((2, 2), [Slave]),
+          node((0, 2), [Slave]),
+          edge((1, 0), "<|-|>", corner: right),
+        )
+      },
+      [Master-Slave Model],
+    ),
+  )
+})
 
 è presente sul sito ufficiale di Hazelcast un confronto tra Hazelcast e Redis che evidenzia il benchmark tra i due: https://hazelcast.com/resources/hazelcast-vs-redis/ è però interessante notare che anche se il benchmark è stato fatto un pò di anni fa, dopo che Redis ha superato come performance Hazelcast, gli ingenieri di Hazelcast hanno indagato il motivo, andando a capire i vantaggi
 
@@ -113,49 +141,49 @@ Hazelcast si posiziona in un ecosistema di tecnologie distribuite dove diverse s
 
 Nelle operazioni di lettura/scrittura, i sistemi in-memory come Hazelcast e Redis generalmente offrono latenze inferiori rispetto a sistemi disk-based:
 
-#table(
-  columns: (auto, auto, auto, auto),
-  inset: 10pt,
+#figure(caption: [Contronto latenze operazioni I/O], table(
+  columns: (auto,) * 4,
+  inset: .5em,
   align: center + horizon,
-  [*Tecnologia*], [*Latenza di Lettura*], [*Latenza di Scrittura*], [*Note*],
+  table.header([Tecnologia], [Latenza di Lettura], [Latenza di Scrittura], [Note]),
   [Hazelcast], [Sub-millisecondo], [Sub-millisecondo], [In-memory con località dei dati],
   [Redis], [Sub-millisecondo], [Sub-millisecondo], [In-memory ottimizzato per latenza],
   [Cassandra], [Millisecondi], [Millisecondi], [Compromesso per alta scalabilità],
   [Ignite], [Sub-millisecondo], [Millisecondi], [Dipende dalla modalità di persistenza],
   [Kafka], [Millisecondi], [Millisecondi], [Ottimizzato per throughput, non latenza],
-)
+))
 
 === Throughput
 
 Il throughput dipende fortemente dal carico di lavoro e dalla configurazione:
 
-#table(
-  columns: (auto, auto, auto),
-  inset: 10pt,
+#figure(caption: [Confronto throughput], table(
+  columns: (auto,) * 3,
+  inset: .5em,
   align: center + horizon,
-  [*Tecnologia*], [*Throughput Caratteristico*], [*Fattori Influenti*],
+  table.header([Tecnologia], [Throughput Caratteristico], [Fattori Influenti]),
   [Hazelcast], [Centinaia di migliaia/secondo], [Numero di member, bilanciamento partizioni],
   [Redis], [Centinaia di migliaia/secondo], [Architettura master-slave può limitare],
   [Cassandra], [Decine di migliaia/secondo], [Limitato da accesso disco, ottimo per scritture],
   [Ignite], [Decine/centinaia di migliaia/secondo], [Dipende dalla persistenza],
   [Kafka], [Milioni di messaggi/secondo], [Ottimizzato per alto throughput],
-)
+))
 
 === Scalabilità Orizzontale
 
 Tutte le tecnologie menzionate supportano la scalabilità orizzontale, ma con caratteristiche diverse:
 
-#table(
-  columns: (auto, auto, auto),
-  inset: 10pt,
+#figure(caption: [Confronto limiti di scalabilità], table(
+  columns: (auto,) * 3,
+  inset: .5em,
   align: center + horizon,
-  [*Tecnologia*], [*Limite Pratico di Nodi*], [*Caratteristiche di Scalabilità*],
+  table.header([Tecnologia], [Limite Pratico di Nodi], [Caratteristiche di Scalabilità]),
   [Hazelcast], [Centinaia], [Ribilanciamento automatico, limitato da memoria disponibile],
   [Cassandra], [Migliaia], [Progettato per scalabilità massiva, degradazione gracile],
   [Redis Cluster], [Centinaia], [Richiede pianificazione dello sharding],
   [Ignite], [Centinaia], [Simile a Hazelcast, bilanciamento automatico],
   [Kafka], [Decine/Centinaia], [Scalabile per broker e consumer group],
-)
+))
 
 == Casi d'Uso Ottimali
 

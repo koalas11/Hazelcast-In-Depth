@@ -38,25 +38,22 @@ L'edizione Enterprise è disponibile con licenza commerciale e include supporto 
 
 === Tabella Comparativa
 
-#figure(
-  caption: [Tabella comparativa tra versione community ed enterprise],
-  table(
-    columns: (auto, auto, auto),
-    inset: 10pt,
-    align: center + horizon,
-    table.header([Funzionalità], [Open Source], [Enterprise]),
-    [Strutture dati distribuite], $checkmark$, $checkmark$,
-    [Consistenza AP], $checkmark$, $checkmark$,
-    [Consistenza CP (Raft)], $crossmark$, $checkmark$,
-    [Scalabilità orizzontale], $checkmark$, $checkmark$,
-    [Hot Restart Store], [Limitato], $checkmark$,
-    [WAN Replication], $crossmark$, $checkmark$,
-    [Security Suite], [Base], [Completa],
-    [High-Density Memory], $crossmark$, $checkmark$,
-    [Management Center], [Base], [Avanzato],
-    [SLA e supporto], [Community], [24/7 Professionale],
-  ),
-)
+#figure(caption: [Tabella comparativa tra versione community ed enterprise], table(
+  columns: (auto, auto, auto),
+  inset: 10pt,
+  align: center + horizon,
+  table.header([Funzionalità], [Open Source], [Enterprise]),
+  [Strutture dati distribuite], $checkmark$, $checkmark$,
+  [Consistenza AP], $checkmark$, $checkmark$,
+  [Consistenza CP (Raft)], $crossmark$, $checkmark$,
+  [Scalabilità orizzontale], $checkmark$, $checkmark$,
+  [Hot Restart Store], [Limitato], $checkmark$,
+  [WAN Replication], $crossmark$, $checkmark$,
+  [Security Suite], [Base], [Completa],
+  [High-Density Memory], $crossmark$, $checkmark$,
+  [Management Center], [Base], [Avanzato],
+  [SLA e supporto], [Community], [24/7 Professionale],
+))
 
 == Configurabilità di Hazelcast
 
@@ -72,7 +69,7 @@ Hazelcast offre molteplici approcci alla configurazione:
 - *Variabili d'ambiente*: Per deployment containerizzati
 - *Configuration files override*: Caricamento di configurazioni da percorsi personalizzati
 
-È sia possibile configurare hazelcast sia in modo statico, attraverso file di configurazione, sia in modo dinamico, utilizzando le API di configurazione programmatica. Questo consente di adattare il comportamento del cluster senza necessità di riavvio.
+È sia possibile configurare Hazelcast sia in modo statico, attraverso file di configurazione, sia in modo dinamico, utilizzando le API di configurazione programmatica. Questo consente di adattare il comportamento del cluster senza necessità di riavvio.
 
 === Aree Principali di Configurazione
 

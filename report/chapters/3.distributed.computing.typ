@@ -4,7 +4,7 @@
 
 Hazelcast oltre a essere usato come database distribuito può essere usato per effettuare il distributed computing. Il distributed computing in Hazelcast permette di distribuire il carico di lavoro tra i membri del cluster, migliorando le prestazioni e la scalabilità delle applicazioni.
 
-In questo capitolo esploreremo due meccanismi fondamentali per il computing distribuito in Hazelcast: gli *Executor Services* e gli *User Code Namespaces*. Queste funzionalità consentono di eseguire codice in modo distribuito e di gestire in maniera efficiente l'isolamento e il deployment del codice utente all'interno del cluster.
+In questo capitolo esploreremo due meccanismi fondamentali per il computing distribuito in Hazelcast: gli *Executor Services* e gli *User-Code Namespaces*. Queste funzionalità consentono di eseguire codice in modo distribuito e di gestire in maniera efficiente l'isolamento e il deployment del codice utente all'interno del cluster.
 
 == Executor Services
 
@@ -17,7 +17,7 @@ Hazelcast implementa l'interfaccia `java.util.concurrent.ExecutorService` con im
 - Eseguire task su un membro specifico del cluster
 - Eseguire task su tutti i membri del cluster
 - Eseguire task sul membro proprietario di una chiave specifica
-- Ottenere risultati futuri (Future) dagli task eseguiti
+- Ottenere risultati futuri (`Future`) di task eseguiti
 
 === Implementazione
 
@@ -51,6 +51,7 @@ Gli Executor Services possono essere configurati nel file di configurazione Haze
     <executor-service name="my-executor">
         <pool-size>16</pool-size>
         <queue-capacity>100</queue-capacity>
+        <statistics-enabled>true</statistics-enabled>
     </executor-service>
 </hazelcast>
 ```
@@ -129,8 +130,6 @@ Hazelcast implementa gli User Code Namespaces attraverso un sistema gerarchico d
 
 ==== Definizione di un Namespace
 
-Per creare e utilizzare un User Code Namespace:
-
 ```java
 // Definizione di una classe in un namespace specifico
 @UserCodeNamespace("analytics-engine")
@@ -163,7 +162,7 @@ Future<AnalysisResult> future = executor.submit(analyzer);
 // Il task verrà eseguito nel namespace "analytics-engine"
 ```
 
-=== Configurazione Avanzata
+=== Esempio di Configurazione Avanzata
 
 ==== XML Configuration
 
@@ -196,19 +195,6 @@ Future<AnalysisResult> future = executor.submit(analyzer);
         </namespace>
     </user-code-namespaces>
 </hazelcast>
-```
-
-==== Programmatic Configuration
-
-```java
-Config config = new Config();
-UserCodeNamespacesConfig namespacesConfig = config.getUserCodeNamespacesConfig();
-
-UserCodeNamespaceConfig analyticsConfig = new UserCodeNamespaceConfig("analytics-engine");
-analyticsConfig.addClassPathEntry("/opt/hazelcast/lib/analytics-engine.jar");
-analyticsConfig.setVersion("1.2.0");
-
-namespacesConfig.addNamespaceConfig(analyticsConfig);
 ```
 
 === Caratteristiche Avanzate

@@ -123,21 +123,6 @@ serializationConfig.addSerializerConfig(
 );
 ```
 
-Configurazione XML:
-
-```xml
-<hazelcast>
-    <serialization>
-        <compact-serialization enabled="true"/>
-        <serializers>
-            <serializer type-class="com.esempio.Dipendente">
-                com.esempio.DipendenteSerializer
-            </serializer>
-        </serializers>
-    </serialization>
-</hazelcast>
-```
-
 == Ascolto degli Eventi
 
 Hazelcast fornisce un sistema di eventi completo che consente alle applicazioni di reagire a vari cambiamenti nello stato del cluster e nei dati. I listener di eventi permettono di costruire applicazioni reattive che rispondono ai cambiamenti in tempo reale.
@@ -228,7 +213,6 @@ coda.addItemListener(new ItemListener<String>() {
     public void itemAdded(ItemEvent<String> item) {
         System.out.println("Elemento aggiunto: " + item.getItem());
     }
-
     @Override
     public void itemRemoved(ItemEvent<String> item) {
         System.out.println("Elemento rimosso: " + item.getItem());
@@ -425,116 +409,116 @@ if (size > 10000) {
 }
 ```
 
-== Pattern di Deployment nel Cloud
+// == Pattern di Deployment nel Cloud
 
-Hazelcast offre opzioni di deployment flessibili per ambienti cloud.
+// Hazelcast offre opzioni di deployment flessibili per ambienti cloud.
 
-=== Integrazione con Kubernetes
+// === Integrazione con Kubernetes
 
-Distribuisci Hazelcast su Kubernetes con auto-discovery:
+// Distribuisci Hazelcast su Kubernetes con auto-discovery:
 
-```yaml
-apiVersion: hazelcast.com/v1alpha1
-kind: Hazelcast
-metadata:
-  name: hz-cluster
-spec:
-  clusterSize: 3
-  repository: hazelcast/hazelcast
-  version: "5.3.1"
-  resources:
-    requests:
-      memory: 1Gi
-      cpu: 500m
-    limits:
-      memory: 2Gi
-```
+// ```yaml
+// apiVersion: hazelcast.com/v1alpha1
+// kind: Hazelcast
+// metadata:
+//   name: hz-cluster
+// spec:
+//   clusterSize: 3
+//   repository: hazelcast/hazelcast
+//   version: "5.3.1"
+//   resources:
+//     requests:
+//       memory: 1Gi
+//       cpu: 500m
+//     limits:
+//       memory: 2Gi
+// ```
 
-Abilita il plugin Kubernetes:
+// Abilita il plugin Kubernetes:
 
-```java
-Config config = new Config();
-config.getNetworkConfig().getJoin().getMulticastConfig().setEnabled(false);
-config.getNetworkConfig().getJoin().getKubernetesConfig()
-      .setEnabled(true)
-      .setProperty("namespace", "default")
-      .setProperty("service-name", "hz-service");
-```
+// ```java
+// Config config = new Config();
+// config.getNetworkConfig().getJoin().getMulticastConfig().setEnabled(false);
+// config.getNetworkConfig().getJoin().getKubernetesConfig()
+//       .setEnabled(true)
+//       .setProperty("namespace", "default")
+//       .setProperty("service-name", "hz-service");
+// ```
 
-=== Pattern Cloud-Native
+// === Pattern Cloud-Native
 
-Implementa il pattern sidecar per applicazioni cloud-native:
+// Implementa il pattern sidecar per applicazioni cloud-native:
 
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: mia-applicazione
-spec:
-  replicas: 3
-  template:
-    spec:
-      containers:
-      - name: applicazione
-        image: myapp:latest
-      - name: hazelcast
-        image: hazelcast/hazelcast:5.3.1
-        ports:
-        - containerPort: 5701
-```
+// ```yaml
+// apiVersion: apps/v1
+// kind: Deployment
+// metadata:
+//   name: mia-applicazione
+// spec:
+//   replicas: 3
+//   template:
+//     spec:
+//       containers:
+//       - name: applicazione
+//         image: myapp:latest
+//       - name: hazelcast
+//         image: hazelcast/hazelcast:5.3.1
+//         ports:
+//         - containerPort: 5701
+// ```
 
-=== Deployment Multi-Regione
+// === Deployment Multi-Regione
 
-Configura la replica WAN per cluster multi-regione:
+// Configura la replica WAN per cluster multi-regione:
 
-```java
-Config config = new Config();
-WanReplicationConfig wanConfig = new WanReplicationConfig();
-wanConfig.setName("londra-a-newyork");
+// ```java
+// Config config = new Config();
+// WanReplicationConfig wanConfig = new WanReplicationConfig();
+// wanConfig.setName("londra-a-newyork");
 
-WanBatchPublisherConfig publisherConfig = new WanBatchPublisherConfig();
-publisherConfig.setClusterName("newyork-cluster")
-               .setTargetEndpoints("10.28.10.1:5701,10.28.10.2:5701");
+// WanBatchPublisherConfig publisherConfig = new WanBatchPublisherConfig();
+// publisherConfig.setClusterName("newyork-cluster")
+//                .setTargetEndpoints("10.28.10.1:5701,10.28.10.2:5701");
 
-wanConfig.addWanPublisherConfig(publisherConfig);
-config.addWanReplicationConfig(wanConfig);
+// wanConfig.addWanPublisherConfig(publisherConfig);
+// config.addWanReplicationConfig(wanConfig);
 
-// Collega la mappa alla replica WAN
-config.getMapConfig("clienti")
-      .setWanReplicationRef(new WanReplicationRef("londra-a-newyork"));
-```
+// // Collega la mappa alla replica WAN
+// config.getMapConfig("clienti")
+//       .setWanReplicationRef(new WanReplicationRef("londra-a-newyork"));
+// ```
 
-=== Integrazione Serverless
+// === Integrazione Serverless
 
-Usa i client Hazelcast nelle funzioni serverless:
+// Usa i client Hazelcast nelle funzioni serverless:
 
-```java
-public class LambdaHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
-    private static HazelcastInstance hz;
+// ```java
+// public class LambdaHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
+//     private static HazelcastInstance hz;
 
-    static {
-        ClientConfig config = new ClientConfig();
-        config.getNetworkConfig().addAddress("hz-cluster.internal:5701");
-        hz = HazelcastClient.newHazelcastClient(config);
-    }
+//     static {
+//         ClientConfig config = new ClientConfig();
+//         config.getNetworkConfig().addAddress("hz-cluster.internal:5701");
+//         hz = HazelcastClient.newHazelcastClient(config);
+//     }
 
-    @Override
-    public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent input, Context context) {
-        IMap<String, Cliente> clienti = hz.getMap("clienti");
-        // Elabora la richiesta usando Hazelcast
-        return new APIGatewayProxyResponseEvent().withStatusCode(200);
-    }
-}
-```
+//     @Override
+//     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent input, Context context) {
+//         IMap<String, Cliente> clienti = hz.getMap("clienti");
+//         // Elabora la richiesta usando Hazelcast
+//         return new APIGatewayProxyResponseEvent().withStatusCode(200);
+//     }
+// }
+// ```
 
 == Test delle Applicazioni
 
-Il test di applicazioni distribuite presenta sfide uniche. Hazelcast fornisce diversi strumenti e approcci per facilitare il testing:
+L’esecuzione di test ed esperimenti in ambienti distribuiti rappresenta una sfida significativa, in particolare per quanto riguarda la sincronizzazione di stati degradati con operazioni sui dati. Hazelcast offre diversi strumenti e approcci per facilitare la gestione di tali sfide:
 
-- *Unit Testing*: Test dei componenti in isolamento
-- *Integration Testing*: Test con un'istanza Hazelcast reale
-- *Framework di Test per Job*: Specializzato per testare i job Jet
-- *Hazelcast Simulator*: Test di performance e stress
+- *Unit Testing*: Test di componenti in isolamento.
+- *Integration Testing*: Test con un’istanza Hazelcast reale.
+- *Framework di Test per Job*: Specializzato per il test di job Jet.
+- *Hazelcast Simulator*: Test di performance e stress.
 
 === Test dei Job
 
@@ -575,21 +559,25 @@ public void testWithMockSource() {
 }
 ```
 
-=== Hazelcast Simulator
+=== Hazelcast Simulator: Strumento Avanzato per il Testing di Sistemi Distribuiti
 
-Hazelcast Simulator è uno strumento di test di livello produzione progettato per:
-- Test di performance
-- Test di stress
-- Test di stabilità
-- Test di scenari di fallimento
+Hazelcast Simulator è una piattaforma di testing progettata per valutare in modo rigoroso le prestazioni e l'affidabilità di sistemi distribuiti su larga scala. Pensato per ambienti di produzione, consente di eseguire test complessi con una configurazione personalizzabile e un elevato livello di automazione.
 
-Caratteristiche principali:
-- Generazione di carico realistico
-- Iniezione di guasti
-- Statistiche dettagliate sulle prestazioni
-- Esecuzione automatica dei test
+Tipologie di test supportate:
+- *Test di Performance*: Misurazione dettagliata di throughput, latenza, e capacità di scalabilità in vari scenari di carico.
+- *Test di Stress*: Valutazione della robustezza del sistema spingendo le risorse oltre i limiti operativi per identificare possibili colli di bottiglia.
+- *Test di Stabilità*: Esecuzione di carichi prolungati per analizzare la tenuta nel tempo, l’efficienza nella gestione delle risorse e la prevenzione di memory leak.
+- *Test di Scenari di Fallimento (Fault Injection)*: Simulazione di guasti a livello di rete, hardware o software per verificare le capacità di failover e la resilienza dell’infrastruttura.
 
-Esempio di test con simulator:
+Caratteristiche tecniche principali:
+- *Generazione di Carico Realistico*: Implementazione di modelli di traffico complessi e scenari di workload personalizzati per riprodurre condizioni operative reali.
+- *Iniezione di Guasti Controllata*: Integrazione di meccanismi per introdurre errori sistematici e casuali al fine di testare le strategie di recupero e tolleranza ai guasti.
+- *Raccolta di Statistiche Avanzate*: Monitoraggio continuo di KPI critici come tempi di risposta, utilizzo delle risorse, throughput e latenza, con report dettagliati per l’analisi delle prestazioni.
+- *Automazione del Ciclo di Test*: Framework per l’esecuzione automatizzata di test su larga scala, con possibilità di integrazione in pipeline CI/CD per il testing continuo.
+
+Hazelcast Simulator si configura come uno strumento fondamentale per gli sviluppatori che necessitano di validare la resilienza, la scalabilità e le performance di applicazioni distribuite complesse in ambienti di produzione. Esponiamo un esempio concredo di utilizzo del simulatore.
+
+Esempio di test:
 
 ```java
 public class MapStressTest extends HazelcastTest {
@@ -618,7 +606,7 @@ public class MapStressTest extends HazelcastTest {
 }
 ```
 
-Esecuzione del test simulator:
+Esecuzione del test:
 
 ```bash
 simulator-coordinator --duration 2h \

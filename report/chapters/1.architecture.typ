@@ -63,7 +63,7 @@ Il sistema di partizionamento di Hazelcast include diverse sofisticazioni:
 
 === Backup e Replica
 
-Per garantire l'alta disponibilità, Hazelcast crea automaticamente copie di backup delle partizioni. Il numero di backup è configurabile (il default è 1). Questi backup sono distribuiti su member distinti, assicurando che in caso di fallimento di un member, i dati rimangano disponibili.
+Per garantire l'alta disponibilità, Hazelcast crea automaticamente copie di backup delle partizioni. Il numero di backup è configurabile, con 1 come predefinito. Questi backup sono distribuiti su member distinti, assicurando che in caso di fallimento di un member, i dati rimangano disponibili.
 
 Il processo di backup è configurabile con diverse strategie:
 - *Synchronous backup*: l'operazione di scrittura attende la conferma che il backup sia stato completato
@@ -88,7 +88,7 @@ I member Hazelcast comunicano tra loro attraverso un protocollo binario ottimizz
 
 La comunicazione interna utilizza:
 - Socket TCP per trasferimento dati affidabile
-- Heartbeat per rilevare member inattivi
+- Heartbeat per rilevare member inattivi e misurare la latenza
 - Messaggi di gossip per propagare informazioni sullo stato del cluster
 - Protocolli ottimizzati per minimizzare il traffico di rete
 
@@ -100,41 +100,40 @@ Hazelcast offre diversi meccanismi per la scoperta dei member in un cluster:
 
 - *Multicast*: rilevamento automatico in reti locali attraverso il protocollo multicast. I member inviano pacchetti multicast che vengono ricevuti da altri member nella stessa rete. Sebbene semplice da configurare, molti ambienti di produzione disabilitano il multicast.
 
-- *Cloud Discovery*: integrazioni specifiche per ambienti cloud come AWS, Azure, GCP. Utilizza API cloud per scoprire istanze etichettate come member Hazelcast.
+- *Cloud Discovery*: integrazioni specifiche per ambienti cloud come AWS, Azure, GCP. Utilizza l'API del cloud in uso per scoprire le istanze che sono etichettate come member Hazelcast.
 
-- *Kubernetes Discovery*: integrazione nativa con Kubernetes che utilizza l'API Kubernetes per scoprire pod etichettati come member Hazelcast.
+- *Kubernetes Discovery*: integrazione nativa con Kubernetes che utilizza l'API Kubernetes per scoprire i pod che sono etichettati come member Hazelcast.
 
-- *JGroups*: utilizza JGroups come meccanismo di trasporto e discovery.
+// - *JGroups*: utilizza JGroups come meccanismo di trasporto e discovery.
 
 - *Consul, Zookeeper, Eureka*: integrazioni con sistemi di service discovery comuni nell'ecosistema enterprise.
 
 == Architettura Client-Server
 
-Hazelcast supporta due modelli di deployment principali:
+Hazelcast supporta due modelli di distribuzione principali: modalità Embedded e modalità Client-Server. Analizziamole nel dettaglio.
 
-=== Embedded Mode
+=== Modalità Embedded
 
 In questa modalità, l'applicazione e Hazelcast condividono lo stesso JVM. L'applicazione diventa un member del cluster con tutti i diritti, gestendo partizioni e backup.
 
-Vantaggi dell'embedded mode:
+==== Vantaggi dell'embedded mode
 - Accesso ai dati con latenza minima (accesso in-memory)
 - Nessuna serializzazione/deserializzazione per operazioni locali
 - Partecipazione attiva nel cluster
 
-Svantaggi:
+==== Svantaggi
 - L'applicazione deve essere scritta in Java o altro linguaggio JVM
-- Consumo di risorse maggiore
-- Il ciclo di vita dell'applicazione e del member Hazelcast sono legati
-
+- Maggiore consumo di risorse
+- Il ciclo di vita e lo scaling dell'applicazione e del member Hazelcast sono strettamente legati
 
 #codly.codly-disable()
 ```
 Applicazione Java <-> Hazelcast Embedded Member <-> Hazelcast Cluster
 ```
 
-=== Client-Server Mode
+=== Modalità Client-Server
 
-In questa modalità, l'applicazione utilizza un client leggero che si connette a un cluster Hazelcast esterno:
+In questa modalità, i member svolgono il ruolo di server mentre, l'applicazione utilizza un client leggero che si connette a un cluster Hazelcast esterno:
 
 ```
 Applicazione Java/C++/C#/Node.js/Go <-> Hazelcast Client <-> Hazelcast Cluster
@@ -144,10 +143,10 @@ Applicazione Java/C++/C#/Node.js/Go <-> Hazelcast Client <-> Hazelcast Cluster
 I client sono leggeri, non archiviano dati e non partecipano alla distribuzione delle partizioni. Hazelcast offre client per molteplici linguaggi: Java, .NET, C++, Node.js, Python, Go e REST.
 
 Vantaggi della modalità client-server:
-- Supporto per applicazioni poliglotte
+- Supporto per applicazioni scritte in linguaggi e tecnologie differenti
 - Separazione tra infrastruttura dati e logica applicativa
 - Client leggeri con basso overhead
-- Possibilità di riavviare l'applicazione senza influire sul cluster
+- Possibilità di riavviare o scalare l'applicazione senza influire sul cluster
 
 == In-Memory Storage
 
@@ -155,7 +154,7 @@ Hazelcast è fondamentalmente una piattaforma di computing in-memory, con caratt
 
 === Architettura di Storage
 
-- *Memory Management nativo*: Hazelcast implementa il proprio memory manager per ottimizzare l'allocazione e il de-allocamento di memoria, riducendo la pressione sul garbage collector Java.
+- *Memory Management nativo*: Hazelcast implementa il proprio memory manager per ottimizzare l'allocazione e la de-allocazione di memoria, riducendo i picchi di memoria non necessari e in generale la pressione sul garbage collector nativo di Java.
 
 - *Persistenza su disco*: Sistema di persistenza su disco basato su file logici append-only con garbage collection incrementale e ottimizzazione I/O per minimizzare l'impatto sulle prestazioni. (Solo Enterprise Edition)
 
@@ -169,18 +168,18 @@ Hazelcast Enterprise offre la funzionalità di persistenza dei dati su disco e b
 
 Questo è utile quando si vuole garantire che i dati siano disponibili anche dopo un riavvio del cluster o in scenari di disaster recovery.
 
-Inoltre è possibile configurare Hazelcast per utilizzare storage esterni come database relazionali o NoSQL, integrando così il sistema di caching in-memory con soluzioni di storage persistente.
+Inoltre è possibile configurare Hazelcast per utilizzare storage esterni come database relazionali o NoSQL, integrando così la piattaforma e il sistema di caching in-memory di Hazelcast con soluzioni di storage persistente. L'utilizzo di storage esterni è possibile anche con la versione open-source, il che la rende un appetibile alternativa per alcuni tipi di utilizzo.
 
 == Elasticità e Scalabilità
 
 L'architettura di Hazelcast è progettata per essere elastica, permettendo di:
 
-- *Hot Scaling*: aggiungere member a runtime senza interruzioni del servizio
-- *Graceful Shutdown*: rimuovere member in modo sicuro con migrazione automatica dei dati
-- *Data Rebalancing*: ribilanciare automaticamente il cluster quando la topologia cambia
-- *Smart Client Load Balancing*: distribuzione intelligente delle richieste client attraverso i member
-- *Near Cache*: caching lato client per ridurre la latenza di rete e aumentare la scalabilità
-- *Partitioning Strategies*: strategie personalizzate di partizionamento per ottimizzare la località dei dati
+- *Hot Scaling*: aggiungere member a runtime senza interruzioni del servizio.
+- *Graceful Shutdown*: rimuovere member in modo sicuro con migrazione automatica dei dati.
+- *Data Rebalancing*: ribilanciare automaticamente il cluster quando la topologia cambia.
+- *Smart Client Load Balancing*: distribuzione intelligente delle richieste client attraverso i member.
+- *Near Cache*: caching lato client per ridurre la latenza di rete e aumentare la scalabilità.
+- *Partitioning Strategies*: strategie personalizzate di partizionamento per ottimizzare la località dei dati.
 
 La scalabilità lineare di Hazelcast consente di aggiungere capacità di storage e calcolo proporzionalmente al numero di member aggiunti.
 
@@ -254,9 +253,9 @@ Le finestre scorrevoli (sliding window) sono una tecnica fondamentale nell'elabo
   - *Sliding Window*: Finestre che si sovrappongono e avanzano con incrementi più piccoli della dimensione della finestra
   - *Session Window*: Raggruppano eventi vicini in sessioni, con timeout configurabile
 
-- *Gestione efficiente della memoria*: Invece di memorizzare tutti gli eventi in una finestra, Jet mantiene solo gli aggregati parziali, riducendo significativamente l'utilizzo di memoria.
+- *Gestione efficiente della memoria*: Anziché memorizzare tutti gli eventi all’interno di una finestra, Jet conserva solo gli aggregati parziali, riducendo così l’utilizzo di memoria.
 
-- *Fault tolerance*: Il sistema periodicamente checkpointa lo stato delle finestre per permettere il ripristino in caso di guasti.
+- *Fault tolerance*: Jet crea periodicamente punti di controllo (checkpoint) dello stato delle finestre, consentendo il ripristino in caso di problemi.
 
 == Commenti
 

@@ -62,5 +62,8 @@
 #include "chapters/5.distributed.query.typ"
 #include "chapters/6.advanced.features.typ"
 #include "chapters/7.comments.typ"
+#include "chapters/8.compare.typ"
+#include "chapters/9.tests.typ"
+#include "chapters/10.conclusions.typ"
 
 #set heading(numbering: none)

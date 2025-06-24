@@ -43,9 +43,9 @@ Le strutture AP di Hazelcast sono ideali per:
 
 === CP Subsystem
 
-Hazelcast offre anche un CP Subsystem, che implementa il paradigma CP del teorema CAP. Questa è una caratteristica distintiva di Hazelcast, poiché consente di scegliere il modello di consistenza più adatto per ogni caso d'uso all'interno della stessa piattaforma. Questa funzionalità però è disponibile solo nella versione Enterprise di Hazelcast.
+Hazelcast offre anche un CP Subsystem, che implementa il paradigma CP del teorema CAP. Questa è una caratteristica distintiva di Hazelcast, poiché consente di scegliere il modello di consistenza più adatto per ogni caso d'uso all'interno della stessa piattaforma. Per quanto sia utile, questa funzionalità è disponibile solamente nella versione Enterprise di Hazelcast.
 
-Il CP Subsystem è basato sull'algoritmo Raft e fornisce:
+Il CP Subsystem è basato sull'algoritmo Raft(@Raft) e fornisce:
 
 - *CPMap*: una mappa distribuita con consistenza forte, che garantisce che tutte le operazioni siano atomiche e visibili a tutti i nodi in modo lineare.
 - *FencedLock*: lock distribuito con consistenza forte
@@ -85,4 +85,4 @@ Una collezione distribuita per memorizzare e interrogare vettori di embedding, u
 
 == Commenti
 
-Hazelcast fornisce un'ampia gamma di strutture dati distribuite che possono essere utilizzate per costruire applicazioni scalabili e resilienti. La possibilità di scegliere tra modelli di consistenza AP e CP consente agli sviluppatori di ottimizzare le prestazioni e la coerenza in base ai requisiti specifici dell'applicazione.
+Hazelcast fornisce un'ampia gamma di strutture dati distribuite che possono essere utilizzate per costruire applicazioni scalabili e resilienti. La possibilità di scegliere tra modelli di consistenza AP e CP consente agli sviluppatori di ottimizzare le prestazioni e consistenza in base ai requisiti specifici dell'applicazione.

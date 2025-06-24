@@ -116,7 +116,7 @@ Una volta mappata, è possibile eseguire operazioni SQL standard:
 - Operazioni DML (Data Manipulation Language) come INSERT, UPDATE e DELETE
 - Operazioni JOIN tra diverse map
 
-== API Predicati: Un'Alternativa a SQL
+== API `Predicate`: Un'Alternativa a SQL
 
 Oltre all'interfaccia SQL, Hazelcast offre una potente API Predicati che consente di interrogare i dati in modo programmatico:
 
@@ -134,7 +134,7 @@ Predicate<Integer, Dipendente> predicate = Predicates.and(
 Collection<Dipendente> ingegneriSenior = dipendenti.values(predicate);
 ```
 
-=== Vantaggi dell'API Predicati
+=== Vantaggi dell'API `Predicate`
 
 - *Integrazione naturale con Java*: Ideale per sviluppatori che preferiscono un approccio programmatico
 - *Tipizzazione forte*: Rileva errori di tipo a tempo di compilazione
@@ -162,7 +162,7 @@ Come per SQL, i predicati vengono eseguiti in modo distribuito:
 - Vengono eseguiti localmente su ogni partizione
 - Solo i risultati filtrati vengono restituiti, riducendo il traffico di rete
 
-=== Quando Usare Predicati vs SQL
+=== Quando usare Predicati vs SQL
 
 - *Usa Predicati quando*:
   - Lavori in un contesto puramente Java
@@ -464,7 +464,7 @@ Le transazioni in Hazelcast hanno vincoli importanti:
 - Non possono coinvolgere più cluster
 - C'è un overhead per mantenere lo stato transazionale
 - Transazioni di lunga durata possono impattare le prestazioni
-- Le transazioni hanno un timeout massimo
+- Le transazioni hanno un timeout massimo ma configurabile
 
 == Servizio di Catalogo Query
 
@@ -512,4 +512,8 @@ Questa integrazione crea un'esperienza coerente: i dati possono essere inseriti 
 
 == Commenti
 
-Hazelcast fornisce un'interfaccia potente e conforme agli standard per interrogare dati distribuiti. Supportando molteplici fonti di dati e offrendo funzionalità di ottimizzazione, permette agli utenti di costruire applicazioni complesse di elaborazione dati con la familiare sintassi SQL o attraverso l'API Predicati, sfruttando al contempo i vantaggi di performance e scalabilità dell'architettura distribuita. Le transazioni distribuite completano il quadro, offrendo diverse strategie (1PC o 2PC) per garantire atomicità e consistenza nelle operazioni su dati distribuiti, con la possibilità di scegliere il giusto compromesso tra prestazioni e resilienza ai guasti.
+Hazelcast fornisce un'interfaccia potente e conforme agli standard per interrogare dati distribuiti. Supportando molteplici fonti di dati e offrendo funzionalità di ottimizzazione, permette agli utenti di costruire applicazioni complesse di elaborazione dati con la familiare sintassi SQL o attraverso l'API Predicati, sfruttando al contempo i vantaggi di performance e scalabilità dell'architettura distribuita.
+
+Le transazioni distribuite completano il quadro, offrendo diverse strategie (1PC o 2PC) per garantire atomicità e consistenza nelle operazioni su dati distribuiti, con la possibilità di scegliere il giusto compromesso tra prestazioni e resilienza ai guasti.
+
+L'esecuzione delle query distribuite inoltre è intelligentemente ottimizzata minimizzando la trasmissione di dati non necessari al nodo di calcolo finale.

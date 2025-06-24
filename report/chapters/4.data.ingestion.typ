@@ -120,10 +120,14 @@ MapStore è un meccanismo alternativo per l'integrazione con storage esterni, or
 === Quando Usare MapStore
 
 - *Applicazioni CRUD*: quando Hazelcast è usato come cache per operazioni di lettura/scrittura
-- *Persistenza trasparente*: quando si vuole che la persistenza sia gestita automaticamente
+- *Persistenza trasparente*: quando si vuole che la persistenza venga gestita autonomamente
 - *Modello di accesso basato su chiavi*: per carichi di lavoro con accesso diretto per chiave
 - *Caricamento lazy*: quando si preferisce caricare i dati solo quando necessario
 
 == Commenti
 
-Hazelcast offre diverse opzioni per il data ingestion, con le pipeline che forniscono un framework flessibile e potente con connettori per numerose tecnologie, incluso il supporto per CDC. Il MapStore rappresenta invece un'alternativa più semplice e specifica per scenari in cui Hazelcast viene utilizzato principalmente come cache con persistenza. La scelta del metodo dipende dalle esigenze specifiche dell'applicazione e dal modello di integrazione desiderato.
+Hazelcast offre diverse opzioni per il data ingestion, con le pipeline che forniscono un framework flessibile e potente con connettori per numerose tecnologie, incluso il supporto per CDC.
+
+Il MapStore rappresenta invece un'alternativa più semplice e specifica per scenari in cui Hazelcast viene utilizzato principalmente come cache con persistenza. La scelta del metodo dipende dalle esigenze specifiche dell'applicazione e dal modello di integrazione desiderato.
+
+Le numerose integrazioni con tecnologie esistenti rendono inoltre Hazelcast una scelta appetibile anche a chi ha infrastutture già mature e sta cercando una soluzione che gli semplifichi la gestione.
