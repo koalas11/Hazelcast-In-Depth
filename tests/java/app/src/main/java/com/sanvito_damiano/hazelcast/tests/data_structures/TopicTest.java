@@ -76,11 +76,15 @@ public class TopicTest extends AbstractTest {
         // Remove the listener
         topic.removeMessageListener(listenerId);
         
-        if (received && messageReceived[0]) {
+        boolean publishSubscribeWorked = received && messageReceived[0];
+        if (publishSubscribeWorked) {
             System.out.println("✓ Simple publish-subscribe works correctly");
         } else {
             System.out.println("✗ Simple publish-subscribe failed or timed out");
         }
+        recordTestResult("PublishSubscribe-Basic", publishSubscribeWorked, 
+                         "Simple publish-subscribe test. Message received: " + received + 
+                         ", Message content matched: " + messageReceived[0]);
     }
 
     public void testMultipleSubscribers() throws Exception {
@@ -125,12 +129,17 @@ public class TopicTest extends AbstractTest {
             topic.removeMessageListener(listenerId);
         }
         
-        if (allReceived && receivedCount.get() == subscriberCount) {
+        boolean multipleSubscribersWorked = allReceived && receivedCount.get() == subscriberCount;
+        if (multipleSubscribersWorked) {
             System.out.println("✓ Multiple subscribers test passed - all received the message");
         } else {
             System.out.println("✗ Multiple subscribers test failed - expected " + subscriberCount + 
                               " received messages, got " + receivedCount.get());
         }
+        recordTestResult("PublishSubscribe-Multiple", multipleSubscribersWorked, 
+                         "Multiple subscribers test. All received: " + allReceived + 
+                         ", Expected count: " + subscriberCount + 
+                         ", Actual count: " + receivedCount.get());
     }
 
     public void testMessageListenerRemoval() throws Exception {
@@ -154,6 +163,8 @@ public class TopicTest extends AbstractTest {
         
         if (!removed) {
             System.out.println("✗ Failed to remove message listener");
+            recordTestResult("ListenerManagement-Remove", false, 
+                            "Message listener removal test. Successfully removed: " + removed);
             return;
         }
         
@@ -164,11 +175,15 @@ public class TopicTest extends AbstractTest {
         // Short delay to ensure message processing
         Thread.sleep(1000);
         
-        if (!messageReceived[0]) {
+        boolean listenerRemovalWorked = removed && !messageReceived[0];
+        if (listenerRemovalWorked) {
             System.out.println("✓ Message listener removal works correctly");
         } else {
             System.out.println("✗ Message listener removal failed - message was still received");
         }
+        recordTestResult("ListenerManagement-Remove", listenerRemovalWorked, 
+                         "Message listener removal test. Successfully removed: " + removed + 
+                         ", Message not received after removal: " + !messageReceived[0]);
     }
 
     public static class CustomMessage {
@@ -231,11 +246,15 @@ public class TopicTest extends AbstractTest {
         // Remove the listener
         customTopic.removeMessageListener(listenerId);
         
-        if (received && correctMessage[0]) {
+        boolean customMessageWorked = received && correctMessage[0];
+        if (customMessageWorked) {
             System.out.println("✓ Custom message types work correctly");
         } else {
             System.out.println("✗ Custom message types test failed or timed out");
         }
+        recordTestResult("MessageTypes-Custom", customMessageWorked, 
+                         "Custom message types test. Message received: " + received + 
+                         ", Message content correct: " + correctMessage[0]);
     }
 
     public void testReliableTopic() throws Exception {
@@ -272,11 +291,15 @@ public class TopicTest extends AbstractTest {
         // Remove the listener
         topic.removeMessageListener(listenerId);
         
-        if (received && messageReceived[0]) {
+        boolean reliableTopicWorked = received && messageReceived[0];
+        if (reliableTopicWorked) {
             System.out.println("✓ Message delivery works correctly");
             System.out.println("Note: Reliable topic would guarantee delivery even after cluster restarts");
         } else {
             System.out.println("✗ Message delivery failed or timed out");
         }
+        recordTestResult("ReliableTopic-Delivery", reliableTopicWorked, 
+                         "Reliable topic message delivery test. Message received: " + received + 
+                         ", Message content matched: " + messageReceived[0]);
     }
 }

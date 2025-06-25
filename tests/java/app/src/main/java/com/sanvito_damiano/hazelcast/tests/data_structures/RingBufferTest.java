@@ -49,11 +49,15 @@ public class RingBufferTest extends AbstractTest {
         long size = ringbuffer.size();
         long capacity = ringbuffer.capacity();
         
-        if (size == 0 && capacity > 0) {
+        boolean initialSizeCapacityCorrect = size == 0 && capacity > 0;
+        if (initialSizeCapacityCorrect) {
             System.out.println("✓ Initial size (0) and capacity (" + capacity + ") are correct");
         } else {
             System.out.println("✗ Unexpected initial size or capacity. Size: " + size + ", Capacity: " + capacity);
         }
+        recordTestResult("BasicOps-InitialState", initialSizeCapacityCorrect, 
+                         "Initial size and capacity check. Size: " + size + 
+                         ", Capacity: " + capacity);
         
         // Test add
         System.out.println("Testing add operation...");
@@ -61,34 +65,46 @@ public class RingBufferTest extends AbstractTest {
         long sequence2 = ringbuffer.add("item2");
         long sequence3 = ringbuffer.add("item3");
         
-        if (sequence1 == 0 && sequence2 == 1 && sequence3 == 2 && ringbuffer.size() == 3) {
+        boolean addWorked = sequence1 == 0 && sequence2 == 1 && sequence3 == 2 && ringbuffer.size() == 3;
+        if (addWorked) {
             System.out.println("✓ Add operation works correctly");
         } else {
             System.out.println("✗ Add operation failed");
         }
+        recordTestResult("BasicOps-Add", addWorked, 
+                         "Add operation test. Sequences: " + sequence1 + "," + 
+                         sequence2 + "," + sequence3 + ", Size: " + ringbuffer.size());
         
         // Test readOne
         System.out.println("Testing readOne operation...");
         String item1 = ringbuffer.readOne(sequence1);
         String item3 = ringbuffer.readOne(sequence3);
         
-        if ("item1".equals(item1) && "item3".equals(item3)) {
+        boolean readOneWorked = "item1".equals(item1) && "item3".equals(item3);
+        if (readOneWorked) {
             System.out.println("✓ ReadOne operation works correctly");
         } else {
             System.out.println("✗ ReadOne operation failed");
         }
+        recordTestResult("BasicOps-ReadOne", readOneWorked, 
+                         "ReadOne operation test. Item1: " + item1 + 
+                         ", Item3: " + item3);
         
         // Test headSequence and tailSequence
         System.out.println("Testing headSequence and tailSequence...");
         long headSequence = ringbuffer.headSequence();
         long tailSequence = ringbuffer.tailSequence();
         
-        if (headSequence == 0 && tailSequence == 2) {
+        boolean sequencesCorrect = headSequence == 0 && tailSequence == 2;
+        if (sequencesCorrect) {
             System.out.println("✓ HeadSequence and tailSequence are correct");
         } else {
             System.out.println("✗ Unexpected head or tail sequence. Head: " + 
                               headSequence + ", Tail: " + tailSequence);
         }
+        recordTestResult("BasicOps-Sequences", sequencesCorrect, 
+                         "HeadSequence and tailSequence test. Head: " + headSequence + 
+                         ", Tail: " + tailSequence);
     }
 
     public void testReadManyItems() throws Exception {
@@ -109,6 +125,7 @@ public class RingBufferTest extends AbstractTest {
         
         ReadResultSet<String> resultSet = resultSetStage.toCompletableFuture().get();
 
+        boolean readManyWorked = false;
         if (resultSet.size() == 5) {
             boolean allMatch = true;
             for (int i = 0; i < resultSet.size(); i++) {
@@ -118,6 +135,7 @@ public class RingBufferTest extends AbstractTest {
                 }
             }
             
+            readManyWorked = allMatch;
             if (allMatch) {
                 System.out.println("✓ ReadMany operation works correctly");
             } else {
@@ -126,6 +144,9 @@ public class RingBufferTest extends AbstractTest {
         } else {
             System.out.println("✗ ReadMany returned wrong number of items. Expected: 5, Actual: " + resultSet.size());
         }
+        recordTestResult("ReadMany-Basic", readManyWorked, 
+                         "ReadMany operation test. Expected size: 5, Actual: " + resultSet.size() + 
+                         ", Items matched: " + readManyWorked);
         
         // Test reading from middle
         System.out.println("Testing readMany from middle...");
@@ -133,14 +154,20 @@ public class RingBufferTest extends AbstractTest {
         
         ReadResultSet<String> middleSet = middleSetStage.toCompletableFuture().get();
 
-        if (middleSet.size() == 3 && 
+        boolean readManyMiddleWorked = middleSet.size() == 3 && 
             "batch-item3".equals(middleSet.get(0)) && 
             "batch-item4".equals(middleSet.get(1)) && 
-            "batch-item5".equals(middleSet.get(2))) {
+            "batch-item5".equals(middleSet.get(2));
+            
+        if (readManyMiddleWorked) {
             System.out.println("✓ ReadMany from middle works correctly");
         } else {
             System.out.println("✗ ReadMany from middle failed");
         }
+        recordTestResult("ReadMany-FromMiddle", readManyMiddleWorked, 
+                         "ReadMany from middle test. Size: " + middleSet.size() + 
+                         ", First item: " + (middleSet.size() > 0 ? middleSet.get(0) : "none") + 
+                         ", Last item: " + (middleSet.size() > 2 ? middleSet.get(2) : "none"));
     }
 
     public void testBlockingOperations() throws Exception {
@@ -175,11 +202,16 @@ public class RingBufferTest extends AbstractTest {
         // Wait for reader to complete
         boolean completed = readLatch.await(5, TimeUnit.SECONDS);
         
-        if (completed && readSuccess[0] && "unblock-item".equals(readValue[0])) {
+        boolean blockingReadWorked = completed && readSuccess[0] && "unblock-item".equals(readValue[0]);
+        if (blockingReadWorked) {
             System.out.println("✓ Blocking read operation works correctly");
         } else {
             System.out.println("✗ Blocking read operation failed or timed out");
         }
+        recordTestResult("BlockingOps-Read", blockingReadWorked, 
+                         "Blocking read operation test. Completed: " + completed + 
+                         ", Success: " + readSuccess[0] + 
+                         ", Value: " + readValue[0]);
     }
 
     public void testAsyncOperations() throws Exception {
@@ -200,11 +232,15 @@ public class RingBufferTest extends AbstractTest {
         
         boolean addCompleted = addLatch.await(5, TimeUnit.SECONDS);
         
-        if (addCompleted && resultSequence[0] == 0) {
+        boolean asyncAddWorked = addCompleted && resultSequence[0] == 0;
+        if (asyncAddWorked) {
             System.out.println("✓ Async add operation works correctly");
         } else {
             System.out.println("✗ Async add operation failed or timed out");
         }
+        recordTestResult("AsyncOps-Add", asyncAddWorked, 
+                         "Async add operation test. Completed: " + addCompleted + 
+                         ", Sequence: " + resultSequence[0]);
         
         // Test async readOne
         System.out.println("Testing async readOne operation...");
@@ -221,11 +257,15 @@ public class RingBufferTest extends AbstractTest {
         
         boolean readCompleted = readLatch.await(5, TimeUnit.SECONDS);
         
-        if (readCompleted && "async-item".equals(resultItem[0])) {
+        boolean asyncReadWorked = readCompleted && "async-item".equals(resultItem[0]);
+        if (asyncReadWorked) {
             System.out.println("✓ Async readOne operation works correctly");
         } else {
             System.out.println("✗ Async readOne operation failed or timed out");
         }
+        recordTestResult("AsyncOps-Read", asyncReadWorked, 
+                         "Async readOne operation test. Completed: " + readCompleted + 
+                         ", Value: " + resultItem[0]);
     }
 
     public void testConcurrentAccess() throws Exception {
@@ -269,22 +309,30 @@ public class RingBufferTest extends AbstractTest {
         boolean completed = producersCompleteLatch.await(30, TimeUnit.SECONDS);
         
         // Verify results
-        if (completed && successCount.get() == totalItems) {
+        boolean allItemsAdded = completed && successCount.get() == totalItems;
+        if (allItemsAdded) {
             System.out.println("✓ All " + totalItems + " items added successfully");
         } else {
             System.out.println("✗ Failed to add all items. Expected: " + totalItems + 
                               ", Actual: " + successCount.get());
         }
+        recordTestResult("ConcurrentAccess-ItemsAdded", allItemsAdded, 
+                         "Concurrent item addition test. Expected: " + totalItems + 
+                         ", Actual: " + successCount.get());
         
         // Verify ringbuffer size
         long finalSize = ringbuffer.size();
         long expectedSize = Math.min(totalItems, ringbuffer.capacity());
         
-        if (finalSize == expectedSize) {
+        boolean finalSizeCorrect = finalSize == expectedSize;
+        if (finalSizeCorrect) {
             System.out.println("✓ Final ringbuffer size is correct: " + finalSize);
         } else {
             System.out.println("✗ Unexpected final size. Expected: " + expectedSize + 
                               ", Actual: " + finalSize);
         }
+        recordTestResult("ConcurrentAccess-FinalSize", finalSizeCorrect, 
+                         "Final ringbuffer size test. Expected: " + expectedSize + 
+                         ", Actual: " + finalSize);
     }
 }

@@ -9,6 +9,7 @@ import com.hazelcast.query.Predicate;
 import com.hazelcast.query.Predicates;
 import com.sanvito_damiano.hazelcast.tests.AbstractTest;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -277,8 +278,6 @@ public class MapTest extends AbstractTest {
 
     public void testEntryProcessor() {
         System.out.println("\n=== Testing Entry Processor ===");
-
-        
         
         System.out.println("Using entry processor to increment all ages...");
         // Use entry processor to update all persons' ages by 1
@@ -350,10 +349,22 @@ public class MapTest extends AbstractTest {
                          ", Diana's age: " + diana.getAge());
     }
 
-    public void testMapWithTTL(int ttlSeconds) throws Exception {
-        System.out.println("\n=== Testing Map with TTL (" + ttlSeconds + " seconds) ===");
+    public void testMapWithTTL() throws Exception {
+        System.out.println("\n=== Testing Map with Time-To-Live (TTL) ===");
 
-        
+        // Test with different TTL values
+        _testMapWithTTL(5);  // 5 seconds TTL
+        _testMapWithTTL(10); // 10 seconds TTL
+        _testMapWithTTL(15); // 15 seconds TTL
+    }
+
+    /**
+     * Test map with Time-To-Live (TTL) functionality
+     * @param ttlSeconds Time-To-Live in seconds
+     * @throws Exception if any error occurs during the test
+     */
+    private void _testMapWithTTL(int ttlSeconds) throws Exception {
+        System.out.println("\n=== Testing Map with TTL (" + ttlSeconds + " seconds) ===");
         
         // Create a map with TTL
         IMap<String, String> expiringMap = hazelcastInstance.getMap("expiring-map");
@@ -430,8 +441,6 @@ public class MapTest extends AbstractTest {
 
     public void testConcurrentOperations() throws Exception {
         System.out.println("\n=== Testing Concurrent Map Operations ===");
-
-        
         
         // Create a map for testing concurrency
         IMap<String, Integer> counterMap = hazelcastInstance.getMap("counter-map");
@@ -515,8 +524,6 @@ public class MapTest extends AbstractTest {
 
     public void testMapListeners() throws Exception {
         System.out.println("\n=== Testing Map Listeners ===");
-
-        
         
         // Track events
         final CountDownLatch addLatch = new CountDownLatch(2);
@@ -581,8 +588,6 @@ public class MapTest extends AbstractTest {
 
     public void testAsyncOperations() throws Exception {
         System.out.println("\n=== Testing Async Map Operations ===");
-
-        
         
         // Test async put
         System.out.println("Testing async put...");
@@ -627,8 +632,6 @@ public class MapTest extends AbstractTest {
 
     public void testLockOperations() throws Exception {
         System.out.println("\n=== Testing Map Lock Operations ===");
-
-        
         
         // Test locking
         System.out.println("Testing lock operation...");
@@ -752,5 +755,30 @@ public class MapTest extends AbstractTest {
         }
         recordTestResult("Bulk-GetAll", getAllWorked, 
                         "GetAll operation test. Retrieved entries: " + allPeople.size());
+    }
+}
+
+class Person implements Serializable {
+    private String name;
+    private int age;
+    private boolean active;
+    
+    public Person(String name, int age, boolean active) {
+        this.name = name;
+        this.age = age;
+        this.active = active;
+    }
+    
+    public String getName() { return name; }
+    public int getAge() { return age; }
+    public boolean isActive() { return active; }
+    
+    public void setName(String name) { this.name = name; }
+    public void setAge(int age) { this.age = age; }
+    public void setActive(boolean active) { this.active = active; }
+    
+    @Override
+    public String toString() {
+        return "Person{name='" + name + "', age=" + age + ", active=" + active + '}';
     }
 }

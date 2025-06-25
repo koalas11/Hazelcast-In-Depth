@@ -102,8 +102,38 @@ public class PipelineTest extends AbstractTest {
         resultMap.entrySet().stream()
                 .limit(5)
                 .forEach(entry -> System.out.println(entry.getKey() + " -> " + entry.getValue()));
+        
+        // Verify expected number of entries (only even keys from source-map)
+        int expectedSize = (int) Math.ceil(sourceMap.size() / 2.0);
+        boolean correctEntryCount = resultMap.size() == expectedSize;
+        
+        // Verify correct transformation
+        boolean correctTransformation = true;
+        for (Entry<Integer, String> entry : resultMap.entrySet()) {
+            int key = entry.getKey();
+            String value = entry.getValue();
+            
+            if (key % 2 != 0 || !value.equals("Transformed-Item-" + key)) {
+                correctTransformation = false;
+                break;
+            }
+        }
+        
+        boolean pipelineWorked = correctEntryCount && correctTransformation;
+        if (pipelineWorked) {
+            System.out.println("✓ Simple pipeline executed correctly");
+        } else {
+            System.out.println("✗ Simple pipeline failed. Entry count correct: " + correctEntryCount + 
+                              ", Transformation correct: " + correctTransformation);
+        }
+        
+        recordTestResult("SimplePipeline-Execution", pipelineWorked, 
+                         "Simple pipeline execution test. Expected entries: " + expectedSize + 
+                         ", Actual entries: " + resultMap.size() + 
+                         ", Transformation correct: " + correctTransformation);
     }
 
+    @SuppressWarnings("null")
     public void testAggregationPipeline() {
         System.out.println("\n=== Test 2: Aggregation Pipeline ===");
         
@@ -124,6 +154,46 @@ public class PipelineTest extends AbstractTest {
         userTotals.forEach((userId, total) -> 
             System.out.println("User " + userId + " total orders: " + total)
         );
+        
+        // Verify expected number of entries (one per user)
+        boolean correctUserCount = userTotals.size() == 10; // We have 10 users
+        
+        // Verify aggregation is correct
+        boolean correctAggregation = true;
+        
+        // Compute expected totals directly
+        Map<Integer, Double> expectedTotals = new java.util.HashMap<>();
+        for (Entry<Integer, Tuple2<Integer, Double>> entry : orders.entrySet()) {
+            int userId = entry.getValue().f0();
+            double orderValue = entry.getValue().f1();
+            
+            expectedTotals.put(userId, 
+                expectedTotals.getOrDefault(userId, 0.0) + orderValue);
+        }
+        
+        // Compare with actual results
+        for (Entry<Integer, Double> entry : userTotals.entrySet()) {
+            int userId = entry.getKey();
+            double actualTotal = entry.getValue();
+            double expectedTotal = expectedTotals.getOrDefault(userId, 0.0);
+            
+            if (Math.abs(actualTotal - expectedTotal) > 0.001) {
+                correctAggregation = false;
+                break;
+            }
+        }
+        
+        boolean aggregationWorked = correctUserCount && correctAggregation;
+        if (aggregationWorked) {
+            System.out.println("✓ Aggregation pipeline executed correctly");
+        } else {
+            System.out.println("✗ Aggregation pipeline failed. User count correct: " + correctUserCount + 
+                              ", Aggregation correct: " + correctAggregation);
+        }
+        
+        recordTestResult("AggregationPipeline-Execution", aggregationWorked, 
+                         "Aggregation pipeline execution test. Expected users: 10, Actual: " + userTotals.size() + 
+                         ", Aggregation correct: " + correctAggregation);
     }
 
     public void testJoinPipeline() {
@@ -142,7 +212,6 @@ public class PipelineTest extends AbstractTest {
         );
 
         joined.writeTo(Sinks.map("user-reports"));
-
         
         // Execute the pipeline
         Job job = hazelcastInstance.getJet().newJob(pipeline);
@@ -153,6 +222,39 @@ public class PipelineTest extends AbstractTest {
         System.out.println("User reports after join:");
         userReports.entrySet().stream()
                 .forEach(entry -> System.out.println(entry.getKey() + " -> " + entry.getValue().toString()));
+        
+        // Verify expected number of entries (one per user)
+        boolean correctReportCount = userReports.size() == 10; // We have 10 users
+        
+        // Verify join is correct - each user name should be mapped to their total
+        boolean correctJoin = true;
+        IMap<Integer, Double> userTotalsMap = hazelcastInstance.getMap("user-totals");
+        
+        for (Entry<String, Double> entry : userReports.entrySet()) {
+            String userName = entry.getKey();
+            double total = entry.getValue();
+            
+            // Extract user ID from name (format: "User-X")
+            int userId = Integer.parseInt(userName.substring(5));
+            double expectedTotal = userTotalsMap.get(userId);
+            
+            if (Math.abs(total - expectedTotal) > 0.001) {
+                correctJoin = false;
+                break;
+            }
+        }
+        
+        boolean joinWorked = correctReportCount && correctJoin;
+        if (joinWorked) {
+            System.out.println("✓ Join pipeline executed correctly");
+        } else {
+            System.out.println("✗ Join pipeline failed. Report count correct: " + correctReportCount + 
+                              ", Join correct: " + correctJoin);
+        }
+        
+        recordTestResult("JoinPipeline-Execution", joinWorked, 
+                         "Join pipeline execution test. Expected reports: 10, Actual: " + userReports.size() + 
+                         ", Join correct: " + correctJoin);
     }
 
     public void testFaultTolerantPipeline() throws InterruptedException {
@@ -208,5 +310,33 @@ public class PipelineTest extends AbstractTest {
         resultMap.entrySet().stream()
                 .limit(5)
                 .forEach(entry -> System.out.println(entry.getKey() + " -> " + entry.getValue()));
+        
+        // Verify that we have at least some results
+        boolean hasResults = resultMap.size() > 0;
+        
+        // Verify that the transformation happened correctly for available entries
+        boolean correctTransformation = true;
+        for (Entry<Integer, String> entry : resultMap.entrySet()) {
+            int key = entry.getKey();
+            String value = entry.getValue();
+            
+            if (!value.equals("Processed-Item-" + key)) {
+                correctTransformation = false;
+                break;
+            }
+        }
+        
+        boolean faultTolerantWorked = hasResults && correctTransformation;
+        if (faultTolerantWorked) {
+            System.out.println("✓ Fault tolerant pipeline continued processing after node failure");
+        } else {
+            System.out.println("✗ Fault tolerant pipeline test failed. Has results: " + hasResults + 
+                              ", Transformation correct: " + correctTransformation);
+        }
+        
+        recordTestResult("FaultTolerantPipeline-Execution", faultTolerantWorked, 
+                         "Fault tolerant pipeline test. Has results: " + hasResults + 
+                         ", Result count: " + resultMap.size() + 
+                         ", Transformation correct: " + correctTransformation);
     }
 }

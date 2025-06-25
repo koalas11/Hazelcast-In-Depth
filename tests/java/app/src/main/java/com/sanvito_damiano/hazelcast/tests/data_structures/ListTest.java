@@ -7,6 +7,7 @@ import com.hazelcast.core.HazelcastInstance;
 import com.sanvito_damiano.hazelcast.tests.AbstractTest;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -282,7 +283,7 @@ public class ListTest extends AbstractTest {
         
         // Add an item listener
         System.out.println("Adding item listener...");
-        list.addItemListener(new ItemListener<String>() {
+        UUID id = list.addItemListener(new ItemListener<String>() {
             @Override
             public void itemAdded(ItemEvent<String> event) {
                 if (event.getItem().equals("new-item")) {
@@ -313,6 +314,8 @@ public class ListTest extends AbstractTest {
         recordTestResult("Listeners-ItemAdded", listenerWorks, 
                          "List listener test. Event received: " + received + 
                          ", Correct item: " + itemAdded[0]);
+
+        list.removeItemListener(id); // Clean up listener
     }
 
     public void testConcurrentModification() throws Exception {

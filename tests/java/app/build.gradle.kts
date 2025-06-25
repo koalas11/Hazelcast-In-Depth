@@ -9,6 +9,7 @@ repositories {
 
 dependencies {
     testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.junit4)
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
@@ -17,8 +18,10 @@ dependencies {
     implementation(libs.apache.logging.api)
     implementation(libs.apache.logging.core)
     implementation(libs.apache.logging.slf4j2)
+    implementation(libs.apache.logging.iostreams)
 
     implementation(libs.hazelcast)
+    runtimeOnly(libs.hazelcast.sql)
     testImplementation(libs.hazelcast) {
         artifact {
             classifier = "tests"

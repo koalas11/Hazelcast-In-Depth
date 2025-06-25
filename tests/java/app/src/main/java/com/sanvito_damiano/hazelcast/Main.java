@@ -7,9 +7,14 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.io.IoBuilder;
+
 import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.client.config.ClientConfig;
 import com.hazelcast.config.Config;
+import com.hazelcast.core.DistributedObject;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import com.sanvito_damiano.hazelcast.tests.*;
@@ -29,10 +34,14 @@ public class Main {
         put("executor", ExecutorServiceTest.class);
         put("pipeline", PipelineTest.class);
         put("partition", PartitionTest.class);
+        put("query", QueryTest.class);
+        put("failover", FailoverTest.class);
     }};
 
     private static Map<String, Class<? extends AbstractTest>> special_tests = new LinkedHashMap<>() {{
-        put("custom_partition", PartitionTest.class);
+        put("custom_partition", CustomPartitionTest.class);
+        put("custom_serialization", CustomSerializationTest.class);
+        put("split_brain_protection", SplitBrainProtectionTest.class);
     }};
 
     private static HazelcastInstance memberInstance1;
@@ -40,7 +49,7 @@ public class Main {
     private static HazelcastInstance memberInstance2;
     private static HazelcastInstance clientInstance;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         String folder;
         if (args.length > 0) {
             folder = args[0];
@@ -53,6 +62,10 @@ public class Main {
         }
 
         System.setProperty("LOG_DIR", folder);
+
+        System.setOut(IoBuilder.forLogger(LogManager.getLogger("system.out"))
+        .setLevel(Level.INFO)
+        .buildPrintStream());
 
         try {
             // Configure first member
@@ -101,6 +114,10 @@ public class Main {
                         }
                     }
                     testInstance.cleanup();
+
+                    for (DistributedObject distributedObject : clientInstance.getDistributedObjects()) {
+                        distributedObject.destroy();
+                    }
                     
                     String report = testInstance.generateReport(folder, testName);
                     System.out.println("Test report generated: " + report);
@@ -119,11 +136,18 @@ public class Main {
             memberInstance1.getCluster().shutdown();
         }
 
+        Thread.sleep(1000); // Wait for shutdown to complete
+
+        Hazelcast.shutdownAll();
+        HazelcastClient.shutdownAll();
+
+        Thread.sleep(1000); // Ensure all resources are cleaned up before exiting
+
         try {
             for (Entry<String, Class<? extends AbstractTest>> testEntry : special_tests.entrySet()) {
                 try {
                     String testName = testEntry.getKey();
-                    AbstractTest testInstance = testEntry.getValue().getConstructor(HazelcastInstance.class, String.class).newInstance(clientInstance, testName);
+                    AbstractTest testInstance = testEntry.getValue().getConstructor(HazelcastInstance.class, String.class).newInstance(null, testName);
 
                     System.out.println("Running tests for: " + testName);
                     testInstance.setup();

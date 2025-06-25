@@ -23,7 +23,6 @@ public class AtomicLongTest extends AbstractTest {
         } catch (UnsupportedOperationException e) {
             System.out.println("IAtomicLong is not supported in the Open Source Hazelcast Version.");
             recordTestResult("IAtomicLong Creation", true, "IAtomicLong is not supported in the Open Source Hazelcast Version.");
-            return;
         } catch (Exception e) {
             recordTestResult("IAtomicLong Creation", false, e.getMessage());
             throw e;

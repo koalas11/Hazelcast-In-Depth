@@ -40,12 +40,11 @@ public class TestReporter {
         
         try (FileWriter writer = new FileWriter(Paths.get("reports", folder, fileName).toFile())) {
             // Write CSV header
-            writer.append("Test Category,Test Name,Result,Timestamp,Message\n");
+            writer.append("Test Name,Result,Timestamp,Message\n");
             
             // Write each test result
             for (TestResult result : testResults) {
-                writer.append(escapeCsvField(testCategory)).append(",")
-                      .append(escapeCsvField(result.getTestName())).append(",")
+                writer.append(escapeCsvField(result.getTestName())).append(",")
                       .append(result.isSuccess() ? "PASS" : "FAIL").append(",")
                       .append(result.getTimestamp().format(timestampFormatter)).append(",")
                       .append(escapeCsvField(result.getMessage())).append("\n");

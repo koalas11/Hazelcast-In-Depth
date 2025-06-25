@@ -36,6 +36,8 @@ public class ExecutorServiceTest extends AbstractTest {
     public void cleanup() {
         executor.shutdownNow();
         executor = null;
+        IMap<String, Integer> map = hazelcastInstance.getMap("map");
+        map.destroy(); // Clean up the distributed map used in tests
     }
 
     // Test 1: Submit a simple task to a specific member
@@ -76,6 +78,61 @@ public class ExecutorServiceTest extends AbstractTest {
         Integer result = calculationFuture.get();
         System.out.println("Calculation result: " + result);
         recordTestResult("Execute with Multiple Parameters", true, "Calculation executed successfully with result: " + result);
+    }
+
+    // Test 5: Execute a task that sums values from a distributed map
+    public void testSumTask() throws InterruptedException, ExecutionException {
+        System.out.println("\n=== Test Sum Task ===");
+        
+        // Create a distributed map and populate it with test data
+        IMap<String, Integer> map = hazelcastInstance.getMap("map");
+        for (int i = 1; i <= 10; i++) {
+            map.put("key-" + i, i * 10); // Values are multiples of 10
+        }
+        
+        Future<Integer> sumFuture = executor.submit(new SumTask());
+        Integer sumResult = sumFuture.get();
+        
+        System.out.println("Sum of values in the map: " + sumResult);
+        
+        // Verify result
+        int expectedSum = 10 + 20 + 30 + 40 + 50 + 60 + 70 + 80 + 90 + 100; // Sum of multiples of 10
+        boolean testPassed = (sumResult == expectedSum);
+        
+        recordTestResult("Sum Task", testPassed, 
+            "Expected sum: " + expectedSum + ", Actual sum: " + sumResult);
+        map.destroy();
+    }
+
+    // Test 6: Local data processing task
+    public void testLocalDataProcessing() throws InterruptedException, ExecutionException {
+        System.out.println("\n=== Test Local Data Processing Task ===");
+        
+        // Create a distributed map and populate it with test data
+        IMap<String, Integer> map = hazelcastInstance.getMap("map");
+        for (int i = 1; i <= 100; i++) {
+            map.put("key-" + i, i); // Values are just the keys
+        }
+        
+        Map<Member, Future<Integer>> results = executor.submitToAllMembers(new LocalDataProcessingTask());
+        
+        int totalSum = 0;
+        for (Map.Entry<Member, Future<Integer>> entry : results.entrySet()) {
+            Member member = entry.getKey();
+            Integer partialSum = entry.getValue().get();
+            totalSum += partialSum;
+            System.out.println("Member " + member.getAddress() + " processed local data and returned: " + partialSum);
+        }
+        
+        System.out.println("Total sum across all members: " + totalSum);
+        
+        // Verify result
+        int expectedSum = (100 * 101) / 2; // Sum of numbers from 1 to 100
+        boolean testPassed = (totalSum == expectedSum);
+        
+        recordTestResult("Local Data Processing Task", testPassed, 
+            "Expected sum: " + expectedSum + ", Actual sum: " + totalSum);
+        map.destroy();
     }
     
     // Task classes
@@ -149,7 +206,10 @@ public class ExecutorServiceTest extends AbstractTest {
         }
     }
 
-    public class SumTask implements Callable<Integer>, Serializable, HazelcastInstanceAware {
+    /**
+     * Task that sums values from a distributed map
+     */
+    static class SumTask implements Callable<Integer>, Serializable, HazelcastInstanceAware {
 
         private transient HazelcastInstance hazelcastInstance;
 
@@ -166,6 +226,38 @@ public class ExecutorServiceTest extends AbstractTest {
             }
             System.out.println( "Local Result: " + result );
             return result;
+        }
+    }
+
+    /**
+     * Task that processes data locally on each member to optimize performance
+     */
+    static class LocalDataProcessingTask implements Callable<Integer>, Serializable, HazelcastInstanceAware {
+        private transient HazelcastInstance hazelcastInstance;
+        
+        public void setHazelcastInstance(HazelcastInstance hazelcastInstance) {
+            this.hazelcastInstance = hazelcastInstance;
+        }
+        
+        @Override
+        public Integer call() {
+            IMap<String, Integer> map = hazelcastInstance.getMap("map");
+            Member localMember = hazelcastInstance.getCluster().getLocalMember();
+            
+            int sum = 0;
+            int processedItems = 0;
+            
+            // Only process data that's local to this member for optimal performance
+            for (String key : map.localKeySet()) {
+                Integer value = map.get(key);
+                sum += value;
+                processedItems++;
+            }
+            
+            System.out.println("Member " + localMember.getAddress() + " processed " + 
+                              processedItems + " local entries");
+            
+            return sum;
         }
     }
 }

@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
     <Appenders>
-        <!-- Main application console -->
-        <Console name="ApplicationConsole" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [APP] %highlight{%-5level} %logger{36} - %msg%n"/>
+        <!-- Application log file -->       
+        <Console name="Console" target="SYSTEM_OUT">
+        <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} - %m%n" charset="UTF-8"/>
         </Console>
-        
+        <RollingRandomAccessFile name="FileLogger" 
+            fileName="logs/${sys:LOG_DIR:-default}/application.log" filePattern="logs/${sys:LOG_DIR:-default}/application-%d{MM-dd-yyyy}-%i.log.gz"  append="false">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} - %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+        </RollingRandomAccessFile>
+
         <!-- Hazelcast log files -->
         <RollingRandomAccessFile name="HazelcastLogs" 
             fileName="logs/${sys:LOG_DIR:-default}/hazelcast.log" filePattern="logs/${sys:LOG_DIR:-default}/hazelcast-%d{MM-dd-yyyy}-%i.log.gz"  append="false">
@@ -22,10 +29,10 @@
         <Logger name="com.hazelcast" level="info" additivity="false">
             <AppenderRef ref="HazelcastLogs"/>
         </Logger>
-        
-        <!-- Root logger -->
-        <Root level="info">
-            <AppenderRef ref="ApplicationConsole"/>
+
+        <Root level="debug">
+        <AppenderRef ref="Console"/>
+        <AppenderRef ref="FileLogger"/>
         </Root>
     </Loggers>
 </Configuration>

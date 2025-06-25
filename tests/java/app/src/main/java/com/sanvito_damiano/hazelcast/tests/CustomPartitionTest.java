@@ -28,7 +28,6 @@ public class CustomPartitionTest extends AbstractTest {
     private HazelcastInstance memberInstance2;
     @SuppressWarnings("unused")
     private HazelcastInstance memberInstance3;
-    private HazelcastInstance clientInstance;
 
     private IMap<String, String> distributedMap;
 
@@ -42,24 +41,21 @@ public class CustomPartitionTest extends AbstractTest {
         MapConfig mapConfig = new MapConfig("custom-partitioned-map");
         mapConfig.setPartitioningStrategyConfig(
                 new com.hazelcast.config.PartitioningStrategyConfig(
-                        "com.sanvito_damiano.hazelcast.tests.PartitioningTest"));
+                        "com.sanvito_damiano.hazelcast.tests.CustomPartitionTest$RegionBasedPartitioningStrategy"));
         
         // Configure first member
         Config config1 = new Config();
-        config1.getJetConfig().setEnabled(true);
         config1.setInstanceName("member1");
         config1.setProperty("hazelcast.logging.type", "log4j2");
         config1.addMapConfig(mapConfig);
         
         // Configure second member
         Config config2 = new Config();
-        config2.getJetConfig().setEnabled(true);
         config2.setInstanceName("member2");
         config2.setProperty("hazelcast.logging.type", "log4j2");
         config2.addMapConfig(mapConfig);
 
         Config config3 = new Config();
-        config3.getJetConfig().setEnabled(true);
         config3.setInstanceName("member3");
         config3.setProperty("hazelcast.logging.type", "log4j2");
         config3.addMapConfig(mapConfig);
@@ -73,9 +69,9 @@ public class CustomPartitionTest extends AbstractTest {
         memberInstance1 = Hazelcast.newHazelcastInstance(config1);
         memberInstance2 = Hazelcast.newHazelcastInstance(config2);
         memberInstance3 = Hazelcast.newHazelcastInstance(config3);
-        clientInstance = HazelcastClient.newHazelcastClient(clientConfig);
+        hazelcastInstance = HazelcastClient.newHazelcastClient(clientConfig);
 
-        distributedMap = clientInstance.getMap("custom-partitioned-map");
+        distributedMap = hazelcastInstance.getMap("custom-partitioned-map");
     }
 
     @Override
@@ -86,7 +82,7 @@ public class CustomPartitionTest extends AbstractTest {
     @Override
     public void cleanup() {
         distributedMap.destroy();
-        clientInstance.shutdown();
+        hazelcastInstance.shutdown();
         memberInstance1.getCluster().shutdown();
     }
 
@@ -138,7 +134,7 @@ public class CustomPartitionTest extends AbstractTest {
      * Analyze how data is distributed using the custom strategy
      */
     private Map<String, Object> analyzeCustomPartitioning(String[] regions, int dataSize) {
-        PartitionService partitionService = clientInstance.getPartitionService();
+        PartitionService partitionService = hazelcastInstance.getPartitionService();
         Map<String, Object> results = new HashMap<>();
         
         System.out.println("Analyzing custom partition distribution by region:");
@@ -168,7 +164,6 @@ public class CustomPartitionTest extends AbstractTest {
                 }
                 // Print detailed information for the first 3 keys
                 if (i < 3) {
-                    
                     System.out.println("Key '" + key + "' -> Partition " + partitionId + 
                             " -> Node " + (owner != null ? owner.getUuid() : "unknown"));
                 }

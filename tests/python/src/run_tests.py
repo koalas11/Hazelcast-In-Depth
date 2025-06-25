@@ -37,6 +37,24 @@ three_nodes_tests = {
     ]
 }
 
+four_nodes_tests = {
+    "test_info": "four_nodes_tests",
+    "tests": [
+        MapTest,
+        MapScalingTest,
+        FailoverTest,
+    ]
+}
+
+five_nodes_tests = {
+    "test_info": "five_nodes_tests",
+    "tests": [
+        MapTest,
+        MapScalingTest,
+        FailoverTest,
+    ]
+}
+
 def run_tests(tests_to_run: int = 0):
     """Main function to run Hazelcast tests with Docker Compose"""
     logger = logging.getLogger(__name__)
@@ -49,6 +67,10 @@ def run_tests(tests_to_run: int = 0):
             tests_to_run = [two_nodes_tests]
         elif tests_to_run == 3:
             tests_to_run = [three_nodes_tests]
+        elif tests_to_run == 4:
+            tests_to_run = [four_nodes_tests]
+        elif tests_to_run == 5:
+            tests_to_run = [five_nodes_tests]
         else:
             logger.error("Invalid test configuration. Please choose between 1 to 4.")
             return
@@ -57,6 +79,8 @@ def run_tests(tests_to_run: int = 0):
             single_node_tests,
             two_nodes_tests,
             three_nodes_tests,
+            four_nodes_tests,
+            five_nodes_tests,
         ]
 
     # Check if Docker is available
@@ -84,6 +108,14 @@ def run_tests(tests_to_run: int = 0):
                 logger.info("Running three nodes tests...")
                 subprocess.run(["docker", "compose", "up", "hazelcast-node1", "hazelcast-node2", "hazelcast-node3", "-d"], check=True)
                 size = 3
+            elif test_info == "four_nodes_tests":
+                logger.info("Running four nodes tests...")
+                subprocess.run(["docker", "compose", "up", "hazelcast-node1", "hazelcast-node2", "hazelcast-node3", "hazelcast-node4", "-d"], check=True)
+                size = 4
+            elif test_info == "five_nodes_tests":
+                logger.info("Running five nodes tests...")
+                subprocess.run(["docker", "compose", "up", "hazelcast-node1", "hazelcast-node2", "hazelcast-node3", "hazelcast-node4", "hazelcast-node5", "-d"], check=True)
+                size = 5
             else:
                 logger.error("Unknown test case configuration.")
                 continue
