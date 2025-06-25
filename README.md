@@ -20,7 +20,6 @@ Un'esplorazione completa di Hazelcast, una piattaforma di elaborazione distribui
     - **requirements.txt** - Dipendenze Python
     - **src/** - Directory contenente i file per verificare le prestazioni di hazelcast in modalità client - server
     - **reports/** - Directory contenente i risultati dei test
-  - **hazelcast_simulator/** - Git module di hazelcast simulator per andare a eseguire benchmark
 - **.gitattributes** - File Git attributes
 - **.gitignore** - File Git ignore
 - **.gitmodules** - File Git modules
@@ -37,11 +36,9 @@ Un'esplorazione completa di Hazelcast, una piattaforma di elaborazione distribui
 - Python 3.x
 - Java JDK 17+
 
-- Per eseguire i benchmark con hazelcast simulator seguire il README.md del git module hazelcast_simulator
-
 ### Esecuzione
 
-Per eseguire i test, avviare __run.bat__ o __run.sh__ da console. È possibile specificare come argomento __java__, __python__ o __hazelcast_simulator__. Di default, vengono eseguiti tutti i test tranne quelli relativi a Hazelcast Simulator.
+Per eseguire i test, avviare __run.bat__ o __run.sh__ da console. È possibile specificare come argomento __java__, __python__ . Di default, vengono eseguiti tutti i test.
 
 ## Report
 

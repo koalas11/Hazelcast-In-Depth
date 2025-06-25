@@ -36,7 +36,7 @@ services:
     <<: *hazelcast-service
     container_name: hazelcast-node4
     ports:
-      - "5705:5701"
+      - "5704:5701"
     environment:
       - HZ_NETWORK_PUBLICADDRESS=host.docker.internal:5704
       - JAVA_OPTS=-Dhazelcast.config=/opt/hazelcast/config/hazelcast.yaml
@@ -45,7 +45,7 @@ services:
     <<: *hazelcast-service
     container_name: hazelcast-node5
     ports:
-      - "5704:5701"
+      - "5705:5701"
     environment:
       - HZ_NETWORK_PUBLICADDRESS=host.docker.internal:5705
       - JAVA_OPTS=-Dhazelcast.config=/opt/hazelcast/config/hazelcast.yaml

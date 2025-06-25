@@ -1,3 +1,0 @@
-[submodule "tests/hazelcast_simulator"]
-	path = tests/hazelcast_simulator
-	url = https://github.com/hazelcast/hazelcast-simulator.git

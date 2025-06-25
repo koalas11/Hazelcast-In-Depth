@@ -7,9 +7,13 @@ def wait_members_on(client: hazelcast.HazelcastClient, members_on: int, timeout:
     """Wait for Hazelcast members to be online"""
 
     passed_time = 0
-    logging.basicConfig(level=logging.ERROR)
+    original_level = logging.getLogger().level
+    logging.getLogger().setLevel(logging.ERROR)
     while True:
-        members = client.cluster_service.get_members()
+        try:
+            members = client.cluster_service.get_members()
+        except Exception as e:
+            continue
         if len(members) == members_on:
             break
 
@@ -17,4 +21,4 @@ def wait_members_on(client: hazelcast.HazelcastClient, members_on: int, timeout:
         passed_time += 1
         if passed_time >= timeout:
             raise TimeoutError(f"Timeout: waited {timeout} seconds for {members_on} members to be online.")
-    logging.basicConfig(level=logging.INFO)
+    logging.getLogger().setLevel(original_level)

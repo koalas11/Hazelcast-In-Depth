@@ -513,10 +513,10 @@ if (size > 10000) {
 
 == Test delle Applicazioni
 
-L’esecuzione di test ed esperimenti in ambienti distribuiti rappresenta una sfida significativa, in particolare per quanto riguarda la sincronizzazione di stati degradati con operazioni sui dati. Hazelcast offre diversi strumenti e approcci per facilitare la gestione di tali sfide:
+L'esecuzione di test ed esperimenti in ambienti distribuiti rappresenta una sfida significativa, in particolare per quanto riguarda la sincronizzazione di stati degradati con operazioni sui dati. Hazelcast offre diversi strumenti e approcci per facilitare la gestione di tali sfide:
 
 - *Unit Testing*: Test di componenti in isolamento.
-- *Integration Testing*: Test con un’istanza Hazelcast reale.
+- *Integration Testing*: Test con un'istanza Hazelcast reale.
 - *Framework di Test per Job*: Specializzato per il test di job Jet.
 - *Hazelcast Simulator*: Test di performance e stress.
 
@@ -566,14 +566,14 @@ Hazelcast Simulator è una piattaforma di testing progettata per valutare in mod
 Tipologie di test supportate:
 - *Test di Performance*: Misurazione dettagliata di throughput, latenza, e capacità di scalabilità in vari scenari di carico.
 - *Test di Stress*: Valutazione della robustezza del sistema spingendo le risorse oltre i limiti operativi per identificare possibili colli di bottiglia.
-- *Test di Stabilità*: Esecuzione di carichi prolungati per analizzare la tenuta nel tempo, l’efficienza nella gestione delle risorse e la prevenzione di memory leak.
-- *Test di Scenari di Fallimento (Fault Injection)*: Simulazione di guasti a livello di rete, hardware o software per verificare le capacità di failover e la resilienza dell’infrastruttura.
+- *Test di Stabilità*: Esecuzione di carichi prolungati per analizzare la tenuta nel tempo, l'efficienza nella gestione delle risorse e la prevenzione di memory leak.
+- *Test di Scenari di Fallimento (Fault Injection)*: Simulazione di guasti a livello di rete, hardware o software per verificare le capacità di failover e la resilienza dell'infrastruttura.
 
 Caratteristiche tecniche principali:
 - *Generazione di Carico Realistico*: Implementazione di modelli di traffico complessi e scenari di workload personalizzati per riprodurre condizioni operative reali.
 - *Iniezione di Guasti Controllata*: Integrazione di meccanismi per introdurre errori sistematici e casuali al fine di testare le strategie di recupero e tolleranza ai guasti.
-- *Raccolta di Statistiche Avanzate*: Monitoraggio continuo di KPI critici come tempi di risposta, utilizzo delle risorse, throughput e latenza, con report dettagliati per l’analisi delle prestazioni.
-- *Automazione del Ciclo di Test*: Framework per l’esecuzione automatizzata di test su larga scala, con possibilità di integrazione in pipeline CI/CD per il testing continuo.
+- *Raccolta di Statistiche Avanzate*: Monitoraggio continuo di KPI critici come tempi di risposta, utilizzo delle risorse, throughput e latenza, con report dettagliati per l'analisi delle prestazioni.
+- *Automazione del Ciclo di Test*: Framework per l'esecuzione automatizzata di test su larga scala, con possibilità di integrazione in pipeline CI/CD per il testing continuo.
 
 Hazelcast Simulator si configura come uno strumento fondamentale per gli sviluppatori che necessitano di validare la resilienza, la scalabilità e le performance di applicazioni distribuite complesse in ambienti di produzione. Esponiamo un esempio concredo di utilizzo del simulatore.
 
@@ -617,3 +617,7 @@ simulator-coordinator --duration 2h \
 ```
 
 Il Simulator fornisce report dettagliati e metriche di performance dopo il completamento del test.
+
+== Commenti
+
+Hazelcast offre una serie di funzionalità avanzate che lo rendono idoneo per applicazioni distribuite complesse. La serializzazione efficiente, il sistema di eventi reattivo, le robuste capacità di sicurezza e il potente Management Center sono solo alcune delle caratteristiche che distinguono Hazelcast nel panorama delle tecnologie in-memory. È inoltre possibile utilizzare Hazelcast senza la limitazione di 3 nodi massimi nel caso in cui non sia necessario il Management Center, ma solamente la piattaforma stessa.

@@ -1,4 +1,4 @@
-#import "../packages.typ": codly, codly-languages, cetz
+#import "../packages.typ": cetz, codly, codly-languages
 
 = Distributed Computing in Hazelcast
 
@@ -63,7 +63,7 @@ Parametri principali:
 
 == User Code Namespaces
 
-Gli User Code Namespaces in Hazelcast forniscono un meccanismo per organizzare e isolare il codice client che viene eseguito sui nodi del cluster.
+Gli User Code Namespaces in Hazelcast forniscono un meccanismo per organizzare e isolare il codice client che viene eseguito sui nodi del cluster, disponibile nella versione Hazelcast Enterprise.
 
 === Concetto e Scopo
 
@@ -85,33 +85,20 @@ Hazelcast implementa gli User Code Namespaces attraverso un sistema gerarchico d
 #figure(
   box(
     inset: 1.5em,
-    fill: tiling(
-      size: (16pt, 16pt),
-      relative: "parent",
-      place(
-        dx: 5pt,
-        dy: 5pt,
-        rotate(
-          45deg,
-          square(
-            size: 2pt,
-            fill: black.transparentize(90%),
-          ),
-        ),
-      ),
-    ),
+    fill: tiling(size: (16pt, 16pt), relative: "parent", place(dx: 5pt, dy: 5pt, rotate(45deg, square(
+      size: 2pt,
+      fill: black.transparentize(90%),
+    )))),
     cetz.canvas({
       import cetz.tree
       import cetz.draw
 
-      draw.set-style(
-        content: (
-          padding: .3,
-          frame: "rect",
-          fill: white,
-          stroke: (paint: gradient.radial(center: (0%, 0%), radius: 150%, ..color.map.inferno)),
-        ),
-      )
+      draw.set-style(content: (
+        padding: .3,
+        frame: "rect",
+        fill: white,
+        stroke: (paint: gradient.radial(center: (0%, 0%), radius: 150%, ..color.map.inferno)),
+      ))
       tree.tree(
         (
           [Root],
@@ -126,189 +113,24 @@ Hazelcast implementa gli User Code Namespaces attraverso un sistema gerarchico d
   caption: [Gerarchia dei ClassLoader in Hazelcast User Code Namespaces],
 )
 
-=== Implementazione Dettagliata
-
-==== Definizione di un Namespace
-
-```java
-// Definizione di una classe in un namespace specifico
-@UserCodeNamespace("analytics-engine")
-public class DataAnalyzer implements Callable<AnalysisResult>, Serializable {
-
-    private String dataKey;
-
-    public DataAnalyzer(String dataKey) {
-        this.dataKey = dataKey;
-    }
-
-    @Override
-    public AnalysisResult call() throws Exception {
-        // Logica di analisi distribuita
-        return new AnalysisResult(dataKey);
-    }
-}
-```
-
-==== Utilizzo in Executor Services
-
-```java
-HazelcastInstance hz = Hazelcast.newHazelcastInstance();
-IExecutorService executor = hz.getExecutorService("analytics-executor");
-
-// Esecuzione di un task in un namespace specifico
-DataAnalyzer analyzer = new DataAnalyzer("customer-data-123");
-Future<AnalysisResult> future = executor.submit(analyzer);
-
-// Il task verrà eseguito nel namespace "analytics-engine"
-```
-
-=== Esempio di Configurazione Avanzata
-
-==== XML Configuration
-
-```xml
-<hazelcast>
-    <user-code-deployment enabled="true">
-        <class-cache-mode>ETERNAL</class-cache-mode>
-        <provider-mode>LOCAL_AND_CACHED_CLASSES</provider-mode>
-        <blacklist-prefixes>com.malicious.,org.restricted.</blacklist-prefixes>
-        <whitelist-prefixes>com.mycompany.,org.approved.</whitelist-prefixes>
-    </user-code-deployment>
-
-    <user-code-namespaces>
-        <namespace name="analytics-engine">
-            <class-path>
-                <path>/opt/hazelcast/lib/analytics-engine.jar</path>
-                <path>/opt/hazelcast/lib/analytics-dependencies/*.jar</path>
-            </class-path>
-            <permissions>
-                <permission type="file.read">/data/analytics/*</permission>
-                <permission type="socket.connect">*:80</permission>
-            </permissions>
-        </namespace>
-
-        <namespace name="reporting-engine">
-            <class-path>
-                <path>/opt/hazelcast/lib/reporting-engine.jar</path>
-            </class-path>
-            <version>2.3.1</version>
-        </namespace>
-    </user-code-namespaces>
-</hazelcast>
-```
-
 === Caratteristiche Avanzate
 
-==== Versioning del Codice
+1. *Versioning del Codice:* Gli User Code Namespaces supportano il versioning del codice, permettendo di:
+  - Mantenere multiple versioni dello stesso namespace attive contemporaneamente
+  - Effettuare rolling upgrades del codice senza interruzioni di servizio
+  - Specificare quale versione del codice utilizzare per specifici task
 
-Gli User Code Namespaces supportano il versioning del codice, permettendo di:
+2. *Hot Reloading:* Hazelcast può ricaricare dinamicamente i namespace quando vengono rilevate modifiche nei jar o nelle classi associate.
 
-- Mantenere multiple versioni dello stesso namespace attive contemporaneamente
-- Effettuare rolling upgrades del codice senza interruzioni di servizio
-- Specificare quale versione del codice utilizzare per specifici task
-
-```java
-@UserCodeNamespace(name = "reporting-engine", version = "2.3.1")
-public class ReportGenerator implements Callable<Report> {
-    // Implementation
-}
-```
-
-==== Hot Reloading
-
-Hazelcast può ricaricare dinamicamente i namespace quando vengono rilevate modifiche nei jar o nelle classi associate:
-
-```xml
-<user-code-namespaces>
-    <namespace name="dynamic-rules">
-        <class-path>
-            <path>/opt/hazelcast/dynamic/rules.jar</path>
-        </class-path>
-        <hot-reload enabled="true"
-                    poll-interval-seconds="30"/>
-    </namespace>
-</user-code-namespaces>
-```
-
-==== Sicurezza e Permessi
-
-I namespace possono avere permessi granulari per controllare cosa il codice può fare:
-
-```xml
-<namespace name="restricted-module">
-    <permissions>
-        <!-- Permesso di leggere solo file specifici -->
-        <permission type="file.read">/data/allowed/*</permission>
-
-        <!-- Connessioni di rete limitate -->
-        <permission type="socket.connect">internal-service:8080</permission>
-
-        <!-- Nessun accesso a operazioni di sistema -->
-        <permission type="runtime.exec" denied="true">*</permission>
-    </permissions>
-</namespace>
-```
+3. *Sicurezza e Permessi:* I namespace possono avere permessi granulari per controllare cosa il codice può fare.
 
 == Casi d'Uso
 
-=== Micro-Servizi Distribuiti
+1. *Micro-Servizi Distribuiti:* I namespace permettono di implementare un'architettura a micro-servizi all'interno del cluster Hazelcast, isolando il codice di diversi servizi e gestendo le dipendenze in modo indipendente.
 
-I namespace permettono di implementare un'architettura a micro-servizi all'interno del cluster Hazelcast:
+2. *Regole di Business Dinamiche:* Aggiornamento dinamico delle regole di business senza riavviare il cluster.
 
-```java
-// Servizio di autenticazione
-@UserCodeNamespace("auth-service")
-public class AuthenticationService implements Service {
-    // Implementazione
-}
-
-// Servizio di gestione ordini
-@UserCodeNamespace("order-service")
-public class OrderProcessingService implements Service {
-    // Implementazione
-}
-```
-
-=== Regole di Business Dinamiche
-
-Aggiornamento dinamico delle regole di business senza riavviare il cluster:
-
-```java
-@UserCodeNamespace(name = "business-rules", version = "current")
-public class PricingRules implements Serializable {
-    public double calculateDiscount(Customer customer, Order order) {
-        // Logica delle regole di sconto, può essere aggiornata
-        // senza riavviare il cluster
-    }
-}
-```
-
-=== Elaborazione Distribuita di Dati
-
-Combinando Executor Services e User Code Namespaces per elaborare grandi quantità di dati in parallelo:
-
-```java
-@UserCodeNamespace("data-processing")
-public class DataProcessor implements Callable<ProcessingResult>, Serializable, HazelcastInstanceAware {
-    private String partitionKey;
-    private transient HazelcastInstance hazelcastInstance;
-
-    @Override
-    public ProcessingResult call() {
-        // Accesso ai dati locali al nodo
-        IMap<String, Data> dataMap = hazelcastInstance.getMap("data-store");
-        Data localData = dataMap.get(partitionKey);
-
-        // Elaborazione locale
-        return processData(localData);
-    }
-
-    @Override
-    public void setHazelcastInstance(HazelcastInstance hazelcastInstance) {
-        this.hazelcastInstance = hazelcastInstance;
-    }
-}
-```
+*Elaborazione Distribuita di Dati:* Combinando Executor Services e User Code Namespaces per elaborare grandi quantità di dati in parallelo.
 
 == Vantaggi del Computing Distribuito in Hazelcast
 

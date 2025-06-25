@@ -1,4 +1,4 @@
-#import "../packages.typ": fletcher
+#import "../packages.typ": colorGrad, fletcher
 
 = Confronto tra Hazelcast e Altre Tecnologie Distribuite
 
@@ -20,6 +20,7 @@ Hazelcast si posiziona in un ecosistema di tecnologie distribuite dove diverse s
 - *Paradigma di accesso*: Hazelcast offre strutture dati distribuite, Cassandra è un database wide-column
 - *Query*: Hazelcast supporta SQL completo, Cassandra usa CQL con limitazioni significative
 - *Computing*: Hazelcast include capacità di computing distribuito, Cassandra è principalmente orientato allo storage
+- *Comunicazione tra nodi*: In  Hazelcast, i nodi comunicano direttamente tra loro, mentre in Cassandra la comunicazione avviene attraverso un protocollo di gossip e un coordinatore per le operazioni di scrittura
 
 #let diagramma(title, description) = {
   import fletcher: *
@@ -28,16 +29,18 @@ Hazelcast si posiziona in un ecosistema di tecnologie distribuite dove diverse s
     spacing: 1em,
     title,
     diagram(
-      node-stroke: black + 1pt,
+      node-stroke: colorGrad + 1pt,
       edge-stroke: black + .75pt,
       node((0, 0), [Node1]),
-      edge("<=>"),
+      edge("<|-|>"),
       node((2, 0), [Node2]),
-      edge("-|>"),
+      edge("<|-|>"),
       node((2, 2), [Node3]),
-      edge("<=>"),
+      edge("<|-|>"),
       node((0, 2), [Node4]),
-      edge((0, 0), "<|-"),
+      edge((0, 0), "<|-|>"),
+      edge((0, 0), (2, 2), "<|-|>"),
+      edge((2, 0), (0, 2), "<|-|>"),
     ),
     description,
   )
@@ -47,8 +50,32 @@ Hazelcast si posiziona in un ecosistema di tecnologie distribuite dove diverse s
   grid(
     columns: (auto,) * 2,
     column-gutter: 1em,
-    diagramma(strong[Hazelcast], align()[In-Memory Storage\ Strutture Dati + Compute]),
-    diagramma(strong[Cassandra], align()[Disk-Based Storage\ Wide-Column DB]),
+    fill: tiling(size: (16pt, 16pt), relative: "parent", place(dx: 5pt, dy: 5pt, rotate(45deg, square(
+      size: 2pt,
+      fill: black.transparentize(90%),
+    )))),
+    diagramma(strong[Hazelcast], align()[In-Memory Storage\ Strutture Dati + Compute\ Full Mesh Network]),
+    stack(
+      dir: direction.ttb,
+      spacing: 1em,
+      strong[Cassandra],
+      {
+        import fletcher: *
+        diagram(
+          node-stroke: colorGrad + 1pt,
+          edge-stroke: black + .75pt,
+          node((0, 0), [Node1]),
+          edge("<|-|>"),
+          node((2, 0), [Node2]),
+          edge("<|-|>"),
+          node((2, 2), [Node3]),
+          edge("<|-|>"),
+          node((0, 2), [Node4]),
+          edge((0, 0), "<|-|>"),
+        )
+      },
+      align()[Disk-Based Storage\ Wide-Column DB\ Gossiped Network],
+    ),
   )
 })
 
@@ -61,7 +88,7 @@ Hazelcast si posiziona in un ecosistema di tecnologie distribuite dove diverse s
 
 *Differenze:*
 - *Architettura*: Hazelcast è peer-to-peer, Redis tradizionale ha un'architettura master-slave (sebbene Redis Cluster sia più distribuito)
-- *Distribuzione*: Hazelcast distribuisce automaticamente i dati, Redis richiede configurazione manuale dello sharding
+- *Distribuzione*: Hazelcast distribuisce automaticamente i dati, Redis richiede configurazione manuale dei nodi per lo sharding (automatico con Redis Enterprise)
 - *Computing*: Hazelcast ha capacità di computing distribuite native, Redis offre scripting Lua ma con limitazioni
 - *Linguaggio*: Hazelcast è basato su Java/JVM, Redis è scritto in C
 - *Consistenza*: Hazelcast offre un sottosistema CP, Redis ha consistenza più limitata nel cluster
@@ -70,6 +97,10 @@ Hazelcast si posiziona in un ecosistema di tecnologie distribuite dove diverse s
   grid(
     columns: (auto,) * 2,
     column-gutter: 1em,
+    fill: tiling(size: (16pt, 16pt), relative: "parent", place(dx: 5pt, dy: 5pt, rotate(45deg, square(
+      size: 2pt,
+      fill: black.transparentize(90%),
+    )))),
     diagramma(strong[Hazelcast], align()[Peer-to-Peer, Symmetric]),
     stack(
       dir: direction.ttb,
@@ -78,7 +109,7 @@ Hazelcast si posiziona in un ecosistema di tecnologie distribuite dove diverse s
       {
         import fletcher: *
         diagram(
-          node-stroke: black + 1pt,
+          node-stroke: colorGrad + 1pt,
           edge-stroke: black + .75pt,
           node((1, 0), [Master]),
           edge("<|-|>", corner: right),
@@ -92,7 +123,8 @@ Hazelcast si posiziona in un ecosistema di tecnologie distribuite dove diverse s
   )
 })
 
-è presente sul sito ufficiale di Hazelcast un confronto tra Hazelcast e Redis che evidenzia il benchmark tra i due: https://hazelcast.com/resources/hazelcast-vs-redis/ è però interessante notare che anche se il benchmark è stato fatto un pò di anni fa, dopo che Redis ha superato come performance Hazelcast, gli ingenieri di Hazelcast hanno indagato il motivo, andando a capire i vantaggi
+Sul sito ufficiale di Hazelcast è disponibile un confronto tra Hazelcast e Redis, basato su un benchmark effettuato qualche anno fa: https://hazelcast.com/resources/hazelcast-vs-redis/. Curiosamente, anche se in altri test Redis mostrava prestazioni superiori rispetto a Hazelcast, gli ingegneri di Hazelcast hanno successivamente approfondito la questione e scoperto una criticità nella gestione delle repliche di Redis sotto carichi elevati. In queste condizioni, infatti, le repliche non venivano eseguite correttamente, con il rischio concreto di perdita di dati.
+(Al seguente link è disponibile il post che spiega la questione: https://hazelcast.com/blog/redis-load-handling-vs-data-integrity/)
 
 === Hazelcast vs Apache Ignite
 
@@ -135,6 +167,7 @@ Hazelcast si posiziona in un ecosistema di tecnologie distribuite dove diverse s
 - *Modello di dati*: Elasticsearch è document-oriented, Hazelcast offre strutture dati distribuite
 - *Query*: Elasticsearch eccelle in query di ricerca complesse, Hazelcast offre SQL tradizionale
 
+/*
 == Confronto di Prestazioni
 
 === Latenza
@@ -168,6 +201,7 @@ Il throughput dipende fortemente dal carico di lavoro e dalla configurazione:
   [Ignite], [Decine/centinaia di migliaia/secondo], [Dipende dalla persistenza],
   [Kafka], [Milioni di messaggi/secondo], [Ottimizzato per alto throughput],
 ))
+*/
 
 === Scalabilità Orizzontale
 
@@ -187,12 +221,12 @@ Tutte le tecnologie menzionate supportano la scalabilità orizzontale, ma con ca
 
 == Casi d'Uso Ottimali
 
-=== Hazelcast
 - *Caching distribuito* con necessità di query avanzate
 - *Elaborazione stream* in tempo reale con bassa latenza
 - *Computazione distribuita* con località dei dati
 - *Architetture event-driven* che richiedono storage e processing
 
+/*
 === Cassandra
 - *Big data* con pattern di scrittura intensivi
 - *Time-series data* distribuiti globalmente
@@ -216,7 +250,8 @@ Tutte le tecnologie menzionate supportano la scalabilità orizzontale, ma con ca
 - *Log di eventi* centralizzato e distribuito
 - *Integrazione di sistemi* disaccoppiati
 - *Pipeline di dati* con garanzie di ordinamento
-
+*/
+/*
 == Valutazione Complessiva
 
 === Forza di Hazelcast
@@ -235,10 +270,10 @@ Hazelcast potrebbe non essere la scelta ottimale quando:
 
 1. *Persistenza duratura* è il requisito principale
 2. *Set di dati massivi* superano significativamente la memoria disponibile
-3. *Consistenza transazionale* completa è richiesta senza upgrade Enterprise
-4. *Distribuzione geografica globale* con write locality è fondamentale
+3. *Distribuzione geografica globale* con write locality è fondamentale
+*/
 
-== Conclusioni Architetturali
+== Commenti
 
 Dall'analisi comparativa emergono alcune considerazioni architetturali:
 
@@ -257,4 +292,3 @@ Quando si seleziona tra queste tecnologie, la decisione dovrebbe basarsi su:
 - Modello di consistenza necessario
 - Pattern di accesso ai dati
 - Requisiti di calcolo distribuito
-- Vincoli di budget e preferenze per open source vs soluzioni

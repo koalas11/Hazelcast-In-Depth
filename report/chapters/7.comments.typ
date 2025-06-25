@@ -33,6 +33,7 @@ L'edizione Enterprise estende l'offerta con funzionalità avanzate necessarie pe
 - *Rolling Upgrades*: Aggiornamenti graduali del cluster senza downtime
 - *Management Center Pro*: Strumenti avanzati di monitoring e amministrazione
 - *Operator dedicato per Kubernetes*: Integrazione avanzata con orchestratori
+- *User Code Namespaces*: Isolamento del codice utente per evitare conflitti tra applicazioni
 
 L'edizione Enterprise è disponibile con licenza commerciale e include supporto tecnico professionale.
 

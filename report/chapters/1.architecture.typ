@@ -253,7 +253,7 @@ Le finestre scorrevoli (sliding window) sono una tecnica fondamentale nell'elabo
   - *Sliding Window*: Finestre che si sovrappongono e avanzano con incrementi più piccoli della dimensione della finestra
   - *Session Window*: Raggruppano eventi vicini in sessioni, con timeout configurabile
 
-- *Gestione efficiente della memoria*: Anziché memorizzare tutti gli eventi all’interno di una finestra, Jet conserva solo gli aggregati parziali, riducendo così l’utilizzo di memoria.
+- *Gestione efficiente della memoria*: Anziché memorizzare tutti gli eventi all'interno di una finestra, Jet conserva solo gli aggregati parziali, riducendo così l'utilizzo di memoria.
 
 - *Fault tolerance*: Jet crea periodicamente punti di controllo (checkpoint) dello stato delle finestre, consentendo il ripristino in caso di problemi.
 

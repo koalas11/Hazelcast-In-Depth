@@ -8,7 +8,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Run tests with configurable report directory.')
     parser.add_argument('--report-dir', dest='report_dir', type=str, default=None, help='Directory where reports will be stored')
     
-    parser.add_argument('--tests', dest='tests_to_run', type=int, choices=[0, 1, 2, 3], default=0, help='Specify which tests to run: 0 for all, 1 for single node, 2 for two nodes, 3 for three nodes.')
+    parser.add_argument('--tests', dest='tests_to_run', type=int, choices=[0, 1, 2, 3, 4, 5], default=0, help='Specify which tests to run: 0 for all, 1 for single node, 2 for two nodes, 3 for three nodes, ecc.')
     
     # Parse arguments
     args = parser.parse_args()
