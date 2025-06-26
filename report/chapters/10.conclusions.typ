@@ -1,3 +1,5 @@
+#import "../macros.typ": plot1, plot2, plot3
+
 = Conclusioni
 
 == Risultati dei Test Java
@@ -12,16 +14,16 @@ I benchmark condotti durante questo studio hanno confermato molte delle caratter
 
 #figure(
   caption: [Confronto latenze in operazioni di lettura/scrittura],
-  // Spazio per grafico di latenza: x operazione, y tempi
-  [],
+  // Spazio per grafico di latenza: x operazione, y tempi, lines: sizes
+  plot1,
 )
 
 I risultati mostrano che Hazelcast mantiene le promesse di latenza sub-millisecondo per le operazioni in-memory, posizionandosi favorevolmente rispetto ad altre tecnologie distribuite. Particolarmente notevole è la capacità di mantenere prestazioni stabili all'aumentare del carico.
 
 #figure(
   caption: [Scalabilità con incremento di nodi],
-  // Spazio per grafico di scalabilità: x thread, y ops/sec
-  [],
+  // Spazio per grafico di scalabilità: x batchSize, y ops/sec, lines: nthread
+  plot2,
 )
 
 Nel test avendo più thread che eseguono operazioni di lettura e scrittura, Hazelcast ha dimostrato una scalabilità lineare, con un incremento delle operazioni al secondo proporzionale al numero di thread. Questo è un indicatore chiave della capacità di Hazelcast di gestire carichi elevati in scenari reali.
@@ -29,7 +31,7 @@ Nel test avendo più thread che eseguono operazioni di lettura e scrittura, Haze
 #figure(
   caption: [Confronto tempo dopo failover e aggiunta di un nodo],
   // Spazio per grafico di confronto: x quantità di dati, y tempo di recupero
-  [],
+  plot3,
 )
 
 In scenari di failover, Hazelcast ha dimostrato una rapida capacità di recupero, con tempi di ripristino che non hanno grosse variazioni rispetto alla quantità di dati. Questo è un aspetto cruciale per applicazioni mission-critical dove la disponibilità continua è fondamentale. Tale comportamento è coerente con l'architettura di Hazelcast, che prevede la replica delle partizioni tra i nodi del cluster, garantendo che i dati siano sempre disponibili anche in caso di guasti.
