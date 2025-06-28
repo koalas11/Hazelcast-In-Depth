@@ -1,0 +1,19 @@
+Test Name,Result,Timestamp,Message
+RemoveOps-RemoveEntry,PASS,2025-06-28 17:54:22,"Remove entry operation test. Removed: true, New count: 2, Entry exists: false"
+RemoveOps-RemoveAll,PASS,2025-06-28 17:54:23,"Remove all entries operation test. Removed count: 2, Key exists: false, Remaining keys: 2"
+RemoveOps-Clear,PASS,2025-06-28 17:54:23,"Clear operation test. Size after clear: 0, KeySet empty: true"
+ValueCollection-Get,PASS,2025-06-28 17:54:23,"Get operation test. Collection size: 3, Contains all expected values: true"
+ValueCollection-Values,PASS,2025-06-28 17:54:23,"Values operation test. Expected size: 8, Actual size: 8"
+Listeners-EventNotification,PASS,2025-06-28 17:54:23,"Listener event notification test. Event received: true, Entry added detected: true"
+Listeners-RemoveListener,PASS,2025-06-28 17:54:23,Listener removal test. Successfully removed: true
+EntrySet-KeySet,PASS,2025-06-28 17:54:23,"KeySet operation test. Size: 3, Contains all expected keys: true"
+EntrySet-EntrySet,PASS,2025-06-28 17:54:23,"EntrySet operation test. Expected size: 8, Actual size: 8"
+LockOps-Lock,PASS,2025-06-28 17:54:24,Lock operation test. Lock prevented modification: true
+LockOps-TryLock,PASS,2025-06-28 17:54:24,TryLock operation test. Successfully acquired lock
+LockOps-Unlock,PASS,2025-06-28 17:54:24,Unlock operation test. Successfully unlocked and reacquired: true
+BasicMultiMapOps-Size,PASS,2025-06-28 17:54:24,"MultiMap size check. Expected: 8, Actual: 8"
+BasicMultiMapOps-ValueCount,PASS,2025-06-28 17:54:24,"ValueCount operation test. Expected: 3, Actual: 3"
+BasicMultiMapOps-Put,PASS,2025-06-28 17:54:24,"Put operation test. Added: true, New count: 4"
+BasicMultiMapOps-ContainsEntry,PASS,2025-06-28 17:54:24,"ContainsEntry operation test. Contains carrot: true, Contains cucumber: false"
+BasicMultiMapOps-ContainsKey,PASS,2025-06-28 17:54:24,"ContainsKey operation test. Contains grains: true, Contains dairy: false"
+BasicMultiMapOps-ContainsValue,PASS,2025-06-28 17:54:24,"ContainsValue operation test. Contains rice: true, Contains milk: false"

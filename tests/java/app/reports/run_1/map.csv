@@ -1,0 +1,48 @@
+Test Name,Result,Timestamp,Message
+Async-Put,PASS,2025-06-28 17:53:15,Async put operation test. Entry exists: true
+Async-Get,PASS,2025-06-28 17:53:15,Async get operation test. Retrieved person: Ian
+Async-Remove,PASS,2025-06-28 17:53:15,"Async remove operation test. Removed person: Ian, Entry exists: false"
+Concurrency-OptimisticLocking,PASS,2025-06-28 17:53:15,"Optimistic concurrency control test. Expected: 100, Actual: 100"
+Concurrency-MultiThreaded,PASS,2025-06-28 17:53:16,"Multi-threaded concurrency test. Expected: 250, Actual: 250"
+QueryOps-SimplePredicate,PASS,2025-06-28 17:53:16,"Simple predicate query test. Expected 2 people older than 30, Got: 2"
+QueryOps-AndPredicate,PASS,2025-06-28 17:53:16,"Compound AND predicate test. Expected 2 people, Got: 2"
+QueryOps-OrPredicate,PASS,2025-06-28 17:53:16,"Compound OR predicate test. Expected 3 people, Got: 3"
+QueryOps-NotPredicate,PASS,2025-06-28 17:53:16,"NOT predicate test. Expected 2 person, Got: 2"
+QueryOps-LikePredicate,PASS,2025-06-28 17:53:16,"LIKE predicate test. Expected 2 people, Got: 2"
+Eviction-SingleEvict,PASS,2025-06-28 17:53:16,"Single entry eviction test. Evicted: true, Entry exists: false"
+Eviction-EvictAll,PASS,2025-06-28 17:53:16,EvictAll operation test. Map size after eviction: 0
+BasicMapOps-Size,PASS,2025-06-28 17:53:16,"Map size check. Expected: 5, Actual: 5"
+BasicMapOps-Get,PASS,2025-06-28 17:53:16,"Get operation test. Expected: Alice(32), Actual: Person{name='Alice', age=32, active=true}"
+BasicMapOps-Put,PASS,2025-06-28 17:53:16,"Put operation test. Expected size: 6, Actual: 6"
+BasicMapOps-Replace,PASS,2025-06-28 17:53:16,"Replace operation test. Original age: 24, New age: 25"
+BasicMapOps-ConditionalReplace,PASS,2025-06-28 17:53:16,"Conditional replace operation test. Success: true, New age: 30"
+BasicMapOps-ContainsKey,PASS,2025-06-28 17:53:16,"ContainsKey operation test. Contains p3: true, Contains nonexistent: false"
+BasicMapOps-ContainsValue,PASS,2025-06-28 17:53:16,"ContainsValue operation test. Contains Alice: true, Contains nonexistent: false"
+BasicMapOps-Remove,PASS,2025-06-28 17:53:16,Remove operation test. Removed person: Edward
+BasicMapOps-ConditionalRemove,PASS,2025-06-28 17:53:16,Conditional remove operation test. Success: true
+BasicMapOps-CollectionViews,PASS,2025-06-28 17:53:16,"Collection views test. Keys size: 4, Values size: 4, Entries size: 4"
+Bulk-PutAll,PASS,2025-06-28 17:53:16,PutAll operation test. Map size after operation: 3
+Bulk-GetAll,PASS,2025-06-28 17:53:16,GetAll operation test. Retrieved entries: 3
+Listeners-EventNotification,PASS,2025-06-28 17:53:16,"Listener event notification test. Add events: true, Update events: true, Remove events: true"
+Listeners-RemoveListener,PASS,2025-06-28 17:53:16,Listener removal test. Successfully removed: true
+Locks-BasicLock,PASS,2025-06-28 17:53:16,Basic lock operation test. Updated age: 33
+Locks-TryLock,PASS,2025-06-28 17:53:16,TryLock operation test succeeded
+EntryProcessor-ReturnValues,PASS,2025-06-28 17:53:16,Entry processor returned correct values. Size: 5
+EntryProcessor-Updates,PASS,2025-06-28 17:53:16,"Entry processor updated values correctly. Alice's age: 33, Bob's age: 25"
+EntryProcessor-FilteredProcessing,PASS,2025-06-28 17:53:16,Filtered entry processor affected correct number of entries. Size: 3
+EntryProcessor-FilteredUpdates,PASS,2025-06-28 17:53:16,"Filtered entry processor updated correct entries. Alice's age: 43, Diana's age: 42"
+TTL-AddEntry,PASS,2025-06-28 17:53:16,Added entry with TTL. Entry exists: true
+TTL-HalfPeriod,PASS,2025-06-28 17:53:19,Entry exists after half TTL period: true
+TTL-Expiration,PASS,2025-06-28 17:53:22,Entry expired after full TTL period: true
+TTL-AddWithMaxIdle,PASS,2025-06-28 17:53:22,Added entry with maxIdle. Entry exists: true
+TTL-MaxIdleExpiration,PASS,2025-06-28 17:53:28,Entry with maxIdle expired correctly: true
+TTL-AddEntry,PASS,2025-06-28 17:53:28,Added entry with TTL. Entry exists: true
+TTL-HalfPeriod,PASS,2025-06-28 17:53:33,Entry exists after half TTL period: true
+TTL-Expiration,PASS,2025-06-28 17:53:39,Entry expired after full TTL period: true
+TTL-AddWithMaxIdle,PASS,2025-06-28 17:53:39,Added entry with maxIdle. Entry exists: true
+TTL-MaxIdleExpiration,PASS,2025-06-28 17:53:50,Entry with maxIdle expired correctly: true
+TTL-AddEntry,PASS,2025-06-28 17:53:50,Added entry with TTL. Entry exists: true
+TTL-HalfPeriod,PASS,2025-06-28 17:53:58,Entry exists after half TTL period: true
+TTL-Expiration,PASS,2025-06-28 17:54:06,Entry expired after full TTL period: true
+TTL-AddWithMaxIdle,PASS,2025-06-28 17:54:06,Added entry with maxIdle. Entry exists: true
+TTL-MaxIdleExpiration,PASS,2025-06-28 17:54:22,Entry with maxIdle expired correctly: true

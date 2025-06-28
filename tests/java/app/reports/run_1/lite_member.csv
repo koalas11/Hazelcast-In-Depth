@@ -1,0 +1,2 @@
+Test Name,Result,Timestamp,Message
+LiteMemberTest,PASS,2025-06-28 18:04:47,"Lite member data size expected to be 0, but found 0. Sizes of other members: member1 = 45, member2 = 55"

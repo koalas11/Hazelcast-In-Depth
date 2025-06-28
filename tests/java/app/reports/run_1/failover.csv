@@ -1,0 +1,5 @@
+Test Name,Result,Timestamp,Message
+Failover-PredicateQueryShutdown,PASS,2025-06-28 17:59:40,Predicate query was resilient to node shutdown
+Failover-PredicateQueryTermination,PASS,2025-06-28 17:59:52,Predicate query was resilient to node termination
+Failover-SqlQueryShutdown,FAIL,2025-06-28 18:00:05,SQL query failed during node shutdown
+Failover-SqlQueryTermination,FAIL,2025-06-28 18:00:17,SQL query failed during node termination

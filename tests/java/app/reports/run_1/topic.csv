@@ -1,0 +1,6 @@
+Test Name,Result,Timestamp,Message
+ListenerManagement-Remove,PASS,2025-06-28 17:54:30,"Message listener removal test. Successfully removed: true, Message not received after removal: true"
+PublishSubscribe-Basic,PASS,2025-06-28 17:54:31,"Simple publish-subscribe test. Message received: true, Message content matched: true"
+PublishSubscribe-Multiple,PASS,2025-06-28 17:54:31,"Multiple subscribers test. All received: true, Expected count: 3, Actual count: 3"
+MessageTypes-Custom,PASS,2025-06-28 17:54:32,"Custom message types test. Message received: true, Message content correct: true"
+ReliableTopic-Delivery,PASS,2025-06-28 17:54:32,"Reliable topic message delivery test. Message received: true, Message content matched: true"

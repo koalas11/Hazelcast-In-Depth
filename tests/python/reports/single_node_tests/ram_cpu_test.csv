@@ -1,0 +1,10 @@
+timestamp,test_case,status,details
+2025-06-28 12:19:36,idle_usage_0_entries_60s,INFO,"Avg Memory: 354004582.4, Avg Memory Perc: 354004582.40%, Avg CPU: 1.28%"
+2025-06-28 12:19:36,idle_usage_0_entries_300s,INFO,"Avg Memory: 355416858.122449, Avg Memory Perc: 355416858.12%, Avg CPU: 1.23%"
+2025-06-28 12:19:36,idle_usage_1000_entries_60s,INFO,"Avg Memory: 362939596.8, Avg Memory Perc: 362939596.80%, Avg CPU: 0.78%"
+2025-06-28 12:19:36,idle_usage_1000_entries_300s,INFO,"Avg Memory: 298315284.48, Avg Memory Perc: 298315284.48%, Avg CPU: 0.80%"
+2025-06-28 12:19:36,idle_usage_10000_entries_60s,INFO,"Avg Memory: 297805414.4, Avg Memory Perc: 297805414.40%, Avg CPU: 0.60%"
+2025-06-28 12:19:36,idle_usage_10000_entries_300s,INFO,"Avg Memory: 297893314.56, Avg Memory Perc: 297893314.56%, Avg CPU: 0.93%"
+2025-06-28 12:19:36,idle_usage_100000_entries_60s,INFO,"Avg Memory: 375930880.0, Avg Memory Perc: 375930880.00%, Avg CPU: 0.76%"
+2025-06-28 12:19:36,idle_usage_100000_entries_300s,INFO,"Avg Memory: 388530503.68, Avg Memory Perc: 388530503.68%, Avg CPU: 0.92%"
+2025-06-28 12:19:36,usage_tracking,PASS,Usage test passed successfully

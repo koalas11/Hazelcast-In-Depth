@@ -1,0 +1,22 @@
+Test Name,Result,Timestamp,Message
+BasicQueueOps-Offer,PASS,2025-06-28 17:54:27,"Offer operation test. All offers succeeded: true, Queue size: 3"
+BasicQueueOps-Peek,PASS,2025-06-28 17:54:27,"Peek operation test. Expected: item1, Actual: item1, Queue size unchanged: true"
+BasicQueueOps-Element,PASS,2025-06-28 17:54:27,"Element operation test. Expected: item1, Actual: item1, Queue size unchanged: true"
+BasicQueueOps-Poll,PASS,2025-06-28 17:54:27,"Poll operation test. Expected: item1, Actual: item1, Queue size reduced: true"
+BasicQueueOps-Remove,PASS,2025-06-28 17:54:27,"Remove operation test. Expected: item2, Actual: item2, Queue size reduced: true"
+BasicQueueOps-Contains,PASS,2025-06-28 17:54:27,Contains operation test. Contains item3: true
+BasicQueueOps-Clear,PASS,2025-06-28 17:54:27,"Clear operation test. Queue empty: true, Size: 0"
+BlockingOps-Put,PASS,2025-06-28 17:54:27,Put operation test. Queue size: 2
+BlockingOps-Take,PASS,2025-06-28 17:54:27,"Take operation test. Expected: item1, Actual: item1, Queue size reduced: true"
+BlockingOps-PollTimeout,PASS,2025-06-28 17:54:27,"Poll with timeout test. Expected: item2, Actual: item2, Queue empty: true"
+BlockingOps-PollTimeoutEmpty,PASS,2025-06-28 17:54:28,"Poll with timeout on empty queue test. Result null: true, Duration >= 1000ms: true, Actual duration: 1008ms"
+DrainOps-DrainTo,PASS,2025-06-28 17:54:28,"DrainTo operation test. Drain count: 5, Collection size: 5, Queue empty: true"
+DrainOps-DrainToMax,PASS,2025-06-28 17:54:28,"DrainTo with maxElements test. Drain count: 3, Collection size: 3, Queue size: 2"
+Listeners-EventNotification,PASS,2025-06-28 17:54:28,"Listener event notification test. Event received: true, Item added detected: true"
+Listeners-RemoveListener,PASS,2025-06-28 17:54:28,Listener removal test. Successfully removed: true
+BulkOps-AddAll,PASS,2025-06-28 17:54:28,"AddAll operation test. Items added: true, Queue size: 3"
+BulkOps-ContainsAll,PASS,2025-06-28 17:54:28,ContainsAll operation test. Contains all items: true
+BulkOps-RemoveAll,PASS,2025-06-28 17:54:28,"RemoveAll operation test. Items removed: true, Queue size: 1, Contains item2: true"
+BulkOps-RetainAll,PASS,2025-06-28 17:54:28,"RetainAll operation test. Operation succeeded: true, Queue size: 1, Contains item2: true"
+ProducerConsumer-Pattern,PASS,2025-06-28 17:54:28,"Producer-Consumer pattern test. Completed: true, All items processed correctly: true"
+QueueCapacity-Test,PASS,2025-06-28 17:54:28,"Queue capacity test. Items added: 1000, Reached capacity: false"

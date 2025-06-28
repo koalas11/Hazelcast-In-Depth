@@ -1,0 +1,17 @@
+Test Name,Result,Timestamp,Message
+BasicMapOps-Size,PASS,2025-06-28 17:54:24,"ReplicatedMap size check. Expected: 5, Actual: 5"
+BasicMapOps-Get,PASS,2025-06-28 17:54:24,"Get operation test. Expected: value3, Actual: value3"
+BasicMapOps-ContainsKey,PASS,2025-06-28 17:54:24,"ContainsKey operation test. Contains key2: true, Contains nonexistent: false"
+BasicMapOps-ContainsValue,PASS,2025-06-28 17:54:24,"ContainsValue operation test. Contains value4: true, Contains nonexistent: false"
+BasicMapOps-Put,PASS,2025-06-28 17:54:24,"Put operation test. Old value null: true, New size: 6, New value correct: true"
+BasicMapOps-Remove,PASS,2025-06-28 17:54:24,"Remove operation test. Removed value: value5, New size: 5, Key no longer exists: true"
+EntrySetOps-KeySet,PASS,2025-06-28 17:54:24,"KeySet operation test. Size: 5, Contains expected keys: true"
+EntrySetOps-Values,PASS,2025-06-28 17:54:24,"Values operation test. Size: 5, Contains expected values: false"
+EntrySetOps-EntrySet,PASS,2025-06-28 17:54:24,"EntrySet operation test. Size correct: true, Values match: true"
+Listeners-EventNotification,PASS,2025-06-28 17:54:24,"Listener event notification test. Event received: true, Entry added detected: true"
+Listeners-RemoveListener,PASS,2025-06-28 17:54:24,Listener removal test. Successfully removed: true
+BulkOps-PutAll,PASS,2025-06-28 17:54:24,"PutAll operation test. New size: 8, Contains new entries: true"
+BulkOps-Clear,PASS,2025-06-28 17:54:24,"Clear operation test. Map empty: true, Size zero: true"
+TTL-AddEntry,PASS,2025-06-28 17:54:24,TTL entry add test. Entry exists: true
+TTL-HalfwayCheck,PASS,2025-06-28 17:54:25,TTL halfway check test. Entry still exists: true
+TTL-ExpiredCheck,PASS,2025-06-28 17:54:26,TTL expired check test. Entry correctly expired: true

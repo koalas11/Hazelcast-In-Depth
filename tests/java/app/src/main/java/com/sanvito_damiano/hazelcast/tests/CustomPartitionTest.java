@@ -150,7 +150,6 @@ public class CustomPartitionTest extends AbstractTest {
             Map<UUID, Set<Integer>> nodePartitions = new HashMap<>();
             Map<UUID, Integer> nodeKeyCounts = new HashMap<>();
             
-            // ✅ CORREZIONE: Usa lo stesso tipo di chiave che hai inserito
             for (int i = 0; i < dataSize; i++) {
                 RegionAwareKey regionAwareKey = new RegionAwareKey(region, "key-" + i);
                 Partition partition = partitionService.getPartition(regionAwareKey);

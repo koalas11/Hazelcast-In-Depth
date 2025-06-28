@@ -1,0 +1,1935 @@
+2025-06-28 17:53:15 INFO  out - Running tests for: map
+2025-06-28 17:53:15 INFO  out - Executing: testAsyncOperations
+2025-06-28 17:53:15 INFO  out - 
+2025-06-28 17:53:15 INFO  out - === Testing Async Map Operations ===
+2025-06-28 17:53:15 INFO  out - Testing async put...
+2025-06-28 17:53:15 INFO  out - ✓ Async put operation worked correctly
+2025-06-28 17:53:15 INFO  out - Testing async get...
+2025-06-28 17:53:15 INFO  out - ✓ Async get operation worked correctly
+2025-06-28 17:53:15 INFO  out - Testing async remove...
+2025-06-28 17:53:15 INFO  out - ✓ Async remove operation worked correctly
+2025-06-28 17:53:15 INFO  out - Executing: testConcurrentOperations
+2025-06-28 17:53:15 INFO  out - 
+2025-06-28 17:53:15 INFO  out - === Testing Concurrent Map Operations ===
+2025-06-28 17:53:15 INFO  out - Performing 100 increments with optimistic locking...
+2025-06-28 17:53:15 INFO  out - ✓ Optimistic concurrency control worked correctly
+2025-06-28 17:53:15 INFO  out - Testing concurrent access with multiple threads...
+2025-06-28 17:53:16 INFO  out - ✓ Multi-threaded concurrency control worked correctly
+2025-06-28 17:53:16 INFO  out - Executing: testQueryOperations
+2025-06-28 17:53:16 INFO  out - 
+2025-06-28 17:53:16 INFO  out - === Testing Query Operations ===
+2025-06-28 17:53:16 INFO  out - Testing simple predicate (age > 30)...
+2025-06-28 17:53:16 INFO  out - ✓ Simple predicate query works correctly
+2025-06-28 17:53:16 INFO  out - Testing compound AND predicate (age > 25 AND active = true)...
+2025-06-28 17:53:16 INFO  out - ✓ Compound AND predicate query works correctly
+2025-06-28 17:53:16 INFO  out - Testing compound OR predicate (age < 25 OR age > 40)...
+2025-06-28 17:53:16 INFO  out - ✓ Compound OR predicate query works correctly
+2025-06-28 17:53:16 INFO  out - Testing NOT predicate (NOT active)...
+2025-06-28 17:53:16 INFO  out - ✓ NOT predicate query works correctly
+2025-06-28 17:53:16 INFO  out - Testing LIKE predicate (name LIKE %li%)...
+2025-06-28 17:53:16 INFO  out - ✓ LIKE predicate query works correctly
+2025-06-28 17:53:16 INFO  out - Executing: testEvictionOperations
+2025-06-28 17:53:16 INFO  out - 
+2025-06-28 17:53:16 INFO  out - === Testing Map Eviction Operations ===
+2025-06-28 17:53:16 INFO  out - Testing evict operation...
+2025-06-28 17:53:16 INFO  out - ✓ Evict operation worked correctly
+2025-06-28 17:53:16 INFO  out - Testing evictAll operation...
+2025-06-28 17:53:16 INFO  out - ✓ EvictAll operation worked correctly
+2025-06-28 17:53:16 INFO  out - Executing: testBasicMapOperations
+2025-06-28 17:53:16 INFO  out - 
+2025-06-28 17:53:16 INFO  out - === Testing Basic Map Operations ===
+2025-06-28 17:53:16 INFO  out - Testing map size...
+2025-06-28 17:53:16 INFO  out - ✓ Map size is correct: 5
+2025-06-28 17:53:16 INFO  out - Testing get operation...
+2025-06-28 17:53:16 INFO  out - ✓ Get operation works correctly
+2025-06-28 17:53:16 INFO  out - Testing put operation...
+2025-06-28 17:53:16 INFO  out - ✓ Put operation works correctly
+2025-06-28 17:53:16 INFO  out - Testing replace operation...
+2025-06-28 17:53:16 INFO  out - ✓ Replace operation works correctly
+2025-06-28 17:53:16 INFO  out - Testing conditional replace operation...
+2025-06-28 17:53:16 INFO  out - ✓ Conditional replace operation works correctly
+2025-06-28 17:53:16 INFO  out - Testing containsKey operation...
+2025-06-28 17:53:16 INFO  out - ✓ ContainsKey operation works correctly
+2025-06-28 17:53:16 INFO  out - Testing containsValue operation...
+2025-06-28 17:53:16 INFO  out - ✓ ContainsValue operation works correctly
+2025-06-28 17:53:16 INFO  out - Testing remove operation...
+2025-06-28 17:53:16 INFO  out - ✓ Remove operation works correctly
+2025-06-28 17:53:16 INFO  out - Testing conditional remove operation...
+2025-06-28 17:53:16 INFO  out - ✓ Conditional remove operation works correctly
+2025-06-28 17:53:16 INFO  out - Testing collection views...
+2025-06-28 17:53:16 INFO  out - ✓ Collection views work correctly
+2025-06-28 17:53:16 INFO  out - Executing: testBulkOperations
+2025-06-28 17:53:16 INFO  out - 
+2025-06-28 17:53:16 INFO  out - === Testing Map Bulk Operations ===
+2025-06-28 17:53:16 INFO  out - Testing putAll operation...
+2025-06-28 17:53:16 INFO  out - ✓ PutAll operation worked correctly
+2025-06-28 17:53:16 INFO  out - Testing getAll operation...
+2025-06-28 17:53:16 INFO  out - ✓ GetAll operation worked correctly
+2025-06-28 17:53:16 INFO  out - Executing: testMapListeners
+2025-06-28 17:53:16 INFO  out - 
+2025-06-28 17:53:16 INFO  out - === Testing Map Listeners ===
+2025-06-28 17:53:16 INFO  out - Adding entry listeners...
+2025-06-28 17:53:16 INFO  out - Performing operations to trigger events...
+2025-06-28 17:53:16 INFO  out - Entry added: p7 -> Grace
+2025-06-28 17:53:16 INFO  out - Entry updated: p1 -> Alice
+2025-06-28 17:53:16 INFO  out - Entry added: p8 -> Henry
+2025-06-28 17:53:16 INFO  out - Entry removed: p8
+2025-06-28 17:53:16 INFO  out - ✓ All listener events were received correctly
+2025-06-28 17:53:16 INFO  out - Testing listener removal...
+2025-06-28 17:53:16 INFO  out - ✓ Listener removal worked correctly
+2025-06-28 17:53:16 INFO  out - Executing: testLockOperations
+2025-06-28 17:53:16 INFO  out - 
+2025-06-28 17:53:16 INFO  out - === Testing Map Lock Operations ===
+2025-06-28 17:53:16 INFO  out - Testing lock operation...
+2025-06-28 17:53:16 INFO  out - Entry updated: p1 -> Alice
+2025-06-28 17:53:16 INFO  out - ✓ Lock operation worked correctly
+2025-06-28 17:53:16 INFO  out - Testing tryLock operation...
+2025-06-28 17:53:16 INFO  out - ✓ TryLock operation worked correctly
+2025-06-28 17:53:16 INFO  out - Executing: testEntryProcessor
+2025-06-28 17:53:16 INFO  out - 
+2025-06-28 17:53:16 INFO  out - === Testing Entry Processor ===
+2025-06-28 17:53:16 INFO  out - Using entry processor to increment all ages...
+2025-06-28 17:53:16 INFO  out - Entry updated: p2 -> Bob
+2025-06-28 17:53:16 INFO  out - Entry updated: p1 -> Alice
+2025-06-28 17:53:16 INFO  out - Entry updated: p4 -> Diana
+2025-06-28 17:53:16 INFO  out - Entry updated: p5 -> Edward
+2025-06-28 17:53:16 INFO  out - Entry updated: p3 -> Charlie
+2025-06-28 17:53:16 INFO  out - ✓ Entry processor execution returned correct results
+2025-06-28 17:53:16 INFO  out - ✓ Entry processor updated ages correctly
+2025-06-28 17:53:16 INFO  out - Using entry processor with a filter (only active users)...
+2025-06-28 17:53:16 INFO  out - Entry updated: p3 -> Charlie
+2025-06-28 17:53:16 INFO  out - Entry updated: p2 -> Bob
+2025-06-28 17:53:16 INFO  out - Entry updated: p1 -> Alice
+2025-06-28 17:53:16 INFO  out - ✓ Filtered entry processor affected correct number of entries
+2025-06-28 17:53:16 INFO  out - ✓ Filtered entry processor updated only active entries
+2025-06-28 17:53:16 INFO  out - Executing: testMapWithTTL
+2025-06-28 17:53:16 INFO  out - 
+2025-06-28 17:53:16 INFO  out - === Testing Map with Time-To-Live (TTL) ===
+2025-06-28 17:53:16 INFO  out - 
+2025-06-28 17:53:16 INFO  out - === Testing Map with TTL (5 seconds) ===
+2025-06-28 17:53:16 INFO  out - Adding entry with 5 seconds TTL...
+2025-06-28 17:53:16 INFO  out - ✓ Entry with TTL was added successfully
+2025-06-28 17:53:16 INFO  out - Waiting for 2 seconds...
+2025-06-28 17:53:19 INFO  out - ✓ Entry still exists after half TTL period
+2025-06-28 17:53:19 INFO  out - Waiting for remaining TTL period plus 1 second...
+2025-06-28 17:53:22 INFO  out - ✓ Entry expired after TTL period
+2025-06-28 17:53:22 INFO  out - Testing put with maxIdle...
+2025-06-28 17:53:22 INFO  out - ✓ Entry with maxIdle was added successfully
+2025-06-28 17:53:22 INFO  out - Waiting for idle expiration...
+2025-06-28 17:53:28 INFO  out - ✓ Entry with maxIdle expired correctly
+2025-06-28 17:53:28 INFO  out - 
+2025-06-28 17:53:28 INFO  out - === Testing Map with TTL (10 seconds) ===
+2025-06-28 17:53:28 INFO  out - Adding entry with 10 seconds TTL...
+2025-06-28 17:53:28 INFO  out - ✓ Entry with TTL was added successfully
+2025-06-28 17:53:28 INFO  out - Waiting for 5 seconds...
+2025-06-28 17:53:33 INFO  out - ✓ Entry still exists after half TTL period
+2025-06-28 17:53:33 INFO  out - Waiting for remaining TTL period plus 1 second...
+2025-06-28 17:53:39 INFO  out - ✓ Entry expired after TTL period
+2025-06-28 17:53:39 INFO  out - Testing put with maxIdle...
+2025-06-28 17:53:39 INFO  out - ✓ Entry with maxIdle was added successfully
+2025-06-28 17:53:39 INFO  out - Waiting for idle expiration...
+2025-06-28 17:53:50 INFO  out - ✓ Entry with maxIdle expired correctly
+2025-06-28 17:53:50 INFO  out - 
+2025-06-28 17:53:50 INFO  out - === Testing Map with TTL (15 seconds) ===
+2025-06-28 17:53:50 INFO  out - Adding entry with 15 seconds TTL...
+2025-06-28 17:53:50 INFO  out - ✓ Entry with TTL was added successfully
+2025-06-28 17:53:50 INFO  out - Waiting for 7 seconds...
+2025-06-28 17:53:58 INFO  out - ✓ Entry still exists after half TTL period
+2025-06-28 17:53:58 INFO  out - Waiting for remaining TTL period plus 1 second...
+2025-06-28 17:54:06 INFO  out - ✓ Entry expired after TTL period
+2025-06-28 17:54:06 INFO  out - Testing put with maxIdle...
+2025-06-28 17:54:06 INFO  out - ✓ Entry with maxIdle was added successfully
+2025-06-28 17:54:06 INFO  out - Waiting for idle expiration...
+2025-06-28 17:54:22 INFO  out - ✓ Entry with maxIdle expired correctly
+2025-06-28 17:54:22 INFO  out - 
+2025-06-28 17:54:22 INFO  out - Test results written to: map.csv
+2025-06-28 17:54:22 INFO  out - Test report generated: map.csv
+2025-06-28 17:54:22 INFO  out - 
+2025-06-28 17:54:22 INFO  out - === Test Summary for map ===
+2025-06-28 17:54:22 INFO  out - [Async-Put]: PASS - Async put operation test. Entry exists: true
+2025-06-28 17:54:22 INFO  out - [Async-Get]: PASS - Async get operation test. Retrieved person: Ian
+2025-06-28 17:54:22 INFO  out - [Async-Remove]: PASS - Async remove operation test. Removed person: Ian, Entry exists: false
+2025-06-28 17:54:22 INFO  out - [Concurrency-OptimisticLocking]: PASS - Optimistic concurrency control test. Expected: 100, Actual: 100
+2025-06-28 17:54:22 INFO  out - [Concurrency-MultiThreaded]: PASS - Multi-threaded concurrency test. Expected: 250, Actual: 250
+2025-06-28 17:54:22 INFO  out - [QueryOps-SimplePredicate]: PASS - Simple predicate query test. Expected 2 people older than 30, Got: 2
+2025-06-28 17:54:22 INFO  out - [QueryOps-AndPredicate]: PASS - Compound AND predicate test. Expected 2 people, Got: 2
+2025-06-28 17:54:22 INFO  out - [QueryOps-OrPredicate]: PASS - Compound OR predicate test. Expected 3 people, Got: 3
+2025-06-28 17:54:22 INFO  out - [QueryOps-NotPredicate]: PASS - NOT predicate test. Expected 2 person, Got: 2
+2025-06-28 17:54:22 INFO  out - [QueryOps-LikePredicate]: PASS - LIKE predicate test. Expected 2 people, Got: 2
+2025-06-28 17:54:22 INFO  out - [Eviction-SingleEvict]: PASS - Single entry eviction test. Evicted: true, Entry exists: false
+2025-06-28 17:54:22 INFO  out - [Eviction-EvictAll]: PASS - EvictAll operation test. Map size after eviction: 0
+2025-06-28 17:54:22 INFO  out - [BasicMapOps-Size]: PASS - Map size check. Expected: 5, Actual: 5
+2025-06-28 17:54:22 INFO  out - [BasicMapOps-Get]: PASS - Get operation test. Expected: Alice(32), Actual: Person{name='Alice', age=32, active=true}
+2025-06-28 17:54:22 INFO  out - [BasicMapOps-Put]: PASS - Put operation test. Expected size: 6, Actual: 6
+2025-06-28 17:54:22 INFO  out - [BasicMapOps-Replace]: PASS - Replace operation test. Original age: 24, New age: 25
+2025-06-28 17:54:22 INFO  out - [BasicMapOps-ConditionalReplace]: PASS - Conditional replace operation test. Success: true, New age: 30
+2025-06-28 17:54:22 INFO  out - [BasicMapOps-ContainsKey]: PASS - ContainsKey operation test. Contains p3: true, Contains nonexistent: false
+2025-06-28 17:54:22 INFO  out - [BasicMapOps-ContainsValue]: PASS - ContainsValue operation test. Contains Alice: true, Contains nonexistent: false
+2025-06-28 17:54:22 INFO  out - [BasicMapOps-Remove]: PASS - Remove operation test. Removed person: Edward
+2025-06-28 17:54:22 INFO  out - [BasicMapOps-ConditionalRemove]: PASS - Conditional remove operation test. Success: true
+2025-06-28 17:54:22 INFO  out - [BasicMapOps-CollectionViews]: PASS - Collection views test. Keys size: 4, Values size: 4, Entries size: 4
+2025-06-28 17:54:22 INFO  out - [Bulk-PutAll]: PASS - PutAll operation test. Map size after operation: 3
+2025-06-28 17:54:22 INFO  out - [Bulk-GetAll]: PASS - GetAll operation test. Retrieved entries: 3
+2025-06-28 17:54:22 INFO  out - [Listeners-EventNotification]: PASS - Listener event notification test. Add events: true, Update events: true, Remove events: true
+2025-06-28 17:54:22 INFO  out - [Listeners-RemoveListener]: PASS - Listener removal test. Successfully removed: true
+2025-06-28 17:54:22 INFO  out - [Locks-BasicLock]: PASS - Basic lock operation test. Updated age: 33
+2025-06-28 17:54:22 INFO  out - [Locks-TryLock]: PASS - TryLock operation test succeeded
+2025-06-28 17:54:22 INFO  out - [EntryProcessor-ReturnValues]: PASS - Entry processor returned correct values. Size: 5
+2025-06-28 17:54:22 INFO  out - [EntryProcessor-Updates]: PASS - Entry processor updated values correctly. Alice's age: 33, Bob's age: 25
+2025-06-28 17:54:22 INFO  out - [EntryProcessor-FilteredProcessing]: PASS - Filtered entry processor affected correct number of entries. Size: 3
+2025-06-28 17:54:22 INFO  out - [EntryProcessor-FilteredUpdates]: PASS - Filtered entry processor updated correct entries. Alice's age: 43, Diana's age: 42
+2025-06-28 17:54:22 INFO  out - [TTL-AddEntry]: PASS - Added entry with TTL. Entry exists: true
+2025-06-28 17:54:22 INFO  out - [TTL-HalfPeriod]: PASS - Entry exists after half TTL period: true
+2025-06-28 17:54:22 INFO  out - [TTL-Expiration]: PASS - Entry expired after full TTL period: true
+2025-06-28 17:54:22 INFO  out - [TTL-AddWithMaxIdle]: PASS - Added entry with maxIdle. Entry exists: true
+2025-06-28 17:54:22 INFO  out - [TTL-MaxIdleExpiration]: PASS - Entry with maxIdle expired correctly: true
+2025-06-28 17:54:22 INFO  out - [TTL-AddEntry]: PASS - Added entry with TTL. Entry exists: true
+2025-06-28 17:54:22 INFO  out - [TTL-HalfPeriod]: PASS - Entry exists after half TTL period: true
+2025-06-28 17:54:22 INFO  out - [TTL-Expiration]: PASS - Entry expired after full TTL period: true
+2025-06-28 17:54:22 INFO  out - [TTL-AddWithMaxIdle]: PASS - Added entry with maxIdle. Entry exists: true
+2025-06-28 17:54:22 INFO  out - [TTL-MaxIdleExpiration]: PASS - Entry with maxIdle expired correctly: true
+2025-06-28 17:54:22 INFO  out - [TTL-AddEntry]: PASS - Added entry with TTL. Entry exists: true
+2025-06-28 17:54:22 INFO  out - [TTL-HalfPeriod]: PASS - Entry exists after half TTL period: true
+2025-06-28 17:54:22 INFO  out - [TTL-Expiration]: PASS - Entry expired after full TTL period: true
+2025-06-28 17:54:22 INFO  out - [TTL-AddWithMaxIdle]: PASS - Added entry with maxIdle. Entry exists: true
+2025-06-28 17:54:22 INFO  out - [TTL-MaxIdleExpiration]: PASS - Entry with maxIdle expired correctly: true
+2025-06-28 17:54:22 INFO  out - Total Tests: 47, Passed: 47, Failed: 0
+2025-06-28 17:54:22 INFO  out - ========================================
+2025-06-28 17:54:22 INFO  out - 
+2025-06-28 17:54:22 INFO  out - Running tests for: multi_map
+2025-06-28 17:54:22 INFO  out - Executing: testRemoveOperations
+2025-06-28 17:54:22 INFO  out - 
+2025-06-28 17:54:22 INFO  out - === Testing MultiMap Remove Operations ===
+2025-06-28 17:54:22 INFO  out - Testing remove entry operation...
+2025-06-28 17:54:22 INFO  out - ✓ Remove entry operation works correctly
+2025-06-28 17:54:22 INFO  out - Testing remove all entries operation...
+2025-06-28 17:54:23 INFO  out - ✓ Remove all entries operation works correctly
+2025-06-28 17:54:23 INFO  out - Testing clear operation...
+2025-06-28 17:54:23 INFO  out - ✓ Clear operation works correctly
+2025-06-28 17:54:23 INFO  out - Executing: testValueCollection
+2025-06-28 17:54:23 INFO  out - 
+2025-06-28 17:54:23 INFO  out - === Testing MultiMap Value Collection ===
+2025-06-28 17:54:23 INFO  out - Testing get operation...
+2025-06-28 17:54:23 INFO  out - ✓ Get operation works correctly
+2025-06-28 17:54:23 INFO  out - Testing values operation...
+2025-06-28 17:54:23 INFO  out - ✓ Values operation works correctly
+2025-06-28 17:54:23 INFO  out - Executing: testListeners
+2025-06-28 17:54:23 INFO  out - 
+2025-06-28 17:54:23 INFO  out - === Testing MultiMap Listeners ===
+2025-06-28 17:54:23 INFO  out - Adding entry listener...
+2025-06-28 17:54:23 INFO  out - Adding entry to trigger listener...
+2025-06-28 17:54:23 INFO  out - Entry added: newCategory -> newItem
+2025-06-28 17:54:23 INFO  out - ✓ MultiMap listener works correctly
+2025-06-28 17:54:23 INFO  out - Testing listener removal...
+2025-06-28 17:54:23 INFO  out - ✓ Listener removal worked correctly
+2025-06-28 17:54:23 INFO  out - Executing: testEntrySet
+2025-06-28 17:54:23 INFO  out - 
+2025-06-28 17:54:23 INFO  out - === Testing MultiMap Entry Set ===
+2025-06-28 17:54:23 INFO  out - Testing keySet operation...
+2025-06-28 17:54:23 INFO  out - ✓ KeySet operation works correctly
+2025-06-28 17:54:23 INFO  out - Testing entrySet operation...
+2025-06-28 17:54:23 INFO  out - ✓ EntrySet operation works correctly
+2025-06-28 17:54:23 INFO  out - Executing: testLockOperations
+2025-06-28 17:54:23 INFO  out - 
+2025-06-28 17:54:23 INFO  out - === Testing MultiMap Lock Operations ===
+2025-06-28 17:54:23 INFO  out - Testing lock operation...
+2025-06-28 17:54:24 INFO  out - ✓ Lock operation works correctly
+2025-06-28 17:54:24 INFO  out - Testing tryLock operation...
+2025-06-28 17:54:24 INFO  out - ✓ TryLock operation works correctly
+2025-06-28 17:54:24 INFO  out - ✓ Unlock operation works correctly
+2025-06-28 17:54:24 INFO  out - Executing: testBasicMultiMapOperations
+2025-06-28 17:54:24 INFO  out - 
+2025-06-28 17:54:24 INFO  out - === Testing Basic MultiMap Operations ===
+2025-06-28 17:54:24 INFO  out - Testing size operation...
+2025-06-28 17:54:24 INFO  out - ✓ MultiMap size is correct: 8
+2025-06-28 17:54:24 INFO  out - Testing valueCount operation...
+2025-06-28 17:54:24 INFO  out - ✓ ValueCount operation works correctly
+2025-06-28 17:54:24 INFO  out - Testing put operation...
+2025-06-28 17:54:24 INFO  out - ✓ Put operation works correctly
+2025-06-28 17:54:24 INFO  out - Testing containsEntry operation...
+2025-06-28 17:54:24 INFO  out - ✓ ContainsEntry operation works correctly
+2025-06-28 17:54:24 INFO  out - Testing containsKey operation...
+2025-06-28 17:54:24 INFO  out - ✓ ContainsKey operation works correctly
+2025-06-28 17:54:24 INFO  out - Testing containsValue operation...
+2025-06-28 17:54:24 INFO  out - ✓ ContainsValue operation works correctly
+2025-06-28 17:54:24 INFO  out - 
+2025-06-28 17:54:24 INFO  out - Test results written to: multi_map.csv
+2025-06-28 17:54:24 INFO  out - Test report generated: multi_map.csv
+2025-06-28 17:54:24 INFO  out - 
+2025-06-28 17:54:24 INFO  out - === Test Summary for multi_map ===
+2025-06-28 17:54:24 INFO  out - [RemoveOps-RemoveEntry]: PASS - Remove entry operation test. Removed: true, New count: 2, Entry exists: false
+2025-06-28 17:54:24 INFO  out - [RemoveOps-RemoveAll]: PASS - Remove all entries operation test. Removed count: 2, Key exists: false, Remaining keys: 2
+2025-06-28 17:54:24 INFO  out - [RemoveOps-Clear]: PASS - Clear operation test. Size after clear: 0, KeySet empty: true
+2025-06-28 17:54:24 INFO  out - [ValueCollection-Get]: PASS - Get operation test. Collection size: 3, Contains all expected values: true
+2025-06-28 17:54:24 INFO  out - [ValueCollection-Values]: PASS - Values operation test. Expected size: 8, Actual size: 8
+2025-06-28 17:54:24 INFO  out - [Listeners-EventNotification]: PASS - Listener event notification test. Event received: true, Entry added detected: true
+2025-06-28 17:54:24 INFO  out - [Listeners-RemoveListener]: PASS - Listener removal test. Successfully removed: true
+2025-06-28 17:54:24 INFO  out - [EntrySet-KeySet]: PASS - KeySet operation test. Size: 3, Contains all expected keys: true
+2025-06-28 17:54:24 INFO  out - [EntrySet-EntrySet]: PASS - EntrySet operation test. Expected size: 8, Actual size: 8
+2025-06-28 17:54:24 INFO  out - [LockOps-Lock]: PASS - Lock operation test. Lock prevented modification: true
+2025-06-28 17:54:24 INFO  out - [LockOps-TryLock]: PASS - TryLock operation test. Successfully acquired lock
+2025-06-28 17:54:24 INFO  out - [LockOps-Unlock]: PASS - Unlock operation test. Successfully unlocked and reacquired: true
+2025-06-28 17:54:24 INFO  out - [BasicMultiMapOps-Size]: PASS - MultiMap size check. Expected: 8, Actual: 8
+2025-06-28 17:54:24 INFO  out - [BasicMultiMapOps-ValueCount]: PASS - ValueCount operation test. Expected: 3, Actual: 3
+2025-06-28 17:54:24 INFO  out - [BasicMultiMapOps-Put]: PASS - Put operation test. Added: true, New count: 4
+2025-06-28 17:54:24 INFO  out - [BasicMultiMapOps-ContainsEntry]: PASS - ContainsEntry operation test. Contains carrot: true, Contains cucumber: false
+2025-06-28 17:54:24 INFO  out - [BasicMultiMapOps-ContainsKey]: PASS - ContainsKey operation test. Contains grains: true, Contains dairy: false
+2025-06-28 17:54:24 INFO  out - [BasicMultiMapOps-ContainsValue]: PASS - ContainsValue operation test. Contains rice: true, Contains milk: false
+2025-06-28 17:54:24 INFO  out - Total Tests: 18, Passed: 18, Failed: 0
+2025-06-28 17:54:24 INFO  out - ========================================
+2025-06-28 17:54:24 INFO  out - 
+2025-06-28 17:54:24 INFO  out - Running tests for: replicated_map
+2025-06-28 17:54:24 INFO  out - Executing: testBasicMapOperations
+2025-06-28 17:54:24 INFO  out - 
+2025-06-28 17:54:24 INFO  out - === Testing Basic ReplicatedMap Operations ===
+2025-06-28 17:54:24 INFO  out - Testing size operation...
+2025-06-28 17:54:24 INFO  out - ✓ ReplicatedMap size is correct: 5
+2025-06-28 17:54:24 INFO  out - Testing get operation...
+2025-06-28 17:54:24 INFO  out - ✓ Get operation works correctly
+2025-06-28 17:54:24 INFO  out - Testing containsKey operation...
+2025-06-28 17:54:24 INFO  out - ✓ ContainsKey operation works correctly
+2025-06-28 17:54:24 INFO  out - Testing containsValue operation...
+2025-06-28 17:54:24 INFO  out - ✓ ContainsValue operation works correctly
+2025-06-28 17:54:24 INFO  out - Testing put operation...
+2025-06-28 17:54:24 INFO  out - ✓ Put operation works correctly
+2025-06-28 17:54:24 INFO  out - Testing remove operation...
+2025-06-28 17:54:24 INFO  out - ✓ Remove operation works correctly
+2025-06-28 17:54:24 INFO  out - Executing: testEntrySetOperations
+2025-06-28 17:54:24 INFO  out - 
+2025-06-28 17:54:24 INFO  out - === Testing ReplicatedMap Entry Set Operations ===
+2025-06-28 17:54:24 INFO  out - Testing keySet operation...
+2025-06-28 17:54:24 INFO  out - ✓ KeySet operation works correctly
+2025-06-28 17:54:24 INFO  out - Testing values operation...
+2025-06-28 17:54:24 INFO  out - ✓ Values operation works correctly
+2025-06-28 17:54:24 INFO  out - Testing entrySet operation...
+2025-06-28 17:54:24 INFO  out - ✓ EntrySet operation works correctly
+2025-06-28 17:54:24 INFO  out - Executing: testListeners
+2025-06-28 17:54:24 INFO  out - 
+2025-06-28 17:54:24 INFO  out - === Testing ReplicatedMap Listeners ===
+2025-06-28 17:54:24 INFO  out - Adding entry listener...
+2025-06-28 17:54:24 INFO  out - Adding entry to trigger listener...
+2025-06-28 17:54:24 INFO  out - Entry added: newKey -> newValue
+2025-06-28 17:54:24 INFO  out - ✓ ReplicatedMap listener works correctly
+2025-06-28 17:54:24 INFO  out - Testing listener removal...
+2025-06-28 17:54:24 INFO  out - ✓ Listener removal worked correctly
+2025-06-28 17:54:24 INFO  out - Executing: testBulkOperations
+2025-06-28 17:54:24 INFO  out - 
+2025-06-28 17:54:24 INFO  out - === Testing ReplicatedMap Bulk Operations ===
+2025-06-28 17:54:24 INFO  out - Testing putAll operation...
+2025-06-28 17:54:24 INFO  out - ✓ PutAll operation works correctly
+2025-06-28 17:54:24 INFO  out - Testing clear operation...
+2025-06-28 17:54:24 INFO  out - ✓ Clear operation works correctly
+2025-06-28 17:54:24 INFO  out - Executing: testPutWithTTL
+2025-06-28 17:54:24 INFO  out - 
+2025-06-28 17:54:24 INFO  out - === Testing ReplicatedMap Put with TTL ===
+2025-06-28 17:54:24 INFO  out - Adding entry with 2 seconds TTL...
+2025-06-28 17:54:24 INFO  out - ✓ Entry added with TTL
+2025-06-28 17:54:24 INFO  out - Waiting for 1 second...
+2025-06-28 17:54:25 INFO  out - ✓ Entry still exists after half TTL period
+2025-06-28 17:54:25 INFO  out - Waiting for 1.5 more seconds...
+2025-06-28 17:54:26 INFO  out - ✓ Entry expired correctly after TTL
+2025-06-28 17:54:26 INFO  out - 
+2025-06-28 17:54:26 INFO  out - Test results written to: replicated_map.csv
+2025-06-28 17:54:26 INFO  out - Test report generated: replicated_map.csv
+2025-06-28 17:54:26 INFO  out - 
+2025-06-28 17:54:26 INFO  out - === Test Summary for replicated_map ===
+2025-06-28 17:54:26 INFO  out - [BasicMapOps-Size]: PASS - ReplicatedMap size check. Expected: 5, Actual: 5
+2025-06-28 17:54:26 INFO  out - [BasicMapOps-Get]: PASS - Get operation test. Expected: value3, Actual: value3
+2025-06-28 17:54:26 INFO  out - [BasicMapOps-ContainsKey]: PASS - ContainsKey operation test. Contains key2: true, Contains nonexistent: false
+2025-06-28 17:54:26 INFO  out - [BasicMapOps-ContainsValue]: PASS - ContainsValue operation test. Contains value4: true, Contains nonexistent: false
+2025-06-28 17:54:26 INFO  out - [BasicMapOps-Put]: PASS - Put operation test. Old value null: true, New size: 6, New value correct: true
+2025-06-28 17:54:26 INFO  out - [BasicMapOps-Remove]: PASS - Remove operation test. Removed value: value5, New size: 5, Key no longer exists: true
+2025-06-28 17:54:26 INFO  out - [EntrySetOps-KeySet]: PASS - KeySet operation test. Size: 5, Contains expected keys: true
+2025-06-28 17:54:26 INFO  out - [EntrySetOps-Values]: PASS - Values operation test. Size: 5, Contains expected values: false
+2025-06-28 17:54:26 INFO  out - [EntrySetOps-EntrySet]: PASS - EntrySet operation test. Size correct: true, Values match: true
+2025-06-28 17:54:26 INFO  out - [Listeners-EventNotification]: PASS - Listener event notification test. Event received: true, Entry added detected: true
+2025-06-28 17:54:26 INFO  out - [Listeners-RemoveListener]: PASS - Listener removal test. Successfully removed: true
+2025-06-28 17:54:26 INFO  out - [BulkOps-PutAll]: PASS - PutAll operation test. New size: 8, Contains new entries: true
+2025-06-28 17:54:26 INFO  out - [BulkOps-Clear]: PASS - Clear operation test. Map empty: true, Size zero: true
+2025-06-28 17:54:26 INFO  out - [TTL-AddEntry]: PASS - TTL entry add test. Entry exists: true
+2025-06-28 17:54:26 INFO  out - [TTL-HalfwayCheck]: PASS - TTL halfway check test. Entry still exists: true
+2025-06-28 17:54:26 INFO  out - [TTL-ExpiredCheck]: PASS - TTL expired check test. Entry correctly expired: true
+2025-06-28 17:54:26 INFO  out - Total Tests: 16, Passed: 16, Failed: 0
+2025-06-28 17:54:26 INFO  out - ========================================
+2025-06-28 17:54:26 INFO  out - 
+2025-06-28 17:54:26 INFO  out - Running tests for: queue
+2025-06-28 17:54:27 INFO  out - Executing: testBasicQueueOperations
+2025-06-28 17:54:27 INFO  out - 
+2025-06-28 17:54:27 INFO  out - === Testing Basic Queue Operations ===
+2025-06-28 17:54:27 INFO  out - Testing offer operation...
+2025-06-28 17:54:27 INFO  out - ✓ Offer operation works correctly
+2025-06-28 17:54:27 INFO  out - Testing peek operation...
+2025-06-28 17:54:27 INFO  out - ✓ Peek operation works correctly
+2025-06-28 17:54:27 INFO  out - Testing element operation...
+2025-06-28 17:54:27 INFO  out - ✓ Element operation works correctly
+2025-06-28 17:54:27 INFO  out - Testing poll operation...
+2025-06-28 17:54:27 INFO  out - ✓ Poll operation works correctly
+2025-06-28 17:54:27 INFO  out - Testing remove operation...
+2025-06-28 17:54:27 INFO  out - ✓ Remove operation works correctly
+2025-06-28 17:54:27 INFO  out - Testing contains operation...
+2025-06-28 17:54:27 INFO  out - ✓ Contains operation works correctly
+2025-06-28 17:54:27 INFO  out - Testing clear operation...
+2025-06-28 17:54:27 INFO  out - ✓ Clear operation works correctly
+2025-06-28 17:54:27 INFO  out - Executing: testBlockingOperations
+2025-06-28 17:54:27 INFO  out - 
+2025-06-28 17:54:27 INFO  out - === Testing Blocking Queue Operations ===
+2025-06-28 17:54:27 INFO  out - Testing put operation...
+2025-06-28 17:54:27 INFO  out - ✓ Put operation works correctly
+2025-06-28 17:54:27 INFO  out - Testing take operation...
+2025-06-28 17:54:27 INFO  out - ✓ Take operation works correctly
+2025-06-28 17:54:27 INFO  out - Testing poll with timeout...
+2025-06-28 17:54:27 INFO  out - ✓ Poll with timeout works correctly
+2025-06-28 17:54:27 INFO  out - Testing poll with timeout on empty queue...
+2025-06-28 17:54:28 INFO  out - ✓ Poll with timeout on empty queue works correctly
+2025-06-28 17:54:28 INFO  out - Executing: testDrainOperations
+2025-06-28 17:54:28 INFO  out - 
+2025-06-28 17:54:28 INFO  out - === Testing Queue Drain Operations ===
+2025-06-28 17:54:28 INFO  out - Testing drainTo operation...
+2025-06-28 17:54:28 INFO  out - ✓ DrainTo operation works correctly
+2025-06-28 17:54:28 INFO  out - Testing drainTo with maxElements...
+2025-06-28 17:54:28 INFO  out - ✓ DrainTo with maxElements works correctly
+2025-06-28 17:54:28 INFO  out - Executing: testListeners
+2025-06-28 17:54:28 INFO  out - 
+2025-06-28 17:54:28 INFO  out - === Testing Queue Listeners ===
+2025-06-28 17:54:28 INFO  out - Adding item listener...
+2025-06-28 17:54:28 INFO  out - Adding item to trigger listener...
+2025-06-28 17:54:28 INFO  out - ✓ Queue listener works correctly
+2025-06-28 17:54:28 INFO  out - Testing listener removal...
+2025-06-28 17:54:28 INFO  out - ✓ Listener removal worked correctly
+2025-06-28 17:54:28 INFO  out - Executing: testBulkOperations
+2025-06-28 17:54:28 INFO  out - 
+2025-06-28 17:54:28 INFO  out - === Testing Queue Bulk Operations ===
+2025-06-28 17:54:28 INFO  out - Testing addAll operation...
+2025-06-28 17:54:28 INFO  out - ✓ AddAll operation works correctly
+2025-06-28 17:54:28 INFO  out - Testing containsAll operation...
+2025-06-28 17:54:28 INFO  out - ✓ ContainsAll operation works correctly
+2025-06-28 17:54:28 INFO  out - Testing removeAll operation...
+2025-06-28 17:54:28 INFO  out - ✓ RemoveAll operation works correctly
+2025-06-28 17:54:28 INFO  out - Testing retainAll operation...
+2025-06-28 17:54:28 INFO  out - ✓ RetainAll operation works correctly
+2025-06-28 17:54:28 INFO  out - Executing: testProducerConsumerPattern
+2025-06-28 17:54:28 INFO  out - 
+2025-06-28 17:54:28 INFO  out - === Testing Producer-Consumer Pattern ===
+2025-06-28 17:54:28 INFO  out - Starting consumer thread...
+2025-06-28 17:54:28 INFO  out - Starting producer thread...
+2025-06-28 17:54:28 INFO  out - ✓ Producer-Consumer pattern works correctly
+2025-06-28 17:54:28 INFO  out - Executing: testQueueCapacity
+2025-06-28 17:54:28 INFO  out - 
+2025-06-28 17:54:28 INFO  out - === Testing Queue Capacity ===
+2025-06-28 17:54:28 INFO  out - Note: Queue capacity is set in configuration. This test assumes a reasonable capacity.
+2025-06-28 17:54:28 INFO  out - Testing adding many items...
+2025-06-28 17:54:28 INFO  out - ✓ Added 1000 items to queue
+2025-06-28 17:54:28 INFO  out - 
+2025-06-28 17:54:28 INFO  out - Test results written to: queue.csv
+2025-06-28 17:54:28 INFO  out - Test report generated: queue.csv
+2025-06-28 17:54:28 INFO  out - 
+2025-06-28 17:54:28 INFO  out - === Test Summary for queue ===
+2025-06-28 17:54:28 INFO  out - [BasicQueueOps-Offer]: PASS - Offer operation test. All offers succeeded: true, Queue size: 3
+2025-06-28 17:54:28 INFO  out - [BasicQueueOps-Peek]: PASS - Peek operation test. Expected: item1, Actual: item1, Queue size unchanged: true
+2025-06-28 17:54:28 INFO  out - [BasicQueueOps-Element]: PASS - Element operation test. Expected: item1, Actual: item1, Queue size unchanged: true
+2025-06-28 17:54:28 INFO  out - [BasicQueueOps-Poll]: PASS - Poll operation test. Expected: item1, Actual: item1, Queue size reduced: true
+2025-06-28 17:54:28 INFO  out - [BasicQueueOps-Remove]: PASS - Remove operation test. Expected: item2, Actual: item2, Queue size reduced: true
+2025-06-28 17:54:28 INFO  out - [BasicQueueOps-Contains]: PASS - Contains operation test. Contains item3: true
+2025-06-28 17:54:28 INFO  out - [BasicQueueOps-Clear]: PASS - Clear operation test. Queue empty: true, Size: 0
+2025-06-28 17:54:28 INFO  out - [BlockingOps-Put]: PASS - Put operation test. Queue size: 2
+2025-06-28 17:54:28 INFO  out - [BlockingOps-Take]: PASS - Take operation test. Expected: item1, Actual: item1, Queue size reduced: true
+2025-06-28 17:54:28 INFO  out - [BlockingOps-PollTimeout]: PASS - Poll with timeout test. Expected: item2, Actual: item2, Queue empty: true
+2025-06-28 17:54:28 INFO  out - [BlockingOps-PollTimeoutEmpty]: PASS - Poll with timeout on empty queue test. Result null: true, Duration >= 1000ms: true, Actual duration: 1008ms
+2025-06-28 17:54:28 INFO  out - [DrainOps-DrainTo]: PASS - DrainTo operation test. Drain count: 5, Collection size: 5, Queue empty: true
+2025-06-28 17:54:28 INFO  out - [DrainOps-DrainToMax]: PASS - DrainTo with maxElements test. Drain count: 3, Collection size: 3, Queue size: 2
+2025-06-28 17:54:28 INFO  out - [Listeners-EventNotification]: PASS - Listener event notification test. Event received: true, Item added detected: true
+2025-06-28 17:54:28 INFO  out - [Listeners-RemoveListener]: PASS - Listener removal test. Successfully removed: true
+2025-06-28 17:54:28 INFO  out - [BulkOps-AddAll]: PASS - AddAll operation test. Items added: true, Queue size: 3
+2025-06-28 17:54:28 INFO  out - [BulkOps-ContainsAll]: PASS - ContainsAll operation test. Contains all items: true
+2025-06-28 17:54:28 INFO  out - [BulkOps-RemoveAll]: PASS - RemoveAll operation test. Items removed: true, Queue size: 1, Contains item2: true
+2025-06-28 17:54:28 INFO  out - [BulkOps-RetainAll]: PASS - RetainAll operation test. Operation succeeded: true, Queue size: 1, Contains item2: true
+2025-06-28 17:54:28 INFO  out - [ProducerConsumer-Pattern]: PASS - Producer-Consumer pattern test. Completed: true, All items processed correctly: true
+2025-06-28 17:54:28 INFO  out - [QueueCapacity-Test]: PASS - Queue capacity test. Items added: 1000, Reached capacity: false
+2025-06-28 17:54:28 INFO  out - Total Tests: 21, Passed: 21, Failed: 0
+2025-06-28 17:54:28 INFO  out - ========================================
+2025-06-28 17:54:28 INFO  out - 
+2025-06-28 17:54:28 INFO  out - Running tests for: set
+2025-06-28 17:54:28 INFO  out - Executing: testBasicSetOperations
+2025-06-28 17:54:28 INFO  out - 
+2025-06-28 17:54:28 INFO  out - === Testing Basic Set Operations ===
+2025-06-28 17:54:28 INFO  out - Testing size operation...
+2025-06-28 17:54:28 INFO  out - ✓ Set size is correct: 5
+2025-06-28 17:54:28 INFO  out - Testing contains operation...
+2025-06-28 17:54:28 INFO  out - ✓ Contains operation works correctly
+2025-06-28 17:54:28 INFO  out - Testing add operation...
+2025-06-28 17:54:28 INFO  out - ✓ Add operation works correctly
+2025-06-28 17:54:28 INFO  out - Testing remove operation...
+2025-06-28 17:54:28 INFO  out - ✓ Remove operation works correctly
+2025-06-28 17:54:28 INFO  out - Testing isEmpty operation...
+2025-06-28 17:54:28 INFO  out - ✓ IsEmpty operation works correctly
+2025-06-28 17:54:28 INFO  out - Testing clear operation...
+2025-06-28 17:54:28 INFO  out - ✓ Clear operation works correctly
+2025-06-28 17:54:28 INFO  out - Executing: testSetUniqueElements
+2025-06-28 17:54:28 INFO  out - 
+2025-06-28 17:54:28 INFO  out - === Testing Set Uniqueness ===
+2025-06-28 17:54:28 INFO  out - Testing uniqueness with duplicate add...
+2025-06-28 17:54:28 INFO  out - ✓ Set correctly rejected duplicate element
+2025-06-28 17:54:28 INFO  out - Testing add null value...
+2025-06-28 17:54:28 INFO  out - ✓ Set correctly rejected null value
+2025-06-28 17:54:28 INFO  out - Executing: testConcurrentModification
+2025-06-28 17:54:28 INFO  out - 
+2025-06-28 17:54:28 INFO  out - === Testing Concurrent Set Modifications ===
+2025-06-28 17:54:28 INFO  out - Starting 5 concurrent threads...
+2025-06-28 17:54:28 INFO  out - ✓ Concurrent modifications successful. Final size: 200
+2025-06-28 17:54:28 INFO  out - Executing: testListeners
+2025-06-28 17:54:28 INFO  out - 
+2025-06-28 17:54:28 INFO  out - === Testing Set Listeners ===
+2025-06-28 17:54:28 INFO  out - Adding item listener...
+2025-06-28 17:54:28 INFO  out - Adding item to trigger listener...
+2025-06-28 17:54:28 INFO  out - ✓ Set listener works correctly
+2025-06-28 17:54:28 INFO  out - Testing listener removal...
+2025-06-28 17:54:28 INFO  out - ✓ Listener removal worked correctly
+2025-06-28 17:54:28 INFO  out - Executing: testBulkOperations
+2025-06-28 17:54:28 INFO  out - 
+2025-06-28 17:54:28 INFO  out - === Testing Set Bulk Operations ===
+2025-06-28 17:54:28 INFO  out - Testing addAll operation...
+2025-06-28 17:54:28 INFO  out - ✓ AddAll operation works correctly
+2025-06-28 17:54:28 INFO  out - Testing containsAll operation...
+2025-06-28 17:54:28 INFO  out - ✓ ContainsAll operation works correctly
+2025-06-28 17:54:28 INFO  out - Testing removeAll operation...
+2025-06-28 17:54:28 INFO  out - ✓ RemoveAll operation works correctly
+2025-06-28 17:54:28 INFO  out - Testing retainAll operation...
+2025-06-28 17:54:28 INFO  out - ✓ RetainAll operation works correctly
+2025-06-28 17:54:28 INFO  out - 
+2025-06-28 17:54:28 INFO  out - Test results written to: set.csv
+2025-06-28 17:54:28 INFO  out - Test report generated: set.csv
+2025-06-28 17:54:28 INFO  out - 
+2025-06-28 17:54:28 INFO  out - === Test Summary for set ===
+2025-06-28 17:54:28 INFO  out - [BasicSetOps-Size]: PASS - Set size check. Expected: 5, Actual: 5
+2025-06-28 17:54:28 INFO  out - [BasicSetOps-Contains]: PASS - Contains operation test. Contains item2: true, Contains nonexistent: false
+2025-06-28 17:54:28 INFO  out - [BasicSetOps-Add]: PASS - Add operation test. Added: true, New size: 6, Contains new item: true
+2025-06-28 17:54:28 INFO  out - [BasicSetOps-Remove]: PASS - Remove operation test. Removed: true, New size: 5, Item no longer exists: true
+2025-06-28 17:54:28 INFO  out - [BasicSetOps-IsEmpty]: PASS - IsEmpty operation test. Expected: false, Actual: false
+2025-06-28 17:54:28 INFO  out - [BasicSetOps-Clear]: PASS - Clear operation test. Is empty: true, Size: 0
+2025-06-28 17:54:28 INFO  out - [Uniqueness-DuplicateAdd]: PASS - Duplicate add test. Add returned: false, Size unchanged: true
+2025-06-28 17:54:28 INFO  out - [Uniqueness-NullAdd]: PASS - Null add test. Null properly rejected: true
+2025-06-28 17:54:28 INFO  out - [ConcurrentMod-ThreadSafety]: PASS - Concurrent modification test. Threads completed: true, Expected size: 200, Actual size: 200
+2025-06-28 17:54:28 INFO  out - [Listeners-EventNotification]: PASS - Listener event notification test. Event received: true, Item added detected: true
+2025-06-28 17:54:28 INFO  out - [Listeners-RemoveListener]: PASS - Listener removal test. Successfully removed: true
+2025-06-28 17:54:28 INFO  out - [BulkOps-AddAll]: PASS - AddAll operation test. AddAll returned: true, Final size: 8
+2025-06-28 17:54:28 INFO  out - [BulkOps-ContainsAll]: PASS - ContainsAll operation test. Contains all required items: true
+2025-06-28 17:54:28 INFO  out - [BulkOps-RemoveAll]: PASS - RemoveAll operation test. RemoveAll returned: true, Final size: 6, Items removed: true
+2025-06-28 17:54:28 INFO  out - [BulkOps-RetainAll]: PASS - RetainAll operation test. RetainAll returned: true, Final size: 1, Contains item3: true
+2025-06-28 17:54:28 INFO  out - Total Tests: 15, Passed: 15, Failed: 0
+2025-06-28 17:54:28 INFO  out - ========================================
+2025-06-28 17:54:28 INFO  out - 
+2025-06-28 17:54:28 INFO  out - Running tests for: list
+2025-06-28 17:54:28 INFO  out - Executing: testListeners
+2025-06-28 17:54:28 INFO  out - 
+2025-06-28 17:54:28 INFO  out - === Testing List Listeners ===
+2025-06-28 17:54:28 INFO  out - Adding item listener...
+2025-06-28 17:54:28 INFO  out - Adding item to trigger listener...
+2025-06-28 17:54:28 INFO  out - ✓ List listener works correctly
+2025-06-28 17:54:28 INFO  out - Executing: testBulkOperations
+2025-06-28 17:54:28 INFO  out - 
+2025-06-28 17:54:28 INFO  out - === Testing List Bulk Operations ===
+2025-06-28 17:54:28 INFO  out - Testing addAll operation...
+2025-06-28 17:54:28 INFO  out - ✓ AddAll operation works correctly
+2025-06-28 17:54:28 INFO  out - Testing addAll at index operation...
+2025-06-28 17:54:28 INFO  out - ✓ AddAll at index operation works correctly
+2025-06-28 17:54:28 INFO  out - Testing removeAll operation...
+2025-06-28 17:54:28 INFO  out - ✓ RemoveAll operation works correctly
+2025-06-28 17:54:28 INFO  out - Testing retainAll operation...
+2025-06-28 17:54:28 INFO  out - ✓ RetainAll operation works correctly
+2025-06-28 17:54:28 INFO  out - Executing: testBasicListOperations
+2025-06-28 17:54:28 INFO  out - 
+2025-06-28 17:54:28 INFO  out - === Testing Basic List Operations ===
+2025-06-28 17:54:28 INFO  out - Testing size operation...
+2025-06-28 17:54:28 INFO  out - ✓ List size is correct: 5
+2025-06-28 17:54:28 INFO  out - Testing get operation...
+2025-06-28 17:54:28 INFO  out - ✓ Get operation works correctly
+2025-06-28 17:54:28 INFO  out - Testing contains operation...
+2025-06-28 17:54:28 INFO  out - ✓ Contains operation works correctly
+2025-06-28 17:54:28 INFO  out - Testing add operation...
+2025-06-28 17:54:28 INFO  out - ✓ Add operation works correctly
+2025-06-28 17:54:28 INFO  out - Testing remove by object operation...
+2025-06-28 17:54:28 INFO  out - ✓ Remove by object operation works correctly
+2025-06-28 17:54:28 INFO  out - Testing remove by index operation...
+2025-06-28 17:54:28 INFO  out - ✓ Remove by index operation works correctly
+2025-06-28 17:54:28 INFO  out - Executing: testIndexOperations
+2025-06-28 17:54:28 INFO  out - 
+2025-06-28 17:54:28 INFO  out - === Testing List Index Operations ===
+2025-06-28 17:54:28 INFO  out - Testing add at index operation...
+2025-06-28 17:54:28 INFO  out - ✓ Add at index operation works correctly
+2025-06-28 17:54:28 INFO  out - Testing set operation...
+2025-06-28 17:54:28 INFO  out - ✓ Set operation works correctly
+2025-06-28 17:54:28 INFO  out - Testing indexOf operation...
+2025-06-28 17:54:28 INFO  out - ✓ IndexOf operation works correctly
+2025-06-28 17:54:28 INFO  out - Testing lastIndexOf operation...
+2025-06-28 17:54:28 INFO  out - ✓ LastIndexOf operation works correctly
+2025-06-28 17:54:28 INFO  out - Executing: testListIteration
+2025-06-28 17:54:28 INFO  out - 
+2025-06-28 17:54:28 INFO  out - === Testing List Iteration ===
+2025-06-28 17:54:28 INFO  out - Testing foreach iteration...
+2025-06-28 17:54:28 INFO  out - ✓ List iteration works correctly
+2025-06-28 17:54:28 INFO  out - 
+2025-06-28 17:54:28 INFO  out - Test results written to: list.csv
+2025-06-28 17:54:28 INFO  out - Test report generated: list.csv
+2025-06-28 17:54:28 INFO  out - 
+2025-06-28 17:54:28 INFO  out - === Test Summary for list ===
+2025-06-28 17:54:28 INFO  out - [Listeners-ItemAdded]: PASS - List listener test. Event received: true, Correct item: true
+2025-06-28 17:54:28 INFO  out - [BulkOps-AddAll]: PASS - AddAll operation test. List size: 7, Item at index 5: bulk1, Item at index 6: bulk2
+2025-06-28 17:54:28 INFO  out - [BulkOps-AddAllAtIndex]: PASS - AddAll at index operation test. List size: 9, Item at index 2: index1, Item at index 3: index2
+2025-06-28 17:54:28 INFO  out - [BulkOps-RemoveAll]: PASS - RemoveAll operation test. List size: 7, Contains 'bulk1': false, Contains 'bulk2': false
+2025-06-28 17:54:28 INFO  out - [BulkOps-RetainAll]: PASS - RetainAll operation test. List size: 2, Contains 'item1': true, Contains 'item2': true
+2025-06-28 17:54:28 INFO  out - [BasicListOps-Size]: PASS - List size check. Expected: 5, Actual: 5
+2025-06-28 17:54:28 INFO  out - [BasicListOps-Get]: PASS - Get operation test. Expected: item3, Actual: item3
+2025-06-28 17:54:28 INFO  out - [BasicListOps-Contains]: PASS - Contains operation test. Contains 'item2': true, Contains 'nonexistent': false
+2025-06-28 17:54:28 INFO  out - [BasicListOps-Add]: PASS - Add operation test. List size: 6, Last item: item6
+2025-06-28 17:54:28 INFO  out - [BasicListOps-RemoveByObject]: PASS - Remove by object operation test. Removed: true, List size: 5, Contains 'item4': false
+2025-06-28 17:54:28 INFO  out - [BasicListOps-RemoveByIndex]: PASS - Remove by index operation test. Removed item: item1, List size: 4, First item: item2
+2025-06-28 17:54:28 INFO  out - [IndexOps-AddAtIndex]: PASS - Add at index operation test. List size: 6, Item at index 2: inserted
+2025-06-28 17:54:28 INFO  out - [IndexOps-Set]: PASS - Set operation test. Old value: item2, New value at index 1: replaced
+2025-06-28 17:54:28 INFO  out - [IndexOps-IndexOf]: PASS - IndexOf operation test. Expected: 4, Actual: 4
+2025-06-28 17:54:28 INFO  out - [IndexOps-LastIndexOf]: PASS - LastIndexOf operation test. Expected: 6, Actual: 6
+2025-06-28 17:54:28 INFO  out - [ListIteration-Foreach]: PASS - List iteration test. Expected: item1,item2,item3,item4,item5, Actual: item1,item2,item3,item4,item5,
+2025-06-28 17:54:28 INFO  out - Total Tests: 16, Passed: 16, Failed: 0
+2025-06-28 17:54:28 INFO  out - ========================================
+2025-06-28 17:54:28 INFO  out - 
+2025-06-28 17:54:28 INFO  out - Running tests for: topic
+2025-06-28 17:54:28 INFO  out - Executing: testMessageListenerRemoval
+2025-06-28 17:54:28 INFO  out - 
+2025-06-28 17:54:28 INFO  out - === Testing Message Listener Removal ===
+2025-06-28 17:54:28 INFO  out - Adding message listener...
+2025-06-28 17:54:29 INFO  out - Removing message listener...
+2025-06-28 17:54:29 INFO  out - Publishing message after listener removal...
+2025-06-28 17:54:30 INFO  out - ✓ Message listener removal works correctly
+2025-06-28 17:54:30 INFO  out - Executing: testSimplePublishSubscribe
+2025-06-28 17:54:30 INFO  out - 
+2025-06-28 17:54:30 INFO  out - === Testing Simple Publish-Subscribe ===
+2025-06-28 17:54:30 INFO  out - Adding message listener...
+2025-06-28 17:54:31 INFO  out - Publishing message: Hello, Hazelcast Topic!
+2025-06-28 17:54:31 INFO  out - ✓ Simple publish-subscribe works correctly
+2025-06-28 17:54:31 INFO  out - Executing: testMultipleSubscribers
+2025-06-28 17:54:31 INFO  out - 
+2025-06-28 17:54:31 INFO  out - === Testing Multiple Subscribers ===
+2025-06-28 17:54:31 INFO  out - Adding 3 message listeners...
+2025-06-28 17:54:31 INFO  out - Publishing message to all subscribers: Broadcast Message
+2025-06-28 17:54:31 INFO  out - Subscriber 2 received the message
+2025-06-28 17:54:31 INFO  out - Subscriber 0 received the message
+2025-06-28 17:54:31 INFO  out - Subscriber 1 received the message
+2025-06-28 17:54:31 INFO  out - ✓ Multiple subscribers test passed - all received the message
+2025-06-28 17:54:31 INFO  out - Executing: testCustomMessageTypes
+2025-06-28 17:54:31 INFO  out - 
+2025-06-28 17:54:31 INFO  out - === Testing Custom Message Types ===
+2025-06-28 17:54:31 INFO  out - Adding custom message listener...
+2025-06-28 17:54:32 INFO  out - Publishing custom message...
+2025-06-28 17:54:32 INFO  out - ✓ Custom message types work correctly
+2025-06-28 17:54:32 INFO  out - Executing: testReliableTopic
+2025-06-28 17:54:32 INFO  out - 
+2025-06-28 17:54:32 INFO  out - === Testing Reliable Topic ===
+2025-06-28 17:54:32 INFO  out - Note: Reliable topics require specific configuration in hazelcast.xml
+2025-06-28 17:54:32 INFO  out - This test will simulate reliable topic behavior with regular topics
+2025-06-28 17:54:32 INFO  out - Adding message listener...
+2025-06-28 17:54:32 INFO  out - Publishing message...
+2025-06-28 17:54:32 INFO  out - ✓ Message delivery works correctly
+2025-06-28 17:54:32 INFO  out - Note: Reliable topic would guarantee delivery even after cluster restarts
+2025-06-28 17:54:32 INFO  out - 
+2025-06-28 17:54:32 INFO  out - Test results written to: topic.csv
+2025-06-28 17:54:32 INFO  out - Test report generated: topic.csv
+2025-06-28 17:54:32 INFO  out - 
+2025-06-28 17:54:32 INFO  out - === Test Summary for topic ===
+2025-06-28 17:54:32 INFO  out - [ListenerManagement-Remove]: PASS - Message listener removal test. Successfully removed: true, Message not received after removal: true
+2025-06-28 17:54:32 INFO  out - [PublishSubscribe-Basic]: PASS - Simple publish-subscribe test. Message received: true, Message content matched: true
+2025-06-28 17:54:32 INFO  out - [PublishSubscribe-Multiple]: PASS - Multiple subscribers test. All received: true, Expected count: 3, Actual count: 3
+2025-06-28 17:54:32 INFO  out - [MessageTypes-Custom]: PASS - Custom message types test. Message received: true, Message content correct: true
+2025-06-28 17:54:32 INFO  out - [ReliableTopic-Delivery]: PASS - Reliable topic message delivery test. Message received: true, Message content matched: true
+2025-06-28 17:54:32 INFO  out - Total Tests: 5, Passed: 5, Failed: 0
+2025-06-28 17:54:32 INFO  out - ========================================
+2025-06-28 17:54:32 INFO  out - 
+2025-06-28 17:54:32 INFO  out - Running tests for: ringbuffer
+2025-06-28 17:54:32 INFO  out - Executing: testAsyncOperations
+2025-06-28 17:54:32 INFO  out - 
+2025-06-28 17:54:32 INFO  out - === Testing Async Operations ===
+2025-06-28 17:54:32 INFO  out - Testing async add operation...
+2025-06-28 17:54:32 INFO  out - ✓ Async add operation works correctly
+2025-06-28 17:54:32 INFO  out - Testing async readOne operation...
+2025-06-28 17:54:32 INFO  out - ✓ Async readOne operation works correctly
+2025-06-28 17:54:32 INFO  out - Executing: testBlockingOperations
+2025-06-28 17:54:32 INFO  out - 
+2025-06-28 17:54:32 INFO  out - === Testing Blocking Operations ===
+2025-06-28 17:54:32 INFO  out - Starting reader thread with blocking read...
+2025-06-28 17:54:33 INFO  out - Adding item to unblock reader...
+2025-06-28 17:54:33 INFO  out - ✓ Blocking read operation works correctly
+2025-06-28 17:54:33 INFO  out - Executing: testBasicOperations
+2025-06-28 17:54:33 INFO  out - 
+2025-06-28 17:54:33 INFO  out - === Testing Basic Ringbuffer Operations ===
+2025-06-28 17:54:33 INFO  out - Testing initial size and capacity...
+2025-06-28 17:54:33 INFO  out - ✓ Initial size (0) and capacity (10000) are correct
+2025-06-28 17:54:33 INFO  out - Testing add operation...
+2025-06-28 17:54:33 INFO  out - ✓ Add operation works correctly
+2025-06-28 17:54:33 INFO  out - Testing readOne operation...
+2025-06-28 17:54:33 INFO  out - ✓ ReadOne operation works correctly
+2025-06-28 17:54:33 INFO  out - Testing headSequence and tailSequence...
+2025-06-28 17:54:33 INFO  out - ✓ HeadSequence and tailSequence are correct
+2025-06-28 17:54:33 INFO  out - Executing: testConcurrentAccess
+2025-06-28 17:54:33 INFO  out - 
+2025-06-28 17:54:33 INFO  out - === Testing Concurrent Ringbuffer Access ===
+2025-06-28 17:54:33 INFO  out - Starting 3 producer threads...
+2025-06-28 17:54:33 INFO  out - ✓ All 300 items added successfully
+2025-06-28 17:54:33 INFO  out - ✓ Final ringbuffer size is correct: 300
+2025-06-28 17:54:33 INFO  out - Executing: testReadManyItems
+2025-06-28 17:54:33 INFO  out - 
+2025-06-28 17:54:33 INFO  out - === Testing Reading Multiple Items ===
+2025-06-28 17:54:33 INFO  out - Adding multiple items...
+2025-06-28 17:54:33 INFO  out - Testing readMany operation...
+2025-06-28 17:54:33 INFO  out - ✓ ReadMany operation works correctly
+2025-06-28 17:54:33 INFO  out - Testing readMany from middle...
+2025-06-28 17:54:33 INFO  out - ✓ ReadMany from middle works correctly
+2025-06-28 17:54:33 INFO  out - 
+2025-06-28 17:54:33 INFO  out - Test results written to: ringbuffer.csv
+2025-06-28 17:54:33 INFO  out - Test report generated: ringbuffer.csv
+2025-06-28 17:54:33 INFO  out - 
+2025-06-28 17:54:33 INFO  out - === Test Summary for ringbuffer ===
+2025-06-28 17:54:33 INFO  out - [AsyncOps-Add]: PASS - Async add operation test. Completed: true, Sequence: 0
+2025-06-28 17:54:33 INFO  out - [AsyncOps-Read]: PASS - Async readOne operation test. Completed: true, Value: async-item
+2025-06-28 17:54:33 INFO  out - [BlockingOps-Read]: PASS - Blocking read operation test. Completed: true, Success: true, Value: unblock-item
+2025-06-28 17:54:33 INFO  out - [BasicOps-InitialState]: PASS - Initial size and capacity check. Size: 0, Capacity: 10000
+2025-06-28 17:54:33 INFO  out - [BasicOps-Add]: PASS - Add operation test. Sequences: 0,1,2, Size: 3
+2025-06-28 17:54:33 INFO  out - [BasicOps-ReadOne]: PASS - ReadOne operation test. Item1: item1, Item3: item3
+2025-06-28 17:54:33 INFO  out - [BasicOps-Sequences]: PASS - HeadSequence and tailSequence test. Head: 0, Tail: 2
+2025-06-28 17:54:33 INFO  out - [ConcurrentAccess-ItemsAdded]: PASS - Concurrent item addition test. Expected: 300, Actual: 300
+2025-06-28 17:54:33 INFO  out - [ConcurrentAccess-FinalSize]: PASS - Final ringbuffer size test. Expected: 300, Actual: 300
+2025-06-28 17:54:33 INFO  out - [ReadMany-Basic]: PASS - ReadMany operation test. Expected size: 5, Actual: 5, Items matched: true
+2025-06-28 17:54:33 INFO  out - [ReadMany-FromMiddle]: PASS - ReadMany from middle test. Size: 3, First item: batch-item3, Last item: batch-item5
+2025-06-28 17:54:33 INFO  out - Total Tests: 11, Passed: 11, Failed: 0
+2025-06-28 17:54:33 INFO  out - ========================================
+2025-06-28 17:54:33 INFO  out - 
+2025-06-28 17:54:33 INFO  out - Running tests for: atomic_long
+2025-06-28 17:54:33 INFO  out - Executing: testAtomicLongCreation
+2025-06-28 17:54:33 INFO  out - IAtomicLong is not supported in the Open Source Hazelcast Version.
+2025-06-28 17:54:33 INFO  out - 
+2025-06-28 17:54:33 INFO  out - Test results written to: atomic_long.csv
+2025-06-28 17:54:33 INFO  out - Test report generated: atomic_long.csv
+2025-06-28 17:54:33 INFO  out - 
+2025-06-28 17:54:33 INFO  out - === Test Summary for atomic_long ===
+2025-06-28 17:54:33 INFO  out - [IAtomicLong Creation]: PASS - IAtomicLong is not supported in the Open Source Hazelcast Version.
+2025-06-28 17:54:33 INFO  out - Total Tests: 1, Passed: 1, Failed: 0
+2025-06-28 17:54:33 INFO  out - ========================================
+2025-06-28 17:54:33 INFO  out - 
+2025-06-28 17:54:33 INFO  out - Running tests for: executor
+2025-06-28 17:54:33 INFO  out - Executing: testExecuteWithMultipleParameters
+2025-06-28 17:54:33 INFO  out - 
+2025-06-28 17:54:33 INFO  out - === Test Execute with Multiple Parameters ===
+2025-06-28 17:54:34 INFO  out - Calculation result: 15
+2025-06-28 17:54:34 INFO  out - Executing: testExecuteOnKeyOwner
+2025-06-28 17:54:34 INFO  out - 
+2025-06-28 17:54:34 INFO  out - === Test Execute on Key Owner ===
+2025-06-28 17:54:34 INFO  out - Result from key owner: Processing key 'test-key' on member [172.28.160.1]:5702
+2025-06-28 17:54:34 INFO  out - Executing: testLocalDataProcessing
+2025-06-28 17:54:34 INFO  out - 
+2025-06-28 17:54:34 INFO  out - === Test Local Data Processing Task ===
+2025-06-28 17:54:34 INFO  out - Member [172.28.160.1]:5702 processed 47 local entries
+2025-06-28 17:54:34 INFO  out - Member [172.28.160.1]:5702 processed local data and returned: 2531
+2025-06-28 17:54:34 INFO  out - Member [172.28.160.1]:5701 processed 53 local entries
+2025-06-28 17:54:34 INFO  out - Member [172.28.160.1]:5701 processed local data and returned: 2519
+2025-06-28 17:54:34 INFO  out - Total sum across all members: 5050
+2025-06-28 17:54:34 INFO  out - Executing: testSubmitToAllMembers
+2025-06-28 17:54:34 INFO  out - 
+2025-06-28 17:54:34 INFO  out - === Test Execute on All Members ===
+2025-06-28 17:54:34 INFO  out - Member [172.28.160.1]:5702: Test 2 executed on Member [172.28.160.1]:5702 - 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9 this
+2025-06-28 17:54:34 INFO  out - Member [172.28.160.1]:5701: Test 2 executed on Member [172.28.160.1]:5701 - 3eaecc16-5f25-490d-ae13-82d804e71896 this
+2025-06-28 17:54:34 INFO  out - Executing: testExecutorService
+2025-06-28 17:54:34 INFO  out - 
+2025-06-28 17:54:34 INFO  out - === Test Execute on Specific Member ===
+2025-06-28 17:54:34 INFO  out - Result from specific member: Test 1 executed on Member [172.28.160.1]:5701 - 3eaecc16-5f25-490d-ae13-82d804e71896 this
+2025-06-28 17:54:34 INFO  out - Executing: testSumTask
+2025-06-28 17:54:34 INFO  out - 
+2025-06-28 17:54:34 INFO  out - === Test Sum Task ===
+2025-06-28 17:54:34 INFO  out - Calculating for key: key-4
+2025-06-28 17:54:34 INFO  out - Calculating for key: key-5
+2025-06-28 17:54:34 INFO  out - Calculating for key: key-1
+2025-06-28 17:54:34 INFO  out - Calculating for key: key-2
+2025-06-28 17:54:34 INFO  out - Calculating for key: key-3
+2025-06-28 17:54:34 INFO  out - Calculating for key: key-6
+2025-06-28 17:54:34 INFO  out - Calculating for key: key-8
+2025-06-28 17:54:34 INFO  out - Calculating for key: key-7
+2025-06-28 17:54:34 INFO  out - Calculating for key: key-10
+2025-06-28 17:54:34 INFO  out - Calculating for key: key-9
+2025-06-28 17:54:34 INFO  out - Local Result: 550
+2025-06-28 17:54:34 INFO  out - Sum of values in the map: 550
+2025-06-28 17:54:34 INFO  out - 
+2025-06-28 17:54:34 INFO  out - Test results written to: executor.csv
+2025-06-28 17:54:34 INFO  out - Test report generated: executor.csv
+2025-06-28 17:54:34 INFO  out - 
+2025-06-28 17:54:34 INFO  out - === Test Summary for executor ===
+2025-06-28 17:54:34 INFO  out - [Execute with Multiple Parameters]: PASS - Calculation executed successfully with result: 15
+2025-06-28 17:54:34 INFO  out - [Execute on Key Owner]: PASS - Task executed on key owner successfully.
+2025-06-28 17:54:34 INFO  out - [Local Data Processing Task]: PASS - Expected sum: 5050, Actual sum: 5050
+2025-06-28 17:54:34 INFO  out - [Submit to All Members]: PASS - All members executed the task successfully.
+2025-06-28 17:54:34 INFO  out - [Executor Service Test]: PASS - All tests executed successfully.
+2025-06-28 17:54:34 INFO  out - [Sum Task]: PASS - Expected sum: 550, Actual sum: 550
+2025-06-28 17:54:34 INFO  out - Total Tests: 6, Passed: 6, Failed: 0
+2025-06-28 17:54:34 INFO  out - ========================================
+2025-06-28 17:54:34 INFO  out - 
+2025-06-28 17:54:34 INFO  out - Running tests for: pipeline
+2025-06-28 17:54:34 INFO  out - Executing: testAggregationPipeline
+2025-06-28 17:54:34 INFO  out - 
+2025-06-28 17:54:34 INFO  out - === Test: Aggregation Pipeline ===
+2025-06-28 17:54:35 INFO  out - User total orders:
+2025-06-28 17:54:35 INFO  out - User 2 total orders: 129.0
+2025-06-28 17:54:35 INFO  out - User 6 total orders: 165.0
+2025-06-28 17:54:35 INFO  out - User 10 total orders: 201.0
+2025-06-28 17:54:35 INFO  out - User 1 total orders: 120.0
+2025-06-28 17:54:35 INFO  out - User 9 total orders: 192.0
+2025-06-28 17:54:35 INFO  out - User 7 total orders: 174.0
+2025-06-28 17:54:35 INFO  out - User 8 total orders: 183.0
+2025-06-28 17:54:35 INFO  out - User 5 total orders: 156.0
+2025-06-28 17:54:35 INFO  out - User 4 total orders: 147.0
+2025-06-28 17:54:35 INFO  out - User 3 total orders: 138.0
+2025-06-28 17:54:35 INFO  out - ✓ Aggregation pipeline executed correctly
+2025-06-28 17:54:35 INFO  out - Executing: testFaultTolerantPipeline
+2025-06-28 17:54:35 INFO  out - 
+2025-06-28 17:54:35 INFO  out - === Test: Fault Tolerant Pipeline ===
+2025-06-28 17:54:40 INFO  out - Simulating node shutdown...
+2025-06-28 17:54:40 INFO  out - Job should continue running on remaining nodes
+2025-06-28 17:54:43 INFO  out - Result map contains 100 entries after fault simulation
+2025-06-28 17:54:43 INFO  out - Sample entries:
+2025-06-28 17:54:48 INFO  out - 2 -> Processed-Item-2
+2025-06-28 17:54:48 INFO  out - 0 -> Processed-Item-0
+2025-06-28 17:54:48 INFO  out - 45 -> Processed-Item-45
+2025-06-28 17:54:48 INFO  out - 79 -> Processed-Item-79
+2025-06-28 17:54:48 INFO  out - 6 -> Processed-Item-6
+2025-06-28 17:54:48 INFO  out - ✓ Fault tolerant pipeline continued processing after node failure
+2025-06-28 17:54:49 INFO  out - Executing: testSimplePipeline
+2025-06-28 17:54:49 INFO  out - 
+2025-06-28 17:54:49 INFO  out - === Test: Simple Map-Filter-Map Pipeline ===
+2025-06-28 17:54:49 INFO  out - Result map contains 50 entries
+2025-06-28 17:54:49 INFO  out - Sample entries:
+2025-06-28 17:54:49 INFO  out - 2 -> Transformed-Item-2
+2025-06-28 17:54:49 INFO  out - 0 -> Transformed-Item-0
+2025-06-28 17:54:49 INFO  out - 6 -> Transformed-Item-6
+2025-06-28 17:54:49 INFO  out - 94 -> Transformed-Item-94
+2025-06-28 17:54:49 INFO  out - 32 -> Transformed-Item-32
+2025-06-28 17:54:49 INFO  out - ✓ Simple pipeline executed correctly
+2025-06-28 17:54:50 INFO  out - 
+2025-06-28 17:54:50 INFO  out - Test results written to: pipeline.csv
+2025-06-28 17:54:50 INFO  out - Test report generated: pipeline.csv
+2025-06-28 17:54:50 INFO  out - 
+2025-06-28 17:54:50 INFO  out - === Test Summary for pipeline ===
+2025-06-28 17:54:50 INFO  out - [AggregationPipeline-Execution]: PASS - Aggregation pipeline execution test. Expected users: 10, Actual: 10, Aggregation correct: true
+2025-06-28 17:54:50 INFO  out - [FaultTolerantPipeline-Execution]: PASS - Fault tolerant pipeline test. Has results: true, Result count: 100, Transformation correct: true
+2025-06-28 17:54:50 INFO  out - [SimplePipeline-Execution]: PASS - Simple pipeline execution test. Expected entries: 50, Actual entries: 50, Transformation correct: true
+2025-06-28 17:54:50 INFO  out - Total Tests: 3, Passed: 3, Failed: 0
+2025-06-28 17:54:50 INFO  out - ========================================
+2025-06-28 17:54:50 INFO  out - 
+2025-06-28 17:54:50 INFO  out - Running tests for: partition
+2025-06-28 17:54:50 INFO  out - Executing: testPartitionDistribution
+2025-06-28 17:54:50 INFO  out - 
+2025-06-28 17:54:50 INFO  out - === Testing Partition Distribution with 100 Data Items ===
+2025-06-28 17:54:50 INFO  out - 
+2025-06-28 17:54:50 INFO  out - === Partition Distribution for 100 Items ===
+2025-06-28 17:54:50 INFO  out - Total partitions: 271
+2025-06-28 17:54:50 INFO  out - Partition distribution across nodes:
+2025-06-28 17:54:50 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 135 partitions
+2025-06-28 17:54:50 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 136 partitions
+2025-06-28 17:54:50 INFO  out - Partition locations for sample keys:
+2025-06-28 17:54:50 INFO  out - Key 'key-0' -> Partition 92 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:54:50 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:54:50 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:54:50 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:54:50 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:54:50 INFO  out - Total Partitions: 2; Partition distribution for 100 items: [Node 0: 135 partitions (49,82% of total partitions), Entries: 47 (47,00% of total entries); Node 1: 136 partitions (50,18% of total partitions), Entries: 53 (53,00% of total entries)]
+2025-06-28 17:54:50 INFO  out - 
+2025-06-28 17:54:50 INFO  out - === Testing Partition Distribution with 500 Data Items ===
+2025-06-28 17:54:50 INFO  out - 
+2025-06-28 17:54:50 INFO  out - === Partition Distribution for 500 Items ===
+2025-06-28 17:54:50 INFO  out - Total partitions: 271
+2025-06-28 17:54:50 INFO  out - Partition distribution across nodes:
+2025-06-28 17:54:50 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 135 partitions
+2025-06-28 17:54:50 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 136 partitions
+2025-06-28 17:54:50 INFO  out - Partition locations for sample keys:
+2025-06-28 17:54:50 INFO  out - Key 'key-0' -> Partition 92 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:54:50 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:54:50 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:54:50 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:54:50 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:54:50 INFO  out - Total Partitions: 2; Partition distribution for 500 items: [Node 0: 135 partitions (49,82% of total partitions), Entries: 252 (50,40% of total entries); Node 1: 136 partitions (50,18% of total partitions), Entries: 248 (49,60% of total entries)]
+2025-06-28 17:54:50 INFO  out - 
+2025-06-28 17:54:50 INFO  out - === Testing Partition Distribution with 1000 Data Items ===
+2025-06-28 17:54:50 INFO  out - 
+2025-06-28 17:54:50 INFO  out - === Partition Distribution for 1000 Items ===
+2025-06-28 17:54:50 INFO  out - Total partitions: 271
+2025-06-28 17:54:50 INFO  out - Partition distribution across nodes:
+2025-06-28 17:54:50 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 135 partitions
+2025-06-28 17:54:50 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 136 partitions
+2025-06-28 17:54:50 INFO  out - Partition locations for sample keys:
+2025-06-28 17:54:50 INFO  out - Key 'key-0' -> Partition 92 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:54:50 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:54:50 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:54:50 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:54:50 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:54:50 INFO  out - Total Partitions: 2; Partition distribution for 1000 items: [Node 0: 135 partitions (49,82% of total partitions), Entries: 499 (49,90% of total entries); Node 1: 136 partitions (50,18% of total partitions), Entries: 501 (50,10% of total entries)]
+2025-06-28 17:54:50 INFO  out - 
+2025-06-28 17:54:50 INFO  out - === Testing Partition Distribution with 5000 Data Items ===
+2025-06-28 17:54:52 INFO  out - 
+2025-06-28 17:54:52 INFO  out - === Partition Distribution for 5000 Items ===
+2025-06-28 17:54:52 INFO  out - Total partitions: 271
+2025-06-28 17:54:52 INFO  out - Partition distribution across nodes:
+2025-06-28 17:54:52 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 135 partitions
+2025-06-28 17:54:52 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 136 partitions
+2025-06-28 17:54:52 INFO  out - Partition locations for sample keys:
+2025-06-28 17:54:52 INFO  out - Key 'key-0' -> Partition 92 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:54:52 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:54:52 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:54:52 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:54:52 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:54:52 INFO  out - Total Partitions: 2; Partition distribution for 5000 items: [Node 0: 135 partitions (49,82% of total partitions), Entries: 2511 (50,22% of total entries); Node 1: 136 partitions (50,18% of total partitions), Entries: 2489 (49,78% of total entries)]
+2025-06-28 17:54:52 INFO  out - 
+2025-06-28 17:54:52 INFO  out - === Testing Partition Distribution with 10000 Data Items ===
+2025-06-28 17:54:54 INFO  out - 
+2025-06-28 17:54:54 INFO  out - === Partition Distribution for 10000 Items ===
+2025-06-28 17:54:54 INFO  out - Total partitions: 271
+2025-06-28 17:54:54 INFO  out - Partition distribution across nodes:
+2025-06-28 17:54:54 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 135 partitions
+2025-06-28 17:54:54 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 136 partitions
+2025-06-28 17:54:54 INFO  out - Partition locations for sample keys:
+2025-06-28 17:54:54 INFO  out - Key 'key-0' -> Partition 92 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:54:54 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:54:54 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:54:54 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:54:54 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:54:54 INFO  out - Total Partitions: 2; Partition distribution for 10000 items: [Node 0: 135 partitions (49,82% of total partitions), Entries: 5012 (50,12% of total entries); Node 1: 136 partitions (50,18% of total partitions), Entries: 4988 (49,88% of total entries)]
+2025-06-28 17:54:54 INFO  out - Executing: testNodeTermination
+2025-06-28 17:54:54 INFO  out - 
+2025-06-28 17:54:54 INFO  out - === Testing Node Termination ===
+2025-06-28 17:54:54 INFO  out - Initial partition distribution before node termination:
+2025-06-28 17:54:54 INFO  out - Total partitions: 271
+2025-06-28 17:54:54 INFO  out - Partition distribution across nodes:
+2025-06-28 17:54:54 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 135 partitions
+2025-06-28 17:54:54 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 136 partitions
+2025-06-28 17:54:54 INFO  out - Partition locations for sample keys:
+2025-06-28 17:54:54 INFO  out - Key 'key-0' -> Partition 92 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:54:54 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:54:54 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:54:54 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:54:54 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:54:54 INFO  out - Total Partitions: 2; Partition distribution for 100 items: [Node 0: 135 partitions (49,82% of total partitions), Entries: 47 (47,00% of total entries); Node 1: 136 partitions (50,18% of total partitions), Entries: 53 (53,00% of total entries)]
+2025-06-28 17:54:54 INFO  out - Adding new node to cluster...
+2025-06-28 17:54:55 INFO  out - Waiting for cluster to stabilize before node termination...
+2025-06-28 17:55:05 INFO  out - Node to terminate: b03ff49c-df24-4e6b-b72f-1324354de967
+2025-06-28 17:55:05 INFO  out - Shutting down node gracefully...
+2025-06-28 17:55:05 INFO  out - Partition distribution after node termination:
+2025-06-28 17:55:05 INFO  out - Total partitions: 271
+2025-06-28 17:55:05 INFO  out - Partition distribution across nodes:
+2025-06-28 17:55:05 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 91 partitions
+2025-06-28 17:55:05 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 90 partitions
+2025-06-28 17:55:05 INFO  out - Node b03ff49c-df24-4e6b-b72f-1324354de967: 90 partitions
+2025-06-28 17:55:05 INFO  out - Partition locations for sample keys:
+2025-06-28 17:55:05 INFO  out - Key 'key-0' -> Partition 92 -> Node b03ff49c-df24-4e6b-b72f-1324354de967
+2025-06-28 17:55:05 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:55:05 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:55:05 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:55:05 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:55:05 INFO  out - Total Partitions: 3; Partition distribution for 100 items: [Node 0: 91 partitions (33,58% of total partitions), Entries: 34 (34,00% of total entries); Node 1: 90 partitions (33,21% of total partitions), Entries: 35 (35,00% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 31 (31,00% of total entries)]
+2025-06-28 17:55:05 INFO  out - 
+2025-06-28 17:55:05 INFO  out - Verifying data accessibility...
+2025-06-28 17:55:18 INFO  out - ✓ All data is still accessible and consistent after topology changes
+2025-06-28 17:55:18 INFO  out - Data NodeTermination after node termination: Maintained
+2025-06-28 17:55:18 INFO  out - 
+2025-06-28 17:55:18 INFO  out - === Testing Node Termination ===
+2025-06-28 17:55:18 INFO  out - Initial partition distribution before node termination:
+2025-06-28 17:55:18 INFO  out - Total partitions: 271
+2025-06-28 17:55:18 INFO  out - Partition distribution across nodes:
+2025-06-28 17:55:18 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 136 partitions
+2025-06-28 17:55:18 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 135 partitions
+2025-06-28 17:55:18 INFO  out - Partition locations for sample keys:
+2025-06-28 17:55:18 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:55:18 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:55:18 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:55:18 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:55:18 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:55:18 INFO  out - Total Partitions: 2; Partition distribution for 500 items: [Node 0: 136 partitions (50,18% of total partitions), Entries: 256 (51,20% of total entries); Node 1: 135 partitions (49,82% of total partitions), Entries: 244 (48,80% of total entries)]
+2025-06-28 17:55:18 INFO  out - Adding new node to cluster...
+2025-06-28 17:55:19 INFO  out - Waiting for cluster to stabilize before node termination...
+2025-06-28 17:55:29 INFO  out - Node to terminate: 6e3a08ae-e97a-4eea-8e24-59fdba394abc
+2025-06-28 17:55:29 INFO  out - Shutting down node gracefully...
+2025-06-28 17:55:29 INFO  out - Partition distribution after node termination:
+2025-06-28 17:55:29 INFO  out - Total partitions: 271
+2025-06-28 17:55:29 INFO  out - Partition distribution across nodes:
+2025-06-28 17:55:29 INFO  out - Node 6e3a08ae-e97a-4eea-8e24-59fdba394abc: 90 partitions
+2025-06-28 17:55:29 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 91 partitions
+2025-06-28 17:55:29 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 90 partitions
+2025-06-28 17:55:29 INFO  out - Partition locations for sample keys:
+2025-06-28 17:55:29 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:55:29 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:55:29 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:55:29 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:55:29 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:55:29 INFO  out - Total Partitions: 3; Partition distribution for 500 items: [Node 0: 90 partitions (33,21% of total partitions), Entries: 166 (33,20% of total entries); Node 1: 91 partitions (33,58% of total partitions), Entries: 167 (33,40% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 167 (33,40% of total entries)]
+2025-06-28 17:55:29 INFO  out - 
+2025-06-28 17:55:29 INFO  out - Verifying data accessibility...
+2025-06-28 17:55:40 INFO  out - ✓ All data is still accessible and consistent after topology changes
+2025-06-28 17:55:40 INFO  out - Data NodeTermination after node termination: Maintained
+2025-06-28 17:55:40 INFO  out - 
+2025-06-28 17:55:40 INFO  out - === Testing Node Termination ===
+2025-06-28 17:55:40 INFO  out - Initial partition distribution before node termination:
+2025-06-28 17:55:40 INFO  out - Total partitions: 271
+2025-06-28 17:55:40 INFO  out - Partition distribution across nodes:
+2025-06-28 17:55:40 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 135 partitions
+2025-06-28 17:55:40 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 136 partitions
+2025-06-28 17:55:40 INFO  out - Partition locations for sample keys:
+2025-06-28 17:55:40 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:55:40 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:55:40 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:55:40 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:55:40 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:55:40 INFO  out - Total Partitions: 2; Partition distribution for 1000 items: [Node 0: 135 partitions (49,82% of total partitions), Entries: 501 (50,10% of total entries); Node 1: 136 partitions (50,18% of total partitions), Entries: 499 (49,90% of total entries)]
+2025-06-28 17:55:40 INFO  out - Adding new node to cluster...
+2025-06-28 17:55:41 INFO  out - Waiting for cluster to stabilize before node termination...
+2025-06-28 17:55:51 INFO  out - Node to terminate: 03c80cd7-e500-47e0-a2a3-c6fe59180717
+2025-06-28 17:55:51 INFO  out - Shutting down node gracefully...
+2025-06-28 17:55:51 INFO  out - Partition distribution after node termination:
+2025-06-28 17:55:51 INFO  out - Total partitions: 271
+2025-06-28 17:55:51 INFO  out - Partition distribution across nodes:
+2025-06-28 17:55:51 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 91 partitions
+2025-06-28 17:55:51 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 90 partitions
+2025-06-28 17:55:51 INFO  out - Node 03c80cd7-e500-47e0-a2a3-c6fe59180717: 90 partitions
+2025-06-28 17:55:51 INFO  out - Partition locations for sample keys:
+2025-06-28 17:55:51 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:55:51 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:55:51 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:55:51 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:55:51 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:55:51 INFO  out - Total Partitions: 3; Partition distribution for 1000 items: [Node 0: 91 partitions (33,58% of total partitions), Entries: 356 (35,60% of total entries); Node 1: 90 partitions (33,21% of total partitions), Entries: 334 (33,40% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 310 (31,00% of total entries)]
+2025-06-28 17:55:51 INFO  out - 
+2025-06-28 17:55:51 INFO  out - Verifying data accessibility...
+2025-06-28 17:56:00 INFO  out - ✓ All data is still accessible and consistent after topology changes
+2025-06-28 17:56:00 INFO  out - Data NodeTermination after node termination: Maintained
+2025-06-28 17:56:00 INFO  out - 
+2025-06-28 17:56:00 INFO  out - === Testing Node Termination ===
+2025-06-28 17:56:01 INFO  out - Initial partition distribution before node termination:
+2025-06-28 17:56:01 INFO  out - Total partitions: 271
+2025-06-28 17:56:01 INFO  out - Partition distribution across nodes:
+2025-06-28 17:56:01 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 136 partitions
+2025-06-28 17:56:01 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 135 partitions
+2025-06-28 17:56:01 INFO  out - Partition locations for sample keys:
+2025-06-28 17:56:01 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:01 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:01 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:01 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:56:01 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:01 INFO  out - Total Partitions: 2; Partition distribution for 5000 items: [Node 0: 136 partitions (50,18% of total partitions), Entries: 2564 (51,28% of total entries); Node 1: 135 partitions (49,82% of total partitions), Entries: 2436 (48,72% of total entries)]
+2025-06-28 17:56:01 INFO  out - Adding new node to cluster...
+2025-06-28 17:56:01 INFO  out - Waiting for cluster to stabilize before node termination...
+2025-06-28 17:56:11 INFO  out - Node to terminate: 28dd3a44-98b2-40be-9371-a4b644fcf30b
+2025-06-28 17:56:11 INFO  out - Shutting down node gracefully...
+2025-06-28 17:56:11 INFO  out - Partition distribution after node termination:
+2025-06-28 17:56:11 INFO  out - Total partitions: 271
+2025-06-28 17:56:11 INFO  out - Partition distribution across nodes:
+2025-06-28 17:56:11 INFO  out - Node 28dd3a44-98b2-40be-9371-a4b644fcf30b: 90 partitions
+2025-06-28 17:56:11 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 91 partitions
+2025-06-28 17:56:11 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 90 partitions
+2025-06-28 17:56:11 INFO  out - Partition locations for sample keys:
+2025-06-28 17:56:11 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:11 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:11 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:11 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:56:11 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:11 INFO  out - Total Partitions: 3; Partition distribution for 5000 items: [Node 0: 90 partitions (33,21% of total partitions), Entries: 1675 (33,50% of total entries); Node 1: 91 partitions (33,58% of total partitions), Entries: 1685 (33,70% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 1640 (32,80% of total entries)]
+2025-06-28 17:56:11 INFO  out - 
+2025-06-28 17:56:11 INFO  out - Verifying data accessibility...
+2025-06-28 17:56:20 INFO  out - ✓ All data is still accessible and consistent after topology changes
+2025-06-28 17:56:20 INFO  out - Data NodeTermination after node termination: Maintained
+2025-06-28 17:56:20 INFO  out - 
+2025-06-28 17:56:20 INFO  out - === Testing Node Termination ===
+2025-06-28 17:56:22 INFO  out - Initial partition distribution before node termination:
+2025-06-28 17:56:22 INFO  out - Total partitions: 271
+2025-06-28 17:56:22 INFO  out - Partition distribution across nodes:
+2025-06-28 17:56:22 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 135 partitions
+2025-06-28 17:56:22 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 136 partitions
+2025-06-28 17:56:22 INFO  out - Partition locations for sample keys:
+2025-06-28 17:56:22 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:22 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:22 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:22 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:56:22 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:22 INFO  out - Total Partitions: 2; Partition distribution for 10000 items: [Node 0: 135 partitions (49,82% of total partitions), Entries: 5009 (50,09% of total entries); Node 1: 136 partitions (50,18% of total partitions), Entries: 4991 (49,91% of total entries)]
+2025-06-28 17:56:22 INFO  out - Adding new node to cluster...
+2025-06-28 17:56:23 INFO  out - Waiting for cluster to stabilize before node termination...
+2025-06-28 17:56:33 INFO  out - Node to terminate: 24c08342-ef01-420c-8786-11cf7aca33d7
+2025-06-28 17:56:33 INFO  out - Shutting down node gracefully...
+2025-06-28 17:56:33 INFO  out - Partition distribution after node termination:
+2025-06-28 17:56:33 INFO  out - Total partitions: 271
+2025-06-28 17:56:33 INFO  out - Partition distribution across nodes:
+2025-06-28 17:56:33 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 91 partitions
+2025-06-28 17:56:33 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 90 partitions
+2025-06-28 17:56:33 INFO  out - Node 24c08342-ef01-420c-8786-11cf7aca33d7: 90 partitions
+2025-06-28 17:56:33 INFO  out - Partition locations for sample keys:
+2025-06-28 17:56:33 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:33 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:33 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:33 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:56:33 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:33 INFO  out - Total Partitions: 3; Partition distribution for 10000 items: [Node 0: 91 partitions (33,58% of total partitions), Entries: 3417 (34,17% of total entries); Node 1: 90 partitions (33,21% of total partitions), Entries: 3300 (33,00% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 3283 (32,83% of total entries)]
+2025-06-28 17:56:33 INFO  out - 
+2025-06-28 17:56:33 INFO  out - Verifying data accessibility...
+2025-06-28 17:56:42 INFO  out - ✓ All data is still accessible and consistent after topology changes
+2025-06-28 17:56:42 INFO  out - Data NodeTermination after node termination: Maintained
+2025-06-28 17:56:42 INFO  out - Executing: testPartitionDistributionAddingNode
+2025-06-28 17:56:42 INFO  out - 
+2025-06-28 17:56:42 INFO  out - === Testing Adding Node to Cluster ===
+2025-06-28 17:56:42 INFO  out - Initial partition distribution before adding node:
+2025-06-28 17:56:42 INFO  out - Total partitions: 271
+2025-06-28 17:56:42 INFO  out - Partition distribution across nodes:
+2025-06-28 17:56:42 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 136 partitions
+2025-06-28 17:56:42 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 135 partitions
+2025-06-28 17:56:42 INFO  out - Partition locations for sample keys:
+2025-06-28 17:56:42 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:42 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:42 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:42 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:56:42 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:42 INFO  out - Total Partitions: 2; Partition distribution for 100 items: [Node 0: 136 partitions (50,18% of total partitions), Entries: 46 (46,00% of total entries); Node 1: 135 partitions (49,82% of total partitions), Entries: 54 (54,00% of total entries)]
+2025-06-28 17:56:42 INFO  out - 
+2025-06-28 17:56:42 INFO  out - Adding new node to cluster...
+2025-06-28 17:56:42 INFO  out - Waiting for cluster to stabilize after adding new node...
+2025-06-28 17:56:52 INFO  out - Partition distribution after adding node:
+2025-06-28 17:56:52 INFO  out - Total partitions: 271
+2025-06-28 17:56:52 INFO  out - Partition distribution across nodes:
+2025-06-28 17:56:52 INFO  out - Node 733cbd68-cae2-4501-97a0-6801d791c031: 90 partitions
+2025-06-28 17:56:52 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 91 partitions
+2025-06-28 17:56:52 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 90 partitions
+2025-06-28 17:56:52 INFO  out - Partition locations for sample keys:
+2025-06-28 17:56:52 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:52 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:52 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:52 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:56:52 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:52 INFO  out - Total Partitions: 3; Partition distribution for 100 items: [Node 0: 90 partitions (33,21% of total partitions), Entries: 32 (32,00% of total entries); Node 1: 91 partitions (33,58% of total partitions), Entries: 33 (33,00% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 35 (35,00% of total entries)]
+2025-06-28 17:56:52 INFO  out - 
+2025-06-28 17:56:52 INFO  out - Verifying data accessibility...
+2025-06-28 17:56:52 INFO  out - ✓ All data is still accessible and consistent after topology changes
+2025-06-28 17:56:52 INFO  out - Data accessibility after adding node: Maintained
+2025-06-28 17:56:57 INFO  out - 
+2025-06-28 17:56:57 INFO  out - === Testing Adding Node to Cluster ===
+2025-06-28 17:56:57 INFO  out - Initial partition distribution before adding node:
+2025-06-28 17:56:57 INFO  out - Total partitions: 271
+2025-06-28 17:56:57 INFO  out - Partition distribution across nodes:
+2025-06-28 17:56:57 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 136 partitions
+2025-06-28 17:56:57 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 135 partitions
+2025-06-28 17:56:57 INFO  out - Partition locations for sample keys:
+2025-06-28 17:56:57 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:57 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:57 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:57 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:56:57 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:56:57 INFO  out - Total Partitions: 2; Partition distribution for 500 items: [Node 0: 136 partitions (50,18% of total partitions), Entries: 256 (51,20% of total entries); Node 1: 135 partitions (49,82% of total partitions), Entries: 244 (48,80% of total entries)]
+2025-06-28 17:56:57 INFO  out - 
+2025-06-28 17:56:57 INFO  out - Adding new node to cluster...
+2025-06-28 17:57:00 INFO  out - Waiting for cluster to stabilize after adding new node...
+2025-06-28 17:57:10 INFO  out - Partition distribution after adding node:
+2025-06-28 17:57:10 INFO  out - Total partitions: 271
+2025-06-28 17:57:10 INFO  out - Partition distribution across nodes:
+2025-06-28 17:57:10 INFO  out - Node 3097f3ab-3fd9-4156-8bf4-040a37f3216f: 90 partitions
+2025-06-28 17:57:10 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 91 partitions
+2025-06-28 17:57:10 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 90 partitions
+2025-06-28 17:57:10 INFO  out - Partition locations for sample keys:
+2025-06-28 17:57:10 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:57:10 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:57:10 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:57:10 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:57:10 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:57:10 INFO  out - Total Partitions: 3; Partition distribution for 500 items: [Node 0: 90 partitions (33,21% of total partitions), Entries: 166 (33,20% of total entries); Node 1: 91 partitions (33,58% of total partitions), Entries: 167 (33,40% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 167 (33,40% of total entries)]
+2025-06-28 17:57:10 INFO  out - 
+2025-06-28 17:57:10 INFO  out - Verifying data accessibility...
+2025-06-28 17:57:10 INFO  out - ✓ All data is still accessible and consistent after topology changes
+2025-06-28 17:57:10 INFO  out - Data accessibility after adding node: Maintained
+2025-06-28 17:57:15 INFO  out - 
+2025-06-28 17:57:15 INFO  out - === Testing Adding Node to Cluster ===
+2025-06-28 17:57:15 INFO  out - Initial partition distribution before adding node:
+2025-06-28 17:57:15 INFO  out - Total partitions: 271
+2025-06-28 17:57:15 INFO  out - Partition distribution across nodes:
+2025-06-28 17:57:15 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 136 partitions
+2025-06-28 17:57:15 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 135 partitions
+2025-06-28 17:57:15 INFO  out - Partition locations for sample keys:
+2025-06-28 17:57:15 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:57:15 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:57:15 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:57:15 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:57:15 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:57:15 INFO  out - Total Partitions: 2; Partition distribution for 1000 items: [Node 0: 136 partitions (50,18% of total partitions), Entries: 523 (52,30% of total entries); Node 1: 135 partitions (49,82% of total partitions), Entries: 477 (47,70% of total entries)]
+2025-06-28 17:57:15 INFO  out - 
+2025-06-28 17:57:15 INFO  out - Adding new node to cluster...
+2025-06-28 17:57:16 INFO  out - Waiting for cluster to stabilize after adding new node...
+2025-06-28 17:57:26 INFO  out - Partition distribution after adding node:
+2025-06-28 17:57:26 INFO  out - Total partitions: 271
+2025-06-28 17:57:26 INFO  out - Partition distribution across nodes:
+2025-06-28 17:57:26 INFO  out - Node a4b810a7-82fd-4d06-ac08-632b1f9c1b9e: 90 partitions
+2025-06-28 17:57:26 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 91 partitions
+2025-06-28 17:57:26 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 90 partitions
+2025-06-28 17:57:26 INFO  out - Partition locations for sample keys:
+2025-06-28 17:57:26 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:57:26 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:57:26 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:57:26 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:57:26 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:57:26 INFO  out - Total Partitions: 3; Partition distribution for 1000 items: [Node 0: 90 partitions (33,21% of total partitions), Entries: 310 (31,00% of total entries); Node 1: 91 partitions (33,58% of total partitions), Entries: 356 (35,60% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 334 (33,40% of total entries)]
+2025-06-28 17:57:26 INFO  out - 
+2025-06-28 17:57:26 INFO  out - Verifying data accessibility...
+2025-06-28 17:57:27 INFO  out - ✓ All data is still accessible and consistent after topology changes
+2025-06-28 17:57:27 INFO  out - Data accessibility after adding node: Maintained
+2025-06-28 17:57:32 INFO  out - 
+2025-06-28 17:57:32 INFO  out - === Testing Adding Node to Cluster ===
+2025-06-28 17:57:33 INFO  out - Initial partition distribution before adding node:
+2025-06-28 17:57:33 INFO  out - Total partitions: 271
+2025-06-28 17:57:33 INFO  out - Partition distribution across nodes:
+2025-06-28 17:57:33 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 136 partitions
+2025-06-28 17:57:33 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 135 partitions
+2025-06-28 17:57:33 INFO  out - Partition locations for sample keys:
+2025-06-28 17:57:33 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:57:33 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:57:33 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:57:33 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:57:33 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:57:33 INFO  out - Total Partitions: 2; Partition distribution for 5000 items: [Node 0: 136 partitions (50,18% of total partitions), Entries: 2564 (51,28% of total entries); Node 1: 135 partitions (49,82% of total partitions), Entries: 2436 (48,72% of total entries)]
+2025-06-28 17:57:33 INFO  out - 
+2025-06-28 17:57:33 INFO  out - Adding new node to cluster...
+2025-06-28 17:57:35 INFO  out - Waiting for cluster to stabilize after adding new node...
+2025-06-28 17:57:45 INFO  out - Partition distribution after adding node:
+2025-06-28 17:57:45 INFO  out - Total partitions: 271
+2025-06-28 17:57:45 INFO  out - Partition distribution across nodes:
+2025-06-28 17:57:45 INFO  out - Node 98d96a85-684e-46a6-9afd-3382d184cea8: 90 partitions
+2025-06-28 17:57:45 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 91 partitions
+2025-06-28 17:57:45 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 90 partitions
+2025-06-28 17:57:45 INFO  out - Partition locations for sample keys:
+2025-06-28 17:57:45 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:57:45 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:57:45 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:57:45 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:57:45 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:57:45 INFO  out - Total Partitions: 3; Partition distribution for 5000 items: [Node 0: 90 partitions (33,21% of total partitions), Entries: 1675 (33,50% of total entries); Node 1: 91 partitions (33,58% of total partitions), Entries: 1685 (33,70% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 1640 (32,80% of total entries)]
+2025-06-28 17:57:45 INFO  out - 
+2025-06-28 17:57:45 INFO  out - Verifying data accessibility...
+2025-06-28 17:57:45 INFO  out - ✓ All data is still accessible and consistent after topology changes
+2025-06-28 17:57:45 INFO  out - Data accessibility after adding node: Maintained
+2025-06-28 17:57:50 INFO  out - 
+2025-06-28 17:57:50 INFO  out - === Testing Adding Node to Cluster ===
+2025-06-28 17:57:52 INFO  out - Initial partition distribution before adding node:
+2025-06-28 17:57:52 INFO  out - Total partitions: 271
+2025-06-28 17:57:52 INFO  out - Partition distribution across nodes:
+2025-06-28 17:57:52 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 136 partitions
+2025-06-28 17:57:52 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 135 partitions
+2025-06-28 17:57:52 INFO  out - Partition locations for sample keys:
+2025-06-28 17:57:52 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:57:52 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:57:52 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:57:52 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:57:52 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:57:52 INFO  out - Total Partitions: 2; Partition distribution for 10000 items: [Node 0: 136 partitions (50,18% of total partitions), Entries: 5126 (51,26% of total entries); Node 1: 135 partitions (49,82% of total partitions), Entries: 4874 (48,74% of total entries)]
+2025-06-28 17:57:52 INFO  out - 
+2025-06-28 17:57:52 INFO  out - Adding new node to cluster...
+2025-06-28 17:57:54 INFO  out - Waiting for cluster to stabilize after adding new node...
+2025-06-28 17:58:04 INFO  out - Partition distribution after adding node:
+2025-06-28 17:58:04 INFO  out - Total partitions: 271
+2025-06-28 17:58:04 INFO  out - Partition distribution across nodes:
+2025-06-28 17:58:04 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 91 partitions
+2025-06-28 17:58:04 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 90 partitions
+2025-06-28 17:58:04 INFO  out - Node 3b991d5a-ae19-4a0d-a8f7-eee3358655cb: 90 partitions
+2025-06-28 17:58:04 INFO  out - Partition locations for sample keys:
+2025-06-28 17:58:04 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:04 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:04 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:04 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:58:04 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:04 INFO  out - Total Partitions: 3; Partition distribution for 10000 items: [Node 0: 91 partitions (33,58% of total partitions), Entries: 3417 (34,17% of total entries); Node 1: 90 partitions (33,21% of total partitions), Entries: 3300 (33,00% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 3283 (32,83% of total entries)]
+2025-06-28 17:58:04 INFO  out - 
+2025-06-28 17:58:04 INFO  out - Verifying data accessibility...
+2025-06-28 17:58:04 INFO  out - ✓ All data is still accessible and consistent after topology changes
+2025-06-28 17:58:04 INFO  out - Data accessibility after adding node: Maintained
+2025-06-28 17:58:09 INFO  out - Executing: testNodeShutdown
+2025-06-28 17:58:09 INFO  out - 
+2025-06-28 17:58:09 INFO  out - === Testing Node Shutdown (Graceful) ===
+2025-06-28 17:58:09 INFO  out - Initial partition distribution before node shutdown:
+2025-06-28 17:58:09 INFO  out - Total partitions: 271
+2025-06-28 17:58:09 INFO  out - Partition distribution across nodes:
+2025-06-28 17:58:09 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 136 partitions
+2025-06-28 17:58:09 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 135 partitions
+2025-06-28 17:58:09 INFO  out - Partition locations for sample keys:
+2025-06-28 17:58:09 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:09 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:09 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:09 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:58:09 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:09 INFO  out - Total Partitions: 2; Partition distribution for 100 items: [Node 0: 136 partitions (50,18% of total partitions), Entries: 46 (46,00% of total entries); Node 1: 135 partitions (49,82% of total partitions), Entries: 54 (54,00% of total entries)]
+2025-06-28 17:58:09 INFO  out - Adding new node to cluster...
+2025-06-28 17:58:11 INFO  out - Waiting for cluster to stabilize before node shutdown...
+2025-06-28 17:58:21 INFO  out - Node to shutdown: 27d14a2a-2567-4f7b-b27d-0f13c487b8f2
+2025-06-28 17:58:21 INFO  out - Shutting down node gracefully...
+2025-06-28 17:58:21 INFO  out - Partition distribution after node shutdown:
+2025-06-28 17:58:21 INFO  out - Total partitions: 271
+2025-06-28 17:58:21 INFO  out - Partition distribution across nodes:
+2025-06-28 17:58:21 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 91 partitions
+2025-06-28 17:58:21 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 90 partitions
+2025-06-28 17:58:21 INFO  out - Node 27d14a2a-2567-4f7b-b27d-0f13c487b8f2: 90 partitions
+2025-06-28 17:58:21 INFO  out - Partition locations for sample keys:
+2025-06-28 17:58:21 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:21 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:21 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:21 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:58:21 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:21 INFO  out - Total Partitions: 3; Partition distribution for 100 items: [Node 0: 91 partitions (33,58% of total partitions), Entries: 33 (33,00% of total entries); Node 1: 90 partitions (33,21% of total partitions), Entries: 35 (35,00% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 32 (32,00% of total entries)]
+2025-06-28 17:58:21 INFO  out - 
+2025-06-28 17:58:21 INFO  out - Verifying data accessibility...
+2025-06-28 17:58:21 INFO  out - ✓ All data is still accessible and consistent after topology changes
+2025-06-28 17:58:21 INFO  out - Data accessibility after node shutdown: Maintained
+2025-06-28 17:58:21 INFO  out - 
+2025-06-28 17:58:21 INFO  out - === Testing Node Shutdown (Graceful) ===
+2025-06-28 17:58:21 INFO  out - Initial partition distribution before node shutdown:
+2025-06-28 17:58:21 INFO  out - Total partitions: 271
+2025-06-28 17:58:21 INFO  out - Partition distribution across nodes:
+2025-06-28 17:58:21 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 136 partitions
+2025-06-28 17:58:21 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 135 partitions
+2025-06-28 17:58:21 INFO  out - Partition locations for sample keys:
+2025-06-28 17:58:21 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:21 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:21 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:21 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:58:21 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:21 INFO  out - Total Partitions: 2; Partition distribution for 500 items: [Node 0: 136 partitions (50,18% of total partitions), Entries: 256 (51,20% of total entries); Node 1: 135 partitions (49,82% of total partitions), Entries: 244 (48,80% of total entries)]
+2025-06-28 17:58:21 INFO  out - Adding new node to cluster...
+2025-06-28 17:58:23 INFO  out - Waiting for cluster to stabilize before node shutdown...
+2025-06-28 17:58:33 INFO  out - Node to shutdown: 50074f9f-fcf8-4972-90f9-96d31f5debe6
+2025-06-28 17:58:33 INFO  out - Shutting down node gracefully...
+2025-06-28 17:58:33 INFO  out - Partition distribution after node shutdown:
+2025-06-28 17:58:33 INFO  out - Total partitions: 271
+2025-06-28 17:58:33 INFO  out - Partition distribution across nodes:
+2025-06-28 17:58:33 INFO  out - Node 50074f9f-fcf8-4972-90f9-96d31f5debe6: 90 partitions
+2025-06-28 17:58:33 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 91 partitions
+2025-06-28 17:58:33 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 90 partitions
+2025-06-28 17:58:33 INFO  out - Partition locations for sample keys:
+2025-06-28 17:58:33 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:33 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:33 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:33 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:58:33 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:33 INFO  out - Total Partitions: 3; Partition distribution for 500 items: [Node 0: 90 partitions (33,21% of total partitions), Entries: 166 (33,20% of total entries); Node 1: 91 partitions (33,58% of total partitions), Entries: 167 (33,40% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 167 (33,40% of total entries)]
+2025-06-28 17:58:33 INFO  out - 
+2025-06-28 17:58:33 INFO  out - Verifying data accessibility...
+2025-06-28 17:58:33 INFO  out - ✓ All data is still accessible and consistent after topology changes
+2025-06-28 17:58:33 INFO  out - Data accessibility after node shutdown: Maintained
+2025-06-28 17:58:33 INFO  out - 
+2025-06-28 17:58:33 INFO  out - === Testing Node Shutdown (Graceful) ===
+2025-06-28 17:58:33 INFO  out - Initial partition distribution before node shutdown:
+2025-06-28 17:58:33 INFO  out - Total partitions: 271
+2025-06-28 17:58:33 INFO  out - Partition distribution across nodes:
+2025-06-28 17:58:33 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 136 partitions
+2025-06-28 17:58:33 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 135 partitions
+2025-06-28 17:58:33 INFO  out - Partition locations for sample keys:
+2025-06-28 17:58:33 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:33 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:33 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:33 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:58:33 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:33 INFO  out - Total Partitions: 2; Partition distribution for 1000 items: [Node 0: 136 partitions (50,18% of total partitions), Entries: 523 (52,30% of total entries); Node 1: 135 partitions (49,82% of total partitions), Entries: 477 (47,70% of total entries)]
+2025-06-28 17:58:33 INFO  out - Adding new node to cluster...
+2025-06-28 17:58:35 INFO  out - Waiting for cluster to stabilize before node shutdown...
+2025-06-28 17:58:45 INFO  out - Node to shutdown: b4eb003a-3a35-4a2d-a5c8-9dc59f18f6f0
+2025-06-28 17:58:45 INFO  out - Shutting down node gracefully...
+2025-06-28 17:58:45 INFO  out - Partition distribution after node shutdown:
+2025-06-28 17:58:45 INFO  out - Total partitions: 271
+2025-06-28 17:58:45 INFO  out - Partition distribution across nodes:
+2025-06-28 17:58:45 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 91 partitions
+2025-06-28 17:58:45 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 90 partitions
+2025-06-28 17:58:45 INFO  out - Node b4eb003a-3a35-4a2d-a5c8-9dc59f18f6f0: 90 partitions
+2025-06-28 17:58:45 INFO  out - Partition locations for sample keys:
+2025-06-28 17:58:45 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:45 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:45 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:45 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:58:45 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:45 INFO  out - Total Partitions: 3; Partition distribution for 1000 items: [Node 0: 91 partitions (33,58% of total partitions), Entries: 356 (35,60% of total entries); Node 1: 90 partitions (33,21% of total partitions), Entries: 334 (33,40% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 310 (31,00% of total entries)]
+2025-06-28 17:58:45 INFO  out - 
+2025-06-28 17:58:45 INFO  out - Verifying data accessibility...
+2025-06-28 17:58:46 INFO  out - ✓ All data is still accessible and consistent after topology changes
+2025-06-28 17:58:46 INFO  out - Data accessibility after node shutdown: Maintained
+2025-06-28 17:58:46 INFO  out - 
+2025-06-28 17:58:46 INFO  out - === Testing Node Shutdown (Graceful) ===
+2025-06-28 17:58:46 INFO  out - Initial partition distribution before node shutdown:
+2025-06-28 17:58:46 INFO  out - Total partitions: 271
+2025-06-28 17:58:46 INFO  out - Partition distribution across nodes:
+2025-06-28 17:58:46 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 136 partitions
+2025-06-28 17:58:46 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 135 partitions
+2025-06-28 17:58:46 INFO  out - Partition locations for sample keys:
+2025-06-28 17:58:46 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:46 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:46 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:46 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:58:46 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:47 INFO  out - Total Partitions: 2; Partition distribution for 5000 items: [Node 0: 136 partitions (50,18% of total partitions), Entries: 2564 (51,28% of total entries); Node 1: 135 partitions (49,82% of total partitions), Entries: 2436 (48,72% of total entries)]
+2025-06-28 17:58:47 INFO  out - Adding new node to cluster...
+2025-06-28 17:58:48 INFO  out - Waiting for cluster to stabilize before node shutdown...
+2025-06-28 17:58:58 INFO  out - Node to shutdown: 0cefcaba-4150-4074-a78a-fabc942d8576
+2025-06-28 17:58:58 INFO  out - Shutting down node gracefully...
+2025-06-28 17:58:58 INFO  out - Partition distribution after node shutdown:
+2025-06-28 17:58:58 INFO  out - Total partitions: 271
+2025-06-28 17:58:58 INFO  out - Partition distribution across nodes:
+2025-06-28 17:58:58 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 91 partitions
+2025-06-28 17:58:58 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 90 partitions
+2025-06-28 17:58:58 INFO  out - Node 0cefcaba-4150-4074-a78a-fabc942d8576: 90 partitions
+2025-06-28 17:58:58 INFO  out - Partition locations for sample keys:
+2025-06-28 17:58:58 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:58 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:58 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:58 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:58:58 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:58:58 INFO  out - Total Partitions: 3; Partition distribution for 5000 items: [Node 0: 91 partitions (33,58% of total partitions), Entries: 1685 (33,70% of total entries); Node 1: 90 partitions (33,21% of total partitions), Entries: 1640 (32,80% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 1675 (33,50% of total entries)]
+2025-06-28 17:58:58 INFO  out - 
+2025-06-28 17:58:58 INFO  out - Verifying data accessibility...
+2025-06-28 17:58:58 INFO  out - ✓ All data is still accessible and consistent after topology changes
+2025-06-28 17:58:58 INFO  out - Data accessibility after node shutdown: Maintained
+2025-06-28 17:58:58 INFO  out - 
+2025-06-28 17:58:58 INFO  out - === Testing Node Shutdown (Graceful) ===
+2025-06-28 17:59:00 INFO  out - Initial partition distribution before node shutdown:
+2025-06-28 17:59:00 INFO  out - Total partitions: 271
+2025-06-28 17:59:00 INFO  out - Partition distribution across nodes:
+2025-06-28 17:59:00 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 136 partitions
+2025-06-28 17:59:00 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 135 partitions
+2025-06-28 17:59:00 INFO  out - Partition locations for sample keys:
+2025-06-28 17:59:00 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:59:00 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:59:00 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:59:00 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:59:00 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:59:00 INFO  out - Total Partitions: 2; Partition distribution for 10000 items: [Node 0: 136 partitions (50,18% of total partitions), Entries: 5126 (51,26% of total entries); Node 1: 135 partitions (49,82% of total partitions), Entries: 4874 (48,74% of total entries)]
+2025-06-28 17:59:00 INFO  out - Adding new node to cluster...
+2025-06-28 17:59:02 INFO  out - Waiting for cluster to stabilize before node shutdown...
+2025-06-28 17:59:12 INFO  out - Node to shutdown: 5aa87d4b-ed7d-4ad2-99be-c42517e4cc2e
+2025-06-28 17:59:12 INFO  out - Shutting down node gracefully...
+2025-06-28 17:59:12 INFO  out - Partition distribution after node shutdown:
+2025-06-28 17:59:12 INFO  out - Total partitions: 271
+2025-06-28 17:59:12 INFO  out - Partition distribution across nodes:
+2025-06-28 17:59:12 INFO  out - Node 3eaecc16-5f25-490d-ae13-82d804e71896: 91 partitions
+2025-06-28 17:59:12 INFO  out - Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9: 90 partitions
+2025-06-28 17:59:12 INFO  out - Node 5aa87d4b-ed7d-4ad2-99be-c42517e4cc2e: 90 partitions
+2025-06-28 17:59:12 INFO  out - Partition locations for sample keys:
+2025-06-28 17:59:12 INFO  out - Key 'key-0' -> Partition 92 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:59:12 INFO  out - Key 'key-1' -> Partition 94 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:59:12 INFO  out - Key 'key-2' -> Partition 265 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:59:12 INFO  out - Key 'key-3' -> Partition 207 -> Node 15b93dc0-4fbd-4ce2-b8be-75fc8e3743f9
+2025-06-28 17:59:12 INFO  out - Key 'key-4' -> Partition 175 -> Node 3eaecc16-5f25-490d-ae13-82d804e71896
+2025-06-28 17:59:12 INFO  out - Total Partitions: 3; Partition distribution for 10000 items: [Node 0: 91 partitions (33,58% of total partitions), Entries: 3417 (34,17% of total entries); Node 1: 90 partitions (33,21% of total partitions), Entries: 3300 (33,00% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 3283 (32,83% of total entries)]
+2025-06-28 17:59:12 INFO  out - 
+2025-06-28 17:59:12 INFO  out - Verifying data accessibility...
+2025-06-28 17:59:12 INFO  out - ✓ All data is still accessible and consistent after topology changes
+2025-06-28 17:59:12 INFO  out - Data accessibility after node shutdown: Maintained
+2025-06-28 17:59:21 INFO  out - 
+2025-06-28 17:59:21 INFO  out - Test results written to: partition.csv
+2025-06-28 17:59:21 INFO  out - Test report generated: partition.csv
+2025-06-28 17:59:21 INFO  out - 
+2025-06-28 17:59:21 INFO  out - === Test Summary for partition ===
+2025-06-28 17:59:21 INFO  out - [Partition-Distribution-with-100-Data-Items]: PASS - Total Partitions: 2; Partition distribution for 100 items: [Node 0: 135 partitions (49,82% of total partitions), Entries: 47 (47,00% of total entries); Node 1: 136 partitions (50,18% of total partitions), Entries: 53 (53,00% of total entries)]
+2025-06-28 17:59:21 INFO  out - [Partition-Distribution-with-500-Data-Items]: PASS - Total Partitions: 2; Partition distribution for 500 items: [Node 0: 135 partitions (49,82% of total partitions), Entries: 252 (50,40% of total entries); Node 1: 136 partitions (50,18% of total partitions), Entries: 248 (49,60% of total entries)]
+2025-06-28 17:59:21 INFO  out - [Partition-Distribution-with-1000-Data-Items]: PASS - Total Partitions: 2; Partition distribution for 1000 items: [Node 0: 135 partitions (49,82% of total partitions), Entries: 499 (49,90% of total entries); Node 1: 136 partitions (50,18% of total partitions), Entries: 501 (50,10% of total entries)]
+2025-06-28 17:59:21 INFO  out - [Partition-Distribution-with-5000-Data-Items]: PASS - Total Partitions: 2; Partition distribution for 5000 items: [Node 0: 135 partitions (49,82% of total partitions), Entries: 2511 (50,22% of total entries); Node 1: 136 partitions (50,18% of total partitions), Entries: 2489 (49,78% of total entries)]
+2025-06-28 17:59:21 INFO  out - [Partition-Distribution-with-10000-Data-Items]: PASS - Total Partitions: 2; Partition distribution for 10000 items: [Node 0: 135 partitions (49,82% of total partitions), Entries: 5012 (50,12% of total entries); Node 1: 136 partitions (50,18% of total partitions), Entries: 4988 (49,88% of total entries)]
+2025-06-28 17:59:21 INFO  out - [NodeTermination-Initial-Partition-Distribution-with-100-Data-Items]: PASS - Total Partitions: 2; Partition distribution for 100 items: [Node 0: 135 partitions (49,82% of total partitions), Entries: 47 (47,00% of total entries); Node 1: 136 partitions (50,18% of total partitions), Entries: 53 (53,00% of total entries)]
+2025-06-28 17:59:21 INFO  out - [NodeTermination-New-Partition-Distribution-with-100-Data-Items]: PASS - Total Partitions: 3; Partition distribution for 100 items: [Node 0: 91 partitions (33,58% of total partitions), Entries: 34 (34,00% of total entries); Node 1: 90 partitions (33,21% of total partitions), Entries: 35 (35,00% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 31 (31,00% of total entries)]
+2025-06-28 17:59:21 INFO  out - [NodeTermination-Data-Accessibility-After-Termination-with-100-Data-Items]: PASS - Data accessibility after node termination: Maintained
+2025-06-28 17:59:21 INFO  out - [NodeTermination-Initial-Partition-Distribution-with-500-Data-Items]: PASS - Total Partitions: 2; Partition distribution for 500 items: [Node 0: 136 partitions (50,18% of total partitions), Entries: 256 (51,20% of total entries); Node 1: 135 partitions (49,82% of total partitions), Entries: 244 (48,80% of total entries)]
+2025-06-28 17:59:21 INFO  out - [NodeTermination-New-Partition-Distribution-with-500-Data-Items]: PASS - Total Partitions: 3; Partition distribution for 500 items: [Node 0: 90 partitions (33,21% of total partitions), Entries: 166 (33,20% of total entries); Node 1: 91 partitions (33,58% of total partitions), Entries: 167 (33,40% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 167 (33,40% of total entries)]
+2025-06-28 17:59:21 INFO  out - [NodeTermination-Data-Accessibility-After-Termination-with-500-Data-Items]: PASS - Data accessibility after node termination: Maintained
+2025-06-28 17:59:21 INFO  out - [NodeTermination-Initial-Partition-Distribution-with-1000-Data-Items]: PASS - Total Partitions: 2; Partition distribution for 1000 items: [Node 0: 135 partitions (49,82% of total partitions), Entries: 501 (50,10% of total entries); Node 1: 136 partitions (50,18% of total partitions), Entries: 499 (49,90% of total entries)]
+2025-06-28 17:59:21 INFO  out - [NodeTermination-New-Partition-Distribution-with-1000-Data-Items]: PASS - Total Partitions: 3; Partition distribution for 1000 items: [Node 0: 91 partitions (33,58% of total partitions), Entries: 356 (35,60% of total entries); Node 1: 90 partitions (33,21% of total partitions), Entries: 334 (33,40% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 310 (31,00% of total entries)]
+2025-06-28 17:59:21 INFO  out - [NodeTermination-Data-Accessibility-After-Termination-with-1000-Data-Items]: PASS - Data accessibility after node termination: Maintained
+2025-06-28 17:59:21 INFO  out - [NodeTermination-Initial-Partition-Distribution-with-5000-Data-Items]: PASS - Total Partitions: 2; Partition distribution for 5000 items: [Node 0: 136 partitions (50,18% of total partitions), Entries: 2564 (51,28% of total entries); Node 1: 135 partitions (49,82% of total partitions), Entries: 2436 (48,72% of total entries)]
+2025-06-28 17:59:21 INFO  out - [NodeTermination-New-Partition-Distribution-with-5000-Data-Items]: PASS - Total Partitions: 3; Partition distribution for 5000 items: [Node 0: 90 partitions (33,21% of total partitions), Entries: 1675 (33,50% of total entries); Node 1: 91 partitions (33,58% of total partitions), Entries: 1685 (33,70% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 1640 (32,80% of total entries)]
+2025-06-28 17:59:21 INFO  out - [NodeTermination-Data-Accessibility-After-Termination-with-5000-Data-Items]: PASS - Data accessibility after node termination: Maintained
+2025-06-28 17:59:21 INFO  out - [NodeTermination-Initial-Partition-Distribution-with-10000-Data-Items]: PASS - Total Partitions: 2; Partition distribution for 10000 items: [Node 0: 135 partitions (49,82% of total partitions), Entries: 5009 (50,09% of total entries); Node 1: 136 partitions (50,18% of total partitions), Entries: 4991 (49,91% of total entries)]
+2025-06-28 17:59:21 INFO  out - [NodeTermination-New-Partition-Distribution-with-10000-Data-Items]: PASS - Total Partitions: 3; Partition distribution for 10000 items: [Node 0: 91 partitions (33,58% of total partitions), Entries: 3417 (34,17% of total entries); Node 1: 90 partitions (33,21% of total partitions), Entries: 3300 (33,00% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 3283 (32,83% of total entries)]
+2025-06-28 17:59:21 INFO  out - [NodeTermination-Data-Accessibility-After-Termination-with-10000-Data-Items]: PASS - Data accessibility after node termination: Maintained
+2025-06-28 17:59:21 INFO  out - [AddingNode-Initial-Partition-Distribution-with-100-Data-Items]: PASS - Total Partitions: 2; Partition distribution for 100 items: [Node 0: 136 partitions (50,18% of total partitions), Entries: 46 (46,00% of total entries); Node 1: 135 partitions (49,82% of total partitions), Entries: 54 (54,00% of total entries)]
+2025-06-28 17:59:21 INFO  out - [AddingNode-New-Partition-Distribution-with-100-Data-Items]: PASS - Total Partitions: 3; Partition distribution for 100 items: [Node 0: 90 partitions (33,21% of total partitions), Entries: 32 (32,00% of total entries); Node 1: 91 partitions (33,58% of total partitions), Entries: 33 (33,00% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 35 (35,00% of total entries)]
+2025-06-28 17:59:21 INFO  out - [AddingNode-Data-Accessibility-After-Adding-Node-with-100-Data-Items]: PASS - Data accessibility after adding node: Maintained
+2025-06-28 17:59:21 INFO  out - [AddingNode-Initial-Partition-Distribution-with-500-Data-Items]: PASS - Total Partitions: 2; Partition distribution for 500 items: [Node 0: 136 partitions (50,18% of total partitions), Entries: 256 (51,20% of total entries); Node 1: 135 partitions (49,82% of total partitions), Entries: 244 (48,80% of total entries)]
+2025-06-28 17:59:21 INFO  out - [AddingNode-New-Partition-Distribution-with-500-Data-Items]: PASS - Total Partitions: 3; Partition distribution for 500 items: [Node 0: 90 partitions (33,21% of total partitions), Entries: 166 (33,20% of total entries); Node 1: 91 partitions (33,58% of total partitions), Entries: 167 (33,40% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 167 (33,40% of total entries)]
+2025-06-28 17:59:21 INFO  out - [AddingNode-Data-Accessibility-After-Adding-Node-with-500-Data-Items]: PASS - Data accessibility after adding node: Maintained
+2025-06-28 17:59:21 INFO  out - [AddingNode-Initial-Partition-Distribution-with-1000-Data-Items]: PASS - Total Partitions: 2; Partition distribution for 1000 items: [Node 0: 136 partitions (50,18% of total partitions), Entries: 523 (52,30% of total entries); Node 1: 135 partitions (49,82% of total partitions), Entries: 477 (47,70% of total entries)]
+2025-06-28 17:59:21 INFO  out - [AddingNode-New-Partition-Distribution-with-1000-Data-Items]: PASS - Total Partitions: 3; Partition distribution for 1000 items: [Node 0: 90 partitions (33,21% of total partitions), Entries: 310 (31,00% of total entries); Node 1: 91 partitions (33,58% of total partitions), Entries: 356 (35,60% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 334 (33,40% of total entries)]
+2025-06-28 17:59:21 INFO  out - [AddingNode-Data-Accessibility-After-Adding-Node-with-1000-Data-Items]: PASS - Data accessibility after adding node: Maintained
+2025-06-28 17:59:21 INFO  out - [AddingNode-Initial-Partition-Distribution-with-5000-Data-Items]: PASS - Total Partitions: 2; Partition distribution for 5000 items: [Node 0: 136 partitions (50,18% of total partitions), Entries: 2564 (51,28% of total entries); Node 1: 135 partitions (49,82% of total partitions), Entries: 2436 (48,72% of total entries)]
+2025-06-28 17:59:21 INFO  out - [AddingNode-New-Partition-Distribution-with-5000-Data-Items]: PASS - Total Partitions: 3; Partition distribution for 5000 items: [Node 0: 90 partitions (33,21% of total partitions), Entries: 1675 (33,50% of total entries); Node 1: 91 partitions (33,58% of total partitions), Entries: 1685 (33,70% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 1640 (32,80% of total entries)]
+2025-06-28 17:59:21 INFO  out - [AddingNode-Data-Accessibility-After-Adding-Node-with-5000-Data-Items]: PASS - Data accessibility after adding node: Maintained
+2025-06-28 17:59:21 INFO  out - [AddingNode-Initial-Partition-Distribution-with-10000-Data-Items]: PASS - Total Partitions: 2; Partition distribution for 10000 items: [Node 0: 136 partitions (50,18% of total partitions), Entries: 5126 (51,26% of total entries); Node 1: 135 partitions (49,82% of total partitions), Entries: 4874 (48,74% of total entries)]
+2025-06-28 17:59:21 INFO  out - [AddingNode-New-Partition-Distribution-with-10000-Data-Items]: PASS - Total Partitions: 3; Partition distribution for 10000 items: [Node 0: 91 partitions (33,58% of total partitions), Entries: 3417 (34,17% of total entries); Node 1: 90 partitions (33,21% of total partitions), Entries: 3300 (33,00% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 3283 (32,83% of total entries)]
+2025-06-28 17:59:21 INFO  out - [AddingNode-Data-Accessibility-After-Adding-Node-with-10000-Data-Items]: PASS - Data accessibility after adding node: Maintained
+2025-06-28 17:59:21 INFO  out - [NodeShutdown-Initial-Partition-Distribution-with-100-Data-Items]: PASS - Total Partitions: 2; Partition distribution for 100 items: [Node 0: 136 partitions (50,18% of total partitions), Entries: 46 (46,00% of total entries); Node 1: 135 partitions (49,82% of total partitions), Entries: 54 (54,00% of total entries)]
+2025-06-28 17:59:21 INFO  out - [NodeShutdown-New-Partition-Distribution-with-100-Data-Items]: PASS - Total Partitions: 3; Partition distribution for 100 items: [Node 0: 91 partitions (33,58% of total partitions), Entries: 33 (33,00% of total entries); Node 1: 90 partitions (33,21% of total partitions), Entries: 35 (35,00% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 32 (32,00% of total entries)]
+2025-06-28 17:59:21 INFO  out - [NodeShutdown-Data-Accessibility-After-Shutdown-with-100-Data-Items]: PASS - Data accessibility after node shutdown: Maintained
+2025-06-28 17:59:21 INFO  out - [NodeShutdown-Initial-Partition-Distribution-with-500-Data-Items]: PASS - Total Partitions: 2; Partition distribution for 500 items: [Node 0: 136 partitions (50,18% of total partitions), Entries: 256 (51,20% of total entries); Node 1: 135 partitions (49,82% of total partitions), Entries: 244 (48,80% of total entries)]
+2025-06-28 17:59:21 INFO  out - [NodeShutdown-New-Partition-Distribution-with-500-Data-Items]: PASS - Total Partitions: 3; Partition distribution for 500 items: [Node 0: 90 partitions (33,21% of total partitions), Entries: 166 (33,20% of total entries); Node 1: 91 partitions (33,58% of total partitions), Entries: 167 (33,40% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 167 (33,40% of total entries)]
+2025-06-28 17:59:21 INFO  out - [NodeShutdown-Data-Accessibility-After-Shutdown-with-500-Data-Items]: PASS - Data accessibility after node shutdown: Maintained
+2025-06-28 17:59:21 INFO  out - [NodeShutdown-Initial-Partition-Distribution-with-1000-Data-Items]: PASS - Total Partitions: 2; Partition distribution for 1000 items: [Node 0: 136 partitions (50,18% of total partitions), Entries: 523 (52,30% of total entries); Node 1: 135 partitions (49,82% of total partitions), Entries: 477 (47,70% of total entries)]
+2025-06-28 17:59:21 INFO  out - [NodeShutdown-New-Partition-Distribution-with-1000-Data-Items]: PASS - Total Partitions: 3; Partition distribution for 1000 items: [Node 0: 91 partitions (33,58% of total partitions), Entries: 356 (35,60% of total entries); Node 1: 90 partitions (33,21% of total partitions), Entries: 334 (33,40% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 310 (31,00% of total entries)]
+2025-06-28 17:59:21 INFO  out - [NodeShutdown-Data-Accessibility-After-Shutdown-with-1000-Data-Items]: PASS - Data accessibility after node shutdown: Maintained
+2025-06-28 17:59:21 INFO  out - [NodeShutdown-Initial-Partition-Distribution-with-5000-Data-Items]: PASS - Total Partitions: 2; Partition distribution for 5000 items: [Node 0: 136 partitions (50,18% of total partitions), Entries: 2564 (51,28% of total entries); Node 1: 135 partitions (49,82% of total partitions), Entries: 2436 (48,72% of total entries)]
+2025-06-28 17:59:21 INFO  out - [NodeShutdown-New-Partition-Distribution-with-5000-Data-Items]: PASS - Total Partitions: 3; Partition distribution for 5000 items: [Node 0: 91 partitions (33,58% of total partitions), Entries: 1685 (33,70% of total entries); Node 1: 90 partitions (33,21% of total partitions), Entries: 1640 (32,80% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 1675 (33,50% of total entries)]
+2025-06-28 17:59:21 INFO  out - [NodeShutdown-Data-Accessibility-After-Shutdown-with-5000-Data-Items]: PASS - Data accessibility after node shutdown: Maintained
+2025-06-28 17:59:21 INFO  out - [NodeShutdown-Initial-Partition-Distribution-with-10000-Data-Items]: PASS - Total Partitions: 2; Partition distribution for 10000 items: [Node 0: 136 partitions (50,18% of total partitions), Entries: 5126 (51,26% of total entries); Node 1: 135 partitions (49,82% of total partitions), Entries: 4874 (48,74% of total entries)]
+2025-06-28 17:59:21 INFO  out - [NodeShutdown-New-Partition-Distribution-with-10000-Data-Items]: PASS - Total Partitions: 3; Partition distribution for 10000 items: [Node 0: 91 partitions (33,58% of total partitions), Entries: 3417 (34,17% of total entries); Node 1: 90 partitions (33,21% of total partitions), Entries: 3300 (33,00% of total entries); Node 2: 90 partitions (33,21% of total partitions), Entries: 3283 (32,83% of total entries)]
+2025-06-28 17:59:21 INFO  out - [NodeShutdown-Data-Accessibility-After-Shutdown-with-10000-Data-Items]: PASS - Data accessibility after node shutdown: Maintained
+2025-06-28 17:59:21 INFO  out - Total Tests: 50, Passed: 50, Failed: 0
+2025-06-28 17:59:21 INFO  out - ========================================
+2025-06-28 17:59:21 INFO  out - 
+2025-06-28 17:59:21 INFO  out - Running tests for: query
+2025-06-28 17:59:22 INFO  out - Executing: testAggregationSqlQueries
+2025-06-28 17:59:22 INFO  out - 
+2025-06-28 17:59:22 INFO  out - === Testing Aggregation SQL Queries ===
+2025-06-28 17:59:22 INFO  out - Testing GROUP BY with aggregation...
+2025-06-28 17:59:23 INFO  out - ✓ GROUP BY with aggregation query works correctly
+2025-06-28 17:59:23 INFO  out - Testing HAVING clause...
+2025-06-28 17:59:24 INFO  out - ✓ HAVING clause query works correctly
+2025-06-28 17:59:24 INFO  out - Executing: testSimpleSqlQueries
+2025-06-28 17:59:24 INFO  out - 
+2025-06-28 17:59:24 INFO  out - === Testing Simple SQL Queries ===
+2025-06-28 17:59:24 INFO  out - Testing simple SELECT query...
+2025-06-28 17:59:24 INFO  out - ✓ Simple SELECT query works correctly
+2025-06-28 17:59:24 INFO  out - Executing: testFilteredSqlQueries
+2025-06-28 17:59:24 INFO  out - 
+2025-06-28 17:59:24 INFO  out - === Testing Filtered SQL Queries ===
+2025-06-28 17:59:24 INFO  out - Testing WHERE clause...
+2025-06-28 17:59:25 INFO  out - ✓ WHERE clause query works correctly
+2025-06-28 17:59:25 INFO  out - Testing ORDER BY clause...
+2025-06-28 17:59:25 INFO  out - ✓ ORDER BY clause query works correctly
+2025-06-28 17:59:25 INFO  out - Executing: testJoinSqlQueries
+2025-06-28 17:59:25 INFO  out - 
+2025-06-28 17:59:25 INFO  out - === Testing JOIN SQL Queries ===
+2025-06-28 17:59:25 INFO  out - Testing INNER JOIN...
+2025-06-28 17:59:26 INFO  out - ✓ INNER JOIN query works correctly
+2025-06-28 17:59:26 INFO  out - Testing JOIN with WHERE...
+2025-06-28 17:59:26 INFO  out - ✓ JOIN with WHERE query works correctly
+2025-06-28 17:59:26 INFO  out - Executing: testParameterizedSqlQueries
+2025-06-28 17:59:26 INFO  out - 
+2025-06-28 17:59:26 INFO  out - === Testing Parameterized SQL Queries ===
+2025-06-28 17:59:26 INFO  out - Testing parameterized query...
+2025-06-28 17:59:27 INFO  out - ✓ Parameterized query works correctly
+2025-06-28 17:59:27 INFO  out - Executing: testComparisonWithPredicates
+2025-06-28 17:59:27 INFO  out - 
+2025-06-28 17:59:27 INFO  out - === Comparing SQL with Predicate API ===
+2025-06-28 17:59:27 INFO  out - Testing simple filtering comparison...
+2025-06-28 17:59:27 INFO  out - ✓ SQL and Predicate API returned the same results
+2025-06-28 17:59:27 INFO  out -   SQL query execution time: 460468 μs
+2025-06-28 17:59:27 INFO  out -   Predicate query execution time: 1804 μs
+2025-06-28 17:59:27 INFO  out - Executing: testComplexPredicateQueries
+2025-06-28 17:59:27 INFO  out - 
+2025-06-28 17:59:27 INFO  out - === Testing Complex Predicate Queries ===
+2025-06-28 17:59:27 INFO  out - Testing complex predicate (age > 25 AND active = true) OR departmentId = 'D3'...
+2025-06-28 17:59:27 INFO  out - ✓ Complex predicate query works correctly
+2025-06-28 17:59:27 INFO  out - Testing regex predicate...
+2025-06-28 17:59:27 INFO  out - ✓ Regex predicate query works correctly
+2025-06-28 17:59:27 INFO  out - 
+2025-06-28 17:59:27 INFO  out - Test results written to: query.csv
+2025-06-28 17:59:27 INFO  out - Test report generated: query.csv
+2025-06-28 17:59:27 INFO  out - 
+2025-06-28 17:59:27 INFO  out - === Test Summary for query ===
+2025-06-28 17:59:27 INFO  out - [SqlQuery-GroupBy]: PASS - GROUP BY with aggregation query test. Expected 3 rows, got: 3
+2025-06-28 17:59:27 INFO  out - [SqlQuery-Having]: PASS - HAVING clause query test. Expected 2 rows, got: 2
+2025-06-28 17:59:27 INFO  out - [SqlQuery-SimpleSelect]: PASS - Simple SELECT query test. Expected 5 rows, got: 5
+2025-06-28 17:59:27 INFO  out - [SqlQuery-Where]: PASS - WHERE clause query test. Expected 2 rows, got: 2
+2025-06-28 17:59:27 INFO  out - [SqlQuery-OrderBy]: PASS - ORDER BY clause query test. Expected 'Diana', got: Diana
+2025-06-28 17:59:27 INFO  out - [SqlQuery-InnerJoin]: PASS - INNER JOIN query test. Expected 5 rows, got: 5
+2025-06-28 17:59:27 INFO  out - [SqlQuery-JoinWhere]: PASS - JOIN with WHERE query test. Expected 3 rows, got: 3
+2025-06-28 17:59:27 INFO  out - [SqlQuery-Parameterized]: PASS - Parameterized query test. Expected 1 row, got: 1
+2025-06-28 17:59:27 INFO  out - [Comparison-SimpleFilter]: PASS - Comparing SQL vs Predicate API. Results match: true, SQL time: 460468μs, Predicate time: 1804μs
+2025-06-28 17:59:27 INFO  out - [Predicate-ComplexQuery]: PASS - Complex predicate query test. Expected 3 people, Got: 3
+2025-06-28 17:59:27 INFO  out - [Predicate-Regex]: PASS - Regex predicate query test. Expected 2 people, Got: 2
+2025-06-28 17:59:27 INFO  out - Total Tests: 11, Passed: 11, Failed: 0
+2025-06-28 17:59:27 INFO  out - ========================================
+2025-06-28 17:59:27 INFO  out - 
+2025-06-28 17:59:27 INFO  out - Running tests for: failover
+2025-06-28 17:59:27 INFO  out - Executing: testPredicateQueryDuringNodeShutdown
+2025-06-28 17:59:27 INFO  out - 
+2025-06-28 17:59:27 INFO  out - === Testing Predicate API Query During Node Shutdown ===
+2025-06-28 17:59:34 INFO  out - Starting complex Predicate query...
+2025-06-28 17:59:34 INFO  out - Predicate query completed successfully with 1 results
+2025-06-28 17:59:34 INFO  out - Expected result found in query output
+2025-06-28 17:59:34 INFO  out - Predicate query completed successfully with 1 results
+2025-06-28 17:59:34 INFO  out - Expected result found in query output
+2025-06-28 17:59:34 INFO  out - Predicate query completed successfully with 1 results
+2025-06-28 17:59:34 INFO  out - Expected result found in query output
+2025-06-28 17:59:34 INFO  out - Predicate query completed successfully with 1 results
+2025-06-28 17:59:34 INFO  out - Expected result found in query output
+2025-06-28 17:59:34 INFO  out - Predicate query completed successfully with 1 results
+2025-06-28 17:59:34 INFO  out - Expected result found in query output
+2025-06-28 17:59:34 INFO  out - Predicate query completed successfully with 1 results
+2025-06-28 17:59:34 INFO  out - Expected result found in query output
+2025-06-28 17:59:34 INFO  out - Predicate query completed successfully with 1 results
+2025-06-28 17:59:34 INFO  out - Expected result found in query output
+2025-06-28 17:59:34 INFO  out - Predicate query completed successfully with 1 results
+2025-06-28 17:59:34 INFO  out - Expected result found in query output
+2025-06-28 17:59:34 INFO  out - Predicate query completed successfully with 1 results
+2025-06-28 17:59:34 INFO  out - Expected result found in query output
+2025-06-28 17:59:34 INFO  out - Predicate query completed successfully with 1 results
+2025-06-28 17:59:34 INFO  out - Expected result found in query output
+2025-06-28 17:59:40 INFO  out - ✓ Predicate query completed successfully despite node shutdown
+2025-06-28 17:59:40 INFO  out - Executing: testPredicateQueryDuringNodeTermination
+2025-06-28 17:59:40 INFO  out - 
+2025-06-28 17:59:40 INFO  out - === Testing Predicate API Query During Node Termination ===
+2025-06-28 17:59:40 INFO  out - Predicate query completed successfully with 1 results
+2025-06-28 17:59:40 INFO  out - Expected result found in query output
+2025-06-28 17:59:46 INFO  out - Starting complex Predicate query...
+2025-06-28 17:59:46 INFO  out - Predicate query completed successfully with 1 results
+2025-06-28 17:59:46 INFO  out - Expected result found in query output
+2025-06-28 17:59:52 INFO  out - ✓ Predicate query completed successfully despite node termination
+2025-06-28 17:59:57 INFO  out - Predicate query completed successfully with 0 results
+2025-06-28 17:59:57 INFO  out - Expected result not found in query output
+2025-06-28 17:59:57 INFO  out - Executing: testSqlQueryDuringNodeShutdown
+2025-06-28 17:59:57 INFO  out - 
+2025-06-28 17:59:57 INFO  out - === Testing SQL Query During Node Shutdown ===
+2025-06-28 18:00:02 INFO  out - Starting complex SQL query...
+2025-06-28 18:00:03 INFO  out - Query completed successfully with 0 rows
+2025-06-28 18:00:03 INFO  out - Expected result not found in query output
+2025-06-28 18:00:03 INFO  out - Query failed: The Jet SQL job failed: Execution on a member failed: com.hazelcast.jet.core.TopologyChangedException: Member left the cluster
+2025-06-28 18:00:05 INFO  out - ✗ SQL query failed during node shutdown
+2025-06-28 18:00:05 INFO  out - Executing: testSqlQueryDuringNodeTermination
+2025-06-28 18:00:05 INFO  out - 
+2025-06-28 18:00:05 INFO  out - === Testing SQL Query During Node Termination ===
+2025-06-28 18:00:11 INFO  out - Starting complex SQL query...
+2025-06-28 18:00:11 INFO  out - Query completed successfully with 0 rows
+2025-06-28 18:00:11 INFO  out - Expected result not found in query output
+2025-06-28 18:00:17 INFO  out - ✗ SQL query failed during node termination
+2025-06-28 18:00:24 INFO  out - 
+2025-06-28 18:00:24 INFO  out - Test results written to: failover.csv
+2025-06-28 18:00:24 INFO  out - Test report generated: failover.csv
+2025-06-28 18:00:24 INFO  out - 
+2025-06-28 18:00:24 INFO  out - === Test Summary for failover ===
+2025-06-28 18:00:24 INFO  out - [Failover-PredicateQueryShutdown]: PASS - Predicate query was resilient to node shutdown
+2025-06-28 18:00:24 INFO  out - [Failover-PredicateQueryTermination]: PASS - Predicate query was resilient to node termination
+2025-06-28 18:00:24 INFO  out - [Failover-SqlQueryShutdown]: FAIL - SQL query failed during node shutdown
+2025-06-28 18:00:24 INFO  out - [Failover-SqlQueryTermination]: FAIL - SQL query failed during node termination
+2025-06-28 18:00:24 INFO  out - Total Tests: 4, Passed: 2, Failed: 2
+2025-06-28 18:00:24 INFO  out - ========================================
+2025-06-28 18:00:24 INFO  out - 
+2025-06-28 18:00:24 INFO  out - Query failed: Cluster topology changed while a query was executed: Member cannot be reached: [172.28.160.1]:5702
+2025-06-28 18:00:48 INFO  out - Running tests for: custom_partition
+2025-06-28 18:00:52 INFO  out - Executing: testCustomPartitioning
+2025-06-28 18:00:52 INFO  out - 
+2025-06-28 18:00:52 INFO  out - === Testing Custom Partitioning Strategy with 100 keys per region ===
+2025-06-28 18:00:52 INFO  out - Inserting region-based data...
+2025-06-28 18:00:52 INFO  out - Analyzing custom partition distribution by region:
+2025-06-28 18:00:52 INFO  out - Key 'EU-key-0' -> Partition 66 -> Node d1666692-319c-44d3-97d5-6302f9420f6e
+2025-06-28 18:00:52 INFO  out - Key 'EU-key-1' -> Partition 66 -> Node d1666692-319c-44d3-97d5-6302f9420f6e
+2025-06-28 18:00:52 INFO  out - Key 'EU-key-2' -> Partition 66 -> Node d1666692-319c-44d3-97d5-6302f9420f6e
+2025-06-28 18:00:52 INFO  out - 
+2025-06-28 18:00:52 INFO  out - === Region EU Distribution ===
+2025-06-28 18:00:52 INFO  out - Total distinct partitions used: 1
+2025-06-28 18:00:52 INFO  out - Total keys in region: 100
+2025-06-28 18:00:52 INFO  out - Node 0 (d1666692-319c-44d3-97d5-6302f9420f6e): 1 partitions (100,00%), 100 keys (100,00%)
+2025-06-28 18:00:52 INFO  out - Key 'US-key-0' -> Partition 122 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:00:52 INFO  out - Key 'US-key-1' -> Partition 122 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:00:52 INFO  out - Key 'US-key-2' -> Partition 122 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:00:52 INFO  out - 
+2025-06-28 18:00:52 INFO  out - === Region US Distribution ===
+2025-06-28 18:00:52 INFO  out - Total distinct partitions used: 1
+2025-06-28 18:00:52 INFO  out - Total keys in region: 100
+2025-06-28 18:00:52 INFO  out - Node 0 (528ebaba-1778-47a4-8703-a4556ed19a25): 1 partitions (100,00%), 100 keys (100,00%)
+2025-06-28 18:00:52 INFO  out - Key 'ASIA-key-0' -> Partition 34 -> Node 3aad80c1-37fb-443d-8fbd-66b0c34682fb
+2025-06-28 18:00:52 INFO  out - Key 'ASIA-key-1' -> Partition 34 -> Node 3aad80c1-37fb-443d-8fbd-66b0c34682fb
+2025-06-28 18:00:52 INFO  out - Key 'ASIA-key-2' -> Partition 34 -> Node 3aad80c1-37fb-443d-8fbd-66b0c34682fb
+2025-06-28 18:00:52 INFO  out - 
+2025-06-28 18:00:52 INFO  out - === Region ASIA Distribution ===
+2025-06-28 18:00:52 INFO  out - Total distinct partitions used: 1
+2025-06-28 18:00:52 INFO  out - Total keys in region: 100
+2025-06-28 18:00:52 INFO  out - Node 0 (3aad80c1-37fb-443d-8fbd-66b0c34682fb): 1 partitions (100,00%), 100 keys (100,00%)
+2025-06-28 18:00:52 INFO  out - Key 'AF-key-0' -> Partition 201 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:00:52 INFO  out - Key 'AF-key-1' -> Partition 201 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:00:52 INFO  out - Key 'AF-key-2' -> Partition 201 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:00:52 INFO  out - 
+2025-06-28 18:00:52 INFO  out - === Region AF Distribution ===
+2025-06-28 18:00:52 INFO  out - Total distinct partitions used: 1
+2025-06-28 18:00:52 INFO  out - Total keys in region: 100
+2025-06-28 18:00:52 INFO  out - Node 0 (528ebaba-1778-47a4-8703-a4556ed19a25): 1 partitions (100,00%), 100 keys (100,00%)
+2025-06-28 18:00:52 INFO  out - 
+2025-06-28 18:00:52 INFO  out - === Cross-Region Analysis ===
+2025-06-28 18:00:52 INFO  out - Node overlap between EU and US: 0 nodes (0% overlap)
+2025-06-28 18:00:52 INFO  out - Node overlap between EU and ASIA: 0 nodes (0% overlap)
+2025-06-28 18:00:52 INFO  out - Node overlap between EU and AF: 0 nodes (0% overlap)
+2025-06-28 18:00:52 INFO  out - Node overlap between US and ASIA: 0 nodes (0% overlap)
+2025-06-28 18:00:52 INFO  out - Node overlap between US and AF: 1 nodes (100% overlap)
+2025-06-28 18:00:52 INFO  out - Node overlap between ASIA and AF: 0 nodes (0% overlap)
+2025-06-28 18:00:52 INFO  out - 
+2025-06-28 18:00:52 INFO  out - Region isolation level: 16,67% node overlap (lower is better for isolation)
+2025-06-28 18:00:52 INFO  out - 
+2025-06-28 18:00:52 INFO  out - Custom partitioning results for 100 keys per region: Average distinct partitions per region: 1,00; Region isolation level: 16,67% node overlap; Distribution: Region EU: [Node 0: 1 partitions (100,00% of region partitions), 100 keys (100,00% of region keys)]; Region US: [Node 0: 1 partitions (100,00% of region partitions), 100 keys (100,00% of region keys)]; Region ASIA: [Node 0: 1 partitions (100,00% of region partitions), 100 keys (100,00% of region keys)]; Region AF: [Node 0: 1 partitions (100,00% of region partitions), 100 keys (100,00% of region keys)]; 
+2025-06-28 18:00:52 INFO  out - 
+2025-06-28 18:00:52 INFO  out - === Testing Custom Partitioning Strategy with 500 keys per region ===
+2025-06-28 18:00:52 INFO  out - Inserting region-based data...
+2025-06-28 18:00:52 INFO  out - Analyzing custom partition distribution by region:
+2025-06-28 18:00:52 INFO  out - Key 'EU-key-0' -> Partition 66 -> Node d1666692-319c-44d3-97d5-6302f9420f6e
+2025-06-28 18:00:52 INFO  out - Key 'EU-key-1' -> Partition 66 -> Node d1666692-319c-44d3-97d5-6302f9420f6e
+2025-06-28 18:00:52 INFO  out - Key 'EU-key-2' -> Partition 66 -> Node d1666692-319c-44d3-97d5-6302f9420f6e
+2025-06-28 18:00:52 INFO  out - 
+2025-06-28 18:00:52 INFO  out - === Region EU Distribution ===
+2025-06-28 18:00:52 INFO  out - Total distinct partitions used: 1
+2025-06-28 18:00:52 INFO  out - Total keys in region: 500
+2025-06-28 18:00:52 INFO  out - Node 0 (d1666692-319c-44d3-97d5-6302f9420f6e): 1 partitions (100,00%), 500 keys (100,00%)
+2025-06-28 18:00:52 INFO  out - Key 'US-key-0' -> Partition 122 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:00:52 INFO  out - Key 'US-key-1' -> Partition 122 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:00:52 INFO  out - Key 'US-key-2' -> Partition 122 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:00:52 INFO  out - 
+2025-06-28 18:00:52 INFO  out - === Region US Distribution ===
+2025-06-28 18:00:52 INFO  out - Total distinct partitions used: 1
+2025-06-28 18:00:52 INFO  out - Total keys in region: 500
+2025-06-28 18:00:52 INFO  out - Node 0 (528ebaba-1778-47a4-8703-a4556ed19a25): 1 partitions (100,00%), 500 keys (100,00%)
+2025-06-28 18:00:52 INFO  out - Key 'ASIA-key-0' -> Partition 34 -> Node 3aad80c1-37fb-443d-8fbd-66b0c34682fb
+2025-06-28 18:00:52 INFO  out - Key 'ASIA-key-1' -> Partition 34 -> Node 3aad80c1-37fb-443d-8fbd-66b0c34682fb
+2025-06-28 18:00:52 INFO  out - Key 'ASIA-key-2' -> Partition 34 -> Node 3aad80c1-37fb-443d-8fbd-66b0c34682fb
+2025-06-28 18:00:52 INFO  out - 
+2025-06-28 18:00:52 INFO  out - === Region ASIA Distribution ===
+2025-06-28 18:00:52 INFO  out - Total distinct partitions used: 1
+2025-06-28 18:00:52 INFO  out - Total keys in region: 500
+2025-06-28 18:00:52 INFO  out - Node 0 (3aad80c1-37fb-443d-8fbd-66b0c34682fb): 1 partitions (100,00%), 500 keys (100,00%)
+2025-06-28 18:00:52 INFO  out - Key 'AF-key-0' -> Partition 201 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:00:52 INFO  out - Key 'AF-key-1' -> Partition 201 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:00:52 INFO  out - Key 'AF-key-2' -> Partition 201 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:00:52 INFO  out - 
+2025-06-28 18:00:52 INFO  out - === Region AF Distribution ===
+2025-06-28 18:00:52 INFO  out - Total distinct partitions used: 1
+2025-06-28 18:00:52 INFO  out - Total keys in region: 500
+2025-06-28 18:00:52 INFO  out - Node 0 (528ebaba-1778-47a4-8703-a4556ed19a25): 1 partitions (100,00%), 500 keys (100,00%)
+2025-06-28 18:00:52 INFO  out - 
+2025-06-28 18:00:52 INFO  out - === Cross-Region Analysis ===
+2025-06-28 18:00:52 INFO  out - Node overlap between EU and US: 0 nodes (0% overlap)
+2025-06-28 18:00:52 INFO  out - Node overlap between EU and ASIA: 0 nodes (0% overlap)
+2025-06-28 18:00:52 INFO  out - Node overlap between EU and AF: 0 nodes (0% overlap)
+2025-06-28 18:00:52 INFO  out - Node overlap between US and ASIA: 0 nodes (0% overlap)
+2025-06-28 18:00:52 INFO  out - Node overlap between US and AF: 1 nodes (100% overlap)
+2025-06-28 18:00:52 INFO  out - Node overlap between ASIA and AF: 0 nodes (0% overlap)
+2025-06-28 18:00:52 INFO  out - 
+2025-06-28 18:00:52 INFO  out - Region isolation level: 16,67% node overlap (lower is better for isolation)
+2025-06-28 18:00:52 INFO  out - 
+2025-06-28 18:00:52 INFO  out - Custom partitioning results for 500 keys per region: Average distinct partitions per region: 1,00; Region isolation level: 16,67% node overlap; Distribution: Region EU: [Node 0: 1 partitions (100,00% of region partitions), 500 keys (100,00% of region keys)]; Region US: [Node 0: 1 partitions (100,00% of region partitions), 500 keys (100,00% of region keys)]; Region ASIA: [Node 0: 1 partitions (100,00% of region partitions), 500 keys (100,00% of region keys)]; Region AF: [Node 0: 1 partitions (100,00% of region partitions), 500 keys (100,00% of region keys)]; 
+2025-06-28 18:00:52 INFO  out - 
+2025-06-28 18:00:52 INFO  out - === Testing Custom Partitioning Strategy with 1000 keys per region ===
+2025-06-28 18:00:52 INFO  out - Inserting region-based data...
+2025-06-28 18:00:53 INFO  out - Analyzing custom partition distribution by region:
+2025-06-28 18:00:53 INFO  out - Key 'EU-key-0' -> Partition 66 -> Node d1666692-319c-44d3-97d5-6302f9420f6e
+2025-06-28 18:00:53 INFO  out - Key 'EU-key-1' -> Partition 66 -> Node d1666692-319c-44d3-97d5-6302f9420f6e
+2025-06-28 18:00:53 INFO  out - Key 'EU-key-2' -> Partition 66 -> Node d1666692-319c-44d3-97d5-6302f9420f6e
+2025-06-28 18:00:53 INFO  out - 
+2025-06-28 18:00:53 INFO  out - === Region EU Distribution ===
+2025-06-28 18:00:53 INFO  out - Total distinct partitions used: 1
+2025-06-28 18:00:53 INFO  out - Total keys in region: 1000
+2025-06-28 18:00:53 INFO  out - Node 0 (d1666692-319c-44d3-97d5-6302f9420f6e): 1 partitions (100,00%), 1000 keys (100,00%)
+2025-06-28 18:00:53 INFO  out - Key 'US-key-0' -> Partition 122 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:00:53 INFO  out - Key 'US-key-1' -> Partition 122 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:00:53 INFO  out - Key 'US-key-2' -> Partition 122 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:00:53 INFO  out - 
+2025-06-28 18:00:53 INFO  out - === Region US Distribution ===
+2025-06-28 18:00:53 INFO  out - Total distinct partitions used: 1
+2025-06-28 18:00:53 INFO  out - Total keys in region: 1000
+2025-06-28 18:00:53 INFO  out - Node 0 (528ebaba-1778-47a4-8703-a4556ed19a25): 1 partitions (100,00%), 1000 keys (100,00%)
+2025-06-28 18:00:53 INFO  out - Key 'ASIA-key-0' -> Partition 34 -> Node 3aad80c1-37fb-443d-8fbd-66b0c34682fb
+2025-06-28 18:00:53 INFO  out - Key 'ASIA-key-1' -> Partition 34 -> Node 3aad80c1-37fb-443d-8fbd-66b0c34682fb
+2025-06-28 18:00:53 INFO  out - Key 'ASIA-key-2' -> Partition 34 -> Node 3aad80c1-37fb-443d-8fbd-66b0c34682fb
+2025-06-28 18:00:53 INFO  out - 
+2025-06-28 18:00:53 INFO  out - === Region ASIA Distribution ===
+2025-06-28 18:00:53 INFO  out - Total distinct partitions used: 1
+2025-06-28 18:00:53 INFO  out - Total keys in region: 1000
+2025-06-28 18:00:53 INFO  out - Node 0 (3aad80c1-37fb-443d-8fbd-66b0c34682fb): 1 partitions (100,00%), 1000 keys (100,00%)
+2025-06-28 18:00:53 INFO  out - Key 'AF-key-0' -> Partition 201 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:00:53 INFO  out - Key 'AF-key-1' -> Partition 201 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:00:53 INFO  out - Key 'AF-key-2' -> Partition 201 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:00:53 INFO  out - 
+2025-06-28 18:00:53 INFO  out - === Region AF Distribution ===
+2025-06-28 18:00:53 INFO  out - Total distinct partitions used: 1
+2025-06-28 18:00:53 INFO  out - Total keys in region: 1000
+2025-06-28 18:00:53 INFO  out - Node 0 (528ebaba-1778-47a4-8703-a4556ed19a25): 1 partitions (100,00%), 1000 keys (100,00%)
+2025-06-28 18:00:53 INFO  out - 
+2025-06-28 18:00:53 INFO  out - === Cross-Region Analysis ===
+2025-06-28 18:00:53 INFO  out - Node overlap between EU and US: 0 nodes (0% overlap)
+2025-06-28 18:00:53 INFO  out - Node overlap between EU and ASIA: 0 nodes (0% overlap)
+2025-06-28 18:00:53 INFO  out - Node overlap between EU and AF: 0 nodes (0% overlap)
+2025-06-28 18:00:53 INFO  out - Node overlap between US and ASIA: 0 nodes (0% overlap)
+2025-06-28 18:00:53 INFO  out - Node overlap between US and AF: 1 nodes (100% overlap)
+2025-06-28 18:00:53 INFO  out - Node overlap between ASIA and AF: 0 nodes (0% overlap)
+2025-06-28 18:00:53 INFO  out - 
+2025-06-28 18:00:53 INFO  out - Region isolation level: 16,67% node overlap (lower is better for isolation)
+2025-06-28 18:00:53 INFO  out - 
+2025-06-28 18:00:53 INFO  out - Custom partitioning results for 1000 keys per region: Average distinct partitions per region: 1,00; Region isolation level: 16,67% node overlap; Distribution: Region EU: [Node 0: 1 partitions (100,00% of region partitions), 1000 keys (100,00% of region keys)]; Region US: [Node 0: 1 partitions (100,00% of region partitions), 1000 keys (100,00% of region keys)]; Region ASIA: [Node 0: 1 partitions (100,00% of region partitions), 1000 keys (100,00% of region keys)]; Region AF: [Node 0: 1 partitions (100,00% of region partitions), 1000 keys (100,00% of region keys)]; 
+2025-06-28 18:00:53 INFO  out - 
+2025-06-28 18:00:53 INFO  out - === Testing Custom Partitioning Strategy with 5000 keys per region ===
+2025-06-28 18:00:53 INFO  out - Inserting region-based data...
+2025-06-28 18:00:56 INFO  out - Analyzing custom partition distribution by region:
+2025-06-28 18:00:56 INFO  out - Key 'EU-key-0' -> Partition 66 -> Node d1666692-319c-44d3-97d5-6302f9420f6e
+2025-06-28 18:00:56 INFO  out - Key 'EU-key-1' -> Partition 66 -> Node d1666692-319c-44d3-97d5-6302f9420f6e
+2025-06-28 18:00:56 INFO  out - Key 'EU-key-2' -> Partition 66 -> Node d1666692-319c-44d3-97d5-6302f9420f6e
+2025-06-28 18:00:56 INFO  out - 
+2025-06-28 18:00:56 INFO  out - === Region EU Distribution ===
+2025-06-28 18:00:56 INFO  out - Total distinct partitions used: 1
+2025-06-28 18:00:56 INFO  out - Total keys in region: 5000
+2025-06-28 18:00:56 INFO  out - Node 0 (d1666692-319c-44d3-97d5-6302f9420f6e): 1 partitions (100,00%), 5000 keys (100,00%)
+2025-06-28 18:00:56 INFO  out - Key 'US-key-0' -> Partition 122 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:00:56 INFO  out - Key 'US-key-1' -> Partition 122 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:00:56 INFO  out - Key 'US-key-2' -> Partition 122 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:00:56 INFO  out - 
+2025-06-28 18:00:56 INFO  out - === Region US Distribution ===
+2025-06-28 18:00:56 INFO  out - Total distinct partitions used: 1
+2025-06-28 18:00:56 INFO  out - Total keys in region: 5000
+2025-06-28 18:00:56 INFO  out - Node 0 (528ebaba-1778-47a4-8703-a4556ed19a25): 1 partitions (100,00%), 5000 keys (100,00%)
+2025-06-28 18:00:56 INFO  out - Key 'ASIA-key-0' -> Partition 34 -> Node 3aad80c1-37fb-443d-8fbd-66b0c34682fb
+2025-06-28 18:00:56 INFO  out - Key 'ASIA-key-1' -> Partition 34 -> Node 3aad80c1-37fb-443d-8fbd-66b0c34682fb
+2025-06-28 18:00:56 INFO  out - Key 'ASIA-key-2' -> Partition 34 -> Node 3aad80c1-37fb-443d-8fbd-66b0c34682fb
+2025-06-28 18:00:56 INFO  out - 
+2025-06-28 18:00:56 INFO  out - === Region ASIA Distribution ===
+2025-06-28 18:00:56 INFO  out - Total distinct partitions used: 1
+2025-06-28 18:00:56 INFO  out - Total keys in region: 5000
+2025-06-28 18:00:56 INFO  out - Node 0 (3aad80c1-37fb-443d-8fbd-66b0c34682fb): 1 partitions (100,00%), 5000 keys (100,00%)
+2025-06-28 18:00:56 INFO  out - Key 'AF-key-0' -> Partition 201 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:00:56 INFO  out - Key 'AF-key-1' -> Partition 201 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:00:56 INFO  out - Key 'AF-key-2' -> Partition 201 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:00:56 INFO  out - 
+2025-06-28 18:00:56 INFO  out - === Region AF Distribution ===
+2025-06-28 18:00:56 INFO  out - Total distinct partitions used: 1
+2025-06-28 18:00:56 INFO  out - Total keys in region: 5000
+2025-06-28 18:00:56 INFO  out - Node 0 (528ebaba-1778-47a4-8703-a4556ed19a25): 1 partitions (100,00%), 5000 keys (100,00%)
+2025-06-28 18:00:56 INFO  out - 
+2025-06-28 18:00:56 INFO  out - === Cross-Region Analysis ===
+2025-06-28 18:00:56 INFO  out - Node overlap between EU and US: 0 nodes (0% overlap)
+2025-06-28 18:00:56 INFO  out - Node overlap between EU and ASIA: 0 nodes (0% overlap)
+2025-06-28 18:00:56 INFO  out - Node overlap between EU and AF: 0 nodes (0% overlap)
+2025-06-28 18:00:56 INFO  out - Node overlap between US and ASIA: 0 nodes (0% overlap)
+2025-06-28 18:00:56 INFO  out - Node overlap between US and AF: 1 nodes (100% overlap)
+2025-06-28 18:00:56 INFO  out - Node overlap between ASIA and AF: 0 nodes (0% overlap)
+2025-06-28 18:00:56 INFO  out - 
+2025-06-28 18:00:56 INFO  out - Region isolation level: 16,67% node overlap (lower is better for isolation)
+2025-06-28 18:00:56 INFO  out - 
+2025-06-28 18:00:56 INFO  out - Custom partitioning results for 5000 keys per region: Average distinct partitions per region: 1,00; Region isolation level: 16,67% node overlap; Distribution: Region EU: [Node 0: 1 partitions (100,00% of region partitions), 5000 keys (100,00% of region keys)]; Region US: [Node 0: 1 partitions (100,00% of region partitions), 5000 keys (100,00% of region keys)]; Region ASIA: [Node 0: 1 partitions (100,00% of region partitions), 5000 keys (100,00% of region keys)]; Region AF: [Node 0: 1 partitions (100,00% of region partitions), 5000 keys (100,00% of region keys)]; 
+2025-06-28 18:00:56 INFO  out - 
+2025-06-28 18:00:56 INFO  out - === Testing Custom Partitioning Strategy with 10000 keys per region ===
+2025-06-28 18:00:56 INFO  out - Inserting region-based data...
+2025-06-28 18:01:03 INFO  out - Analyzing custom partition distribution by region:
+2025-06-28 18:01:03 INFO  out - Key 'EU-key-0' -> Partition 66 -> Node d1666692-319c-44d3-97d5-6302f9420f6e
+2025-06-28 18:01:03 INFO  out - Key 'EU-key-1' -> Partition 66 -> Node d1666692-319c-44d3-97d5-6302f9420f6e
+2025-06-28 18:01:03 INFO  out - Key 'EU-key-2' -> Partition 66 -> Node d1666692-319c-44d3-97d5-6302f9420f6e
+2025-06-28 18:01:03 INFO  out - 
+2025-06-28 18:01:03 INFO  out - === Region EU Distribution ===
+2025-06-28 18:01:03 INFO  out - Total distinct partitions used: 1
+2025-06-28 18:01:03 INFO  out - Total keys in region: 10000
+2025-06-28 18:01:03 INFO  out - Node 0 (d1666692-319c-44d3-97d5-6302f9420f6e): 1 partitions (100,00%), 10000 keys (100,00%)
+2025-06-28 18:01:03 INFO  out - Key 'US-key-0' -> Partition 122 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:01:03 INFO  out - Key 'US-key-1' -> Partition 122 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:01:03 INFO  out - Key 'US-key-2' -> Partition 122 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:01:03 INFO  out - 
+2025-06-28 18:01:03 INFO  out - === Region US Distribution ===
+2025-06-28 18:01:03 INFO  out - Total distinct partitions used: 1
+2025-06-28 18:01:03 INFO  out - Total keys in region: 10000
+2025-06-28 18:01:03 INFO  out - Node 0 (528ebaba-1778-47a4-8703-a4556ed19a25): 1 partitions (100,00%), 10000 keys (100,00%)
+2025-06-28 18:01:03 INFO  out - Key 'ASIA-key-0' -> Partition 34 -> Node 3aad80c1-37fb-443d-8fbd-66b0c34682fb
+2025-06-28 18:01:03 INFO  out - Key 'ASIA-key-1' -> Partition 34 -> Node 3aad80c1-37fb-443d-8fbd-66b0c34682fb
+2025-06-28 18:01:03 INFO  out - Key 'ASIA-key-2' -> Partition 34 -> Node 3aad80c1-37fb-443d-8fbd-66b0c34682fb
+2025-06-28 18:01:03 INFO  out - 
+2025-06-28 18:01:03 INFO  out - === Region ASIA Distribution ===
+2025-06-28 18:01:03 INFO  out - Total distinct partitions used: 1
+2025-06-28 18:01:03 INFO  out - Total keys in region: 10000
+2025-06-28 18:01:03 INFO  out - Node 0 (3aad80c1-37fb-443d-8fbd-66b0c34682fb): 1 partitions (100,00%), 10000 keys (100,00%)
+2025-06-28 18:01:03 INFO  out - Key 'AF-key-0' -> Partition 201 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:01:03 INFO  out - Key 'AF-key-1' -> Partition 201 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:01:03 INFO  out - Key 'AF-key-2' -> Partition 201 -> Node 528ebaba-1778-47a4-8703-a4556ed19a25
+2025-06-28 18:01:03 INFO  out - 
+2025-06-28 18:01:03 INFO  out - === Region AF Distribution ===
+2025-06-28 18:01:03 INFO  out - Total distinct partitions used: 1
+2025-06-28 18:01:03 INFO  out - Total keys in region: 10000
+2025-06-28 18:01:03 INFO  out - Node 0 (528ebaba-1778-47a4-8703-a4556ed19a25): 1 partitions (100,00%), 10000 keys (100,00%)
+2025-06-28 18:01:03 INFO  out - 
+2025-06-28 18:01:03 INFO  out - === Cross-Region Analysis ===
+2025-06-28 18:01:03 INFO  out - Node overlap between EU and US: 0 nodes (0% overlap)
+2025-06-28 18:01:03 INFO  out - Node overlap between EU and ASIA: 0 nodes (0% overlap)
+2025-06-28 18:01:03 INFO  out - Node overlap between EU and AF: 0 nodes (0% overlap)
+2025-06-28 18:01:03 INFO  out - Node overlap between US and ASIA: 0 nodes (0% overlap)
+2025-06-28 18:01:03 INFO  out - Node overlap between US and AF: 1 nodes (100% overlap)
+2025-06-28 18:01:03 INFO  out - Node overlap between ASIA and AF: 0 nodes (0% overlap)
+2025-06-28 18:01:03 INFO  out - 
+2025-06-28 18:01:03 INFO  out - Region isolation level: 16,67% node overlap (lower is better for isolation)
+2025-06-28 18:01:03 INFO  out - 
+2025-06-28 18:01:03 INFO  out - Custom partitioning results for 10000 keys per region: Average distinct partitions per region: 1,00; Region isolation level: 16,67% node overlap; Distribution: Region EU: [Node 0: 1 partitions (100,00% of region partitions), 10000 keys (100,00% of region keys)]; Region US: [Node 0: 1 partitions (100,00% of region partitions), 10000 keys (100,00% of region keys)]; Region ASIA: [Node 0: 1 partitions (100,00% of region partitions), 10000 keys (100,00% of region keys)]; Region AF: [Node 0: 1 partitions (100,00% of region partitions), 10000 keys (100,00% of region keys)]; 
+2025-06-28 18:01:14 INFO  out - 
+2025-06-28 18:01:14 INFO  out - Test results written to: custom_partition.csv
+2025-06-28 18:01:14 INFO  out - Test report generated: custom_partition.csv
+2025-06-28 18:01:14 INFO  out - 
+2025-06-28 18:01:14 INFO  out - === Test Summary for custom_partition ===
+2025-06-28 18:01:14 INFO  out - [CustomPartitioningTest-with-100-keys-per-region]: PASS - Custom partitioning results for 100 keys per region: Average distinct partitions per region: 1,00; Region isolation level: 16,67% node overlap; Distribution: Region EU: [Node 0: 1 partitions (100,00% of region partitions), 100 keys (100,00% of region keys)]; Region US: [Node 0: 1 partitions (100,00% of region partitions), 100 keys (100,00% of region keys)]; Region ASIA: [Node 0: 1 partitions (100,00% of region partitions), 100 keys (100,00% of region keys)]; Region AF: [Node 0: 1 partitions (100,00% of region partitions), 100 keys (100,00% of region keys)]; 
+2025-06-28 18:01:14 INFO  out - [CustomPartitioningTest-with-500-keys-per-region]: PASS - Custom partitioning results for 500 keys per region: Average distinct partitions per region: 1,00; Region isolation level: 16,67% node overlap; Distribution: Region EU: [Node 0: 1 partitions (100,00% of region partitions), 500 keys (100,00% of region keys)]; Region US: [Node 0: 1 partitions (100,00% of region partitions), 500 keys (100,00% of region keys)]; Region ASIA: [Node 0: 1 partitions (100,00% of region partitions), 500 keys (100,00% of region keys)]; Region AF: [Node 0: 1 partitions (100,00% of region partitions), 500 keys (100,00% of region keys)]; 
+2025-06-28 18:01:14 INFO  out - [CustomPartitioningTest-with-1000-keys-per-region]: PASS - Custom partitioning results for 1000 keys per region: Average distinct partitions per region: 1,00; Region isolation level: 16,67% node overlap; Distribution: Region EU: [Node 0: 1 partitions (100,00% of region partitions), 1000 keys (100,00% of region keys)]; Region US: [Node 0: 1 partitions (100,00% of region partitions), 1000 keys (100,00% of region keys)]; Region ASIA: [Node 0: 1 partitions (100,00% of region partitions), 1000 keys (100,00% of region keys)]; Region AF: [Node 0: 1 partitions (100,00% of region partitions), 1000 keys (100,00% of region keys)]; 
+2025-06-28 18:01:14 INFO  out - [CustomPartitioningTest-with-5000-keys-per-region]: PASS - Custom partitioning results for 5000 keys per region: Average distinct partitions per region: 1,00; Region isolation level: 16,67% node overlap; Distribution: Region EU: [Node 0: 1 partitions (100,00% of region partitions), 5000 keys (100,00% of region keys)]; Region US: [Node 0: 1 partitions (100,00% of region partitions), 5000 keys (100,00% of region keys)]; Region ASIA: [Node 0: 1 partitions (100,00% of region partitions), 5000 keys (100,00% of region keys)]; Region AF: [Node 0: 1 partitions (100,00% of region partitions), 5000 keys (100,00% of region keys)]; 
+2025-06-28 18:01:14 INFO  out - [CustomPartitioningTest-with-10000-keys-per-region]: PASS - Custom partitioning results for 10000 keys per region: Average distinct partitions per region: 1,00; Region isolation level: 16,67% node overlap; Distribution: Region EU: [Node 0: 1 partitions (100,00% of region partitions), 10000 keys (100,00% of region keys)]; Region US: [Node 0: 1 partitions (100,00% of region partitions), 10000 keys (100,00% of region keys)]; Region ASIA: [Node 0: 1 partitions (100,00% of region partitions), 10000 keys (100,00% of region keys)]; Region AF: [Node 0: 1 partitions (100,00% of region partitions), 10000 keys (100,00% of region keys)]; 
+2025-06-28 18:01:14 INFO  out - Total Tests: 5, Passed: 5, Failed: 0
+2025-06-28 18:01:14 INFO  out - ========================================
+2025-06-28 18:01:14 INFO  out - 
+2025-06-28 18:01:14 INFO  out - Running tests for: custom_serialization
+2025-06-28 18:01:18 INFO  out - Executing: testCustomSerialization
+2025-06-28 18:01:18 INFO  out - 
+2025-06-28 18:01:18 INFO  out - === Testing Custom Serialization ===
+2025-06-28 18:01:18 INFO  out - ✓ Custom serialization works correctly
+2025-06-28 18:01:18 INFO  out - Executing: testHazelcastJsonSerialization
+2025-06-28 18:01:18 INFO  out - 
+2025-06-28 18:01:18 INFO  out - === Testing Hazelcast JSON Serialization ===
+2025-06-28 18:01:18 INFO  out - ✓ Hazelcast JSON serialization works correctly
+2025-06-28 18:01:31 INFO  out - 
+2025-06-28 18:01:31 INFO  out - Test results written to: custom_serialization.csv
+2025-06-28 18:01:31 INFO  out - Test report generated: custom_serialization.csv
+2025-06-28 18:01:31 INFO  out - 
+2025-06-28 18:01:31 INFO  out - === Test Summary for custom_serialization ===
+2025-06-28 18:01:31 INFO  out - [CustomSerialization]: PASS - Custom serialization test completed expectations met: true
+2025-06-28 18:01:31 INFO  out - [HazelcastJsonSerialization]: PASS - Hazelcast JSON serialization test completed expectations met: true
+2025-06-28 18:01:31 INFO  out - Total Tests: 2, Passed: 2, Failed: 0
+2025-06-28 18:01:31 INFO  out - ========================================
+2025-06-28 18:01:31 INFO  out - 
+2025-06-28 18:01:31 INFO  out - Running tests for: split_brain_protection
+2025-06-28 18:01:33 INFO  out - Executing: testMinimumMembersQuorum
+2025-06-28 18:01:33 INFO  out - 
+2025-06-28 18:01:33 INFO  out - === Testing Minimum Members Quorum ===
+2025-06-28 18:01:36 INFO  out - ✓ Operations successful with 3 nodes (required: 2)
+2025-06-28 18:02:03 INFO  out - Executing: testReadWriteQuorum
+2025-06-28 18:02:03 INFO  out - 
+2025-06-28 18:02:03 INFO  out - === Testing Read/Write Quorum ===
+2025-06-28 18:02:06 INFO  out - ✓ Initial read successful with 3 nodes (required: 2)
+2025-06-28 18:02:06 INFO  out - ✓ Initial write successful with 3 nodes (required: 3)
+2025-06-28 18:02:06 INFO  out - ✓ Initial write successful with 3 nodes (required: 3)
+2025-06-28 18:02:16 INFO  out - ✓ Read operation successful with 2 nodes (required: 2)
+2025-06-28 18:02:16 INFO  out - ✗ Write operation succeeded when it should have failed
+2025-06-28 18:02:31 INFO  out - Executing: testSplitBrainRecovery
+2025-06-28 18:02:31 INFO  out - 
+2025-06-28 18:02:31 INFO  out - === Testing Split-Brain Recovery ===
+2025-06-28 18:02:35 INFO  out - ✓ Initial write successful with 3 nodes
+2025-06-28 18:02:45 INFO  out - ✓ Write operation successful with 2 nodes (required: 2)
+2025-06-28 18:02:57 INFO  out - ✓ Operations successful after healing the cluster
+2025-06-28 18:03:28 INFO  out - Executing: testCustomSplitBrainProtection
+2025-06-28 18:03:28 INFO  out - 
+2025-06-28 18:03:28 INFO  out - === Testing Custom Split-Brain Protection Function ===
+2025-06-28 18:03:31 INFO  out - ✓ Initial operation successful with all nodes
+2025-06-28 18:03:42 INFO  out - ✓ Operations successful with only master node
+2025-06-28 18:03:44 INFO  out - Executing: testQuorumFailure
+2025-06-28 18:03:44 INFO  out - 
+2025-06-28 18:03:44 INFO  out - === Testing Quorum Failure ===
+2025-06-28 18:03:47 INFO  out - ✓ Initial write successful with 3 nodes (required: 3)
+2025-06-28 18:03:58 INFO  out - ✓ Write operation correctly failed with SplitBrainProtectionException
+2025-06-28 18:04:43 INFO  out - 
+2025-06-28 18:04:43 INFO  out - Test results written to: split_brain_protection.csv
+2025-06-28 18:04:43 INFO  out - Test report generated: split_brain_protection.csv
+2025-06-28 18:04:43 INFO  out - 
+2025-06-28 18:04:43 INFO  out - === Test Summary for split_brain_protection ===
+2025-06-28 18:04:43 INFO  out - [MinimumMembersQuorum]: PASS - Minimum members quorum test completed
+2025-06-28 18:04:43 INFO  out - [ReadWriteQuorum]: FAIL - Read/Write quorum test completed
+2025-06-28 18:04:43 INFO  out - [SplitBrainRecovery]: PASS - Split-brain recovery test completed
+2025-06-28 18:04:43 INFO  out - [CustomSplitBrainProtection]: PASS - Custom split-brain protection test completed
+2025-06-28 18:04:43 INFO  out - [QuorumFailure]: PASS - Quorum failure scenario test completed
+2025-06-28 18:04:43 INFO  out - Total Tests: 5, Passed: 4, Failed: 1
+2025-06-28 18:04:43 INFO  out - ========================================
+2025-06-28 18:04:43 INFO  out - 
+2025-06-28 18:04:43 INFO  out - Running tests for: lite_member
+2025-06-28 18:04:47 INFO  out - Executing: testLiteMemberHasNoData
+2025-06-28 18:04:58 INFO  out - 
+2025-06-28 18:04:58 INFO  out - Test results written to: lite_member.csv
+2025-06-28 18:04:58 INFO  out - Test report generated: lite_member.csv
+2025-06-28 18:04:58 INFO  out - 
+2025-06-28 18:04:58 INFO  out - === Test Summary for lite_member ===
+2025-06-28 18:04:58 INFO  out - [LiteMemberTest]: PASS - Lite member data size expected to be 0, but found 0. Sizes of other members: member1 = 45, member2 = 55
+2025-06-28 18:04:58 INFO  out - Total Tests: 1, Passed: 1, Failed: 0
+2025-06-28 18:04:58 INFO  out - ========================================
+2025-06-28 18:04:58 INFO  out - 

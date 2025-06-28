@@ -1,0 +1,12 @@
+Test Name,Result,Timestamp,Message
+SqlQuery-GroupBy,PASS,2025-06-28 17:59:23,"GROUP BY with aggregation query test. Expected 3 rows, got: 3"
+SqlQuery-Having,PASS,2025-06-28 17:59:24,"HAVING clause query test. Expected 2 rows, got: 2"
+SqlQuery-SimpleSelect,PASS,2025-06-28 17:59:24,"Simple SELECT query test. Expected 5 rows, got: 5"
+SqlQuery-Where,PASS,2025-06-28 17:59:25,"WHERE clause query test. Expected 2 rows, got: 2"
+SqlQuery-OrderBy,PASS,2025-06-28 17:59:25,"ORDER BY clause query test. Expected 'Diana', got: Diana"
+SqlQuery-InnerJoin,PASS,2025-06-28 17:59:26,"INNER JOIN query test. Expected 5 rows, got: 5"
+SqlQuery-JoinWhere,PASS,2025-06-28 17:59:26,"JOIN with WHERE query test. Expected 3 rows, got: 3"
+SqlQuery-Parameterized,PASS,2025-06-28 17:59:27,"Parameterized query test. Expected 1 row, got: 1"
+Comparison-SimpleFilter,PASS,2025-06-28 17:59:27,"Comparing SQL vs Predicate API. Results match: true, SQL time: 460468μs, Predicate time: 1804μs"
+Predicate-ComplexQuery,PASS,2025-06-28 17:59:27,"Complex predicate query test. Expected 3 people, Got: 3"
+Predicate-Regex,PASS,2025-06-28 17:59:27,"Regex predicate query test. Expected 2 people, Got: 2"

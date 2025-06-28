@@ -1,0 +1,2 @@
+Test Name,Result,Timestamp,Message
+IAtomicLong Creation,PASS,2025-06-28 17:54:33,IAtomicLong is not supported in the Open Source Hazelcast Version.
