@@ -4,15 +4,15 @@
 
 == Risultati dei Test Java
 
-Dai test in Java emerge chiaramente che Hazelcast offre un'ampia gamma di funzionalità, tutte documentate. La configurazione è molto flessibile, ma richiede una solida comprensione delle opzioni disponibili per evitare errori comuni.
+Dai test in Java emerge chiaramente che Hazelcast offre un’ampia gamma di funzionalità, tutte documentate. La configurazione è molto flessibile, ma richiede una solida comprensione delle opzioni disponibili per evitare errori comuni.
 
 Inoltre, Hazelcast segnala chiaramente eventuali errori di configurazione e programmazione, facilitando la risoluzione dei problemi. Tuttavia, la curva di apprendimento può risultare ripida per i nuovi utenti.
 
-Più avanti in questo capitolo andremo a vedere delle funzionalità più interessanti che abbiamo scoperto durante i test, come il partizionamento personalizzato e la località dei dati, che possono migliorare significativamente le prestazioni in scenari specifici.
+Nel prosieguo di questo capitolo, analizzeremo alcune funzionalità interessanti emerse durante i test, come il partizionamento personalizzato e la località dei dati, che possono migliorare significativamente le prestazioni in scenari specifici.
 
 == Risultati Python
 
-In questo test andiamo ad inserire in una mappa distribuita elementi della forma `{key: "key_i", value: "value_i"}` con i un numero e andiamo a misurare le latenze delle operazioni di lettura e scrittura, sia per operazioni singole che per batch di operazioni. Questo per vedere come le latenze cambiano all'aumentare del numero di nodi.
+In questo test, si inseriscono in una mappa distribuita elementi della forma `{key: “key_i”, value: “value_i”}` con un numero e si misurano le latenze delle operazioni di lettura e scrittura, sia per operazioni singole che per batch di operazioni. Questo per osservare come le latenze variano all’aumentare del numero di nodi.
 
 #figure(
   caption: [Confronto latenze in operazioni di lettura/scrittura],
@@ -24,9 +24,9 @@ In questo test andiamo ad inserire in una mappa distribuita elementi della forma
   plot1b,
 )
 
-I risultati mostrano che ovviamente le operazioni di get e put vs get all e put all, ma quello interssante è che anche all'aumentare della dimensione del cluster, le latenze rimangono relativamente stabili, mostrando che l'aumentare del cluster non introduce un overhead significativo nelle operazioni di lettura e scrittura. Questo test non considerà il carico di lavoro, ma piuttosto la latenza delle operazioni in scenari di utilizzo tipici, e neanche il numero di operazioni per batch, ma piuttosto il tempo di risposta medio per operazione.
+I risultati evidenziano che le operazioni di get e put presentano prestazioni migliori rispetto a get all e put all. Un aspetto interessante è che, nonostante l’aumento della dimensione del cluster, le latenze rimangono relativamente stabili, indicando che l’espansione del cluster non introduce un sovraccarico significativo nelle operazioni di lettura e scrittura. È importante sottolineare che questo test si concentra sulla latenza delle operazioni in scenari di utilizzo tipici, piuttosto che sul carico di lavoro. Inoltre, il test valuta il tempo di risposta medio per operazione, anziché il numero di operazioni per batch.
 
-In questo test andiamo a misurare i tempi di risposta dopo un failover e l'aggiunta di un nuovo nodo al cluster, per vedere come Hazelcast gestisce questi scenari. Abbiamo fatto due test uno inserimento di dati di piccola dimensione (80 byte) e uno di dimensioni maggiori (8 MB) per dato, per vedere come le latenze cambiano all'aumentare della dimensione dei dati. Mettiamo solo il grafico con i dati di dimensioni maggiori, dato che quello con dimensioni piccole non ha riportato risultati significanti.
+In questo test, vengono misurati i tempi di risposta successivi a un failover e all’aggiunta di un nuovo nodo al cluster, al fine di analizzare la gestione di tali scenari da parte di Hazelcast. Sono stati eseguiti due test: uno con inserimento di dati di piccole dimensioni (80 byte) e uno con dati di dimensioni maggiori (8 MB). L’obiettivo era valutare come le latenze variano in funzione della dimensione dei dati. I risultati presentati si riferiscono esclusivamente al test con dati di dimensioni maggiori, in quanto quello con dati di piccole dimensioni non ha fornito risultati significativi.
 
 #figure(
   caption: [Confronto tempo dopo failover e aggiunta di un nodo per dati di dimensioni maggiori],
@@ -38,9 +38,9 @@ In questo test andiamo a misurare i tempi di risposta dopo un failover e l'aggiu
   plot2b,
 )
 
-In scenari di failover, Hazelcast ha dimostrato una rapida capacità di recupero, con tempi di ripristino che non hanno grosse variazioni rispetto alla quantità di dati. Questo è un aspetto cruciale per applicazioni mission-critical dove la disponibilità continua è fondamentale. Tale comportamento è coerente con l'architettura di Hazelcast, che prevede la replica delle partizioni tra i nodi del cluster, garantendo che i dati siano sempre disponibili anche in caso di guasti.
-Abbiamo notato che con dati di piccola dimensione Hazelcast ha tempi di ripristino molto rapidi.
-Invece abbiamo notato che con dati di dimensione maggioree e con pochi nodi, come ad esempio con 2 nodi, il tempo di ripristino è più lungo rispetto a cluster più grandi, questo perchè con pochi nodi la probabilità di avere un nodo che fallisce e che contiene una partizione primaria è più alta, quindi il tempo di ripristino è più lungo.
+In scenari di failover, Hazelcast ha dimostrato un’elevata capacità di recupero, con tempi di ripristino pressoché invariati indipendentemente dalla quantità di dati. Questo aspetto risulta cruciale per le applicazioni mission-critical, dove la disponibilità continua è fondamentale. Tale comportamento è coerente con l’architettura di Hazelcast, che prevede la replica delle partizioni tra i nodi del cluster, garantendo la disponibilità costante dei dati anche in caso di guasti.
+Si è osservato che, con dataset di piccole dimensioni, Hazelcast presenta tempi di ripristino molto rapidi.
+Tuttavia, con dataset di dimensioni maggiori e un numero limitato di nodi, come ad esempio due, il tempo di ripristino risulta più lungo rispetto a cluster più grandi. Questo è dovuto al fatto che, con pochi nodi, aumenta la probabilità che un nodo contenente una partizione primaria vada in errore, comportando un tempo di ripristino più lungo.
 
 #figure(caption: [Confronto utilizzo memoria in idle (1 nodo)], table(
   columns: (auto, auto, auto, auto),
@@ -115,6 +115,8 @@ Invece abbiamo notato che con dati di dimensione maggioree e con pochi nodi, com
   [node4], [100000], [0.8%], [481.33],
 ))
 
+#pagebreak(weak: true)
+#show figure: set block(breakable: true)
 #figure(caption: [Confronto utilizzo memoria in idle (5 nodi)], table(
   columns: (auto, auto, auto, auto),
   inset: 10pt,
@@ -145,74 +147,74 @@ Invece abbiamo notato che con dati di dimensione maggioree e con pochi nodi, com
   [node5], [10000], [0.8%], [377.05],
   [node5], [100000], [0.9%], [384.84],
 ))
+#show figure: set block(breakable: false)
 
-Per quanto riguarda l'utilizzo di CPU e memoria in idle, i risultati mostrano che l'aumento del numero di nodi e dei dati non incide significativamente sull'uso della CPU, che rimane in tutti i casi al di sotto del 2%. Questo indica che l'espansione del cluster non comporta un overhead rilevante in termini di risorse CPU, consentendo di scalare senza impatti negativi sulle prestazioni.
+Per quanto concerne l’utilizzo di CPU e memoria in modalità idle, i risultati evidenziano che l’aumento del numero di nodi e dei dati non incide significativamente sull’utilizzo della CPU, che si mantiene in tutti i casi al di sotto del 2%. Ciò indica che l’espansione del cluster non comporta un overhead rilevante in termini di risorse CPU, consentendo di scalare senza impatti negativi sulle prestazioni.
 
-Per quanto riguarda l'utilizzo della memoria, non si osservano variazioni rilevanti all'aumentare di nodi e dati. Questo comportamento potrebbe essere attribuito a ottimizzazioni interne di Hazelcast che consentono una serializzazione intelligente dei dati, riducendo il consumo di memoria, oppure all'api di Docker in python non del tutto precisa nel analizzare la memoria dei container.
+Per quanto riguarda l’utilizzo della memoria, non si osservano variazioni significative all’aumentare di nodi e dati. Tale comportamento potrebbe essere attribuito a ottimizzazioni interne di Hazelcast che consentono una serializzazione intelligente dei dati, riducendo il consumo di memoria, oppure all’API di Docker in Python non completamente precisa nell’analizzare la memoria dei container.
 
-In linea teorica, ci si aspetta che all'aumentare del numero di nodi, la memoria utilizzata per nodo diminuisca, tenendo conto però dell'esistenza delle repliche distribuite sugli altri nodi.
+In linea teorica, ci si aspetterebbe che all’aumentare del numero di nodi, la memoria utilizzata per nodo diminuisca, tenendo conto tuttavia dell’esistenza delle repliche distribuite sugli altri nodi.
 
 == Caratteristiche Interessanti
 
-Attraverso i test Java, abbiamo individuato alcune funzionalità che combinate risultano interessanti.
+Attraverso i test Java, sono state individuate alcune funzionalità che, combinate, risultano interessanti.
 
-==== Limitazione Principale della Versione Open Source
+==== Limitazione principale della versione Open Source
 
 Nonostante le numerose funzionalità disponibili nella versione open source, esiste una limitazione significativa rispetto alla versione Enterprise:
 
-*Sicurezza*: La mancanza di funzionalità di sicurezza nella versione open source rappresenta la limitazione più critica. La versione open source non include:
+*Sicurezza:* la mancanza di funzionalità di sicurezza nella versione open source rappresenta la limitazione più critica. La versione open source non include:
 - Autenticazione client-server
 - Controllo degli accessi granulare
 - Crittografia delle comunicazioni tra i nodi
 - Integrazione con sistemi di identità aziendali
 
-Questo rappresenta un ostacolo per utenti o aziende che desiderano valutare Hazelcast: senza prima adottare la versione Enterprise, non è possibile esplorare le capacità del sistema in termini di sicurezza né verificarne l'aderenza ai requisiti aziendali.
+Ciò rappresenta un ostacolo per utenti o aziende che desiderano valutare Hazelcast: senza prima adottare la versione Enterprise, non è possibile esplorare le capacità del sistema in termini di sicurezza né verificarne la conformità ai requisiti aziendali.
 
 ==== Configurazione Avanzata e Personalizzazione
 
-Hazelcast offre una configurazione altamente personalizzabile, che consente di adattare il comportamento del cluster alle specifiche esigenze dell'applicazione. Questo è particolarmente utile in scenari complessi dove è necessario ottimizzare le prestazioni o la resilienza.
-Ma rende anche la configurazione più complessa, richiedendo una buona comprensione delle opzioni disponibili.
+Hazelcast offre una configurazione altamente personalizzabile, che consente di adattare il comportamento del cluster alle specifiche esigenze dell’applicazione. Questo risulta particolarmente utile in scenari complessi in cui è necessario ottimizzare le prestazioni o la resilienza. Tuttavia, la configurazione risulta più complessa, richiedendo una buona comprensione delle opzioni disponibili.
 
 ==== Partizionamento Base
 
-Dai test effettuati, si osserva come, con le impostazioni predefinite, Hazelcast distribuisca automaticamente i dati tra i nodi del cluster in modo equo. Ad esempio, con 2 nodi e 500 elementi, ciascun nodo conterrà approssimativamente 250 elementi e metà delle 271 partizioni.
+Le analisi effettuate evidenziano come, con le impostazioni predefinite, Hazelcast distribua automaticamente i dati tra i nodi del cluster in modo uniforme. Ad esempio, con due nodi e cinquecento elementi, ciascun nodo conterrà approssimativamente duecentocinquantanta elementi e metà delle ventisette partizioni.
 
-Però è interessante notare come offra diverse strategie di raggruppamento delle partizioni, configurabili per ottimizzare la località dei dati, migliorare le prestazioni e aumentare la resilienza. Queste strategie possono anche impedire che le repliche delle partizioni siano collocate su host appartenenti alla stessa rete o zona di disponibilità.
+Tuttavia, è interessante notare come offra diverse strategie di raggruppamento delle partizioni, configurabili per ottimizzare la località dei dati, migliorare le prestazioni e aumentare la resilienza. Queste strategie possono anche impedire che le repliche delle partizioni siano collocate su host appartenenti alla stessa rete o zona di disponibilità.
 
-Tra queste le principali sono:
+Tra queste, le principali sono:
 
-- *HOST_AWARE:* i nodi che risiedono nello stesso host o rete vengono raggruppati, migliorando la resilienza nel caso di guasti a livello di rete locale.
+- *HOST_AWARE*: i nodi che risiedono nello stesso host o rete vengono raggruppati, migliorando la resilienza in caso di guasti a livello di rete locale.
 
-- *ZONE_AWARE:* consente di raggruppare i nodi per zona di disponibilità (availability zone), utile in ambienti cloud per prevenire la collocazione di dati e repliche nella stessa zona.
+- *ZONE_AWARE*: consente di raggruppare i nodi per zona di disponibilità (availability zone), utile in ambienti cloud per prevenire la collocazione di dati e repliche nella stessa zona.
 
 ==== Partizionamento Personalizzato e Località dei Dati
 
-Una delle funzionalità più potenti di Hazelcast è la possibilità di implementare strategie di partizionamento personalizzate per ottimizzare la località dei dati. Questo permette di:
+Una delle funzionalità più avanzate di Hazelcast è la possibilità di implementare strategie di partizionamento personalizzate per ottimizzare la località dei dati. Ciò consente di:
 
-1. *Collocare dati correlati sugli stessi nodi*: Implementando un `PartitioningStrategy` personalizzato, è possibile garantire che dati che vengono spesso elaborati insieme risiedano sullo stesso nodo. È anche possibile implementare delle chiavi che implementano `PartitionAware` per garantire che i dati vengano collocati con una partition key specifica vengano collocati sullo stesso member.
+1. *Collocare dati correlati sugli stessi nodi*: Implementando una `PartitionStragegy` personalizzata, è possibile garantire che i dati elaborati frequentemente risiedano sullo stesso nodo. È inoltre possibile implementare chiavi che implementano l’interfaccia `PartitionAware` per garantire che i dati associati a una chiave di partizione specifica risiedano sullo stesso membro.
 
-2. *Esecuzione di codice con data locality*: Combinando il custom partitioning con l'esecuzione di codice distribuito, è possibile inviare la computazione direttamente dove risiedono i dati, minimizzando il traffico di rete.
+2. *Esecuzione di codice con località dei dati*: Combinando il partizionamento personalizzato con l’esecuzione di codice distribuito, è possibile inviare la computazione direttamente dove risiedono i dati, minimizzando il traffico di rete.
 
 Questa caratteristica è particolarmente rilevante per applicazioni con requisiti di latenza ultra-bassa o con elaborazioni complesse su grandi volumi di dati.
 
 ==== Data Ingestion con Pipeline e CDC
 
-Il fatto che Hazelcast supporti pipeline di dati e Change Data Capture (CDC) rappresenta un vantaggio significativo per le architetture moderne. Questo perchè consente di ampliare una applicazione esistente con funzionalità di streaming e integrazione continua dei dati, senza dover riscrivere l'intera logica applicativa.
+Il supporto di Hazelcast per pipeline di dati e Change Data Capture (CDC) rappresenta un vantaggio significativo per le architetture moderne. Ciò consente di ampliare un’applicazione esistente con funzionalità di streaming e integrazione continua dei dati, senza dover riscrivere l’intera logica applicativa.
 
 ==== Serializzazione e Query
 
-Hazelcast oltre a permettere la serializzazione di oggetti complessi, offre anche un potente motore di query che consente di eseguire ricerche avanzate basandosi su di essi. Permettendo  di eseguire query complesse su strutture dati distribuite, Hazelcast si distingue da molte altre soluzioni in-memory che offrono solo operazioni CRUD di base.
+Oltre a consentire la serializzazione di oggetti complessi, Hazelcast offre un potente motore di query che consente di eseguire ricerche avanzate basate su tali oggetti. Consentendo l’esecuzione di query complesse su strutture dati distribuite, Hazelcast si distingue da molte altre soluzioni in-memory che offrono solo operazioni CRUD di base.
 
 ==== Lite Member
 
-La possibilità di utilizzare i Lite Member in Hazelcast è un'altra caratteristica interessante. Questi nodi leggeri possono essere utilizzati per operazioni di lettura e query senza partecipare attivamente alla gestione del cluster, riducendo il carico sui nodi principali e migliorando l'efficienza complessiva.
+La possibilità di utilizzare i Lite Member in Hazelcast rappresenta un’ulteriore funzionalità di rilievo. Questi nodi leggeri possono essere impiegati per operazioni di lettura e query senza partecipare attivamente alla gestione del cluster, riducendo il carico sui nodi principali e incrementando l’efficienza complessiva.
 
 == Considerazioni Finali
 
-Hazelcast rappresenta una soluzione matura e performante per il computing distribuito in-memory, particolarmente indicata in scenari che richiedono l'integrazione di storage e computazione con latenze minime.
+Hazelcast si configura come una soluzione matura e performante per il computing distribuito in-memory, particolarmente indicata in scenari che necessitano di integrare storage e computazione con latenze minime.
 
 La sua curva di apprendimento, piuttosto elevata, rappresenta uno dei principali ostacoli per i nuovi utenti. Tuttavia, la documentazione dettagliata e le numerose risorse disponibili contribuiscono a mitigare tale criticità.
 
 La versione open source offre un valido punto di ingresso per sperimentare le capacità della piattaforma. Per implementazioni produttive in contesti aziendali, la versione Enterprise è generalmente preferibile, soprattutto per le sue funzionalità di sicurezza.
 
-Le eccellenti performance rilevate nei benchmark, unite alla flessibilità dell'architettura e alla semplicità operativa, rendono Hazelcast una tecnologia da considerare seriamente per lo sviluppo di microservizi, l'elaborazione di eventi in tempo reale, il caching distribuito e il computing grid.
+Le eccellenti performance rilevate nei benchmark, unite alla flessibilità dell’architettura e alla semplicità operativa, rendono Hazelcast una tecnologia da considerare seriamente per lo sviluppo di microservizi, l’elaborazione di eventi in tempo reale, il caching distribuito e il computing grid.

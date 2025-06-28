@@ -122,4 +122,4 @@ Hazelcast offre diverse opzioni per il data ingestion, con le pipeline che forni
 
 Il MapStore rappresenta invece un'alternativa più semplice e specifica per scenari in cui Hazelcast viene utilizzato principalmente come cache con persistenza. La scelta del metodo dipende dalle esigenze specifiche dell'applicazione e dal modello di integrazione desiderato.
 
-Le numerose integrazioni con tecnologie esistenti rendono inoltre Hazelcast una scelta appetibile anche a chi ha infrastutture già mature e sta cercando una soluzione che gli semplifichi la gestione.
+Le numerose integrazioni con tecnologie esistenti rendono inoltre Hazelcast una scelta appetibile anche a chi ha infrastrutture già mature e sta cercando una soluzione che gli semplifichi la gestione.

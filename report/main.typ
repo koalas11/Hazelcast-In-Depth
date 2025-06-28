@@ -2,7 +2,7 @@
 #import "packages.typ": codly, codly-languages, colorGrad
 
 #show: unimib.with(
-  title: "Progetto Archittettura Dati -- Hazelcast",
+  title: "Progetto Architettura Dati -- Hazelcast",
   area: [Scuola di Scienza],
   department: [Dipartimento di Informatica, Sistemi e Comunicazione],
   course: [Corso di Scienze Informatiche],

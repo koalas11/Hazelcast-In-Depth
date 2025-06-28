@@ -84,6 +84,8 @@ Hazelcast implementa gli User Code Namespaces attraverso un sistema gerarchico d
 
 #figure(
   box(
+    radius: 2pt,
+    stroke: black.transparentize(90%) + 1pt,
     inset: 1.5em,
     fill: tiling(size: (16pt, 16pt), relative: "parent", place(dx: 5pt, dy: 5pt, rotate(45deg, square(
       size: 2pt,

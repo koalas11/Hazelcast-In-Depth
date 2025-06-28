@@ -38,4 +38,4 @@ In questi test non andiamo a effettuare load e stress test, ma piuttosto a verif
 
 == Commenti
 
-I test in Java con Hazelcast embedded ci permetto di esplorare le funzionalità e l'integrazione con la JVM. I test con il client Python forniscono dati su prestazioni e scalabilità in ambienti distribuiti da una prospettiva client. Questa combinazione garantisce una valutazione approfondita sia delle funzionalità principali che delle prestazioni in diversi scenari d'uso.
+I test in Java con Hazelcast embedded ci permettono di esplorare le funzionalità e l'integrazione con la JVM. I test con il client Python forniscono dati su prestazioni e scalabilità in ambienti distribuiti da una prospettiva client. Questa combinazione garantisce una valutazione approfondita sia delle funzionalità principali che delle prestazioni in diversi scenari d'uso.

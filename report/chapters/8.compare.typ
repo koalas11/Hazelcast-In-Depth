@@ -48,9 +48,10 @@ Hazelcast si posiziona in un ecosistema di tecnologie distribuite dove diverse s
 }
 
 #figure(caption: [Schema di confronto tra nodi: Hazelcast vs Cassandra], {
-  grid(
+  box(radius: 2pt, stroke: black.transparentize(90%) + 1pt, grid(
     columns: (auto,) * 2,
     column-gutter: 1em,
+    inset: 1.5em,
     fill: tiling(size: (16pt, 16pt), relative: "parent", place(dx: 5pt, dy: 5pt, rotate(45deg, square(
       size: 2pt,
       fill: black.transparentize(90%),
@@ -77,7 +78,7 @@ Hazelcast si posiziona in un ecosistema di tecnologie distribuite dove diverse s
       },
       align()[Disk-Based Storage\ Wide-Column DB\ Gossiped Network],
     ),
-  )
+  ))
 })
 
 === Hazelcast vs Redis
@@ -95,9 +96,10 @@ Hazelcast si posiziona in un ecosistema di tecnologie distribuite dove diverse s
 - *Consistenza*: Hazelcast offre un sottosistema CP, Redis offre strutture dati AP
 
 #figure(caption: [Schema di confronto tra nodi: Hazelcast vs Redis], {
-  grid(
+  box(radius: 2pt, stroke: black.transparentize(90%) + 1pt, grid(
     columns: (auto,) * 2,
     column-gutter: 1em,
+    inset: 1.5em,
     fill: tiling(size: (16pt, 16pt), relative: "parent", place(dx: 5pt, dy: 5pt, rotate(45deg, square(
       size: 2pt,
       fill: black.transparentize(90%),
@@ -121,11 +123,11 @@ Hazelcast si posiziona in un ecosistema di tecnologie distribuite dove diverse s
       },
       [Master-Slave Model],
     ),
-  )
+  ))
 })
 
 Sul sito ufficiale di Hazelcast è disponibile un vecchio confronto tra Hazelcast e Redis, basato su un benchmark effettuato nel 2019: https://hazelcast.com/resources/hazelcast-vs-redis/. Curiosamente, anche se in altri test Redis mostrava prestazioni superiori rispetto a Hazelcast, gli ingegneri di Hazelcast hanno successivamente approfondito la questione e scoperto una criticità nella gestione delle repliche di Redis sotto carichi elevati. In queste condizioni, infatti, le repliche non venivano eseguite correttamente, con il rischio concreto di perdita di dati.
-(Al seguente link è disponibile il post che spiega la questione: https://hazelcast.com/blog/redis-load-handling-vs-data-integrity/) @luck_redis_2019
+(Al seguente link è disponibile il post che spiega la questione: https://hazelcast.com/blog/redis-load-handling-vs-data-integrity/ @luck_redis_2019).
 
 Ovviamente questo confronto è basato su una versione obsoleta di Redis e non tiene conto delle ultime evoluzioni della tecnologia, ma è interessante notare come gli ingenieri di Hazelcast siano andati a investigare.
 
