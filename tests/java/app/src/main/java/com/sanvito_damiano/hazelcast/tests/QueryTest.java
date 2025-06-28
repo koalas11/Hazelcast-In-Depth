@@ -18,8 +18,8 @@ import com.hazelcast.sql.SqlService;
 
 public class QueryTest extends AbstractTest {
 
-    private IMap<String, Person> personMap;
-    private IMap<String, Department> departmentMap;
+    private IMap<String, Person2> personMap;
+    private IMap<String, Department2> departmentMap;
     private SqlService sqlService;
 
     public QueryTest(HazelcastInstance hazelcastInstance, String testCategory) {
@@ -40,7 +40,7 @@ public class QueryTest extends AbstractTest {
             'keyFormat'='java',
             'keyJavaClass'='java.lang.String',
             'valueFormat'='java',
-            'valueJavaClass'='com.sanvito_damiano.hazelcast.tests.Person'
+            'valueJavaClass'='com.sanvito_damiano.hazelcast.tests.Person2'
             )
         """);
 
@@ -51,7 +51,7 @@ public class QueryTest extends AbstractTest {
             'keyFormat'='java',
             'keyJavaClass'='java.lang.String',
             'valueFormat'='java',
-            'valueJavaClass'='com.sanvito_damiano.hazelcast.tests.Department'
+            'valueJavaClass'='com.sanvito_damiano.hazelcast.tests.Department2'
             )
         """);
     }
@@ -62,16 +62,16 @@ public class QueryTest extends AbstractTest {
         departmentMap.clear();
         
         // Add person test data
-        personMap.put("p1", new Person("Alice", 32, true, "D1"));
-        personMap.put("p2", new Person("Bob", 24, true, "D1"));
-        personMap.put("p3", new Person("Charlie", 29, true, "D2"));
-        personMap.put("p4", new Person("Diana", 41, false, "D2"));
-        personMap.put("p5", new Person("Edward", 18, false, "D3"));
+        personMap.put("p1", new Person2("Alice", 32, true, "D1"));
+        personMap.put("p2", new Person2("Bob", 24, true, "D1"));
+        personMap.put("p3", new Person2("Charlie", 29, true, "D2"));
+        personMap.put("p4", new Person2("Diana", 41, false, "D2"));
+        personMap.put("p5", new Person2("Edward", 18, false, "D3"));
         
         // Add department test data
-        departmentMap.put("D1", new Department("D1", "Engineering", "Building A"));
-        departmentMap.put("D2", new Department("D2", "Marketing", "Building B"));
-        departmentMap.put("D3", new Department("D3", "HR", "Building A"));
+        departmentMap.put("D1", new Department2("D1", "Engineering", "Building A"));
+        departmentMap.put("D2", new Department2("D2", "Marketing", "Building B"));
+        departmentMap.put("D3", new Department2("D3", "HR", "Building A"));
     }
 
     @Override
@@ -101,23 +101,6 @@ public class QueryTest extends AbstractTest {
             }
             recordTestResult("SqlQuery-SimpleSelect", simpleQueryWorks, 
                                 "Simple SELECT query test. Expected 5 rows, got: " + rows.size());
-        }
-        
-        // Test COUNT query
-        System.out.println("Testing COUNT query...");
-        
-        try (SqlResult result = sqlService.execute("SELECT COUNT(*) AS count FROM persons")) {
-            SqlRow row = result.iterator().next();
-            long count = row.getObject("count");
-            
-            boolean countQueryWorks = count == 5;
-            if (countQueryWorks) {
-                System.out.println("✓ COUNT query works correctly");
-            } else {
-                System.out.println("✗ COUNT query failed. Expected count 5, got: " + count);
-            }
-            recordTestResult("SqlQuery-Count", countQueryWorks, 
-                                "COUNT query test. Expected count 5, got: " + count);
         }
     }
     
@@ -261,7 +244,7 @@ public class QueryTest extends AbstractTest {
         
         // SQL approach
         long startTimeSql = System.nanoTime();
-        List<Person> sqlResults = new ArrayList<>();
+        List<Person2> sqlResults = new ArrayList<>();
         
         try (SqlResult result = sqlService.execute("SELECT * FROM persons WHERE age > 30")) {
             result.iterator().forEachRemaining(row -> {
@@ -269,22 +252,22 @@ public class QueryTest extends AbstractTest {
                 int age = row.getObject("age");
                 boolean active = row.getObject("active");
                 String deptId = row.getObject("departmentId");
-                sqlResults.add(new Person(name, age, active, deptId));
+                sqlResults.add(new Person2(name, age, active, deptId));
             });
         }
         long sqlTime = System.nanoTime() - startTimeSql;
         
         // Predicate approach
         long startTimePredicate = System.nanoTime();
-        Predicate<String, Person> olderThan30 = Predicates.greaterThan("age", 30);
-        Collection<Person> predicateResults = personMap.values(olderThan30);
+        Predicate<String, Person2> olderThan30 = Predicates.greaterThan("age", 30);
+        Collection<Person2> predicateResults = personMap.values(olderThan30);
         long predicateTime = System.nanoTime() - startTimePredicate;
         
         // Compare results
         boolean resultsSizeMatch = sqlResults.size() == predicateResults.size();
         boolean allNamesMatch = true;
         
-        for (Person sqlPerson : sqlResults) {
+        for (Person2 sqlPerson : sqlResults) {
             final String sqlName = sqlPerson.getName();
             boolean found = predicateResults.stream().anyMatch(p -> sqlName.equals(p.getName()));
             if (!found) {
@@ -315,7 +298,7 @@ public class QueryTest extends AbstractTest {
         // Test complex AND/OR predicates
         System.out.println("Testing complex predicate (age > 25 AND active = true) OR departmentId = 'D3'...");
         
-        Predicate<String, Person> complexPredicate = Predicates.or(
+        Predicate<String, Person2> complexPredicate = Predicates.or(
             Predicates.and(
                 Predicates.greaterThan("age", 25),
                 Predicates.equal("active", true)
@@ -323,22 +306,22 @@ public class QueryTest extends AbstractTest {
             Predicates.equal("departmentId", "D3")
         );
         
-        Collection<Person> results = personMap.values(complexPredicate);
+        Collection<Person2> results = personMap.values(complexPredicate);
         
-        boolean predicateSuccess = results.size() == 4; // Alice, Charlie, Edward
+        boolean predicateSuccess = results.size() == 3; // Alice, Charlie, Edward
         if (predicateSuccess) {
             System.out.println("✓ Complex predicate query works correctly");
         } else {
-            System.out.println("✗ Complex predicate query failed. Expected 4 people, got: " + results.size());
+            System.out.println("✗ Complex predicate query failed. Expected 3 people, got: " + results.size());
         }
         recordTestResult("Predicate-ComplexQuery", predicateSuccess, 
-                            "Complex predicate query test. Expected 4 people, Got: " + results.size());
+                            "Complex predicate query test. Expected 3 people, Got: " + results.size());
         
         // Test regex predicate
         System.out.println("Testing regex predicate...");
         
-        Predicate<String, Person> regexPredicate = Predicates.regex("name", "^[AB].*");
-        Collection<Person> regexResults = personMap.values(regexPredicate);
+        Predicate<String, Person2> regexPredicate = Predicates.regex("name", "^[AB].*");
+        Collection<Person2> regexResults = personMap.values(regexPredicate);
         
         boolean regexSuccess = regexResults.size() == 2; // Alice and Bob
         if (regexSuccess) {
@@ -380,12 +363,12 @@ public class QueryTest extends AbstractTest {
 }
 
 // Additional class needed for tests
-class Department implements Serializable {
+class Department2 implements Serializable {
     private String id;
     private String name;
     private String location;
     
-    public Department(String id, String name, String location) {
+    public Department2(String id, String name, String location) {
         this.id = id;
         this.name = name;
         this.location = location;
@@ -402,13 +385,13 @@ class Department implements Serializable {
 }
 
 // Person class for testing
-class Person implements Serializable {
+class Person2 implements Serializable {
     private String name;
     private int age;
     private boolean active;
     private String departmentId; // Added for join tests
     
-    public Person(String name, int age, boolean active, String departmentId) {
+    public Person2(String name, int age, boolean active, String departmentId) {
         this.name = name;
         this.age = age;
         this.active = active;

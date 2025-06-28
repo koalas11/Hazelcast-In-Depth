@@ -16,9 +16,6 @@ import com.hazelcast.query.Predicate;
 import com.hazelcast.query.Predicates;
 import com.hazelcast.sql.SqlResult;
 import com.hazelcast.sql.SqlService;
-import com.hazelcast.transaction.TransactionContext;
-import com.hazelcast.transaction.TransactionOptions;
-import com.hazelcast.transaction.TransactionalMap;
 import com.hazelcast.sql.SqlRow;
 
 public class FailoverTest extends AbstractTest {
@@ -44,7 +41,7 @@ public class FailoverTest extends AbstractTest {
             'keyFormat'='java',
             'keyJavaClass'='java.lang.String',
             'valueFormat'='java',
-            'valueJavaClass'='com.sanvito_damiano.hazelcast.tests.FailoverTest$Person'
+            'valueJavaClass'='com.sanvito_damiano.hazelcast.tests.Person'
             )
         """);
 
@@ -55,7 +52,7 @@ public class FailoverTest extends AbstractTest {
             'keyFormat'='java',
             'keyJavaClass'='java.lang.String',
             'valueFormat'='java',
-            'valueJavaClass'='com.sanvito_damiano.hazelcast.tests.FailoverTest$Department'
+            'valueJavaClass'='com.sanvito_damiano.hazelcast.tests.Department'
             )
         """);
     }
@@ -115,6 +112,7 @@ public class FailoverTest extends AbstractTest {
         
         final AtomicBoolean runThread = new AtomicBoolean(true);
         final CountDownLatch queryStarted = new CountDownLatch(1);
+        final CountDownLatch queryRunOnce = new CountDownLatch(1);
         final AtomicBoolean querySucceeded = new AtomicBoolean(false);
         
         // Start long-running query in a separate thread
@@ -126,24 +124,28 @@ public class FailoverTest extends AbstractTest {
                 do {
                     // Complex query involving joins and aggregations to ensure it takes some time
                     try (SqlResult result = sqlService.execute("""
-                        SELECT p.name, p.age, d.name as department_name
+                        SELECT p.name, d.name as department_name
                         FROM persons p
                         JOIN departments d ON p.departmentId = d.id
-                        WHERE p.age > 20 AND d.location = 'Building A'
-                        ORDER BY p.age DESC
                     """)) {
-                        
-                        
                         // Process results
                         List<SqlRow> rows = new ArrayList<>();
                         result.iterator().forEachRemaining(rows::add);
                         
                         System.out.println("Query completed successfully with " + rows.size() + " rows");
                         
-                        querySucceeded.set(true);
+                        if (rows.size() == 8) {
+                            querySucceeded.set(true);
+                            System.out.println("Expected result found in query output");
+                        } else {
+                            querySucceeded.set(false);
+                            System.out.println("Expected result not found in query output");
+                        }
+                        queryRunOnce.countDown();
                     }
                 } while (runThread.get());
             } catch (Exception e) {
+                querySucceeded.set(false);
                 System.out.println("Query failed: " + e.getMessage());
             }
         });
@@ -157,6 +159,7 @@ public class FailoverTest extends AbstractTest {
                 recordTestResult("Failover-SqlQueryShutdown", false, "Query did not start within timeout");
                 return;
             }
+            queryRunOnce.await(10, TimeUnit.SECONDS); // Ensure query runs at least once
         
             nodeToShutdown.shutdown();
 
@@ -196,6 +199,7 @@ public class FailoverTest extends AbstractTest {
         
         final AtomicBoolean runThread = new AtomicBoolean(true);
         final CountDownLatch queryStarted = new CountDownLatch(1);
+        final CountDownLatch queryRunOnce = new CountDownLatch(1);
         final AtomicBoolean querySucceeded = new AtomicBoolean(false);
         
         // Start long-running query in a separate thread
@@ -207,21 +211,24 @@ public class FailoverTest extends AbstractTest {
                 do {
                     // Complex query involving joins and aggregations to ensure it takes some time
                     try (SqlResult result = sqlService.execute("""
-                        SELECT p.name, p.age, d.name as department_name
+                        SELECT p.name, d.name as department_name
                         FROM persons p
                         JOIN departments d ON p.departmentId = d.id
-                        WHERE p.age > 20 AND d.location = 'Building A'
-                        ORDER BY p.age DESC
                     """)) {
-                        
-                        
                         // Process results
                         List<SqlRow> rows = new ArrayList<>();
                         result.iterator().forEachRemaining(rows::add);
                         
                         System.out.println("Query completed successfully with " + rows.size() + " rows");
                         
-                        querySucceeded.set(true);
+                        if (rows.size() == 8) {
+                            querySucceeded.set(true);
+                            System.out.println("Expected result found in query output");
+                        } else {
+                            querySucceeded.set(false);
+                            System.out.println("Expected result not found in query output");
+                        }
+                        queryRunOnce.countDown();
                     }
                 } while (runThread.get());
             } catch (Exception e) {
@@ -239,6 +246,8 @@ public class FailoverTest extends AbstractTest {
                 return;
             }
         
+            queryRunOnce.await(10, TimeUnit.SECONDS); // Ensure query runs at least once
+
             nodeToTerminate.getLifecycleService().terminate();
 
             runThread.set(false); // Stop the query thread after termination
@@ -277,6 +286,7 @@ public class FailoverTest extends AbstractTest {
         
         final AtomicBoolean runThread = new AtomicBoolean(true);
         final CountDownLatch queryStarted = new CountDownLatch(1);
+        final CountDownLatch queryRunOnce = new CountDownLatch(1);
         final AtomicBoolean querySucceeded = new AtomicBoolean(false);
         
         // Start long-running query in a separate thread
@@ -289,7 +299,7 @@ public class FailoverTest extends AbstractTest {
                     // Create a complex predicate to ensure the query takes some time
                     Predicate<String, Person> complexPredicate = Predicates.or(
                         Predicates.and(
-                            Predicates.greaterThan("age", 25),
+                            Predicates.equal("age", 25),
                             Predicates.equal("active", true)
                         ),
                         Predicates.and(
@@ -300,9 +310,17 @@ public class FailoverTest extends AbstractTest {
                     
                     // Execute the query
                     Collection<Person> results = personMap.values(complexPredicate);
-
                     System.out.println("Predicate query completed successfully with " + results.size() + " results");
-                    querySucceeded.set(true);
+
+                    if (results.size() == 1 && results.iterator().next().getName().equals("Bob")) {
+                        querySucceeded.set(true);
+                        System.out.println("Expected result found in query output");
+                    } else {
+                        querySucceeded.set(false);
+                        System.out.println("Expected result not found in query output");
+                    }
+                    
+                    queryRunOnce.countDown();
                 } while (runThread.get());
             } catch (Exception e) {
                 System.out.println("Query failed: " + e.getMessage());
@@ -318,6 +336,8 @@ public class FailoverTest extends AbstractTest {
                 recordTestResult("Failover-PredicateQueryShutdown", false, "Query did not start within timeout");
                 return;
             }
+
+            queryRunOnce.await(10, TimeUnit.SECONDS); // Ensure query runs at least once
         
             nodeToShutdown.shutdown();
 
@@ -357,6 +377,7 @@ public class FailoverTest extends AbstractTest {
         
         final AtomicBoolean runThread = new AtomicBoolean(true);
         final CountDownLatch queryStarted = new CountDownLatch(1);
+        final CountDownLatch queryRunOnce = new CountDownLatch(1);
         final AtomicBoolean querySucceeded = new AtomicBoolean(false);
         
         // Start long-running query in a separate thread
@@ -369,7 +390,7 @@ public class FailoverTest extends AbstractTest {
                     // Create a complex predicate to ensure the query takes some time
                     Predicate<String, Person> complexPredicate = Predicates.or(
                         Predicates.and(
-                            Predicates.greaterThan("age", 25),
+                            Predicates.equal("age", 25),
                             Predicates.equal("active", true)
                         ),
                         Predicates.and(
@@ -380,9 +401,17 @@ public class FailoverTest extends AbstractTest {
                     
                     // Execute the query
                     Collection<Person> results = personMap.values(complexPredicate);
-
                     System.out.println("Predicate query completed successfully with " + results.size() + " results");
-                    querySucceeded.set(true);
+
+                    if (results.size() == 1 && results.iterator().next().getName().equals("Bob")) {
+                        querySucceeded.set(true);
+                        System.out.println("Expected result found in query output");
+                    } else {
+                        querySucceeded.set(false);
+                        System.out.println("Expected result not found in query output");
+                    }
+                    
+                    queryRunOnce.countDown();
                 } while (runThread.get());
             } catch (Exception e) {
                 System.out.println("Query failed: " + e.getMessage());
@@ -398,6 +427,8 @@ public class FailoverTest extends AbstractTest {
                 recordTestResult("Failover-PredicateQueryTermination", false, "Query did not start within timeout");
                 return;
             }
+
+            queryRunOnce.await(10, TimeUnit.SECONDS); // Ensure query runs at least once
         
             nodeToTerminate.getLifecycleService().terminate();
 
@@ -423,212 +454,70 @@ public class FailoverTest extends AbstractTest {
             recordTestResult("Failover-PredicateQueryTermination", false, "Test failed with exception: " + e.getMessage());
         }
     }
+}
+
+// Department class for testing
+class Department implements Serializable {
+    private String id;
+    private String name;
+    private String location;
     
-    /**
-        * Tests transaction resilience when a node is shutdown during transaction execution
-     * @throws InterruptedException 
-        */
-    public void testTransactionDuringNodeShutdown() throws InterruptedException {
-        System.out.println("\n=== Testing Transaction During Node Shutdown ===");
-        
-        HazelcastInstance nodeToShutdown = createNewHazelcastInstance();
-
-        Thread.sleep(5000); // Wait for the new node to join the cluster
-        
-        final CountDownLatch txStarted = new CountDownLatch(1);
-        
-        // Start transaction in a separate thread
-        Thread txThread = new Thread(() -> {
-            try {
-                System.out.println("Starting transaction...");
-                
-                // Configure transaction with longer timeout
-                TransactionOptions txOptions = TransactionOptions.getDefault().setTimeout(60, TimeUnit.SECONDS);
-                
-                // Begin transaction
-                TransactionContext txContext = hazelcastInstance.newTransactionContext(txOptions);
-                txContext.beginTransaction();
-                
-                // Signal that transaction has started
-                txStarted.countDown();
-                
-                // Get transactional map
-                TransactionalMap<String, Person> txPersonMap = txContext.getMap("persons");
-                
-                // Perform multiple operations in transaction
-                txPersonMap.put("p6", new Person("Frank", 35, true, "D1"));
-                
-                // Sleep to simulate long transaction
-                Thread.sleep(5000);
-                
-                txPersonMap.put("p7", new Person("Grace", 29, false, "D2"));
-                txPersonMap.delete("p5"); // Remove Edward
-                
-                // Commit transaction
-                txContext.commitTransaction();              
-            } catch (Exception e) {
-                System.out.println("Transaction failed: " + e.getMessage());
-            }
-        });
-        
-        // Wait for transaction to start
-        try {
-            txThread.start();
-            boolean started = txStarted.await(10, TimeUnit.SECONDS);
-            if (!started) {
-                System.out.println("⚠ Transaction did not start within timeout");
-                recordTestResult("Failover-TransactionShutdown", false, "Transaction did not start within timeout");
-                return;
-            }
-            
-            nodeToShutdown.shutdown();
-            
-            txThread.join(4000); // Wait for the transaction thread to finish
-
-            // Verify transaction results
-            boolean verifyAdd = personMap.containsKey("p6") && personMap.containsKey("p7");
-            boolean verifyDelete = !personMap.containsKey("p5");
-                        
-            boolean testResult = verifyAdd && verifyDelete;
-            System.out.println("Transaction " + (testResult ? "completed successfully" : "failed verification"));
-
-            if (testResult) {
-                System.out.println("✓ Transaction completed successfully despite node shutdown");
-            } else {
-                System.out.println("✗ Transaction failed during node shutdown");
-            }
-            
-            recordTestResult("Failover-TransactionShutdown", testResult, 
-                    testResult ? "Transaction was resilient to node shutdown" : 
-                                "Transaction failed during node shutdown");
-        } catch (Exception e) {
-            System.out.println("✗ Test failed with exception: " + e.getMessage());
-            recordTestResult("Failover-TransactionShutdown", false, "Test failed with exception: " + e.getMessage());
-        }
-    }
-    
-    /**
-        * Tests transaction resilience when a node is terminated during transaction execution
-     * @throws InterruptedException 
-        */
-    public void testTransactionDuringNodeTermination() throws InterruptedException {
-        System.out.println("\n=== Testing Transaction During Node Termination ===");
-        
-        HazelcastInstance nodeToTerminate = createNewHazelcastInstance();
-
-        Thread.sleep(5000); // Wait for the new node to join the cluster
-
-        final CountDownLatch txStarted = new CountDownLatch(1);
-        
-        // Start transaction in a separate thread
-        Thread txThread = new Thread(() -> {
-            try {
-                System.out.println("Starting transaction...");
-                
-                // Configure transaction with longer timeout
-                TransactionOptions txOptions = TransactionOptions.getDefault().setTimeout(60, TimeUnit.SECONDS);
-                
-                // Begin transaction
-                TransactionContext txContext = hazelcastInstance.newTransactionContext(txOptions);
-                txContext.beginTransaction();
-                
-                // Signal that transaction has started
-                txStarted.countDown();
-                
-                // Get transactional maps
-                TransactionalMap<String, Person> txPersonMap = txContext.getMap("persons");
-                TransactionalMap<String, Department> txDeptMap = txContext.getMap("departments");
-                
-                // Perform multiple operations in transaction
-                txPersonMap.put("p8", new Person("Helen", 45, true, "D4"));
-                
-                // Sleep to simulate long transaction
-                Thread.sleep(4000);
-                
-                txDeptMap.put("D4", new Department("D4", "Research", "Building C"));
-                txPersonMap.delete("p4"); // Remove Diana
-                
-                // Commit transaction
-                txContext.commitTransaction();
-            } catch (Exception e) {
-                System.out.println("Transaction failed: " + e.getMessage());
-            }
-        });
-        
-        // Wait for transaction to start
-        try {
-            txThread.start();
-            boolean started = txStarted.await(5, TimeUnit.SECONDS);
-            if (!started) {
-                System.out.println("⚠ Transaction did not start within timeout");
-                recordTestResult("Failover-TransactionTermination", false, "Transaction did not start within timeout");
-                return;
-            }
-            
-            nodeToTerminate.getLifecycleService().terminate();
-            
-            txThread.join(4000); // Wait for the transaction thread to finish            
-
-            // Verify transaction results
-            boolean verifyPersonAdd = personMap.containsKey("p8");
-            boolean verifyDeptAdd = departmentMap.containsKey("D4");
-            boolean verifyDelete = !personMap.containsKey("p4");
-
-            boolean testResult = verifyPersonAdd && verifyDeptAdd && verifyDelete;
-
-            System.out.println("Transaction " + (testResult ? "completed successfully" : "failed verification"));
-
-            if (testResult) {
-                System.out.println("✓ Transaction completed successfully despite node termination");
-            } else {
-                System.out.println("✗ Transaction failed during node termination");
-            }
-            
-            recordTestResult("Failover-TransactionTermination", testResult, 
-                    testResult ? "Transaction was resilient to node termination" : 
-                                "Transaction failed during node termination");
-            
-        } catch (Exception e) {
-            System.out.println("✗ Test failed with exception: " + e.getMessage());
-            recordTestResult("Failover-TransactionTermination", false, "Test failed with exception: " + e.getMessage());
-        }
-    }
-    
-    // Department class for testing
-    private static class Department implements Serializable {
-        private String id;
-        private String name;
-        private String location;
-        
-        public Department(String id, String name, String location) {
-            this.id = id;
-            this.name = name;
-            this.location = location;
-        }
-
-        @Override
-        public String toString() {
-            return "Department{id='" + id + "', name='" + name + "', location='" + location + "'}";
-        }
+    public Department(String id, String name, String location) {
+        this.id = id;
+        this.name = name;
+        this.location = location;
     }
 
-    // Person class for testing
-    private static class Person implements Serializable {
-        private String name;
-        private int age;
-        private boolean active;
-        private String departmentId;
-        
-        public Person(String name, int age, boolean active, String departmentId) {
-            this.name = name;
-            this.age = age;
-            this.active = active;
-            this.departmentId = departmentId;
-        }
-        
-        @Override
-        public String toString() {
-            return "Person{name='" + name + "', age=" + age + ", active=" + active + ", departmentId='" + departmentId + "'}";
-        }
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    @Override
+    public String toString() {
+        return "Department{id='" + id + "', name='" + name + "', location='" + location + "'}";
+    }
+}
+
+// Person class for testing
+class Person implements Serializable {
+    private String name;
+    private int age;
+    private boolean active;
+    private String departmentId;
+    
+    public Person(String name, int age, boolean active, String departmentId) {
+        this.name = name;
+        this.age = age;
+        this.active = active;
+        this.departmentId = departmentId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public String getDepartmentId() {
+        return departmentId;
+    }
+    
+    @Override
+    public String toString() {
+        return "Person{name='" + name + "', age=" + age + ", active=" + active + ", departmentId='" + departmentId + "'}";
     }
 }

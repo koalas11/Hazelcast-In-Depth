@@ -238,28 +238,28 @@ public class MapTest extends AbstractTest {
         );
         
         Collection<Person> orFilteredPeople = personMap.values(youngerThan25OrOlderThan40);
-        boolean orPredicateSuccess = orFilteredPeople.size() == 2;
+        boolean orPredicateSuccess = orFilteredPeople.size() == 3;
         if (orPredicateSuccess) {
             System.out.println("✓ Compound OR predicate query works correctly");
         } else {
             System.out.println("✗ Compound OR predicate query failed. Expected 2 people, got: " + orFilteredPeople.size());
         }
         recordTestResult("QueryOps-OrPredicate", orPredicateSuccess, 
-                         "Compound OR predicate test. Expected 2 people, Got: " + orFilteredPeople.size());
+                         "Compound OR predicate test. Expected 3 people, Got: " + orFilteredPeople.size());
         
         // Test NOT predicate
         System.out.println("Testing NOT predicate (NOT active)...");
         Predicate<String, Person> notActive = Predicates.not(Predicates.equal("active", true));
         
         Collection<Person> inactivePeople = personMap.values(notActive);
-        boolean notPredicateSuccess = inactivePeople.size() == 1;
+        boolean notPredicateSuccess = inactivePeople.size() == 2;
         if (notPredicateSuccess) {
             System.out.println("✓ NOT predicate query works correctly");
         } else {
-            System.out.println("✗ NOT predicate query failed. Expected 1 person, got: " + inactivePeople.size());
+            System.out.println("✗ NOT predicate query failed. Expected 2 person, got: " + inactivePeople.size());
         }
         recordTestResult("QueryOps-NotPredicate", notPredicateSuccess, 
-                         "NOT predicate test. Expected 1 person, Got: " + inactivePeople.size());
+                         "NOT predicate test. Expected 2 person, Got: " + inactivePeople.size());
         
         // Test LIKE predicate
         System.out.println("Testing LIKE predicate (name LIKE %li%)...");

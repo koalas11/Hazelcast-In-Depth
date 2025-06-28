@@ -42,6 +42,7 @@ public class Main {
         put("custom_partition", CustomPartitionTest.class);
         put("custom_serialization", CustomSerializationTest.class);
         put("split_brain_protection", SplitBrainProtectionTest.class);
+        put("lite_member", LiteMemberTest.class);
     }};
 
     private static HazelcastInstance memberInstance1;
@@ -108,8 +109,8 @@ public class Main {
                                 method.invoke(testInstance);
                             }
                         } catch (Exception e) {
-                            System.err.println("Error during test execution for: " + testName + " - " + method.getName());
-                            e.printStackTrace();
+                            System.out.println("Error during test execution for: " + testName + " - " + method.getName());
+                            System.out.println("Error: " + e.getMessage());
                             testInstance.recordTestResult(method.getName(), false, "Failed to execute test: " + e.getMessage());
                         }
                     }
@@ -123,13 +124,13 @@ public class Main {
                     System.out.println("Test report generated: " + report);
                     System.out.println(testInstance.getSummary());
                 } catch (Exception e) {
-                    System.err.println("Failed to run test: " + testEntry.getKey());
-                    e.printStackTrace();
+                    System.out.println("Failed to run test: " + testEntry.getKey());
+                    System.out.println("Error: " + e.getMessage());
                 }
             }
         } catch (Exception e) {
-            System.err.println("An Unexpected error happened: " + e.getMessage());
-            e.printStackTrace();
+            System.out.println("An Unexpected error happened: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         } finally {
             // Shutdown the Hazelcast instances
             clientInstance.shutdown();
@@ -161,8 +162,8 @@ public class Main {
                                 method.invoke(testInstance);
                             }
                         } catch (Exception e) {
-                            System.err.println("Error during test execution for: " + testName + " - " + method.getName());
-                            e.printStackTrace();
+                            System.out.println("Error during test execution for: " + testName + " - " + method.getName());
+                            System.out.println("Error: " + e.getMessage());
                             testInstance.recordTestResult(method.getName(), false, "Failed to execute test: " + e.getMessage());
                         }
                     }
@@ -172,13 +173,13 @@ public class Main {
                     System.out.println("Test report generated: " + report);
                     System.out.println(testInstance.getSummary());
                 } catch (Exception e) {
-                    System.err.println("Failed to run test: " + testEntry.getKey());
-                    e.printStackTrace();
+                    System.out.println("Failed to run test: " + testEntry.getKey());
+                    System.out.println("Error: " + e.getMessage());
                 }
             }
         } catch (Exception e) {
-            System.err.println("An Unexpected error happened: " + e.getMessage());
-            e.printStackTrace();
+            System.out.println("An Unexpected error happened: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         } finally {
             HazelcastClient.shutdownAll();
             Hazelcast.shutdownAll();

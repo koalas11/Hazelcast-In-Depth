@@ -12,7 +12,7 @@ Hazelcast è una piattaforma di computing distribuito sviluppata in Java che com
 
 Un cluster Hazelcast è composto da più istanze chiamate *member* (membri). Questa terminologia è importante nell'ecosistema Hazelcast, dove i nodi del cluster sono sempre indicati come member. Questi member comunicano tra loro tramite rete e formano un sistema distribuito peer-to-peer.
 
-Ogni member funziona come un peer con pari diritti: non esistono member master o slave, eliminando così i single point of failure. Quando un nuovo member si unisce al cluster, aumenta automaticamente la capacità di storage e calcolo del sistema.
+Ogni member funziona come un peer con pari diritti: non esistono member master o slave, eliminando così i single point of failure. Quando un nuovo member si unisce al cluster, aumenta automaticamente la capacità di storage e calcolo del sistema. L'unica eccezione è per il member più vecchio, che funge da inizializzatore del partizionamento e da coordinatore iniziale, ma non ha privilegi speciali.
 
 Un aspetto fondamentale è che ogni member è consapevole dell'esistenza di tutti gli altri member nel cluster, mantenendo una vista coerente dello stato del cluster attraverso protocolli di membership distribuiti.
 
@@ -178,29 +178,23 @@ L'architettura di Hazelcast è progettata per essere elastica, permettendo di:
 - *Graceful Shutdown*: rimuovere member in modo sicuro con migrazione automatica dei dati.
 - *Data Rebalancing*: ribilanciare automaticamente il cluster quando la topologia cambia.
 - *Smart Client Load Balancing*: distribuzione intelligente delle richieste client attraverso i member.
-- *Near Cache*: caching lato client per ridurre la latenza di rete e aumentare la scalabilità.
 - *Partitioning Strategies*: strategie personalizzate di partizionamento per ottimizzare la località dei dati.
 
 La scalabilità lineare di Hazelcast consente di aggiungere capacità di storage e calcolo proporzionalmente al numero di member aggiunti.
 
 == Protezione da Split-Brain
 
-Una delle sfide nei sistemi distribuiti è la condizione di "split-brain" che si verifica quando il cluster si divide in sottogruppi che non possono comunicare tra loro. Hazelcast implementa diverse strategie di protezione:
+Una delle sfide nei sistemi distribuiti è la condizione di "split-brain" che si verifica quando il cluster si divide in sottogruppi che non possono comunicare tra loro. Hazelcast implementa due principali strategie di protezione:
 
-- *Quorum basato su member*: richiede un numero minimo di member per operare. Ad esempio, in un cluster di 5 member, si può configurare un quorum di 3 member, garantendo che solo la partizione di rete che contiene la maggioranza dei member rimanga attiva.
+- *Quorum basato su member*: richiede un numero minimo di member per operare. Ad esempio, in un cluster di 5 member, si può configurare un quorum di 3 member, garantendo che le operazioni siano eseguite solo se almeno 3 member sono attivi.
 
-- *Quorum basato su partizioni*: richiede un numero minimo di partizioni disponibili, utile quando il valore dei dati varia tra le partizioni.
+- *Quorum personalizzato*: Consente di definire regole specifiche per il quorum, come basarsi su un attributo personalizzato dei member.
 
-- *Merge Policies*: algoritmi per riconciliare i dati quando i sottogruppi si riuniscono, come:
-  - *Recente per timestamp*: mantiene la voce con il timestamp più recente
-  - *Put se assente*: aggiunge voci mancanti senza sovrascrivere
-  - *Pass through*: mantiene tutte le voci del cluster maggiore
-  - *Higher hits*: mantiene le voci con maggior numero di accessi
-  - *Custom policies*: logiche personalizzate per casi d'uso specifici
+Esistono inoltre diversi meccanismi per identificare situazioni di partizionamento, tra cui uno basato su approcci probabilistici e un altro fondato sul monitoraggio degli heartbeat tra i nodi.
 
 == Hazelcast Jet: Elaborazione di Stream e Batch
 
-Jet è il motore di elaborazione distribuita incorporato in Hazelcast, progettato per processare sia dati in tempo reale (stream) sia grandi volumi di dati statici (batch).
+Jet è il motore di elaborazione distribuita incorporato in Hazelcast, progettato per processare sia dati in tempo reale (stream) sia grandi volumi di dati statici (batch), ed è anche utilizzato per eseguire le query SQL.
 
 === Modellazione ed Esecuzione dei Job
 

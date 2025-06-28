@@ -36,6 +36,15 @@ class Test(ABC):
 
     def teardown(self):
         """Clean up resources"""
+
+        objs = self.client.get_distributed_objects()
+        # Ensure all distributed objects are cleaned up
+        for obj in objs:
+            try:
+                obj.destroy()
+            except Exception as e:
+                print(f"Error destroying object {obj}: {e}")
+
         self.custom_teardown()
         if self.client:
             self.client.shutdown()

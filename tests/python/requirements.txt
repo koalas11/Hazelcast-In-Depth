@@ -1,1 +1,2 @@
 hazelcast-python-client==5.5.0
+docker==7.1.0

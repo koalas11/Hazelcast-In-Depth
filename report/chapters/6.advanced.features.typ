@@ -1,18 +1,18 @@
 = Funzionalità Avanzate di Hazelcast
 
-Questo capitolo esplora le capacità avanzate di Hazelcast che permettono applicazioni distribuite robuste, sicure e ad alte prestazioni.
-
 == Serializzazione
 
 La serializzazione è un aspetto critico dell'architettura distribuita di Hazelcast. Quando i dati vengono memorizzati in un cluster Hazelcast o inviati tra i nodi, devono essere serializzati in un formato binario per la trasmissione e deserializzati alla ricezione.
 
-Hazelcast fornisce diverse opzioni di serializzazione con differenti compromessi tra prestazioni, facilità d'uso e flessibilità:
+Per i tipi primitivi questo processo è gestito automaticamente da Hazelcast, ma per gli oggetti complessi è necessario implementare la serializzazione in modo esplicito.
 
-- *Serializzazione integrata*: Serializzazione Java predefinita e versioni ottimizzate
-- *Serializzazione Compact*: Serializzazione basata su schema con supporto per il versioning
+Hazelcast fornisce diverse opzioni di serializzazione con differenti compromessi tra prestazioni, facilità d'uso e flessibilità, consigliando di utilizzare la serializzazione Compact per la maggior parte dei casi d'uso:
+
+- *Serializzazione integrata*: Serializzazione Java predefinita
+- *Serializzazione Compact*: Serializzazione basata su schema con supporto per il versioning e prestazioni elevate
 - *HazelcastJsonValue*: Supporto nativo per oggetti JSON
 - *Serializzazione personalizzata*: Implementazione di serializzatori personalizzati
-- *Formati esterni*: Supporto per formati come Avro, Protobuf e altri
+- *Formati esterni*: Supporto per formati come Protobuf e altri
 
 #figure(
   table(
@@ -38,13 +38,39 @@ La Serializzazione Compact è la strategia di serializzazione raccomandata da Ha
 - Alte prestazioni con basso utilizzo di memoria
 
 ```java
-@Compact
-public class Dipendente implements Serializable {
+public class Dipendente {
     private int id;
     private String nome;
-    private Dipartimento dipartimento;
+    private String dipartimento;
 
     // Getter, setter, costruttori
+}
+
+public class DipendenteSerializer implements CompactSerializer<Dipendente> {
+    @Override
+    public Dipendente read(CompactReader reader) {
+        long id = reader.readInt64("id");
+        String nome = reader.readString("nome");
+        String dipartimento = reader.readString("dipartimento");
+        return new Dipendente(id, nome, dipartimento);
+    }
+
+    @Override
+    public void write(CompactWriter writer, Dipendente dipendente) {
+        writer.writeInt64("id", dipendente.getId());
+        writer.writeString("nome", dipendente.getNome());
+        writer.writeString("dipartimento", dipendente.getDipartimento());
+    }
+
+    @Override
+    public Class<Dipendente> getCompactClass() {
+        return Dipendente.class;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "dipendente";
+    }
 }
 ```
 
@@ -67,71 +93,9 @@ Vantaggi di `HazelcastJsonValue`:
 - Facile integrazione con applicazioni web
 - Supporto nativo JSON nelle query SQL
 
-=== Serializzazione Personalizzata
-
-Quando i meccanismi di serializzazione integrati non soddisfano le tue esigenze, puoi implementare serializzatori personalizzati:
-
-```java
-public class DipendenteSerializer implements StreamSerializer<Dipendente> {
-    @Override
-    public void write(ObjectDataOutput out, Dipendente dipendente) throws IOException {
-        out.writeInt(dipendente.getId());
-        out.writeString(dipendente.getNome());
-        // Scrivere altri campi
-    }
-
-    @Override
-    public Dipendente read(ObjectDataInput in) throws IOException {
-        int id = in.readInt();
-        String nome = in.readString();
-        // Leggere altri campi e costruire Dipendente
-        return new Dipendente(id, nome, ...);
-    }
-
-    @Override
-    public int getTypeId() {
-        return 1000; // Identificatore unico per questo serializzatore
-    }
-}
-```
-
-=== Altre Opzioni di Serializzazione
-
-Hazelcast supporta diversi meccanismi di serializzazione aggiuntivi:
-
-- *Identified Data Serialization*: Simile a Java Externalizable ma più efficiente
-- *Portable Serialization*: Serializzazione consapevole della versione con interrogazioni sui campi
-- *Global Serialization*: Serializzazione di fallback per tutti gli altri oggetti
-- *Librerie Esterne*: Integrazione con Avro, Protobuf e framework simili
-
-=== Configurazione dei Serializzatori
-
-I serializzatori possono essere configurati programmaticamente o tramite file di configurazione:
-
-```java
-Config config = new Config();
-SerializationConfig serializationConfig = config.getSerializationConfig();
-
-// Configurare la Serializzazione Compact
-serializationConfig.getCompactSerializationConfig().setEnabled(true);
-
-// Registrare un serializzatore personalizzato
-serializationConfig.addSerializerConfig(
-    new SerializerConfig()
-        .setImplementation(new DipendenteSerializer())
-        .setTypeClass(Dipendente.class)
-);
-```
-
 == Ascolto degli Eventi
 
 Hazelcast fornisce un sistema di eventi completo che consente alle applicazioni di reagire a vari cambiamenti nello stato del cluster e nei dati. I listener di eventi permettono di costruire applicazioni reattive che rispondono ai cambiamenti in tempo reale.
-
-Vantaggi principali del sistema di eventi di Hazelcast:
-- Propagazione distribuita degli eventi
-- Consegna affidabile degli eventi
-- Capacità di filtraggio
-- Opzioni di gestione sia sincrone che asincrone
 
 === Eventi del Cluster
 
@@ -151,7 +115,7 @@ hazelcastInstance.getCluster().addMembershipListener(new MembershipListener() {
 });
 ```
 
-Puoi anche ascoltare i cambiamenti di stato del cluster:
+È possibile anche ascoltare i cambiamenti di stato del cluster:
 
 ```java
 hazelcastInstance.getCluster().addClusterStateListener(event -> {
@@ -178,21 +142,9 @@ clientService.addClientListener(new ClientListener() {
 });
 ```
 
-=== Configurazione Globale degli Eventi
-
-Puoi configurare il comportamento degli eventi globalmente in Hazelcast:
-
-```java
-Config config = new Config();
-// Configurare il numero di thread per gli eventi
-config.setProperty("hazelcast.event.thread.count", "5");
-// Configurare la capacità della coda degli eventi
-config.setProperty("hazelcast.event.queue.capacity", "1000000");
-```
-
 === Eventi degli Oggetti Distribuiti
 
-Le strutture dati distribuite di Hazelcast emettono vari eventi che puoi ascoltare:
+Le strutture dati distribuite di Hazelcast emettono vari eventi che puoi ascoltare ad esempio:
 
 *Eventi delle Mappe:*
 ```java
@@ -203,6 +155,13 @@ mappa.addEntryListener(new EntryAddedListener<String, String>() {
         System.out.println("Elemento aggiunto: " + event.getKey() + " -> " + event.getValue());
     }
 }, true); // true per includere il valore
+```
+
+È possibile anche filtrare gli eventi utilizzando i predicati (disponibile solo per le mappe):
+
+```java
+mappa.addEntryListener(entryListener,
+    Predicates.sql("età > 30"), true);
 ```
 
 *Eventi delle Code:*
@@ -220,20 +179,13 @@ coda.addItemListener(new ItemListener<String>() {
 }, true);
 ```
 
-Puoi anche filtrare gli eventi utilizzando i predicati:
-
-```java
-mappa.addEntryListener(entryListener,
-    Predicates.sql("età > 30"), true);
-```
-
 == Funzionalità di Sicurezza
 
-Hazelcast fornisce un framework di sicurezza completo per proteggere i tuoi dati e controllare l'accesso al cluster.
+Hazelcast fornisce un framework di sicurezza completo per proteggere i tuoi dati e controllare l'accesso al cluster nella versione Enterprise.
 
 === Autenticazione e Autorizzazione
 
-Hazelcast supporta molteplici meccanismi di autenticazione:
+Sono supportati molteplici meccanismi di autenticazione:
 
 ```java
 Config config = new Config();
@@ -280,22 +232,7 @@ sslConfig.setEnabled(true)
 config.getNetworkConfig().setSSLConfig(sslConfig);
 ```
 
-=== Crittografia Simmetrica
-
-Per ambienti in cui TLS/SSL non è disponibile:
-
-```xml
-<hazelcast>
-    <network>
-        <symmetric-encryption enabled="true">
-            <algorithm>AES/CBC/PKCS5Padding</algorithm>
-            <salt>thesalt</salt>
-            <password>thepass</password>
-            <iteration-count>19</iteration-count>
-        </symmetric-encryption>
-    </network>
-</hazelcast>
-```
+Per ambienti in cui TLS/SSL non è disponibile, è possibile configurare la crittografia simmetrica.
 
 === Interceptor di Sicurezza
 
@@ -329,10 +266,6 @@ config.setProperty("hazelcast.security.audit.log.frequency", "10");
 
 == Monitoraggio e Management Center
 
-Hazelcast fornisce capacità di monitoraggio complete attraverso il suo Management Center.
-
-=== Panoramica del Management Center
-
 Il Management Center è uno strumento web per il monitoraggio e la gestione dei cluster Hazelcast, che offre:
 
 - Metriche e statistiche in tempo reale
@@ -342,6 +275,11 @@ Il Management Center è uno strumento web per il monitoraggio e la gestione dei 
 - Gestione della sicurezza
 - Configurazione del cluster
 
+Oltre a queste funzionalità è possibile anche configurare avvisi e notifiche per condizioni critiche, creare script di monitoraggio personalizzati e integrare il Management Center con strumenti esterni come Prometheus.
+
+Un aspetto però importante da notare è che il Management Center della versione gratuita supporta fino a un massimo di 3 member per cluster.
+
+/*
 === Opzioni di Deployment
 
 Il Management Center può essere distribuito in diversi modi:
@@ -354,6 +292,7 @@ docker run -p 8080:8080 hazelcast/management-center
 java -jar hazelcast-management-center-5.3.1.jar
 ```
 
+
 === Integrazione con il Cluster
 
 Connetti il tuo cluster Hazelcast al Management Center:
@@ -364,7 +303,8 @@ ManagementCenterConfig mcConfig = config.getManagementCenterConfig();
 mcConfig.setEnabled(true);
 mcConfig.setUrl("http://localhost:8080/hazelcast-mancenter");
 ```
-
+*/
+/*
 === Monitoraggio Avanzato
 
 Configura il monitoraggio JMX per l'integrazione con strumenti esterni:
@@ -408,6 +348,7 @@ if (size > 10000) {
   sendEmail("admin@esempio.com", "Avviso dimensione mappa", "La mappa clienti ha superato 10K elementi");
 }
 ```
+*/
 
 // == Pattern di Deployment nel Cloud
 
@@ -522,46 +463,35 @@ L'esecuzione di test ed esperimenti in ambienti distribuiti rappresenta una sfid
 
 === Test dei Job
 
-Hazelcast Jet include un framework di testing specificamente progettato per validare i job di elaborazione:
+Hazelcast Jet include un framework di testing specificamente progettato per validare i job di elaborazione, per utilizzarlo basta estendere la classe `JetTestSupport` che fornisce metodi utili per la creazione del cluster, gestione dei job e verifica dei risultati.
 
 ```java
-@Test
-public void testJobProcessing() {
-    JetInstance jet = Jet.newJetInstance();
-    try {
-        Pipeline pipeline = buildPipeline();
+class MainTest extends JetTestSupport {
 
-        JobConfig config = new JobConfig();
-        Job job = jet.newJob(pipeline, config);
+    @AfterEach
+    public void after() {
+        Hazelcast.shutdownAll();
+    }
 
-        // Attendere il completamento del job
-        job.join();
+    @Test
+    public void testBase() {
+        HazelcastInstance instance1 = createHazelcastInstance();
+        HazelcastInstance instance2 = createHazelcastInstance();
 
-        // Verificare i risultati
-        IMap<String, Long> risultati = jet.getMap("risultati");
-        assertEquals(42L, risultati.get("chiaveAttesa").longValue());
-    } finally {
-        jet.shutdown();
+        assertClusterSize(2, instance1, instance2);
+
+        Pipeline p = Pipeline.create();
+        p.readFrom(TestSources.items(1, 2, 3, 4))
+        .writeTo(Sinks.logger());
+
+        instance1.getJet().newJob(p).join();
     }
 }
 ```
 
-Per scenari più complessi, la classe `TestSupport` fornisce utility utili:
+=== Hazelcast Simulator: Strumento Avanzato per il Testing
 
-```java
-@Test
-public void testWithMockSource() {
-    TestSupport.testJobEvents(
-        createPipeline(),
-        Arrays.asList("input1", "input2"),
-        Arrays.asList("atteso1", "atteso2")
-    );
-}
-```
-
-=== Hazelcast Simulator: Strumento Avanzato per il Testing di Sistemi Distribuiti
-
-Hazelcast Simulator è una piattaforma di testing progettata per valutare in modo rigoroso le prestazioni e l'affidabilità di sistemi distribuiti su larga scala. Pensato per ambienti di produzione, consente di eseguire test complessi con una configurazione personalizzabile e un elevato livello di automazione.
+Hazelcast Simulator è una piattaforma di testing progettata per valutare in modo rigoroso le prestazioni e l'affidabilità di Hazelcast. Pensato per ambienti di produzione, consente di eseguire test complessi con una configurazione personalizzabile e un elevato livello di automazione, ed è lo strumento utilizzato da Hazelcast stesso per testare le nuove versioni del prodotto.
 
 Tipologie di test supportate:
 - *Test di Performance*: Misurazione dettagliata di throughput, latenza, e capacità di scalabilità in vari scenari di carico.
@@ -574,8 +504,6 @@ Caratteristiche tecniche principali:
 - *Iniezione di Guasti Controllata*: Integrazione di meccanismi per introdurre errori sistematici e casuali al fine di testare le strategie di recupero e tolleranza ai guasti.
 - *Raccolta di Statistiche Avanzate*: Monitoraggio continuo di KPI critici come tempi di risposta, utilizzo delle risorse, throughput e latenza, con report dettagliati per l'analisi delle prestazioni.
 - *Automazione del Ciclo di Test*: Framework per l'esecuzione automatizzata di test su larga scala, con possibilità di integrazione in pipeline CI/CD per il testing continuo.
-
-Hazelcast Simulator si configura come uno strumento fondamentale per gli sviluppatori che necessitano di validare la resilienza, la scalabilità e le performance di applicazioni distribuite complesse in ambienti di produzione. Esponiamo un esempio concredo di utilizzo del simulatore.
 
 Esempio di test:
 
@@ -604,16 +532,6 @@ public class MapStressTest extends HazelcastTest {
         // Stato locale del thread qui
     }
 }
-```
-
-Esecuzione del test:
-
-```bash
-simulator-coordinator --duration 2h \
-  --members 4 \
-  --clients 10 \
-  --workerVmOptions "-Xms2g -Xmx2g" \
-  --tests MapStressTest
 ```
 
 Il Simulator fornisce report dettagliati e metriche di performance dopo il completamento del test.

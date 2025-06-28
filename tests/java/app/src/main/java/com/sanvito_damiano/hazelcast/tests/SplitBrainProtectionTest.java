@@ -114,7 +114,7 @@ public class SplitBrainProtectionTest extends AbstractTest {
             instances.remove(2);
             
             // Give some time for cluster to detect member departure
-            TimeUnit.SECONDS.sleep(3);
+            TimeUnit.SECONDS.sleep(10);
             
             try {
                 // This should fail with SplitBrainProtectionException
@@ -208,7 +208,7 @@ public class SplitBrainProtectionTest extends AbstractTest {
             instances.remove(2);
             
             // Give some time for cluster to detect member departure
-            TimeUnit.SECONDS.sleep(3);
+            TimeUnit.SECONDS.sleep(10);
             
             try {
                 // Read should work (quorum 2)
@@ -221,7 +221,7 @@ public class SplitBrainProtectionTest extends AbstractTest {
                 }
                 
                 // Write should fail (quorum 3)
-                protectedMapWrite.put("key2", "value2");
+                protectedMapWrite.set("key2", "value2");
                 System.out.println("✗ Write operation succeeded when it should have failed");
                 success = false;
             } catch (SplitBrainProtectionException e) {
@@ -269,7 +269,7 @@ public class SplitBrainProtectionTest extends AbstractTest {
             instances.remove(2);
             
             // Give some time for cluster to detect member departure
-            TimeUnit.SECONDS.sleep(3);
+            TimeUnit.SECONDS.sleep(10);
             
             // Operations should still work with 2 nodes
             protectedMap.put("key2", "value2");
@@ -279,7 +279,7 @@ public class SplitBrainProtectionTest extends AbstractTest {
             instances.add(Hazelcast.newHazelcastInstance(config));
             
             // Give some time for cluster to detect new member
-            TimeUnit.SECONDS.sleep(3);
+            TimeUnit.SECONDS.sleep(10);
             
             // Operations should work after healing
             protectedMap.put("key3", "value3");
@@ -356,7 +356,7 @@ public class SplitBrainProtectionTest extends AbstractTest {
             instances.remove(1);
             
             // Give some time for cluster to detect member departures
-            TimeUnit.SECONDS.sleep(3);
+            TimeUnit.SECONDS.sleep(10);
             
             try {
                 // This should still work as our custom function only requires the master

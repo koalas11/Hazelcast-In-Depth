@@ -6,25 +6,26 @@ In questo capitolo esploreremo i diversi approcci di testing utilizzati per veri
 
 == Test Funzionali in Java con Hazelcast Embedded
 
-I test in Java ci permettono di verificare l'integrazione di Hazelcast con la JVM in modalità embedded e validare le funzionalità core del sistema. Utilizzando Hazelcast embedded, il nodo Hazelcast viene eseguito direttamente all'interno dell'applicazione Java, rendendo più semplice l'interazione con le strutture dati distribuite e le funzionalità avanzate.
+I test in Java ci permettono di verificare l'integrazione di Hazelcast con la JVM in modalità embedded e esplorare le funzionalità core del sistema. Utilizzando Hazelcast embedded, il nodo Hazelcast viene eseguito direttamente all'interno dell'applicazione Java, rendendo più semplice l'interazione con le strutture dati distribuite e le funzionalità avanzate.
 
-- Verifica della corretta configurazione di Hazelcast
 - Test delle strutture dati distribuite (Map, Queue, Set, List)
 - Validazione dei meccanismi di serializzazione
 - Comportamento durante gli scenari di split-brain
-- Corretta implementazione dei listener e degli interceptor
-- Test degli executor service
-- Test delle pipeline
+- Corretta implementazione dei listener
+- Esplorazione degli executor service
+- Esplorazione delle pipeline
 - Test dei failover e della resilienza del cluster
 
 == Test di Prestazioni in Python con Client API
 
-Per analizzare scalabilità, concorrenza e prestazioni temporali, utilizziamo un approccio basato sul client Python con Hazelcast in container Docker. A differenza dei test Java, qui accediamo a Hazelcast come client esterno, simulando scenari di utilizzo reali. Questa metodologia ci consente di:
+Per analizzare scalabilità, concorrenza e prestazioni temporali, utilizziamo un approccio basato sul client Python con Hazelcast in container Docker. A differenza dei test Java, qui accediamo a Hazelcast come client esterno, simulando scenari di utilizzo reali, testando con diverse dimensioni del cluster. Questa metodologia ci consente di:
 
-- Misurare il throughput sotto carichi variabili
 - Verificare la scalabilità orizzontale aggiungendo nodi al cluster
-- Analizzare i tempi di risposta durante operazioni concorrenti
+- Analizzare i tempi di risposta durante operazioni di lettura e scrittura con diversi batch size
 - Analizzare i tempi di risposta dopo un failover e aggiunta di un nuovo nodo
+- Analizzare la CPU e la memoria utilizzata dal cluster mentre è in idle
+
+In questi test non andiamo a effettuare load e stress test, ma piuttosto a verificare le prestazioni in scenari di utilizzo tipici, come operazioni di lettura e scrittura su strutture dati distribuite, questo data la mancanza di Hardware dedicato per eseguire i test di carico.
 
 === Limitazioni del Client Python
 
@@ -35,15 +36,6 @@ Per analizzare scalabilità, concorrenza e prestazioni temporali, utilizziamo un
 - La gestione dei listener complessi è più limitata rispetto alla versione Java
 - Molte funzionalità avanzate richiedono l'uso di Java
 
-== Metodologia di Benchmark
-
-Per i benchmark utilizziamo una metodologia standardizzata che prevede:
-
-1. Creazione di un ambiente Docker isolato con un numero variabile di nodi Hazelcast
-2. Generazione di dataset sintetici di varie dimensioni
-3. Esecuzione di operazioni CRUD con concorrenza crescente
-4. Misurazione di throughput, latenza e utilizzo delle risorse
-
 == Commenti
 
-L'approccio multi-strumento consente di ottenere una visione completa delle caratteristiche di Hazelcast. I test in Java con Hazelcast embedded verificano la correttezza funzionale, l'integrazione con la JVM e le funzionalità avanzate come gli executor service programmati. I test con il client Python forniscono dati su prestazioni e scalabilità in ambienti distribuiti da una prospettiva client. Questa combinazione garantisce una valutazione approfondita sia delle funzionalità principali che delle prestazioni in diversi scenari d'uso.
+I test in Java con Hazelcast embedded ci permetto di esplorare le funzionalità e l'integrazione con la JVM. I test con il client Python forniscono dati su prestazioni e scalabilità in ambienti distribuiti da una prospettiva client. Questa combinazione garantisce una valutazione approfondita sia delle funzionalità principali che delle prestazioni in diversi scenari d'uso.

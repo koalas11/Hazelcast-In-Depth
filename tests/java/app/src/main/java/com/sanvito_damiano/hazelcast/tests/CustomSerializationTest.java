@@ -5,6 +5,7 @@ import com.hazelcast.client.config.ClientConfig;
 import com.hazelcast.config.Config;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.core.HazelcastJsonValue;
 import com.hazelcast.map.IMap;
 import com.hazelcast.nio.serialization.compact.CompactReader;
 import com.hazelcast.nio.serialization.compact.CompactSerializer;
@@ -19,6 +20,7 @@ public class CustomSerializationTest extends AbstractTest {
     private HazelcastInstance memberInstance3;
 
     private IMap<String, TestSerializableObj> distributedMap;
+    private IMap<String, HazelcastJsonValue> jsonDistributedMap;
 
     public CustomSerializationTest(HazelcastInstance hazelcastInstance, String testCategory) {
         super(hazelcastInstance, testCategory);
@@ -26,7 +28,6 @@ public class CustomSerializationTest extends AbstractTest {
 
     @Override
     public void setup() {
-        
         // Configure first member
         Config config1 = new Config();
         config1.setInstanceName("member1");
@@ -57,16 +58,19 @@ public class CustomSerializationTest extends AbstractTest {
         hazelcastInstance = HazelcastClient.newHazelcastClient(clientConfig);
 
         distributedMap = hazelcastInstance.getMap("custom-serialization-map");
+        jsonDistributedMap = hazelcastInstance.getMap("json-distributed-map");
     }
 
     @Override
     public void reset() {
         distributedMap.clear();
+        jsonDistributedMap.clear();
     }
 
     @Override
     public void cleanup() {
         distributedMap.destroy();
+        jsonDistributedMap.destroy();
         hazelcastInstance.shutdown();
         memberInstance1.getCluster().shutdown();
     }
@@ -142,5 +146,28 @@ public class CustomSerializationTest extends AbstractTest {
             System.out.println("✗ Custom serialization failed");
         }
         recordTestResult("CustomSerialization", isRetrivedCorrect, "Custom serialization test completed expectations met: " + isRetrivedCorrect);
+    }
+
+    public void testHazelcastJsonSerialization() throws Exception {
+        System.out.println("\n=== Testing Hazelcast JSON Serialization ===");
+
+        String jsonString = "{\"name\":\"TestName\", \"age\":30}";
+        // Create a test object
+        HazelcastJsonValue testObj = new HazelcastJsonValue(jsonString);
+        jsonDistributedMap.put("testObj", testObj);
+
+        // Retrieve the object
+        HazelcastJsonValue retrievedObj = jsonDistributedMap.get("testObj");
+
+        // Verify the object properties
+        boolean isRetrivedCorrect = retrievedObj != null && 
+                retrievedObj.toString().equals(jsonString);
+
+        if (isRetrivedCorrect) {
+            System.out.println("✓ Hazelcast JSON serialization works correctly");
+        } else {
+            System.out.println("✗ Hazelcast JSON serialization failed");
+        }
+        recordTestResult("HazelcastJsonSerialization", isRetrivedCorrect, "Hazelcast JSON serialization test completed expectations met: " + isRetrivedCorrect);
     }
 }

@@ -29,7 +29,7 @@ public class CustomPartitionTest extends AbstractTest {
     @SuppressWarnings("unused")
     private HazelcastInstance memberInstance3;
 
-    private IMap<String, String> distributedMap;
+    private IMap<RegionAwareKey, String> distributedMap;
 
     public CustomPartitionTest(HazelcastInstance hazelcastInstance, String testCategory) {
         super(hazelcastInstance, testCategory);
@@ -39,9 +39,9 @@ public class CustomPartitionTest extends AbstractTest {
     public void setup() {
         // Configure custom partitioning strategy for a specific map
         MapConfig mapConfig = new MapConfig("custom-partitioned-map");
-        mapConfig.setPartitioningStrategyConfig(
-                new com.hazelcast.config.PartitioningStrategyConfig(
-                        "com.sanvito_damiano.hazelcast.tests.CustomPartitionTest$RegionBasedPartitioningStrategy"));
+        //mapConfig.setPartitioningStrategyConfig(
+        //        new com.hazelcast.config.PartitioningStrategyConfig(
+        //                "com.sanvito_damiano.hazelcast.tests.RegionBasedPartitioningStrategy"));
         
         // Configure first member
         Config config1 = new Config();
@@ -97,15 +97,15 @@ public class CustomPartitionTest extends AbstractTest {
      * Test custom partitioning strategy
      */
     private void _testCustomPartitioning(int dataSize) throws Exception {
-        System.out.println("\n=== Testing Custom Partitioning Strategy ===");
+        System.out.println("\n=== Testing Custom Partitioning Strategy with " + dataSize + " keys per region ===");
         
         // Insert data with regional prefixes
         System.out.println("Inserting region-based data...");
-        // Insert elements for each region
         String[] regions = {"EU", "US", "ASIA", "AF"};
         for (String region : regions) {
             for (int i = 0; i < dataSize; i++) {
-                distributedMap.put(region + "-key-" + i, "value-" + i);
+                RegionAwareKey regionAwareKey = new RegionAwareKey(region, "key-" + i);
+                distributedMap.put(regionAwareKey, "value-" + i);
             }
         }
         
@@ -113,21 +113,14 @@ public class CustomPartitionTest extends AbstractTest {
         Map<String, Object> customPartitioningResults = analyzeCustomPartitioning(regions, dataSize);
 
         StringBuilder message = new StringBuilder();
-        message.append("Custom partitioning results: { ");
-        message.append("Average distinct partitions per region: ").append(customPartitioningResults.get("avgDistinctPartitions")).append(", ");
-        message.append("Region isolation level: ").append(customPartitioningResults.get("regionIsolation")).append(", ");
-        message.append("Detailed partition distribution: [");
-        for (String region : regions) {
-            message.append("Region: ").append(region).append(", ");
-            Object partitions = customPartitioningResults.get(region);
-            message.append("Partitions used: ").append(partitions).append("; ");
-        }
-        message.append("]");
+        message.append("Custom partitioning results for ").append(dataSize).append(" keys per region: ");
+        message.append("Average distinct partitions per region: ").append(customPartitioningResults.get("avgDistinctPartitions")).append("; ");
+        message.append("Region isolation level: ").append(customPartitioningResults.get("regionIsolation")).append(" node overlap; ");
+        message.append("Distribution: ").append(customPartitioningResults.get("detailedDistribution"));
 
-        message.append(" }");
-        System.out.println(message.toString());
+        System.out.println("\n" + message.toString());
 
-        recordTestResult("CustomPartitioningTest", true, message.toString());
+        recordTestResult("CustomPartitioningTest-with-" + dataSize + "-keys-per-region", true, message.toString());
     }
 
     /**
@@ -139,123 +132,202 @@ public class CustomPartitionTest extends AbstractTest {
         
         System.out.println("Analyzing custom partition distribution by region:");
         
-        // For each region, count in which partitions the keys end up
-        Map<String, Set<Integer>> regionPartitions = new HashMap<>();
-        double totalDistinctPartitions = 0;
+        // Track partitions and keys per node for each region
+        Map<String, Map<UUID, Integer>> regionPartitionsPerNode = new HashMap<>();
+        Map<String, Map<UUID, Integer>> regionKeysPerNode = new HashMap<>();
+        
+        // Initialize maps for each region
+        for (String region : regions) {
+            regionPartitionsPerNode.put(region, new HashMap<>());
+            regionKeysPerNode.put(region, new HashMap<>());
+        }
+        
+        StringBuilder detailedResults = new StringBuilder();
         
         for (String region : regions) {
             Map<Integer, Integer> partitionCounts = new HashMap<>();
             Set<Integer> partitionIds = new HashSet<>();
-            Map<UUID, Integer> partitionOwners = new HashMap<>();
+            Map<UUID, Set<Integer>> nodePartitions = new HashMap<>();
+            Map<UUID, Integer> nodeKeyCounts = new HashMap<>();
             
-            // Examine keys for each region
+            // ✅ CORREZIONE: Usa lo stesso tipo di chiave che hai inserito
             for (int i = 0; i < dataSize; i++) {
-                String key = region + "-key-" + i;
-                Partition partition = partitionService.getPartition(key);
+                RegionAwareKey regionAwareKey = new RegionAwareKey(region, "key-" + i);
+                Partition partition = partitionService.getPartition(regionAwareKey);
                 int partitionId = partition.getPartitionId();
-                
-                partitionCounts.put(partitionId, partitionCounts.getOrDefault(partitionId, 0) + 1);
-                partitionIds.add(partitionId);
-                
                 Member owner = partition.getOwner();
+                
                 if (owner == null) {
                     System.out.println("Partition " + partitionId + " has no owner!");
                     continue;
                 }
+                
+                UUID nodeId = owner.getUuid();
+                
+                partitionCounts.put(partitionId, partitionCounts.getOrDefault(partitionId, 0) + 1);
+                partitionIds.add(partitionId);
+                
+                // Track partitions per node
+                nodePartitions.putIfAbsent(nodeId, new HashSet<>());
+                nodePartitions.get(nodeId).add(partitionId);
+                
+                // Track keys per node
+                nodeKeyCounts.put(nodeId, nodeKeyCounts.getOrDefault(nodeId, 0) + 1);
+                
                 // Print detailed information for the first 3 keys
                 if (i < 3) {
-                    System.out.println("Key '" + key + "' -> Partition " + partitionId + 
-                            " -> Node " + (owner != null ? owner.getUuid() : "unknown"));
+                    System.out.println("Key '" + regionAwareKey + "' -> Partition " + partitionId + 
+                            " -> Node " + nodeId);
                 }
-                partitionOwners.put(owner.getUuid(), partitionOwners.getOrDefault(owner.getUuid(), 0) + 1);
             }
             
-            regionPartitions.put(region, partitionIds);
-            results.put(region, partitionCounts);
-            totalDistinctPartitions += partitionIds.size();
+            // Store partition and key counts per node for this region
+            for (Map.Entry<UUID, Set<Integer>> entry : nodePartitions.entrySet()) {
+                regionPartitionsPerNode.get(region).put(entry.getKey(), entry.getValue().size());
+            }
+            regionKeysPerNode.put(region, nodeKeyCounts);
             
-            // Print statistics for the region
-            System.out.println("\nRegion " + region + " keys distribution:");
-            System.out.println("Number of distinct partitions used: " + partitionIds.size());
-            System.out.println("Partition distribution: " + partitionCounts);
+            // Calculate totals for percentages
+            int totalPartitionsForRegion = partitionIds.size();
+            int totalKeysForRegion = dataSize;
+            
+            // Print detailed statistics for the region
+            System.out.println("\n=== Region " + region + " Distribution ===");
+            System.out.println("Total distinct partitions used: " + totalPartitionsForRegion);
+            System.out.println("Total keys in region: " + totalKeysForRegion);
+            
+            detailedResults.append("Region ").append(region).append(": [");
+            
+            int nodeIndex = 0;
+            for (Map.Entry<UUID, Set<Integer>> entry : nodePartitions.entrySet()) {
+                UUID nodeId = entry.getKey();
+                int nodePartitionCount = entry.getValue().size();
+                int nodeKeyCount = nodeKeyCounts.getOrDefault(nodeId, 0);
+                
+                double partitionPercentage = (double) nodePartitionCount / totalPartitionsForRegion * 100;
+                double keyPercentage = (double) nodeKeyCount / totalKeysForRegion * 100;
+                
+                System.out.println("Node " + nodeIndex + " (" + nodeId + "): " + 
+                        nodePartitionCount + " partitions (" + String.format("%.2f", partitionPercentage) + "%), " +
+                        nodeKeyCount + " keys (" + String.format("%.2f", keyPercentage) + "%)");
+                
+                detailedResults.append("Node ").append(nodeIndex).append(": ");
+                detailedResults.append(nodePartitionCount).append(" partitions (");
+                detailedResults.append(String.format("%.2f", partitionPercentage)).append("% of region partitions), ");
+                detailedResults.append(nodeKeyCount).append(" keys (");
+                detailedResults.append(String.format("%.2f", keyPercentage)).append("% of region keys)");
+                
+                if (nodeIndex < nodePartitions.size() - 1) {
+                    detailedResults.append("; ");
+                }
+                nodeIndex++;
+            }
+            detailedResults.append("]; ");
+            
+            results.put(region, partitionCounts);
         }
         
-        // Calculate average distinct partitions per region
+        // Calculate overall statistics
+        double totalDistinctPartitions = 0;
+        for (String region : regions) {
+            totalDistinctPartitions += regionPartitionsPerNode.get(region).values().stream()
+                    .mapToInt(Integer::intValue).sum();
+        }
+        
         double avgDistinctPartitions = totalDistinctPartitions / regions.length;
         results.put("avgDistinctPartitions", String.format("%.2f", avgDistinctPartitions));
         
-        // Verify distinct partition patterns between regions
-        System.out.println("\nVerifying distinct partition patterns between regions...");
+        // Calculate region isolation (overlap between regions)
+        System.out.println("\n=== Cross-Region Analysis ===");
         double totalOverlap = 0;
         int comparisons = 0;
         
         for (int i = 0; i < regions.length; i++) {
             for (int j = i + 1; j < regions.length; j++) {
-                Set<Integer> commonPartitions = new HashSet<>(regionPartitions.get(regions[i]));
-                commonPartitions.retainAll(regionPartitions.get(regions[j]));
+                Set<UUID> region1Nodes = regionPartitionsPerNode.get(regions[i]).keySet();
+                Set<UUID> region2Nodes = regionPartitionsPerNode.get(regions[j]).keySet();
                 
-                int overlapPercentage = commonPartitions.size() * 100 / 
-                        Math.max(regionPartitions.get(regions[i]).size(), regionPartitions.get(regions[j]).size());
+                Set<UUID> commonNodes = new HashSet<>(region1Nodes);
+                commonNodes.retainAll(region2Nodes);
+                
+                int overlapPercentage = commonNodes.size() * 100 / 
+                        Math.max(region1Nodes.size(), region2Nodes.size());
                 
                 totalOverlap += overlapPercentage;
                 comparisons++;
                 
-                System.out.println("Common partitions between " + regions[i] + " and " + regions[j] + ": " + 
-                        commonPartitions.size() + " (" + overlapPercentage + "% overlap)");
+                System.out.println("Node overlap between " + regions[i] + " and " + regions[j] + ": " + 
+                        commonNodes.size() + " nodes (" + overlapPercentage + "% overlap)");
             }
         }
         
-        // Calculate region isolation level (lower is better)
         double regionIsolation = totalOverlap / comparisons;
         results.put("regionIsolation", String.format("%.2f%%", regionIsolation));
+        results.put("detailedDistribution", detailedResults.toString());
         
         System.out.println("\nRegion isolation level: " + String.format("%.2f%%", regionIsolation) + 
-                " overlap (lower is better)");
+                " node overlap (lower is better for isolation)");
         
         return results;
     }
+}
+
     
-    /**
-     * Custom partitioning strategy based on region
-     */
-    public static class RegionBasedPartitioningStrategy implements PartitioningStrategy<Object> {
-        @Override
-        public Object getPartitionKey(Object key) {
-            if (key instanceof String) {
-                String stringKey = (String) key;
-                // If the key starts with a regional prefix, use the prefix for partitioning
-                if (stringKey.startsWith("EU-") || 
-                    stringKey.startsWith("US-") || 
-                    stringKey.startsWith("ASIA-") || 
-                    stringKey.startsWith("AF-")) {
-                    return stringKey.substring(0, stringKey.indexOf('-'));
-                }
+/**
+ * Custom partitioning strategy based on region we won't use this in the test
+ * but it can be used to handle custom partitioning
+ */
+class RegionBasedPartitioningStrategy implements PartitioningStrategy<Object> {
+    @Override
+    public Object getPartitionKey(Object key) {
+        if (key instanceof String) {
+            String stringKey = (String) key;
+            // If the key starts with a regional prefix, use the prefix for partitioning
+            if (stringKey.startsWith("EU-") || 
+                stringKey.startsWith("US-") || 
+                stringKey.startsWith("ASIA-") || 
+                stringKey.startsWith("AF-")) {
+                return stringKey.substring(0, stringKey.indexOf('-'));
             }
-            // Otherwise use the key itself
-            return key;
         }
+        // Otherwise use the key itself
+        return key;
+    }
+}
+
+/**
+ * Class to test partitioning through PartitionAware
+ */
+class RegionAwareKey implements PartitionAware<String> {
+    private final String region;
+    private final String key;
+    
+    public RegionAwareKey(String region, String key) {
+        this.region = region;
+        this.key = key;
     }
     
-    /**
-     * Class to test partitioning through PartitionAware
-     */
-    public static class RegionAwareKey implements PartitionAware<String> {
-        private final String region;
-        private final String key;
-        
-        public RegionAwareKey(String region, String key) {
-            this.region = region;
-            this.key = key;
-        }
-        
-        @Override
-        public String getPartitionKey() {
-            return region; // Partition by region
-        }
-        
-        @Override
-        public String toString() {
-            return region + "-" + key;
-        }
+    @Override
+    public String getPartitionKey() {
+        return region; // Partition by region
+    }
+    
+    // ✅ AGGIUNTA: Implementa equals e hashCode
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        RegionAwareKey that = (RegionAwareKey) obj;
+        return region.equals(that.region) && key.equals(that.key);
+    }
+    
+    @Override
+    public int hashCode() {
+        return region.hashCode() * 31 + key.hashCode();
+    }
+    
+    @Override
+    public String toString() {
+        return region + "-" + key;
     }
 }

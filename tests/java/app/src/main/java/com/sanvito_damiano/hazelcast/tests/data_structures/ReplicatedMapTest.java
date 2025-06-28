@@ -148,7 +148,7 @@ public class ReplicatedMapTest extends AbstractTest {
                               keys.contains("key2") && 
                               keys.contains("key3") && 
                               keys.contains("key4") && 
-                              keys.contains("key6");
+                              keys.contains("key5");
         
         if (keySetWorked) {
             System.out.println("✓ KeySet operation works correctly");
@@ -161,13 +161,16 @@ public class ReplicatedMapTest extends AbstractTest {
                                                         keys.contains("key2") && 
                                                         keys.contains("key3") && 
                                                         keys.contains("key4") && 
-                                                        keys.contains("key6")));
+                                                        keys.contains("key5")));
         
         // Test values
         System.out.println("Testing values operation...");
         boolean valuesCorrect = replicatedMap.values().size() == 5 && 
-                               replicatedMap.values().contains("value1") &&
-                               replicatedMap.values().contains("value6");
+                                replicatedMap.values().contains("value1") &&
+                                replicatedMap.values().contains("value2") &&
+                                replicatedMap.values().contains("value3") &&
+                                replicatedMap.values().contains("value4") &&
+                                replicatedMap.values().contains("value5");
         
         if (valuesCorrect) {
             System.out.println("✓ Values operation works correctly");

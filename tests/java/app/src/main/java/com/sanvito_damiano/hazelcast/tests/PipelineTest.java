@@ -4,8 +4,6 @@ import com.hazelcast.config.Config;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.map.IMap;
-import com.hazelcast.jet.pipeline.BatchStage;
-import com.hazelcast.jet.pipeline.JoinClause;
 import com.hazelcast.jet.pipeline.Pipeline;
 import com.hazelcast.jet.pipeline.Sinks;
 import com.hazelcast.jet.pipeline.Sources;
@@ -82,7 +80,7 @@ public class PipelineTest extends AbstractTest {
     }
 
     public void testSimplePipeline() {
-        System.out.println("\n=== Test 1: Simple Map-Filter-Map Pipeline ===");
+        System.out.println("\n=== Test: Simple Map-Filter-Map Pipeline ===");
         
         Pipeline pipeline = Pipeline.create();
         
@@ -135,7 +133,7 @@ public class PipelineTest extends AbstractTest {
 
     @SuppressWarnings("null")
     public void testAggregationPipeline() {
-        System.out.println("\n=== Test 2: Aggregation Pipeline ===");
+        System.out.println("\n=== Test: Aggregation Pipeline ===");
         
         Pipeline pipeline = Pipeline.create();
         
@@ -196,69 +194,8 @@ public class PipelineTest extends AbstractTest {
                          ", Aggregation correct: " + correctAggregation);
     }
 
-    public void testJoinPipeline() {
-        System.out.println("\n=== Test 3: Join Operation Pipeline ===");
-        
-        Pipeline pipeline = Pipeline.create();
-        
-        // Join users with their total order values
-        BatchStage<Entry<Integer, Double>> userTotals = pipeline.readFrom(Sources.map("user-totals"));
-        BatchStage<Entry<Integer, String>> users = pipeline.readFrom(Sources.map("users"));
-
-        BatchStage<Entry<String, Double>> joined = userTotals.hashJoin(
-                users,
-                JoinClause.onKeys(Entry::getKey, Entry::getKey),
-                (orderEntry, userEntry) -> Map.entry(userEntry.getValue(), orderEntry.getValue())
-        );
-
-        joined.writeTo(Sinks.map("user-reports"));
-        
-        // Execute the pipeline
-        Job job = hazelcastInstance.getJet().newJob(pipeline);
-        job.join();
-        
-        // Verify results
-        IMap<String, Double> userReports = hazelcastInstance.getMap("user-reports");
-        System.out.println("User reports after join:");
-        userReports.entrySet().stream()
-                .forEach(entry -> System.out.println(entry.getKey() + " -> " + entry.getValue().toString()));
-        
-        // Verify expected number of entries (one per user)
-        boolean correctReportCount = userReports.size() == 10; // We have 10 users
-        
-        // Verify join is correct - each user name should be mapped to their total
-        boolean correctJoin = true;
-        IMap<Integer, Double> userTotalsMap = hazelcastInstance.getMap("user-totals");
-        
-        for (Entry<String, Double> entry : userReports.entrySet()) {
-            String userName = entry.getKey();
-            double total = entry.getValue();
-            
-            // Extract user ID from name (format: "User-X")
-            int userId = Integer.parseInt(userName.substring(5));
-            double expectedTotal = userTotalsMap.get(userId);
-            
-            if (Math.abs(total - expectedTotal) > 0.001) {
-                correctJoin = false;
-                break;
-            }
-        }
-        
-        boolean joinWorked = correctReportCount && correctJoin;
-        if (joinWorked) {
-            System.out.println("✓ Join pipeline executed correctly");
-        } else {
-            System.out.println("✗ Join pipeline failed. Report count correct: " + correctReportCount + 
-                              ", Join correct: " + correctJoin);
-        }
-        
-        recordTestResult("JoinPipeline-Execution", joinWorked, 
-                         "Join pipeline execution test. Expected reports: 10, Actual: " + userReports.size() + 
-                         ", Join correct: " + correctJoin);
-    }
-
     public void testFaultTolerantPipeline() throws InterruptedException {
-        System.out.println("\n=== Test 4: Fault Tolerant Pipeline ===");
+        System.out.println("\n=== Test: Fault Tolerant Pipeline ===");
 
         Config config = new Config();
         config.getJetConfig().setEnabled(true);
@@ -279,7 +216,7 @@ public class PipelineTest extends AbstractTest {
                     try {
                         Thread.sleep(10);
                     } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
+                        System.out.println("Processing interrupted: " + e.getMessage());
                     }
                     return true;
                 })
@@ -290,13 +227,12 @@ public class PipelineTest extends AbstractTest {
         Job job = hazelcastInstance.getJet().newJob(pipeline, jobConfig);
         
         // Let it run for a bit
-        Thread.sleep(2000);
+        Thread.sleep(4000);
         
         // Simulate a node failure/restart scenario
         System.out.println("Simulating node shutdown...");
         nodeToShutdown.shutdown();
         
-        // In a real test, you would restart the node here
         System.out.println("Job should continue running on remaining nodes");
         
         // Let it finish

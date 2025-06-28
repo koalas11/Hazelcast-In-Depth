@@ -218,13 +218,13 @@ public class ExecutorServiceTest extends AbstractTest {
         }
 
         public Integer call() throws Exception {
-            IMap<String, Integer> map = hazelcastInstance.getMap( "map" );
+            IMap<String, Integer> map = hazelcastInstance.getMap("map");
             int result = 0;
-            for ( String key : map.localKeySet() ) {
-                System.out.println( "Calculating for key: " + key );
-                result += map.get( key );
+            for ( String key : map.keySet() ) {
+                System.out.println("Calculating for key: " + key);
+                result += map.get(key);
             }
-            System.out.println( "Local Result: " + result );
+            System.out.println("Local Result: " + result);
             return result;
         }
     }

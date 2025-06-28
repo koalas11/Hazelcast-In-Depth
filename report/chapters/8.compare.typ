@@ -16,10 +16,11 @@ Hazelcast si posiziona in un ecosistema di tecnologie distribuite dove diverse s
 
 *Differenze:*
 - *Modello di storage*: Hazelcast è primariamente in-memory, Cassandra è disk-based con cache in-memory
-- *Modello di consistenza*: Hazelcast offre sia modelli AP che CP (in versione Enterprise), Cassandra è progettato come sistema AP con consistenza eventuale e livelli di consistenza configurabili
-- *Paradigma di accesso*: Hazelcast offre strutture dati distribuite, Cassandra è un database wide-column
-- *Query*: Hazelcast supporta SQL completo, Cassandra usa CQL con limitazioni significative
-- *Computing*: Hazelcast include capacità di computing distribuito, Cassandra è principalmente orientato allo storage
+- *Modello di consistenza*: Hazelcast offre sia modelli AP che CP (attraverso il CP Subsystem), Cassandra è progettato come sistema AP con consistenza eventuale e livelli di consistenza configurabili
+- *Paradigma di accesso*: Hazelcast offre strutture dati distribuite e SQL, Cassandra è un database wide-column con CQL
+- *Query*: Hazelcast supporta SQL completo e relazioni, Cassandra usa CQL con limitazioni sui join e aggregazioni
+- *Computing*: Hazelcast include capacità di computing distribuito native (Jet), Cassandra è principalmente orientato allo storage
+- *Persistenza*: Cassandra ha persistenza nativa e duratura, Hazelcast offre persistenza opzionale (principalmente Enterprise per funzionalità avanzate)
 - *Comunicazione tra nodi*: In  Hazelcast, i nodi comunicano direttamente tra loro, mentre in Cassandra la comunicazione avviene attraverso un protocollo di gossip e un coordinatore per le operazioni di scrittura
 
 #let diagramma(title, description) = {
@@ -87,11 +88,11 @@ Hazelcast si posiziona in un ecosistema di tecnologie distribuite dove diverse s
 - *Persistenza opzionale*: Entrambi offrono meccanismi di persistenza
 
 *Differenze:*
-- *Architettura*: Hazelcast è peer-to-peer, Redis tradizionale ha un'architettura master-slave (sebbene Redis Cluster sia più distribuito)
-- *Distribuzione*: Hazelcast distribuisce automaticamente i dati, Redis richiede configurazione manuale dei nodi per lo sharding (automatico con Redis Enterprise)
+- *Architettura*: Hazelcast è peer-to-peer, Redis ha un'architettura master-slave per la replicazione (con Redis Cluster che introduce sharding con un architettura peer-to-peer)
+- *Distribuzione*: Hazelcast distribuisce automaticamente i dati, Redis Cluster richiede configurazione manuale dei nodi per lo sharding (automatico con Redis Enterprise)
 - *Computing*: Hazelcast ha capacità di computing distribuite native, Redis offre scripting Lua ma con limitazioni
 - *Linguaggio*: Hazelcast è basato su Java/JVM, Redis è scritto in C
-- *Consistenza*: Hazelcast offre un sottosistema CP, Redis ha consistenza più limitata nel cluster
+- *Consistenza*: Hazelcast offre un sottosistema CP, Redis offre strutture dati AP
 
 #figure(caption: [Schema di confronto tra nodi: Hazelcast vs Redis], {
   grid(
@@ -123,8 +124,10 @@ Hazelcast si posiziona in un ecosistema di tecnologie distribuite dove diverse s
   )
 })
 
-Sul sito ufficiale di Hazelcast è disponibile un confronto tra Hazelcast e Redis, basato su un benchmark effettuato qualche anno fa: https://hazelcast.com/resources/hazelcast-vs-redis/. Curiosamente, anche se in altri test Redis mostrava prestazioni superiori rispetto a Hazelcast, gli ingegneri di Hazelcast hanno successivamente approfondito la questione e scoperto una criticità nella gestione delle repliche di Redis sotto carichi elevati. In queste condizioni, infatti, le repliche non venivano eseguite correttamente, con il rischio concreto di perdita di dati.
-(Al seguente link è disponibile il post che spiega la questione: https://hazelcast.com/blog/redis-load-handling-vs-data-integrity/)
+Sul sito ufficiale di Hazelcast è disponibile un vecchio confronto tra Hazelcast e Redis, basato su un benchmark effettuato nel 2019: https://hazelcast.com/resources/hazelcast-vs-redis/. Curiosamente, anche se in altri test Redis mostrava prestazioni superiori rispetto a Hazelcast, gli ingegneri di Hazelcast hanno successivamente approfondito la questione e scoperto una criticità nella gestione delle repliche di Redis sotto carichi elevati. In queste condizioni, infatti, le repliche non venivano eseguite correttamente, con il rischio concreto di perdita di dati.
+(Al seguente link è disponibile il post che spiega la questione: https://hazelcast.com/blog/redis-load-handling-vs-data-integrity/) @luck_redis_2019
+
+Ovviamente questo confronto è basato su una versione obsoleta di Redis e non tiene conto delle ultime evoluzioni della tecnologia, ma è interessante notare come gli ingenieri di Hazelcast siano andati a investigare.
 
 === Hazelcast vs Apache Ignite
 
@@ -165,7 +168,7 @@ Sul sito ufficiale di Hazelcast è disponibile un confronto tra Hazelcast e Redi
 - *Caso d'uso primario*: Elasticsearch è ottimizzato per ricerca full-text, Hazelcast per computing distribuito
 - *Storage*: Elasticsearch è disk-based, Hazelcast è in-memory
 - *Modello di dati*: Elasticsearch è document-oriented, Hazelcast offre strutture dati distribuite
-- *Query*: Elasticsearch eccelle in query di ricerca complesse, Hazelcast offre SQL tradizionale
+- *Query*: Elasticsearch eccelle in query di ricerca complesse, Hazelcast offre SQL tradizionale e Predicate API
 
 /*
 == Confronto di Prestazioni
@@ -202,7 +205,7 @@ Il throughput dipende fortemente dal carico di lavoro e dalla configurazione:
   [Kafka], [Milioni di messaggi/secondo], [Ottimizzato per alto throughput],
 ))
 */
-
+/*
 === Scalabilità Orizzontale
 
 Tutte le tecnologie menzionate supportano la scalabilità orizzontale, ma con caratteristiche diverse:
@@ -219,6 +222,7 @@ Tutte le tecnologie menzionate supportano la scalabilità orizzontale, ma con ca
   [Kafka], [Decine/Centinaia], [Scalabile per broker e consumer group],
 ))
 
+
 == Casi d'Uso Ottimali
 
 - *Caching distribuito* con necessità di query avanzate
@@ -226,7 +230,6 @@ Tutte le tecnologie menzionate supportano la scalabilità orizzontale, ma con ca
 - *Computazione distribuita* con località dei dati
 - *Architetture event-driven* che richiedono storage e processing
 
-/*
 === Cassandra
 - *Big data* con pattern di scrittura intensivi
 - *Time-series data* distribuiti globalmente

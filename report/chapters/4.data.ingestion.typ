@@ -77,36 +77,28 @@ MapStore è un meccanismo alternativo per l'integrazione con storage esterni, or
 
 ==== Configurazione di MapStore
 
-```xml
-<map name="mia-mappa">
-  <map-store enabled="true" initial-mode="LAZY">
-    <class-name>com.esempio.MioMapStore</class-name>
-    <write-delay-seconds>5</write-delay-seconds>
-    <write-batch-size>100</write-batch-size>
-    <properties>
-      <property name="url">jdbc:postgresql://localhost:5432/database</property>
-      <property name="user">utente</property>
-      <property name="password">password</property>
-    </properties>
-  </map-store>
-</map>
+```yaml
+# Esempio di configurazione MapStore in Hazelcast
+hazelcast:
+  map:
+    default:
+      map-store:
+        enabled: true
+        class-name: com.hazelcast.examples.DummyStore
 ```
 
 == Confronto tra Pipeline/CDC e MapStore
 
-#figure(
-  caption: [Confronto tra Pipeline/CDC e MapStore],
-  table(
-    columns: (auto,) * 3,
-    table.header([Caratteristica], [Pipeline con CDC], [MapStore]),
-    [Modello di integrazione], [Push (basato su eventi)], [Pull (read-through) e Push (write-through/behind)],
-    [Tipo di dati], [Stream di modifiche], [Operazioni individuali su mappa],
-    [Supporto per trasformazioni], [Completo (mapping, filtraggio, aggregazioni)], [Limitato (solo durante store/load)],
-    [Latenza], [Generalmente bassa], [Bassa per cache-hit, variabile per cache-miss],
-    [Scalabilità], [Eccellente per grandi volumi], [Buona per carichi moderati],
-    [Complessità], [Media], [Bassa],
-  ),
-)
+#figure(caption: [Confronto tra Pipeline/CDC e MapStore], table(
+  columns: (auto,) * 3,
+  table.header([Caratteristica], [Pipeline con CDC], [MapStore]),
+  [Modello di integrazione], [Push (basato su eventi)], [Pull (read-through) e Push (write-through/behind)],
+  [Tipo di dati], [Stream di modifiche], [Operazioni individuali su mappa],
+  [Supporto per trasformazioni], [Completo (mapping, filtraggio, aggregazioni)], [Limitato (solo durante store/load)],
+  [Latenza], [Generalmente bassa], [Bassa per cache-hit, variabile per cache-miss],
+  [Scalabilità], [Eccellente per grandi volumi], [Buona per carichi moderati],
+  [Complessità], [Media], [Bassa],
+))
 
 == Quando Usare i Diversi Metodi di Ingestione
 

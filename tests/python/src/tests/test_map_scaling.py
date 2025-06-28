@@ -44,8 +44,8 @@ class MapScalingTest(Test):
     def map_scaling_test(self):
         """Test how Hazelcast map scales with increasing load and concurrent operations"""
         map_name = "scaling-test-map"
-        batch_sizes = [1000, 5000, 10000, 20000, 50000, 100000, 200000, 500000, 1000000]
-        thread_counts = [2, 4, 8, 16]
+        batch_sizes = [1000, 5000, 10000, 20000, 50000, 100000, 200000, 500000, 1000000, 10000000]
+        thread_counts = [8, 16, 24, 32, 48, 64, 96, 128]
         
         self.logger.info("Starting map scaling test...")
         
@@ -117,23 +117,29 @@ class MapScalingTest(Test):
                     
                 total_elapsed = time.time_ns() - start_time
                 total_ops = sum(r[0] for r in results.values())
-                total_ops_per_second = total_ops / total_elapsed if total_elapsed > 0 else 0
+                total_ops_per_nano_second = total_ops / total_elapsed if total_elapsed > 0 else 0
+                mean_ops_per_nano_second = 0
+                for r in results.values():
+                    mean_ops_per_nano_second = mean_ops_per_nano_second + r[2] / 2
                 
                 actual_size = test_map.size()
                 
                 self.logger.info(f"Results: {batch_size} items, {thread_count} threads")
-                self.logger.info(f"Total time (ns): {total_elapsed}s")
-                self.logger.info(f"Operations per nano second: {total_ops_per_second:.2f}")
+                self.logger.info(f"Total time (ns): {total_elapsed}ns")
+                self.logger.info(f"Operations per nano second: {total_ops_per_nano_second}")
+                self.logger.info(f"Mean operations per nano second: {mean_ops_per_nano_second}")
+                self.logger.info(f"Items per thread: {items_per_thread}")
                 self.logger.info(f"Map size: {actual_size}")
 
-                self.report.add_metric(f"total_time_{batch_size}_{thread_count}", total_elapsed)
-                self.report.add_metric(f"ops_per_nano_second_{batch_size}_{thread_count}", total_ops_per_second)
+                self.report.add_metric(f"total_time_{batch_size}_{thread_count}_ns", total_elapsed)
+                self.report.add_metric(f"total_time_ops_per_nano_second_{batch_size}_{thread_count}_ns", total_ops_per_nano_second)
+                self.report.add_metric(f"mean_ops_per_nano_second_{batch_size}_{thread_count}_ns", mean_ops_per_nano_second)
                 
                 result = "PASS" if actual_size == batch_size else "FAIL"
                 self.report.add_result(
                     f"map_scaling_{batch_size}_{thread_count}",
                     result,
-                    f"Ops/nano_sec: {total_ops_per_second:.2f}"
+                    f"Ops/nano_sec: {total_ops_per_nano_second} ; Mean ops/nano_sec: {mean_ops_per_nano_second} ; Actual size: {actual_size} ; Expected size: {batch_size}"
                 )
 
                 time.sleep(0.5)

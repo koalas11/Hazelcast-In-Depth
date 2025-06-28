@@ -121,7 +121,7 @@ public class RingBufferTest extends AbstractTest {
         
         // Test readMany
         System.out.println("Testing readMany operation...");
-        CompletionStage<ReadResultSet<String>> resultSetStage = ringbuffer.readManyAsync(0, 5, 10, null);
+        CompletionStage<ReadResultSet<String>> resultSetStage = ringbuffer.readManyAsync(0, 5, 5, null);
         
         ReadResultSet<String> resultSet = resultSetStage.toCompletableFuture().get();
 
@@ -150,7 +150,7 @@ public class RingBufferTest extends AbstractTest {
         
         // Test reading from middle
         System.out.println("Testing readMany from middle...");
-        CompletionStage<ReadResultSet<String>> middleSetStage = ringbuffer.readManyAsync(3, 3, 10, null);
+        CompletionStage<ReadResultSet<String>> middleSetStage = ringbuffer.readManyAsync(3, 3, 3, null);
         
         ReadResultSet<String> middleSet = middleSetStage.toCompletableFuture().get();
 

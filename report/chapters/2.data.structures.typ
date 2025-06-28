@@ -16,9 +16,9 @@ Hazelcast offre una caratteristica unica: supporta sia strutture dati AP (Availa
 Hazelcast offre numerose strutture dati distribuite che seguono il modello AP del teorema CAP, privilegiando l'alta disponibilità e la tolleranza alle partizioni, a scapito della consistenza forte in scenari di rete instabile o partizionata.
 
 Principali strutture AP:
-- *Map / IMap / JCache:* garantiscono disponibilità anche durante le partizioni, ma con possibile lettura temporaneamente obsoleta (consistenza eventuale).
+- *Map / IMap / JCache:* garantiscono disponibilità anche durante le partizioni, ma con possibile lettura temporaneamente obsoleta (*eventually consistent*).
 
-- *ReplicatedMap:* altamente disponibile, replica passiva dei dati. Ottimo per letture frequenti, ma con aggiornamenti asincroni.
+- *ReplicatedMap:* mappa completamente replicata su tutti i nodi del cluster, ottimizzata per letture frequenti con aggiornamenti meno frequenti.
 
 - *Cache (JCache):* caching distribuito conforme a JSR-107, con semantica simile a IMap in ottica di disponibilità.
 
@@ -32,7 +32,10 @@ Principali strutture AP:
 
 - *Flake ID Generator:* generatore distribuito di identificativi univoci, AP per definizione, sicuro anche in reti partizionate.
 
-- *PN Counter:* contatore incrementabile/decrementabile che sfrutta CRDT per mantenere consistenza eventuale, ideale in ambienti distribuiti con latenza.
+- *PN Counter:* contatore CRDT (Conflict-free Replicated Data Type) che supporta increment e decrement distribuiti, convergendo automaticamente verso un valore consistente anche in presenza di partizioni di rete.
+
+Alcune di queste strutture dati, come ad esempio List, Set e Queue, memorizzano tutti i dati su un unico nodo e prevedono repliche su altri nodi per garantire la disponibilità.
+Inoltre anche se Hazelcast offre tutte queste strutture dati distribuite, la principale è *IMap*, con molte funzionalità non presenti in altre strutture.
 
 Le strutture AP di Hazelcast sono ideali per:
 - Caching distribuito e invalidazione efficiente
@@ -72,7 +75,13 @@ L'approccio ibrido di Hazelcast offre vantaggi significativi:
 Hazelcast offre una struttura dati specializzata per gestire in modo efficiente i dati in streaming.
 
 === Event Journal
-Una struttura dati distribuita che memorizza la cronologia delle modifiche apportate alle strutture dati.
+L'Event Journal è una struttura dati distribuita che cattura automaticamente tutte le modifiche (inserimenti, aggiornamenti, cancellazioni) apportate a IMap e ICache, memorizzandole in un log ordinato e distribuito.
+
+Caratteristiche principali:
+- *Capture automatico*: registra tutte le operazioni senza impatto sulle prestazioni
+- *Ordering garantito*: mantiene l'ordine delle operazioni per partizione
+- *Retention configurabile*: politiche di ritenzione basate su tempo o dimensione
+- *Stream processing*: integrazione nativa con Hazelcast Jet per elaborazione in tempo reale
 
 == AI/ML Data Structures
 Strutture dati specializzate ottimizzate per carichi di lavoro di machine learning e intelligenza artificiale.
@@ -81,7 +90,12 @@ Strutture dati specializzate ottimizzate per carichi di lavoro di machine learni
 Una struttura dati probabilistica per stimare in modo efficiente la cardinalità di grandi set di dati.
 
 === Vector Collection
-Una collezione distribuita per memorizzare e interrogare vettori di embedding, utile per applicazioni di intelligenza artificiale.
+La Vector Collection è ottimizzata per memorizzare vettori di embedding utilizzati in applicazioni di machine learning:
+
+- *Similarity search*: ricerca per similarità utilizzando metriche come cosine similarity
+- *Indexing avanzato*: supporto per indici vettoriali ad alte prestazioni
+- *Scalabilità orizzontale*: distribuzione automatica dei vettori nel cluster
+- *Integrazione ML*: compatibilità con framework di machine learning comuni
 
 == Commenti
 

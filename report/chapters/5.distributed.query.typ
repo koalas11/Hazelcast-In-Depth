@@ -2,31 +2,19 @@
 
 Hazelcast fornisce supporto SQL come modalità potente e familiare per interrogare e manipolare dati distribuiti nel cluster. Questo permette agli utenti di sfruttare le proprie conoscenze SQL esistenti mentre lavorano con strutture dati distribuite in Hazelcast.
 
-== Concetti Fondamentali
-
-Il supporto SQL di Hazelcast si basa sui seguenti principi chiave:
-
-- *Compatibilità ANSI SQL*: Hazelcast implementa lo standard SQL-92 con estensioni
-- *Esecuzione distribuita*: Le query vengono eseguite in parallelo su tutto il cluster
-- *Ottimizzazione con pushdown*: Filtri e proiezioni vengono spinti il più vicino possibile alle fonti dati
-- *Valutazione lazy*: I risultati vengono elaborati on-demand per ottimizzare l'uso delle risorse
-
 == Metodi di Accesso ai Dati
 
 Hazelcast SQL può interrogare dati da molteplici fonti:
 
-#figure(
-  caption: [Fonte dati e azione intrapresa da Hazelcast],
-  table(
-    columns: (auto,) * 2,
-    table.header([Fonte Dati], [Descrizione azione]),
-    [Maps], [Interroga le map distribuite di Hazelcast],
-    [Kafka], [Interroga dati da topic Kafka],
-    [File], [Systems Accede ai dati in file esterni],
-    [JDBC], [Connette a database esterni],
-    [MongoDB], [Interroga collezioni MongoDB],
-  ),
-)
+#figure(caption: [Fonte dati e azione intrapresa da Hazelcast], table(
+  columns: (auto,) * 2,
+  table.header([Fonte Dati], [Descrizione azione]),
+  [Maps], [Interroga le map distribuite di Hazelcast],
+  [Kafka], [Interroga dati da topic Kafka],
+  [File], [Systems Accede ai dati in file esterni],
+  [JDBC], [Connette a database esterni],
+  [MongoDB], [Interroga collezioni MongoDB],
+))
 
 == Meccanismo di Esecuzione Distribuita delle Query
 
@@ -86,9 +74,36 @@ Hazelcast migliora le prestazioni delle query attraverso un aggressivo pushdown:
 - *Aggregation Pushdown*: Aggregazioni parziali avvengono nelle fonti dati
 - *External Source Pushdown*: I filtri vengono spinti a sistemi esterni (JDBC, MongoDB, ecc.)
 
+=== Supporto agli Indici Distribuiti
+
+Gli indici migliorano significativamente le prestazioni delle query e sono gestiti in modo distribuito:
+
+```sql
+CREATE INDEX idx_cliente_nome ON clienti(nome);
+```
+
+L'indice viene:
+- Creato su ogni partizione
+- Mantenuto localmente da ogni membro
+- Utilizzato automaticamente dall'ottimizzatore di query
+- Aggiornato atomicamente con le modifiche ai dati
+
+Hazelcast supporta:
+- Indici singoli e compositi
+- Indici ordinati
+- Indici bitmap per dati ad alta cardinalità
+
+=== Caching delle Query Distribuite
+
+Hazelcast ottimizza query ripetute attraverso:
+
+- Caching di query parametrizzate
+- Caching del piano di esecuzione
+- Caching dei risultati per query qualificanti
+
 == SQL su Map
 
-Le map distribuite sono la struttura dati primaria in Hazelcast, e SQL fornisce un modo potente per interrogarle.
+Le map distribuite sono la struttura dati primaria in Hazelcast, e SQL fornisce un modo potente per interrogarle (la Map è l'unica struttura dati distribuita con supporto SQL).
 
 === Concetti di Mapping
 
@@ -108,13 +123,7 @@ CREATE MAPPING mia_mappa (
 );
 ```
 
-=== Capacità di Query
-
-Una volta mappata, è possibile eseguire operazioni SQL standard:
-
-- SELECT con filtri, proiezioni e aggregazioni
-- Operazioni DML (Data Manipulation Language) come INSERT, UPDATE e DELETE
-- Operazioni JOIN tra diverse map
+Per i tipi di dati primitivi, il processo avviene automaticamente, mentre per tipi creati dall'utente è necessario definire esplicitamente il mapping.
 
 == API `Predicate`: Un'Alternativa a SQL
 
@@ -134,12 +143,21 @@ Predicate<Integer, Dipendente> predicate = Predicates.and(
 Collection<Dipendente> ingegneriSenior = dipendenti.values(predicate);
 ```
 
+=== Funzionalità avanzate dell'API `Predicate`
+
+- *Predicati Compositi*: Combinazione di più condizioni con `and`, `or`, `not`
+- *Predicati su Partizioni*: Esecuzione di filtri su partizioni specifiche
+- *Predicati di Paging*: Supporto per paginazione dei risultati
+- *Predicati Personalizzati*: Implementazione di logica di filtro personalizzata
+- *Supporto per tipi complessi*: Predicati su mappe, liste e altri tipi di dati complessi
+
+Oltre a queste funzionalità è possibile anche aggregare i risultati utilizzando l'API `Aggregation` e trasformare i risultati con l'API `Projection`.
+
 === Vantaggi dell'API `Predicate`
 
 - *Integrazione naturale con Java*: Ideale per sviluppatori che preferiscono un approccio programmatico
 - *Tipizzazione forte*: Rileva errori di tipo a tempo di compilazione
 - *Flessibilità*: Permette di costruire predicati complessi e dinamici in fase di esecuzione
-- *Predicati personalizzati*: Possibilità di implementare logica di filtro personalizzata
 
 ```java
 // Predicato personalizzato
@@ -289,28 +307,21 @@ Questa funzionalità si integra perfettamente con le pipeline di dati descritte 
 
 Hazelcast SQL supporta i tipi di dati SQL standard:
 
-#figure(
-  caption: [Tipi supportati da Hazelcast SQL],
-  table(
-    columns: (auto,) * 8,
-    table.header([Categoria], table.cell(colspan: 7)[Tipi]),
-    [Numerici], [TINYINT], [SMALLINT], [INT], [BIGINT], [DECIMAL], [REAL], [DOUBLE],
-    [Stringa], table.cell(colspan: 4)[VARCHAR], table.cell(colspan: 3)[CHAR],
-    [Temporali], [DATE], [TIME], table.cell(colspan: 2)[TIMESTAMP], table.cell(colspan: 3)[TIMESTAMP WITH TIME ZONE],
-    [Altri], table.cell(colspan: 3)[BOOLEAN], table.cell(colspan: 2)[JSON], table.cell(colspan: 2)[OBJECT],
-  ),
-)
-
-=== Conversione di Tipo
-
-Hazelcast gestisce la conversione automatica dei tipi secondo le regole standard SQL con alcune estensioni per la gestione dei dati distribuiti.
+#figure(caption: [Tipi supportati da Hazelcast SQL], table(
+  columns: (auto,) * 8,
+  table.header([Categoria], table.cell(colspan: 7)[Tipi]),
+  [Numerici], [TINYINT], [SMALLINT], [INT], [BIGINT], [DECIMAL], [REAL], [DOUBLE],
+  [Stringa], table.cell(colspan: 4)[VARCHAR], table.cell(colspan: 3)[CHAR],
+  [Temporali], [DATE], [TIME], table.cell(colspan: 2)[TIMESTAMP], table.cell(colspan: 3)[TIMESTAMP WITH TIME ZONE],
+  [Altri], table.cell(colspan: 3)[BOOLEAN], table.cell(colspan: 2)[JSON], table.cell(colspan: 2)[OBJECT],
+))
 
 == Tipi Definiti dall'Utente
 
 Hazelcast supporta tipi di dati personalizzati in SQL:
 
-- POJO (Plain Old Java Objects)
-- Oggetti Portable
+- Oggetti Serializzabili
+- Oggetti compat serialization
 - Oggetti serializzabili personalizzati
 
 Per utilizzare efficacemente i tipi personalizzati:
@@ -318,45 +329,17 @@ Per utilizzare efficacemente i tipi personalizzati:
 - Configurare le impostazioni di reflection se necessario
 - Creare mapping appropriati
 
-== Ottimizzazione delle Query
-
-=== Pianificazione dell'Esecuzione
-
-Il motore SQL di Hazelcast ottimizza le query attraverso:
-
-- Ottimizzazione basata sui costi
-- Pushdown dei predicati
-- Strategie di join distribuite
-- Utilizzo degli indici
-
-=== Supporto agli Indici Distribuiti
-
-Gli indici migliorano significativamente le prestazioni delle query e sono gestiti in modo distribuito:
-
-```sql
-CREATE INDEX idx_cliente_nome ON clienti(nome);
-```
-
-L'indice viene:
-- Creato su ogni partizione
-- Mantenuto localmente da ogni membro
-- Utilizzato automaticamente dall'ottimizzatore di query
-- Aggiornato atomicamente con le modifiche ai dati
-
-Hazelcast supporta:
-- Indici singoli e compositi
-- Indici ordinati
-- Indici bitmap per dati ad alta cardinalità
-
 == Transazioni Distribuite
 
 Hazelcast fornisce un robusto supporto per transazioni distribuite che garantiscono operazioni atomiche su dati distribuiti in tutto il cluster.
 
 === Tipi di Transazioni
 
+È possibile eseguire transazioni distribuite in Hazelcast scegliendo tra due approcci:
+
 ==== Commit a Due Fasi (2PC)
 
-Il protocollo di commit a due fasi è l'approccio principale per le transazioni distribuite in Hazelcast:
+Il protocollo di commit a due fasi è l'approccio principale per le transazioni distribuite:
 
 ```java
 TransactionContext contesto = hazelcastInstance.newTransactionContext();
@@ -383,7 +366,7 @@ Il commit a due fasi garantisce:
 
 ==== Commit a Una Fase (1PC)
 
-Per operazioni su singola partizione, Hazelcast ottimizza con il commit a una fase:
+Per operazioni su singola partizione, è possibile utilizzare il commit a una fase:
 
 ```java
 TransactionOptions opzioni = new TransactionOptions()
@@ -465,40 +448,6 @@ Le transazioni in Hazelcast hanno vincoli importanti:
 - C'è un overhead per mantenere lo stato transazionale
 - Transazioni di lunga durata possono impattare le prestazioni
 - Le transazioni hanno un timeout massimo ma configurabile
-
-== Servizio di Catalogo Query
-
-Hazelcast implementa un avanzato servizio di catalogo che:
-
-- Mantiene metadati su mapping e schemi
-- Replica le informazioni di catalogo in tutto il cluster
-- Fornisce una vista coerente dello schema da qualsiasi membro
-- Supporta l'evoluzione dello schema con compatibilità retroattiva
-
-== Ottimizzazioni di Prestazioni
-
-=== Aggregazioni Distribuite Intelligenti
-
-Per query di aggregazione, Hazelcast utilizza un approccio a due fasi:
-
-1. Aggregazione locale su ogni membro/partizione
-2. Aggregazione finale dei risultati parziali
-
-```sql
-SELECT dipartimento, AVG(stipendio)
-FROM dipendenti
-GROUP BY dipartimento
-```
-
-Questo minimizza il trasferimento dati attraverso la rete e migliora le prestazioni.
-
-=== Caching delle Query Distribuite
-
-Hazelcast ottimizza query ripetute attraverso:
-
-- Caching di query parametrizzate
-- Caching del piano di esecuzione
-- Caching dei risultati per query qualificanti
 
 == Integrazione con le Strategie di Data Ingestion
 
