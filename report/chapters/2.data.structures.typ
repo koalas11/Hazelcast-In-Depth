@@ -34,10 +34,10 @@ Principali strutture AP:
 
 - *PN Counter:* contatore CRDT (Conflict-free Replicated Data Type) che supporta increment e decrement distribuiti, convergendo automaticamente verso un valore consistente anche in presenza di partizioni di rete.
 
-Alcune di queste strutture dati, come ad esempio List, Set e Queue, memorizzano tutti i dati su un unico nodo e prevedono repliche su altri nodi per garantire la disponibilità.
-Inoltre anche se Hazelcast offre tutte queste strutture dati distribuite, la principale è *IMap*, con molte funzionalità non presenti in altre strutture.
+Alcune di queste strutture dati, come ad esempio List, Set e Queue, memorizzano tutti i dati su un unica partizione e prevedono repliche su altri nodi per garantire la disponibilità.
+Inoltre anche se Hazelcast offre tutte queste strutture dati distribuite, la principale è *IMap*, con molte funzionalità non presenti in altre strutture, come il TTL (Time to Live).
 
-Le strutture AP di Hazelcast sono ideali per:
+Queste strutture AP sono ideali per:
 - Caching distribuito e invalidazione efficiente
 - Applicazioni orientate alle prestazioni che richiedono alta disponibilità
 - Ambienti con partizioni di rete o latenza variabile
@@ -97,6 +97,39 @@ La Vector Collection è ottimizzata per memorizzare vettori di embedding utilizz
 - *Scalabilità orizzontale*: distribuzione automatica dei vettori nel cluster
 - *Integrazione ML*: compatibilità con framework di machine learning comuni
 
+== Strutture Dati per AI e Machine Learning
+
+=== Vector Collection
+Un oggetto in Beta per interagire con lo storage vettoriale, che contiene informazioni sui vettori e metadati associati, disponibile in Hazelcast Enterprise.
+
+==== Caratteristiche
+- *Engine vettoriale specializzato*: Database engine specializzato ottimizzato per memorizzare, cercare e gestire embedding vettoriali e metadati aggiuntivi
+- *Ricerca per similarità*: Supporto per metriche come cosine similarity, euclidean distance, dot product
+- *Filtering integrato*: Possibilità di filtrare risultati basandosi sui metadati
+- *Indicizzazione avanzata*: Utilizzo di algoritmi di indicizzazione vettoriale ad alte prestazioni
+- *Distribuzione automatica*: I vettori sono automaticamente distribuiti nel cluster seguendo il modello di partizionamento di Hazelcast
+
+==== Algoritmi di Ricerca
+La Vector Collection utilizza algoritmi ottimizzati per la ricerca approssimativa del vicino più prossimo (ANN):
+- Supporto per indici HNSW (Hierarchical Navigable Small World)
+- Bilanciamento tra precisione e velocità di ricerca
+- Ottimizzazioni per grandi volumi di vettori ad alta dimensionalità
+
+==== Integrazione con Pipeline AI
+- Compatible con framework ML comuni (TensorFlow, PyTorch, scikit-learn)
+- Supporto per embedding di diversi modelli (word2vec, BERT, custom embeddings)
+- API per batch operations e real-time inference
+
+== Strutture Dati Probabilistiche
+
+=== Cardinality Estimator Service
+Struttura dati probabilistica basata sull'algoritmo HyperLogLog per stimare in modo efficiente la cardinalità di grandi set di dati:
+
+- *Stima approssimativa*: Fornisce stime accurate con utilizzo di memoria constante
+- *Scalabilità*: Gestisce set di dati di qualsiasi dimensione con footprint di memoria fisso
+- *Tolleranza ai guasti*: Supporto per split-brain protection
+- *Merge operations*: Possibilità di combinare stime da diversi estimatori
+
 == Commenti
 
-Hazelcast fornisce un'ampia gamma di strutture dati distribuite che possono essere utilizzate per costruire applicazioni scalabili e resilienti. La possibilità di scegliere tra modelli di consistenza AP e CP consente agli sviluppatori di ottimizzare le prestazioni e consistenza in base ai requisiti specifici dell'applicazione.
+Hazelcast fornisce un'ampia gamma di strutture dati distribuite che possono essere utilizzate per costruire applicazioni scalabili e resilienti. La possibilità di scegliere tra modelli di consistenza AP e CP consente agli sviluppatori di ottimizzare le prestazioni e consistenza in base ai requisiti specifici dell'applicazione. Inoltre le strutture dati specializzate per lo streaming e il machine learning offrono funzionalità avanzate per applicazioni .

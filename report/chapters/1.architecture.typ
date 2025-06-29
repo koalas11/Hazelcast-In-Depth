@@ -182,7 +182,7 @@ L'architettura di Hazelcast è progettata per essere elastica, permettendo di:
 
 La scalabilità lineare di Hazelcast consente di aggiungere capacità di storage e calcolo proporzionalmente al numero di member aggiunti.
 
-== Protezione da Split-Brain
+== Protezione e Recupero da Split-Brain
 
 Una delle sfide nei sistemi distribuiti è la condizione di "split-brain" che si verifica quando il cluster si divide in sottogruppi che non possono comunicare tra loro. Hazelcast implementa due principali strategie di protezione:
 
@@ -191,6 +191,10 @@ Una delle sfide nei sistemi distribuiti è la condizione di "split-brain" che si
 - *Quorum personalizzato*: Consente di definire regole specifiche per il quorum, come basarsi su un attributo personalizzato dei member.
 
 Esistono inoltre diversi meccanismi per identificare situazioni di partizionamento, tra cui uno basato su approcci probabilistici e un altro fondato sul monitoraggio degli heartbeat tra i nodi.
+
+Per quanto riguarda il recupero da uno split-brain, Hazelcast implementa un processo di merge che consente di combinare coerentemente i dati provenienti dai diversi sottogruppi. Questo processo è altamente configurabile e supporta diverse politiche di merge, che determinano il modo in cui vengono risolti i conflitti tra i dati.
+
+Ad esempio, è possibile utilizzare la politica LatestUpdateMergePolicy, che conserva il valore aggiornato più di recente, oppure la PutIfAbsentMergePolicy, che inserisce il valore solo se non esiste già nella partizione di destinazione.
 
 == Hazelcast Jet: Elaborazione di Stream e Batch
 

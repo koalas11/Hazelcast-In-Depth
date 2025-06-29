@@ -11,7 +11,7 @@ Hazelcast SQL può interrogare dati da molteplici fonti:
   table.header([Fonte Dati], [Descrizione azione]),
   [Maps], [Interroga le map distribuite di Hazelcast],
   [Kafka], [Interroga dati da topic Kafka],
-  [File], [Systems Accede ai dati in file esterni],
+  [File Systems], [Accede ai dati in file esterni],
   [JDBC], [Connette a database esterni],
   [MongoDB], [Interroga collezioni MongoDB],
 ))
@@ -103,7 +103,7 @@ Hazelcast ottimizza query ripetute attraverso:
 
 == SQL su Map
 
-Le map distribuite sono la struttura dati primaria in Hazelcast, e SQL fornisce un modo potente per interrogarle (la Map è l'unica struttura dati distribuita con supporto SQL).
+Le map distribuite sono la struttura dati primaria in Hazelcast, e SQL fornisce un modo potente per interrogarle (la Map è l'unica struttura dati distribuita di Hazelcast con supporto completo di SQL).
 
 === Concetti di Mapping
 
@@ -286,7 +286,7 @@ WHERE cliente.ordini[0].stato = 'SPEDITO';
 
 == Elaborazione di Stream con SQL
 
-Hazelcast consente query continue sui dati in streaming:
+Hazelcast consente query continue sui dati in streaming non disponibile nell'API Predicate.
 
 === Fondamenti di Streaming
 

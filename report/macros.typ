@@ -316,7 +316,10 @@
     import cetz.draw: set-style
 
     let colors = colorMap.slice(2)
-    let palette = cetz.palette.new(colors: colors)
+    let order = (0, 4, 1, 5, 2, 6, 3, 7)
+    let reordered = order.map(i => colors.at(i))
+
+    let palette = cetz.palette.new(colors: reordered)
 
     set-global-style()
 
@@ -385,7 +388,9 @@
     import cetz.draw: set-style
 
     let colors = colorMap.slice(2)
-    let palette = cetz.palette.new(colors: colors)
+    let order = (0, 4, 1, 5, 2, 6, 3, 7)
+    let reordered = order.map(i => colors.at(i))
+    let palette = cetz.palette.new(colors: reordered)
 
     set-global-style()
 

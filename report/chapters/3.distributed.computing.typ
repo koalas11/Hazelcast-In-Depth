@@ -132,7 +132,7 @@ Hazelcast implementa gli User Code Namespaces attraverso un sistema gerarchico d
 
 2. *Regole di Business Dinamiche:* Aggiornamento dinamico delle regole di business senza riavviare il cluster.
 
-*Elaborazione Distribuita di Dati:* Combinando Executor Services e User Code Namespaces per elaborare grandi quantità di dati in parallelo.
+3. *Elaborazione Distribuita di Dati:* Combinando Executor Services e User Code Namespaces per elaborare grandi quantità di dati in parallelo.
 
 == Vantaggi del Computing Distribuito in Hazelcast
 

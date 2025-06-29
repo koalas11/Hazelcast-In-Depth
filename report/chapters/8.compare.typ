@@ -89,13 +89,13 @@ Hazelcast si posiziona in un ecosistema di tecnologie distribuite dove diverse s
 - *Persistenza opzionale*: Entrambi offrono meccanismi di persistenza
 
 *Differenze:*
-- *Architettura*: Hazelcast è peer-to-peer, Redis ha un'architettura master-slave per la replicazione (con Redis Cluster che introduce sharding con un architettura peer-to-peer)
+- *Architettura*: Hazelcast è completamente peer-to-peer con tutti i nodi equivalenti, mentre Redis utilizza replicazione master-replica. Redis Cluster introduce sharding distribuito ma mantiene la replicazione master-replica all'interno di ogni partizione
 - *Distribuzione*: Hazelcast distribuisce automaticamente i dati, Redis Cluster richiede configurazione manuale dei nodi per lo sharding (automatico con Redis Enterprise)
 - *Computing*: Hazelcast ha capacità di computing distribuite native, Redis offre scripting Lua ma con limitazioni
 - *Linguaggio*: Hazelcast è basato su Java/JVM, Redis è scritto in C
 - *Consistenza*: Hazelcast offre un sottosistema CP, Redis offre strutture dati AP
 
-#figure(caption: [Schema di confronto tra nodi: Hazelcast vs Redis], {
+#figure(caption: [Schema di confronto Sharding: Hazelcast vs Redis], {
   box(radius: 2pt, stroke: black.transparentize(90%) + 1pt, grid(
     columns: (auto,) * 2,
     column-gutter: 1em,
@@ -116,12 +116,12 @@ Hazelcast si posiziona in un ecosistema di tecnologie distribuite dove diverse s
           edge-stroke: black + .75pt,
           node((1, 0), [Master]),
           edge("<|-|>", corner: right),
-          node((2, 2), [Slave]),
-          node((0, 2), [Slave]),
+          node((2, 2), [Replica]),
+          node((0, 2), [Replica]),
           edge((1, 0), "<|-|>", corner: right),
         )
       },
-      [Master-Slave Model],
+      [Master-Replica Model (No Cluster)],
     ),
   ))
 })

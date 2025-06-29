@@ -2,7 +2,7 @@
 
 = Data Ingestion in Hazelcast
 
-Hazelcast offre diverse opzioni per il data ingestion che permettono di trasferire dati da sistemi esterni a Hazelcast. Questi metodi di ingestione consentono di integrare Hazelcast con l'infrastruttura esistente e di costruire pipeline di dati complete.
+Hazelcast offre diverse opzioni per il data ingestion che permettono di trasferire dati da sistemi esterni a Hazelcast. Questi metodi di ingestione consentono di integrare Hazelcast con l'infrastruttura esistente e di costruire pipeline di dati complete (anche chiamate Jet pipelines).
 
 == Pipeline di Dati e Connettori
 
@@ -56,7 +56,6 @@ Hazelcast fornisce connettori CDC che si integrano con:
   - PostgreSQL CDC
   - MongoDB CDC
   - SQL Server CDC
-  - Oracle CDC (tramite LogMiner o XStream)
 
 ==== Vantaggi del CDC con Pipeline
 

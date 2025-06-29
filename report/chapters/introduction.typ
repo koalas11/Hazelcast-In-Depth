@@ -14,4 +14,4 @@ Il nucleo dell'ecosistema Hazelcast include:
 
 La versione di Hazelcast analizzata è la 5.5 l'ultima versione stabile al momento della stesura di questo documento.
 
-In questa relazione, esploreremo le caratteristiche principali di Hazelcast, il suo funzionamento interno e le differenze tra le versioni open source ed enterprise. Inoltre eseguiremo dei test su un cluster di nodi Hazelcast per valutare le performance e la scalabilità della piattaforma. Infine faremo un confronto con altre soluzioni di computing distribuito in-memory, evidenziando i punti di forza e le aree di miglioramento di Hazelcast.
+In questa relazione, esploreremo le caratteristiche principali di Hazelcast, il suo funzionamento interno e le differenze tra le versioni open source ed enterprise. Inoltre eseguiremo alcuni test su un cluster di nodi Hazelcast. Infine faremo un confronto con altre soluzioni di computing distribuito in-memory, evidenziando i punti di forza e le aree di miglioramento di Hazelcast.
