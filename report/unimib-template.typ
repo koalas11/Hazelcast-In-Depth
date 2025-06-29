@@ -104,7 +104,7 @@
   set heading(numbering: "1.1.1.")
   // Set run-in subheadings, starting at level 3.
   show heading: it => {
-    if it.level > 3 {
+    if it.level > 4 {
       parbreak()
       text(11pt, style: "italic", weight: "regular", it.body + ".")
     } else {
@@ -120,36 +120,30 @@
     }
 
     pagebreak(weak: true)
-    block(
-      breakable: false,
-      {
-        v(3em)
-        if isIntro {
-          text(
-            size: 1.5em,
-            it.body,
-          )
-          v(1.25em)
+    block(breakable: false, {
+      v(3em)
+      if isIntro {
+        text(
+          size: 1.5em,
+          it.body,
+        )
+        v(1.25em)
+      } else {
+        let firstNumbering = it.numbering.first()
+
+        let supplement = if firstNumbering == "1" { langStrings.chapter } else if firstNumbering == "A" {
+          langStrings.appendix
         } else {
-          let firstNumbering = it.numbering.first()
-
-          let supplement = if firstNumbering == "1" { langStrings.chapter } else if firstNumbering == "A" {
-            langStrings.appendix
-          } else {
-            return it
-          }
-
-          set heading(
-            supplement: supplement,
-            numbering: it.numbering.first(),
-          )
-          text(size: 1.5em)[#supplement #context counter(heading).display()]
-          v(.25em)
-          it.body
+          return it
         }
-        v(.5em)
-      },
-    )
+
+        set heading(supplement: supplement, numbering: it.numbering.first())
+        text(size: 1.5em)[#supplement #context counter(heading).display()]
+        v(.25em)
+        it.body
+      }
+      v(.5em)
+    })
   }
 
   // Style lists
@@ -169,24 +163,12 @@
   show ref: it => {
     if it.element != none and it.element.func() == math.equation {
       // Override equation references.
-      link(
-        it.element.location(),
-        numbering(
-          it.element.numbering,
-          ..counter(math.equation).at(it.element.location()),
-        ),
-      )
+      link(it.element.location(), numbering(it.element.numbering, ..counter(math.equation).at(it.element.location())))
     } else if it.element != none and it.element.func() == heading and it.element.level == 1 {
       // Override heading aka section references.
-      link(
-        it.element.location(),
-        [
-          #langStrings.chapter #numbering(
-            "1",
-            ..counter(heading).at(it.element.location()),
-          )
-        ],
-      )
+      link(it.element.location(), [
+        #langStrings.chapter #numbering("1", ..counter(heading).at(it.element.location()))
+      ])
     } else {
       // Other references as usual.
       it
@@ -255,23 +237,17 @@
   counter(page).update(1)
 
   set page(
-    header: text(
-      style: "italic",
-      grid(
-        columns: (1fr, auto),
-        align: top,
-        [#title -- #context counter(page).display()],
-        context authors.at(calc.rem(counter(page).at(here()).first(), authors.len())),
-      ),
-    ),
-    footer: text(
-      style: "italic",
-      [
-        #langStrings.university
-        #h(1fr)
-        #academic-year
-      ],
-    ),
+    header: text(style: "italic", grid(
+      columns: (1fr, auto),
+      align: top,
+      [#title -- #context counter(page).display()],
+      context authors.at(calc.rem(counter(page).at(here()).first(), authors.len())),
+    )),
+    footer: text(style: "italic", [
+      #langStrings.university
+      #h(1fr)
+      #academic-year
+    ]),
   )
 
   body

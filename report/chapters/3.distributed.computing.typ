@@ -1,4 +1,4 @@
-#import "../packages.typ": cetz, codly, codly-languages
+#import "../packages.typ": cetz, codly, codly-languages, colorGrad
 
 = Distributed Computing in Hazelcast
 
@@ -99,7 +99,7 @@ Hazelcast implementa gli User Code Namespaces attraverso un sistema gerarchico d
         padding: .3,
         frame: "rect",
         fill: white,
-        stroke: (paint: gradient.radial(center: (0%, 0%), radius: 150%, ..color.map.inferno)),
+        stroke: (paint: colorGrad),
       ))
       tree.tree(
         (

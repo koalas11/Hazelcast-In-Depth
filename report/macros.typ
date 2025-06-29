@@ -184,13 +184,13 @@
 
 
 #let plot1a = {
-  import "packages.typ": cetz, cetz-plot
-  import cetz-plot: plot
+  import "packages.typ": cetz, cetz-plot, colorMap
 
   cetz.canvas({
+    import cetz-plot: plot
     import cetz.draw: set-style
 
-    let colors = color.map.inferno.chunks(3).map(it => it.first())
+    let colors = colorMap
     let palette = cetz.palette.new(colors: colors)
 
     set-global-style()
@@ -248,13 +248,13 @@
 }
 
 #let plot1b = {
-  import "packages.typ": cetz, cetz-plot
-  import cetz-plot: plot
+  import "packages.typ": cetz, cetz-plot, colorMap
 
   cetz.canvas({
+    import cetz-plot: plot
     import cetz.draw: set-style
 
-    let colors = color.map.inferno.chunks(3).map(it => it.first())
+    let colors = colorMap.slice(2)
     let palette = cetz.palette.new(colors: colors)
 
     set-global-style()
@@ -309,13 +309,13 @@
 }
 
 #let plot2a = {
-  import "packages.typ": cetz, cetz-plot
-  import cetz-plot: plot
+  import "packages.typ": cetz, cetz-plot, colorMap
 
   cetz.canvas({
+    import cetz-plot: plot
     import cetz.draw: set-style
 
-    let colors = color.map.inferno.chunks(3).map(it => it.first())
+    let colors = colorMap.slice(2)
     let palette = cetz.palette.new(colors: colors)
 
     set-global-style()
@@ -378,13 +378,13 @@
 }
 
 #let plot2b = {
-  import "packages.typ": cetz, cetz-plot
-  import cetz-plot: plot
+  import "packages.typ": cetz, cetz-plot, colorMap
 
   cetz.canvas({
+    import cetz-plot: plot
     import cetz.draw: set-style
 
-    let colors = color.map.inferno.chunks(3).map(it => it.first())
+    let colors = colorMap.slice(2)
     let palette = cetz.palette.new(colors: colors)
 
     set-global-style()

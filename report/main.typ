@@ -1,5 +1,5 @@
 #import "unimib-template.typ": unimib
-#import "packages.typ": codly, codly-languages, colorGrad
+#import "packages.typ": codly, codly-languages
 
 #show: unimib.with(
   title: "Progetto Architettura Dati -- Hazelcast",
@@ -21,22 +21,15 @@
 #show: codly.codly-init
 #codly.codly(languages: codly-languages.codly-languages, breakable: true)
 
-#set table(
-  // stroke: (x, y) => {
-  //   (paint: colorGrad)
-  // },
-  stroke: none,
-  gutter: 0.2em,
-  fill: (x, y) => {
-    if y == 0 { luma(120) } else {
-      if calc.odd(y) {
-        luma(240)
-      } else {
-        luma(220)
-      }
+#set table(stroke: none, gutter: 0.2em, fill: (x, y) => {
+  if y == 0 { luma(120) } else {
+    if calc.odd(y) {
+      luma(240)
+    } else {
+      luma(220)
     }
-  },
-)
+  }
+})
 
 #show table.cell: it => {
   if it.y == 0 {
