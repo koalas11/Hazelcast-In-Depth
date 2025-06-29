@@ -1,10 +1,10 @@
-#import "../macros.typ": plot1a, plot1b, plot2a, plot2b
+#import "../macros.typ": all_configs, plot1a, plot1b, plot2a, plot2b, test_configs, usage_test_sizes
 
 = Conclusioni
 
 == Risultati dei Test Java
 
-Dai test in Java emerge chiaramente che Hazelcast offre un’ampia gamma di funzionalità, tutte documentate. La configurazione è molto flessibile, ma richiede una solida comprensione delle opzioni disponibili per evitare errori comuni.
+Dai test in Java emerge chiaramente che Hazelcast offre un'ampia gamma di funzionalità, tutte documentate. La configurazione è molto flessibile, ma richiede una solida comprensione delle opzioni disponibili per evitare errori comuni.
 
 Inoltre, Hazelcast segnala chiaramente eventuali errori di configurazione e programmazione, facilitando la risoluzione dei problemi. Tuttavia, la curva di apprendimento può risultare ripida per i nuovi utenti.
 
@@ -12,7 +12,7 @@ Nel prosieguo di questo capitolo, analizzeremo alcune funzionalità interessanti
 
 == Risultati Python
 
-In questo test, si inseriscono in una mappa distribuita elementi della forma `{key: “key_i”, value: “value_i”}` con un numero e si misurano le latenze delle operazioni di lettura e scrittura, sia per operazioni singole che per batch di operazioni. Questo per osservare come le latenze variano all’aumentare del numero di nodi.
+In questo test, si inseriscono in una mappa distribuita elementi della forma `{key: “key_i”, value: “value_i”}` con un numero e si misurano le latenze delle operazioni di lettura e scrittura, sia per operazioni singole che per batch di operazioni. Questo per osservare come le latenze variano all'aumentare del numero di nodi.
 
 #figure(
   caption: [Confronto latenze in operazioni di lettura/scrittura],
@@ -24,9 +24,9 @@ In questo test, si inseriscono in una mappa distribuita elementi della forma `{k
   plot1b,
 )
 
-I risultati evidenziano che le operazioni di get e put presentano prestazioni migliori rispetto a get all e put all. Un aspetto interessante è che, nonostante l’aumento della dimensione del cluster, le latenze rimangono relativamente stabili, indicando che l’espansione del cluster non introduce un sovraccarico significativo nelle operazioni di lettura e scrittura. È importante sottolineare che questo test si concentra sulla latenza delle operazioni in scenari di utilizzo tipici, piuttosto che sul carico di lavoro. Inoltre, il test valuta il tempo di risposta medio per operazione, anziché il numero di operazioni per batch.
+I risultati evidenziano che le operazioni di get e put presentano prestazioni migliori rispetto a get all e put all. Un aspetto interessante è che, nonostante l'aumento della dimensione del cluster, le latenze rimangono relativamente stabili, indicando che l'espansione del cluster non introduce un sovraccarico significativo nelle operazioni di lettura e scrittura. È importante sottolineare che questo test si concentra sulla latenza delle operazioni in scenari di utilizzo tipici, piuttosto che sul carico di lavoro. Inoltre, il test valuta il tempo di risposta medio per operazione, anziché il numero di operazioni per batch.
 
-In questo test, vengono misurati i tempi di risposta successivi a un failover e all’aggiunta di un nuovo nodo al cluster, al fine di analizzare la gestione di tali scenari da parte di Hazelcast. Sono stati eseguiti due test: uno con inserimento di dati di piccole dimensioni (80 byte) e uno con dati di dimensioni maggiori (8 MB). L’obiettivo era valutare come le latenze variano in funzione della dimensione dei dati. I risultati presentati si riferiscono esclusivamente al test con dati di dimensioni maggiori, in quanto quello con dati di piccole dimensioni non ha fornito risultati significativi.
+In questo test, vengono misurati i tempi di risposta successivi a un failover e all'aggiunta di un nuovo nodo al cluster, al fine di analizzare la gestione di tali scenari da parte di Hazelcast. Sono stati eseguiti due test: uno con inserimento di dati di piccole dimensioni (80 byte) e uno con dati di dimensioni maggiori (8 MB). L'obiettivo era valutare come le latenze variano in funzione della dimensione dei dati.
 
 #figure(
   caption: [Confronto tempo dopo failover e aggiunta di un nodo per dati di dimensioni maggiori],
@@ -38,122 +38,158 @@ In questo test, vengono misurati i tempi di risposta successivi a un failover e 
   plot2b,
 )
 
-In scenari di failover, Hazelcast ha dimostrato un’elevata capacità di recupero, con tempi di ripristino pressoché invariati indipendentemente dalla quantità di dati. Questo aspetto risulta cruciale per le applicazioni mission-critical, dove la disponibilità continua è fondamentale. Tale comportamento è coerente con l’architettura di Hazelcast, che prevede la replica delle partizioni tra i nodi del cluster, garantendo la disponibilità costante dei dati anche in caso di guasti.
+In scenari di failover, Hazelcast ha dimostrato un'elevata capacità di recupero, con tempi di ripristino pressoché invariati indipendentemente dalla quantità di dati. Questo aspetto risulta cruciale per le applicazioni mission-critical, dove la disponibilità continua è fondamentale. Tale comportamento è coerente con l'architettura di Hazelcast, che prevede la replica delle partizioni tra i nodi del cluster, garantendo la disponibilità costante dei dati anche in caso di guasti.
+
 Si è osservato che, con dataset di piccole dimensioni, Hazelcast presenta tempi di ripristino molto rapidi.
 Tuttavia, con dataset di dimensioni maggiori e un numero limitato di nodi, come ad esempio due, il tempo di ripristino risulta più lungo rispetto a cluster più grandi. Questo è dovuto al fatto che, con pochi nodi, aumenta la probabilità che un nodo contenente una partizione primaria vada in errore, comportando un tempo di ripristino più lungo.
 
-#figure(caption: [Confronto utilizzo memoria in idle (1 nodo)], table(
-  columns: (auto, auto, auto, auto),
-  inset: 10pt,
-  align: center + horizon,
-  table.header([Nodo], [Load], [CPU Usage], [Mem (MB)]),
-  [node1], [0], [1.2%], [339.03],
-  [node1], [1000], [0.8%], [284.47],
-  [node1], [10000], [0.9%], [284.07],
-  [node1], [100000], [0.9%], [370.52],
-))
+==== Analisi delle Risorse Utilizzate
 
-#figure(caption: [Confronto utilizzo memoria in idle (2 nodi)], table(
-  columns: (auto, auto, auto, auto),
-  inset: 10pt,
-  align: center + horizon,
-  table.header([Nodo], [Load], [CPU Usage], [Mem (MB)]),
-  [node1], [0], [1.9%], [429.63],
-  [node1], [1000], [1.0%], [432.43],
-  [node1], [10000], [0.9%], [443.64],
-  [node1], [100000], [0.9%], [644.79],
-  [node2], [0], [0.9%], [582.00],
-  [node2], [1000], [1.0%], [557.36],
-  [node2], [10000], [0.9%], [539.86],
-  [node2], [100000], [1.0%], [569.31],
-))
+===== Configurazioni di Test
 
-#figure(caption: [Confronto utilizzo memoria in idle (3 nodi)], table(
-  columns: (auto, auto, auto, auto),
-  inset: 10pt,
-  align: center + horizon,
-  table.header([Nodo], [Load], [CPU Usage], [Mem (MB)]),
-  [node1], [0], [0.8&], [449.29],
-  [node1], [1000], [1.1%], [488.95],
-  [node1], [10000], [0.9%], [525.05],
-  [node1], [100000], [0.8%], [554.41],
+#for config in test_configs {
+  let node_count = all_configs.at(config).keys().len()
+  [- *#config*: #node_count nodi]
+}
 
-  [node2], [0], [1.7%], [442.12],
-  [node2], [1000], [0.8%], [470.13],
-  [node2], [10000], [0.9%], [479.36],
-  [node2], [100000], [1.3%], [505.72],
+====== Analisi per Dimensione
 
-  [node3], [0], [1.3%], [344.49],
-  [node3], [1000], [0.9%], [358.19],
-  [node3], [10000], [1.6%], [380.54],
-  [node3], [100000], [0.9%], [444.15],
-))
+#for size in usage_test_sizes {
+  if size == "0" [
+    == Baseline (0 entries)
+  ] else [
+    == #size entries
+  ]
 
-#figure(caption: [Confronto utilizzo memoria in idle (4 nodi)], table(
-  columns: (auto, auto, auto, auto),
-  inset: 10pt,
-  align: center + horizon,
-  table.header([Nodo], [Load], [CPU Usage], [Mem (MB)]),
-  [node1], [0], [1.0%], [425.86],
-  [node1], [1000], [0.9%], [476.61],
-  [node1], [10000], [0.9%], [461.23],
-  [node1], [100000], [0.9%], [477.78],
+  for config in test_configs {
+    let nodes = all_configs.at(config)
+    let node_list = nodes.keys().sorted()
+    let node_index = 1
+    let node_count = all_configs.at(config).keys().len()
 
-  [node2], [0], [1.5%], [328.50],
-  [node2], [1000], [1.1%], [335.07],
-  [node2], [10000], [1.2%], [337.49],
-  [node2], [100000], [1.0%], [436.79],
+    [====== #config (#node_list.len() nodi)]
+    figure(caption: [Confronto utilizzo memoria in idle (#node_count nodi)], table(
+      columns: (auto, auto, auto, auto, auto, auto),
+      inset: 10pt,
+      align: center + horizon,
+      [*Nodo*],
+      [*CPU (%)*],
+      [*Memory (MB)*],
+      strong("Network RX (" + text("KB/s", size: 10pt) + ")"),
+      strong("Network TX (" + text("KB/s", size: 10pt) + ")"),
+      [*Delta Memory*],
 
-  [node3], [0], [1.2%], [383.34],
-  [node3], [1000], [1.2%], [384.78],
-  [node3], [10000], [1.0%], [375.88],
-  [node3], [100000], [1.1%], [401.27],
+      ..for node in node_list {
+        let cpu_val = if size in nodes.at(node) and "cpu" in nodes.at(node).at(size) {
+          nodes.at(node).at(size).cpu
+        } else { "N/A" }
 
-  [node4], [0], [1.2%], [492.81],
-  [node4], [1000], [1.0%], [493.62],
-  [node4], [10000], [0.9%], [466.55],
-  [node4], [100000], [0.8%], [481.33],
-))
+        let mem_bytes = if size in nodes.at(node) and "mem_bytes" in nodes.at(node).at(size) {
+          nodes.at(node).at(size).mem_bytes
+        } else { "N/A" }
 
-#pagebreak(weak: true)
-#show figure: set block(breakable: true)
-#figure(caption: [Confronto utilizzo memoria in idle (5 nodi)], table(
-  columns: (auto, auto, auto, auto),
-  inset: 10pt,
-  align: center + horizon,
-  table.header([Nodo], [Load], [CPU Usage], [Mem (MB)]),
-  [node1], [0], [1.1%], [468.77],
-  [node1], [1000], [0.9%], [470.66],
-  [node1], [10000], [0.9%], [473.05],
-  [node1], [100000], [0.8%], [490.18],
+        let network_rx = if size in nodes.at(node) and "network_rx" in nodes.at(node).at(size) {
+          nodes.at(node).at(size).network_rx
+        } else { "N/A" }
 
-  [node2], [0], [1.7%], [325.10],
-  [node2], [1000], [1.9%], [392.76],
-  [node2], [10000], [1.0%], [420.56],
-  [node2], [100000], [1.4%], [500.22],
+        let network_tx = if size in nodes.at(node) and "network_tx" in nodes.at(node).at(size) {
+          nodes.at(node).at(size).network_tx
+        } else { "N/A" }
 
-  [node3], [0], [1.7%], [363.15],
-  [node3], [1000], [1.0%], [365.34],
-  [node3], [10000], [0.9%], [366.48],
-  [node3], [100000], [1.0%], [408.91],
+        // Calcola delta rispetto al baseline
+        let delta = if (
+          size != "0" and "0" in nodes.at(node) and "mem_bytes" in nodes.at(node).at("0") and mem_bytes != "N/A"
+        ) {
+          let baseline = float(nodes.at(node).at("0").mem_bytes)
+          let current = float(mem_bytes)
+          let delta_val = current - baseline
+          let delta_mb = delta_val / 1024 / 1024
+          if delta_mb > 0 { "+" + str(calc.round(delta_mb, digits: 1)) + " MB" } else {
+            str(calc.round(delta_mb, digits: 1)) + " MB"
+          }
+        } else { "-" }
 
-  [node4], [0], [1.3%], [347.59],
-  [node4], [1000], [0.9%], [366.12],
-  [node4], [10000], [1.0%], [371.23],
-  [node4], [100000], [0.9%], [400.48],
+        (
+          "Nodo " + str(node_index),
+          if cpu_val != "N/A" { str(calc.round(float(cpu_val), digits: 2)) + "%" } else { cpu_val },
+          if mem_bytes != "N/A" { str(calc.round(float(mem_bytes) / 1024 / 1024, digits: 1)) + " MB" } else {
+            mem_bytes
+          },
+          if network_rx != "N/A" { str(calc.round(float(network_rx) / 1024, digits: 2)) + " KB/s" } else { network_rx },
+          if network_tx != "N/A" { str(calc.round(float(network_tx) / 1024, digits: 2)) + " KB/s" } else { network_tx },
+          delta,
+        )
+        node_index += 1
+      },
+    ))
+  }
+}
 
-  [node5], [0], [1.1%], [328.61],
-  [node5], [1000], [1.0%], [368.37],
-  [node5], [10000], [0.8%], [377.05],
-  [node5], [100000], [0.9%], [384.84],
-))
-#show figure: set block(breakable: false)
+===== Confronto tra Configurazioni per Dimensione
 
-Per quanto concerne l’utilizzo di CPU e memoria in modalità idle, i risultati evidenziano che l’aumento del numero di nodi e dei dati non incide significativamente sull’utilizzo della CPU, che si mantiene in tutti i casi al di sotto del 2%. Ciò indica che l’espansione del cluster non comporta un overhead rilevante in termini di risorse CPU, consentendo di scalare senza impatti negativi sulle prestazioni.
+#for size in usage_test_sizes {
+  if size == "0" [
+    ====== Confronto Baseline
+  ] else [
+    ====== Confronto #size entries
+  ]
 
-Per quanto riguarda l’utilizzo della memoria, non si osservano variazioni significative all’aumentare di nodi e dati. Tale comportamento potrebbe essere attribuito a ottimizzazioni interne di Hazelcast che consentono una serializzazione intelligente dei dati, riducendo il consumo di memoria, oppure all’API di Docker in Python non completamente precisa nell’analizzare la memoria dei container.
+  table(
+    columns: (auto, auto, auto, auto, auto),
+    align: center,
+    [*Nodi*],
+    [*CPU Media (%)*],
+    [*Memory Media (MB)*],
+    [*Network RX Media (KB/s)*],
+    [*Network TX Media (KB/s)*],
 
-In linea teorica, ci si aspetterebbe che all’aumentare del numero di nodi, la memoria utilizzata per nodo diminuisca, tenendo conto tuttavia dell’esistenza delle repliche distribuite sugli altri nodi.
+    ..for config in test_configs {
+      let nodes = all_configs.at(config)
+      let node_list = nodes.keys().sorted()
+
+      // Calcola medie
+      let cpu_sum = 0
+      let mem_sum = 0
+      let rx_sum = 0
+      let tx_sum = 0
+      let valid_nodes = 0
+
+      for node in node_list {
+        if size in nodes.at(node) {
+          if "cpu" in nodes.at(node).at(size) {
+            cpu_sum += float(nodes.at(node).at(size).cpu)
+          }
+          if "mem_bytes" in nodes.at(node).at(size) {
+            mem_sum += float(nodes.at(node).at(size).mem_bytes)
+          }
+          if "network_rx" in nodes.at(node).at(size) {
+            rx_sum += float(nodes.at(node).at(size).network_rx)
+          }
+          if "network_tx" in nodes.at(node).at(size) {
+            tx_sum += float(nodes.at(node).at(size).network_tx)
+          }
+          valid_nodes += 1
+        }
+      }
+
+      (
+        str(node_list.len()),
+        if valid_nodes > 0 { str(calc.round(cpu_sum / valid_nodes, digits: 2)) + "%" } else { "N/A" },
+        if valid_nodes > 0 { str(calc.round(mem_sum / valid_nodes / 1024 / 1024, digits: 1)) + " MB" } else { "N/A" },
+        if valid_nodes > 0 { str(calc.round(rx_sum / valid_nodes / 1024, digits: 2)) + " KB/s" } else { "N/A" },
+        if valid_nodes > 0 { str(calc.round(tx_sum / valid_nodes / 1024, digits: 2)) + " KB/s" } else { "N/A" },
+      )
+    },
+  )
+}
+
+Per quanto concerne l'utilizzo di CPU, memoria, disco e rete in modalità idle, i risultati evidenziano che l'aumento del numero di nodi e dei dati non incide significativamente sull'utilizzo della CPU, che si mantiene in tutti i casi al di sotto del 2%. Ciò indica che l'espansione del cluster non comporta un overhead rilevante in termini di risorse CPU, consentendo di scalare senza impatti negativi sulle prestazioni.
+
+Per quanto riguarda l'utilizzo del disco, si osserva che, in modalità idle, non viene effettuato alcun utilizzo. Questo è coerente con il fatto che Hazelcast è progettato per operare principalmente in-memory, evitando operazioni su disco (ed è per questo che nelle tabelle non viene riportato).
+
+Per quanto riguarda l'utilizzo della memoria in Hazelcast, si osserva un incremento proporzionale all'aumentare del numero di nodi e della dimensione dei dati. Tuttavia, aggiungere un singolo nodo non è sufficiente per ottenere un miglioramento significativo. Ad esempio, passando da 1 a 2 nodi, la memoria utilizzata può risultare simile o addirittura maggiore a causa dei meccanismi di replica. Anche il passaggio da 2 a 3 nodi non comporta necessariamente un guadagno sostanziale. Per vedere un'effettiva differenza nell'efficienza dell'utilizzo della memoria e nella distribuzione del carico, è necessario aggiungere un numero più consistente di nodi al cluster.
+
+Infine riguardo all'utilizzo della rete, si osserva che, in modalità idle, l'attività di rete è minima, ma comunque presente. Inoltre, tende all'aumenta all'aumentare del numero di nodi e non sembrerebbe influenzato dalla quantità di dati. Questo è un comportamento atteso data la natura peer-to-peer di Hazelcast, in cui i nodi comunicano tra loro segnali di heartbeat e altre informazioni di stato quando in modalità idle.
 
 == Caratteristiche Interessanti
 
@@ -173,7 +209,13 @@ Ciò rappresenta un ostacolo per utenti o aziende che desiderano valutare Hazelc
 
 ==== Configurazione Avanzata e Personalizzazione
 
-Hazelcast offre una configurazione altamente personalizzabile, che consente di adattare il comportamento del cluster alle specifiche esigenze dell’applicazione. Questo risulta particolarmente utile in scenari complessi in cui è necessario ottimizzare le prestazioni o la resilienza. Tuttavia, la configurazione risulta più complessa, richiedendo una buona comprensione delle opzioni disponibili.
+Hazelcast offre una configurazione altamente personalizzabile, che consente di adattare il comportamento del cluster alle specifiche esigenze dell'applicazione. Questo risulta particolarmente utile in scenari complessi in cui è necessario ottimizzare le prestazioni o la resilienza. Tuttavia, la configurazione risulta più complessa, richiedendo una buona comprensione delle opzioni disponibili.
+
+==== Tolleranza ai guasti (Strutture AP)
+
+Dai test effettuati, abbiamo riscontrato che le query SQL e le transazioni 2PC non sono resilienti ai guasti. In caso di fallimento di un nodo durante l'esecuzione di una query o di una transazione, il sistema non riesce a completare l'operazione e restituisce un errore. Questo comportamento è comprensibile, considerando la natura distribuita di Hazelcast, in cui le operazioni che coinvolgono più nodi devono essere gestite con attenzione per garantire la coerenza dei dati.
+
+Al contrario, abbiamo osservato che l'utilizzo dell'API Predicate per le query offre una maggiore resilienza ai guasti. Se un nodo fallisce durante l'esecuzione di una query Predicate, il sistema riesce comunque a completare l'operazione sugli altri nodi, restituendo i risultati disponibili. Tali risultati potrebbero non essere completamente coerenti, ma riflettono i compromessi previsti dal teorema CAP.
 
 ==== Partizionamento Base
 
@@ -191,23 +233,23 @@ Tra queste, le principali sono:
 
 Una delle funzionalità più avanzate di Hazelcast è la possibilità di implementare strategie di partizionamento personalizzate per ottimizzare la località dei dati. Ciò consente di:
 
-1. *Collocare dati correlati sugli stessi nodi*: Implementando una `PartitionStragegy` personalizzata, è possibile garantire che i dati elaborati frequentemente risiedano sullo stesso nodo. È inoltre possibile implementare chiavi che implementano l’interfaccia `PartitionAware` per garantire che i dati associati a una chiave di partizione specifica risiedano sullo stesso membro.
+1. *Collocare dati correlati sugli stessi nodi*: Implementando una `PartitionStragegy` personalizzata, è possibile garantire che i dati elaborati frequentemente risiedano sullo stesso nodo. È inoltre possibile implementare chiavi che implementano l'interfaccia `PartitionAware` per garantire che i dati associati a una chiave di partizione specifica risiedano sullo stesso membro.
 
-2. *Esecuzione di codice con località dei dati*: Combinando il partizionamento personalizzato con l’esecuzione di codice distribuito, è possibile inviare la computazione direttamente dove risiedono i dati, minimizzando il traffico di rete.
+2. *Esecuzione di codice con località dei dati*: Combinando il partizionamento personalizzato con l'esecuzione di codice distribuito, è possibile inviare la computazione direttamente dove risiedono i dati, minimizzando il traffico di rete.
 
 Questa caratteristica è particolarmente rilevante per applicazioni con requisiti di latenza ultra-bassa o con elaborazioni complesse su grandi volumi di dati.
 
 ==== Data Ingestion con Pipeline e CDC
 
-Il supporto di Hazelcast per pipeline di dati e Change Data Capture (CDC) rappresenta un vantaggio significativo per le architetture moderne. Ciò consente di ampliare un’applicazione esistente con funzionalità di streaming e integrazione continua dei dati, senza dover riscrivere l’intera logica applicativa.
+Il supporto di Hazelcast per pipeline di dati e Change Data Capture (CDC) rappresenta un vantaggio significativo per le architetture moderne. Ciò consente di ampliare un'applicazione esistente con funzionalità di streaming e integrazione continua dei dati, senza dover riscrivere l'intera logica applicativa.
 
 ==== Serializzazione e Query
 
-Oltre a consentire la serializzazione di oggetti complessi, Hazelcast offre un potente motore di query che consente di eseguire ricerche avanzate basate su tali oggetti. Consentendo l’esecuzione di query complesse su strutture dati distribuite, Hazelcast si distingue da molte altre soluzioni in-memory che offrono solo operazioni CRUD di base.
+Oltre a consentire la serializzazione di oggetti complessi, Hazelcast offre un potente motore di query che consente di eseguire ricerche avanzate basate su tali oggetti. Consentendo l'esecuzione di query complesse su strutture dati distribuite, Hazelcast si distingue da molte altre soluzioni in-memory che offrono solo operazioni CRUD di base.
 
 ==== Lite Member
 
-La possibilità di utilizzare i Lite Member in Hazelcast rappresenta un’ulteriore funzionalità di rilievo. Questi nodi leggeri possono essere impiegati per operazioni di lettura e query senza partecipare attivamente alla gestione del cluster, riducendo il carico sui nodi principali e incrementando l’efficienza complessiva.
+La possibilità di utilizzare i Lite Member in Hazelcast rappresenta un'ulteriore funzionalità di rilievo. Questi nodi leggeri possono essere impiegati per operazioni di lettura e query senza partecipare attivamente alla gestione del cluster, riducendo il carico sui nodi principali e incrementando l'efficienza complessiva.
 
 == Considerazioni Finali
 
@@ -217,4 +259,4 @@ La sua curva di apprendimento, piuttosto elevata, rappresenta uno dei principali
 
 La versione open source offre un valido punto di ingresso per sperimentare le capacità della piattaforma. Per implementazioni produttive in contesti aziendali, la versione Enterprise è generalmente preferibile, soprattutto per le sue funzionalità di sicurezza.
 
-Le eccellenti performance rilevate nei benchmark, unite alla flessibilità dell’architettura e alla semplicità operativa, rendono Hazelcast una tecnologia da considerare seriamente per lo sviluppo di microservizi, l’elaborazione di eventi in tempo reale, il caching distribuito e il computing grid.
+Le eccellenti performance rilevate nei benchmark, unite alla flessibilità dell'architettura e alla semplicità operativa, rendono Hazelcast una tecnologia da considerare seriamente per lo sviluppo di microservizi, l'elaborazione di eventi in tempo reale, il caching distribuito e il computing grid, come spiegato nel capitolo 7.

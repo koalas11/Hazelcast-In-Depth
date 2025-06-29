@@ -25,9 +25,27 @@ class MapTest(Test):
             self.report.add_result("timing_map_operations", "FAIL", str(e))
         return False
 
+    def custom_teardown(self):
+        distributed_map = self.client.get_map("mappa-distribuita-1").blocking()
+        distributed_map.clear()
+        distributed_map.destroy()
+
     def timing(self):
         logger.info("Testing map operations with varying sizes...")
         for size in [1, 10, 100, 1000, 10000]:
+            distributed_map = self.client.get_map("mappa-distribuita-1").blocking()
+            distributed_map.clear()
+            if not distributed_map.destroy():
+                logger.warning("Failed to destroy existing map")
+
+            objs = self.client.get_distributed_objects()
+            # Ensure all distributed objects are cleaned up
+            for obj in objs:
+                try:
+                    obj.destroy()
+                except Exception as e:
+                    logger.warning(f"Error destroying object {obj}: {e}")
+
             distributed_map = self.client.get_map("mappa-distribuita-1").blocking()
 
             # Store some test data

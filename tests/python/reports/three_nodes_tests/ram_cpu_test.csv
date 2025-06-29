@@ -1,10 +1,6 @@
 timestamp,test_case,status,details
-2025-06-28 13:15:14,idle_usage_0_entries_60s,INFO,"Avg Memory: 424694442.6666667, Avg Memory Perc: 424694442.67%, Avg CPU: 1.27%"
-2025-06-28 13:15:14,idle_usage_0_entries_300s,INFO,"Avg Memory: 431971441.7777778, Avg Memory Perc: 431971441.78%, Avg CPU: 1.26%"
-2025-06-28 13:15:14,idle_usage_1000_entries_60s,INFO,"Avg Memory: 450017507.5555556, Avg Memory Perc: 450017507.56%, Avg CPU: 1.09%"
-2025-06-28 13:15:14,idle_usage_1000_entries_300s,INFO,"Avg Memory: 460398546.48888886, Avg Memory Perc: 460398546.49%, Avg CPU: 0.92%"
-2025-06-28 13:15:14,idle_usage_10000_entries_60s,INFO,"Avg Memory: 479719424.0, Avg Memory Perc: 479719424.00%, Avg CPU: 1.84%"
-2025-06-28 13:15:14,idle_usage_10000_entries_300s,INFO,"Avg Memory: 484114386.48888886, Avg Memory Perc: 484114386.49%, Avg CPU: 1.13%"
-2025-06-28 13:15:14,idle_usage_100000_entries_60s,INFO,"Avg Memory: 525114936.8888889, Avg Memory Perc: 525114936.89%, Avg CPU: 0.81%"
-2025-06-28 13:15:14,idle_usage_100000_entries_300s,INFO,"Avg Memory: 525783267.5555556, Avg Memory Perc: 525783267.56%, Avg CPU: 0.98%"
-2025-06-28 13:15:14,usage_tracking,PASS,Usage test passed successfully
+2025-06-28 21:33:18,idle_usage_0_entries_300s,INFO,"Avg Memory: 257234944 bytes, Avg Memory Perc: 3.10%, Avg CPU: 1.66%, Avg Disk R/W: 0/0 bytes, Avg Network RX/TX: 9569/9889 bytes"
+2025-06-28 21:33:18,idle_usage_10000_entries_300s,INFO,"Avg Memory: 272389097 bytes, Avg Memory Perc: 3.28%, Avg CPU: 1.07%, Avg Disk R/W: 0/0 bytes, Avg Network RX/TX: 13353/13712 bytes"
+2025-06-28 21:33:18,idle_usage_100000_entries_300s,INFO,"Avg Memory: 405050118 bytes, Avg Memory Perc: 4.88%, Avg CPU: 1.06%, Avg Disk R/W: 0/0 bytes, Avg Network RX/TX: 13209/13509 bytes"
+2025-06-28 21:33:18,idle_usage_1000000_entries_300s,INFO,"Avg Memory: 1533904122 bytes, Avg Memory Perc: 18.48%, Avg CPU: 0.97%, Avg Disk R/W: 0/0 bytes, Avg Network RX/TX: 13040/13450 bytes"
+2025-06-28 21:33:18,usage_tracking,PASS,Usage test passed successfully

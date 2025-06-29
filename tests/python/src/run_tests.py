@@ -10,12 +10,14 @@ from .tests.test import Test
 from .tests.test_failover import FailoverTest
 from .tests.test_map import MapTest
 from .tests.test_map_scaling import MapScalingTest
+from .tests.test_ram_cpu_usage import RamCPUUsageTest
 
 
 single_node_tests = {
     "test_info": "single_node_tests",
     "tests": [
         MapTest,
+        RamCPUUsageTest,
     ]
 }
 
@@ -25,6 +27,7 @@ two_nodes_tests = {
         MapTest,
         MapScalingTest,
         FailoverTest,
+        RamCPUUsageTest,
     ]
 }
 
@@ -34,6 +37,7 @@ three_nodes_tests = {
         MapTest,
         MapScalingTest,
         FailoverTest,
+        RamCPUUsageTest,
     ]
 }
 
@@ -43,6 +47,7 @@ four_nodes_tests = {
         MapTest,
         MapScalingTest,
         FailoverTest,
+        RamCPUUsageTest,
     ]
 }
 
@@ -52,6 +57,7 @@ five_nodes_tests = {
         MapTest,
         MapScalingTest,
         FailoverTest,
+        RamCPUUsageTest,
     ]
 }
 
@@ -91,40 +97,40 @@ def run_tests(tests_to_run: int = 0):
         logger.error("Docker Compose is not available. Please install and activate Docker Compose to run the tests.")
         return
     
-
     try:
         subprocess.run(["docker", "compose", "down"], check=True)
         for test_case in tests_to_run:
             test_info = test_case["test_info"]
-            if test_info == "single_node_tests":
-                logger.info("Running single node tests...")
-                subprocess.run(["docker", "compose", "up", "hazelcast-node1", "-d"], check=True)
-                size = 1
-            elif test_info == "two_nodes_tests":
-                logger.info("Running two nodes tests...")
-                subprocess.run(["docker", "compose", "up", "hazelcast-node1", "hazelcast-node2", "-d"], check=True)
-                size = 2
-            elif test_info == "three_nodes_tests":
-                logger.info("Running three nodes tests...")
-                subprocess.run(["docker", "compose", "up", "hazelcast-node1", "hazelcast-node2", "hazelcast-node3", "-d"], check=True)
-                size = 3
-            elif test_info == "four_nodes_tests":
-                logger.info("Running four nodes tests...")
-                subprocess.run(["docker", "compose", "up", "hazelcast-node1", "hazelcast-node2", "hazelcast-node3", "hazelcast-node4", "-d"], check=True)
-                size = 4
-            elif test_info == "five_nodes_tests":
-                logger.info("Running five nodes tests...")
-                subprocess.run(["docker", "compose", "up", "hazelcast-node1", "hazelcast-node2", "hazelcast-node3", "hazelcast-node4", "hazelcast-node5", "-d"], check=True)
-                size = 5
-            else:
-                logger.error("Unknown test case configuration.")
-                continue
-            
-            client = create_client()
-            wait_members_on(client, members_on=size)
-            client.shutdown()
 
             for test in test_case["tests"]:
+                if test_info == "single_node_tests":
+                    logger.info("Running single node tests...")
+                    subprocess.run(["docker", "compose", "up", "hazelcast-node1", "-d"], check=True)
+                    size = 1
+                elif test_info == "two_nodes_tests":
+                    logger.info("Running two nodes tests...")
+                    subprocess.run(["docker", "compose", "up", "hazelcast-node1", "hazelcast-node2", "-d"], check=True)
+                    size = 2
+                elif test_info == "three_nodes_tests":
+                    logger.info("Running three nodes tests...")
+                    subprocess.run(["docker", "compose", "up", "hazelcast-node1", "hazelcast-node2", "hazelcast-node3", "-d"], check=True)
+                    size = 3
+                elif test_info == "four_nodes_tests":
+                    logger.info("Running four nodes tests...")
+                    subprocess.run(["docker", "compose", "up", "hazelcast-node1", "hazelcast-node2", "hazelcast-node3", "hazelcast-node4", "-d"], check=True)
+                    size = 4
+                elif test_info == "five_nodes_tests":
+                    logger.info("Running five nodes tests...")
+                    subprocess.run(["docker", "compose", "up", "hazelcast-node1", "hazelcast-node2", "hazelcast-node3", "hazelcast-node4", "hazelcast-node5", "-d"], check=True)
+                    size = 5
+                else:
+                    logger.error("Unknown test case configuration.")
+                    continue
+                
+                client = create_client()
+                wait_members_on(client, members_on=size)
+                client.shutdown()
+
                 # Create an instance of the test class
                 test_instance: Test = test(test_info)
                 
@@ -141,6 +147,8 @@ def run_tests(tests_to_run: int = 0):
                 logger.info(f"Tearing down test: {test}")
                 test_instance.teardown()
                 logger.info(f"Test {test} completed successfully.")
+
+                subprocess.run(["docker", "compose", "down"], check=True)
 
             subprocess.run(["docker", "compose", "down"], check=True)
             sleep(10)

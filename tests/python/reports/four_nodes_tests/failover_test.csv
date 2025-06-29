@@ -1,46 +1,25 @@
 timestamp,test_case,status,details
-2025-06-28 14:41:06,big_data_size_failover_recovery_time_0,PASS,Recovery time for 0 items: 885712300 nano seconds
-2025-06-28 14:41:11,big_data_size_failover_rejoin_time_0,PASS,Rejoin time for 0 items: 484113400 nano seconds
-2025-06-28 14:41:16,big_data_size_failover_test_0,PASS,Failover test with 0 items completed successfully
-2025-06-28 14:41:18,big_data_size_failover_recovery_time_1000,PASS,Recovery time for 1000 items: 803300500 nano seconds
-2025-06-28 14:41:23,big_data_size_failover_rejoin_time_1000,PASS,Rejoin time for 1000 items: 574426900 nano seconds
-2025-06-28 14:41:28,big_data_size_failover_test_1000,PASS,Failover test with 1000 items completed successfully
-2025-06-28 14:41:30,big_data_size_failover_recovery_time_10000,PASS,Recovery time for 10000 items: 840968400 nano seconds
-2025-06-28 14:41:35,big_data_size_failover_rejoin_time_10000,PASS,Rejoin time for 10000 items: 551647900 nano seconds
-2025-06-28 14:41:40,big_data_size_failover_test_10000,PASS,Failover test with 10000 items completed successfully
-2025-06-28 14:41:47,big_data_size_failover_recovery_time_100000,PASS,Recovery time for 100000 items: 910143800 nano seconds
-2025-06-28 14:41:52,big_data_size_failover_rejoin_time_100000,PASS,Rejoin time for 100000 items: 547851900 nano seconds
-2025-06-28 14:41:57,big_data_size_failover_test_100000,PASS,Failover test with 100000 items completed successfully
-2025-06-28 14:41:59,small_data_size_failover_recovery_time_0,PASS,Recovery time for 0 items: 967981100 nano seconds
-2025-06-28 14:42:04,small_data_size_failover_rejoin_time_0,PASS,Rejoin time for 0 items: 584469000 nano seconds
-2025-06-28 14:42:09,small_data_size_failover_test_0,PASS,Failover test with 0 items completed successfully
-2025-06-28 14:42:17,small_data_size_failover_recovery_time_1000,PASS,Recovery time for 1000 items: 7696981000 nano seconds
-2025-06-28 14:42:23,small_data_size_failover_rejoin_time_1000,PASS,Rejoin time for 1000 items: 576213200 nano seconds
-2025-06-28 14:42:28,small_data_size_failover_test_1000,PASS,Failover test with 1000 items completed successfully
-2025-06-28 14:42:39,small_data_size_failover_recovery_time_5000,PASS,Recovery time for 5000 items: 10718752200 nano seconds
-2025-06-28 14:42:44,small_data_size_failover_rejoin_time_5000,PASS,Rejoin time for 5000 items: 572728000 nano seconds
-2025-06-28 14:42:49,small_data_size_failover_test_5000,PASS,Failover test with 5000 items completed successfully
-2025-06-28 14:43:00,small_data_size_failover_recovery_time_10000,PASS,Recovery time for 10000 items: 10685060900 nano seconds
-2025-06-28 14:43:06,small_data_size_failover_rejoin_time_10000,PASS,Rejoin time for 10000 items: 555849800 nano seconds
-2025-06-28 14:43:11,small_data_size_failover_test_10000,PASS,Failover test with 10000 items completed successfully
-2025-06-28 14:43:22,small_data_size_failover_recovery_time_20000,PASS,Recovery time for 20000 items: 10540664100 nano seconds
-2025-06-28 14:43:28,small_data_size_failover_rejoin_time_20000,PASS,Rejoin time for 20000 items: 541339900 nano seconds
-2025-06-28 14:43:33,small_data_size_failover_test_20000,PASS,Failover test with 20000 items completed successfully
-2025-06-28 14:43:34,small_data_size_failover_recovery_time_50000,PASS,Recovery time for 50000 items: 831896600 nano seconds
-2025-06-28 14:43:40,small_data_size_failover_rejoin_time_50000,PASS,Rejoin time for 50000 items: 578515500 nano seconds
-2025-06-28 14:43:45,small_data_size_failover_test_50000,PASS,Failover test with 50000 items completed successfully
-2025-06-28 14:43:58,small_data_size_failover_recovery_time_100000,PASS,Recovery time for 100000 items: 10589222500 nano seconds
-2025-06-28 14:44:03,small_data_size_failover_rejoin_time_100000,PASS,Rejoin time for 100000 items: 561969800 nano seconds
-2025-06-28 14:44:08,small_data_size_failover_test_100000,PASS,Failover test with 100000 items completed successfully
-2025-06-28 14:44:13,small_data_size_failover_recovery_time_200000,PASS,Recovery time for 200000 items: 817527000 nano seconds
-2025-06-28 14:44:18,small_data_size_failover_rejoin_time_200000,PASS,Rejoin time for 200000 items: 583002700 nano seconds
-2025-06-28 14:44:23,small_data_size_failover_test_200000,PASS,Failover test with 200000 items completed successfully
-2025-06-28 14:44:33,small_data_size_failover_recovery_time_500000,PASS,Recovery time for 500000 items: 818305700 nano seconds
-2025-06-28 14:44:39,small_data_size_failover_rejoin_time_500000,PASS,Rejoin time for 500000 items: 627015800 nano seconds
-2025-06-28 14:44:44,small_data_size_failover_test_500000,PASS,Failover test with 500000 items completed successfully
-2025-06-28 14:45:04,small_data_size_failover_recovery_time_1000000,PASS,Recovery time for 1000000 items: 904619700 nano seconds
-2025-06-28 14:45:09,small_data_size_failover_rejoin_time_1000000,PASS,Rejoin time for 1000000 items: 556262000 nano seconds
-2025-06-28 14:45:14,small_data_size_failover_test_1000000,PASS,Failover test with 1000000 items completed successfully
-2025-06-28 14:48:30,small_data_size_failover_recovery_time_10000000,PASS,Recovery time for 10000000 items: 2621184800 nano seconds
-2025-06-28 14:48:36,small_data_size_failover_rejoin_time_10000000,PASS,Rejoin time for 10000000 items: 1524838500 nano seconds
-2025-06-28 14:48:41,small_data_size_failover_test_10000000,PASS,Failover test with 10000000 items completed successfully
+2025-06-28 21:34:01,big_data_size_failover_recovery_time_0,PASS,Recovery time for 0 items: 1024997500 nano seconds
+2025-06-28 21:34:20,big_data_size_failover_rejoin_time_0,PASS,Rejoin time for 0 items: 564983300 nano seconds
+2025-06-28 21:34:20,big_data_size_failover_test_0,PASS,Failover test with 0 items completed successfully
+2025-06-28 21:34:40,big_data_size_failover_recovery_time_10000,PASS,Recovery time for 10000 items: 812698400 nano seconds
+2025-06-28 21:34:58,big_data_size_failover_rejoin_time_10000,PASS,Rejoin time for 10000 items: 346459700 nano seconds
+2025-06-28 21:34:58,big_data_size_failover_test_10000,PASS,Failover test with 10000 items completed successfully
+2025-06-28 21:35:33,big_data_size_failover_recovery_time_100000,PASS,Recovery time for 100000 items: 10733651600 nano seconds
+2025-06-28 21:35:52,big_data_size_failover_rejoin_time_100000,PASS,Rejoin time for 100000 items: 526186900 nano seconds
+2025-06-28 21:35:52,big_data_size_failover_test_100000,PASS,Failover test with 100000 items completed successfully
+2025-06-28 21:37:09,big_data_size_failover_recovery_time_1000000,PASS,Recovery time for 1000000 items: 2047189500 nano seconds
+2025-06-28 21:37:28,big_data_size_failover_rejoin_time_1000000,PASS,Rejoin time for 1000000 items: 347070600 nano seconds
+2025-06-28 21:37:28,big_data_size_failover_test_1000000,PASS,Failover test with 1000000 items completed successfully
+2025-06-28 21:37:49,small_data_size_failover_recovery_time_0,PASS,Recovery time for 0 items: 902289200 nano seconds
+2025-06-28 21:38:08,small_data_size_failover_rejoin_time_0,PASS,Rejoin time for 0 items: 343334900 nano seconds
+2025-06-28 21:38:08,small_data_size_failover_test_0,PASS,Failover test with 0 items completed successfully
+2025-06-28 21:38:28,small_data_size_failover_recovery_time_10000,PASS,Recovery time for 10000 items: 900590900 nano seconds
+2025-06-28 21:38:47,small_data_size_failover_rejoin_time_10000,PASS,Rejoin time for 10000 items: 364042700 nano seconds
+2025-06-28 21:38:47,small_data_size_failover_test_10000,PASS,Failover test with 10000 items completed successfully
+2025-06-28 21:39:08,small_data_size_failover_recovery_time_100000,PASS,Recovery time for 100000 items: 862499600 nano seconds
+2025-06-28 21:39:27,small_data_size_failover_rejoin_time_100000,PASS,Rejoin time for 100000 items: 366044300 nano seconds
+2025-06-28 21:39:27,small_data_size_failover_test_100000,PASS,Failover test with 100000 items completed successfully
+2025-06-28 21:40:09,small_data_size_failover_recovery_time_1000000,PASS,Recovery time for 1000000 items: 4629080000 nano seconds
+2025-06-28 21:40:28,small_data_size_failover_rejoin_time_1000000,PASS,Rejoin time for 1000000 items: 356315100 nano seconds
+2025-06-28 21:40:28,small_data_size_failover_test_1000000,PASS,Failover test with 1000000 items completed successfully

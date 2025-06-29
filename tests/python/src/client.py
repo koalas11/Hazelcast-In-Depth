@@ -5,7 +5,7 @@ import hazelcast.config
 
 def create_client(
         address_list: list[str] = None,
-        cluster_name: str = "dev"
+        cluster_name: str = "dev",
 ) -> hazelcast.HazelcastClient:
     """Create a Hazelcast client with retry configuration"""
     

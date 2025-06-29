@@ -1,2 +1,6 @@
 timestamp,test_case,status,details
-2025-06-28 17:50:16,usage_tracking,FAIL,"can only concatenate str (not ""int"") to str"
+2025-06-28 21:03:47,idle_usage_0_entries_300s,INFO,"Avg Memory: 243799148 bytes, Avg Memory Perc: 2.94%, Avg CPU: 1.25%, Avg Disk R/W: 0/0 bytes, Avg Network RX/TX: 4429/4542 bytes"
+2025-06-28 21:03:47,idle_usage_10000_entries_300s,INFO,"Avg Memory: 270190376 bytes, Avg Memory Perc: 3.26%, Avg CPU: 1.30%, Avg Disk R/W: 0/0 bytes, Avg Network RX/TX: 6898/6869 bytes"
+2025-06-28 21:03:47,idle_usage_100000_entries_300s,INFO,"Avg Memory: 427029532 bytes, Avg Memory Perc: 5.14%, Avg CPU: 1.02%, Avg Disk R/W: 0/0 bytes, Avg Network RX/TX: 6832/7040 bytes"
+2025-06-28 21:03:47,idle_usage_1000000_entries_300s,INFO,"Avg Memory: 2093090475 bytes, Avg Memory Perc: 25.22%, Avg CPU: 0.94%, Avg Disk R/W: 0/0 bytes, Avg Network RX/TX: 6797/7156 bytes"
+2025-06-28 21:03:47,usage_tracking,PASS,Usage test passed successfully
