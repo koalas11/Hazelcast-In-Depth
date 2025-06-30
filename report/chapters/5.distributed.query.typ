@@ -1,6 +1,6 @@
 = Query Distribuite
 
-Hazelcast fornisce supporto SQL come modalità potente e familiare per interrogare e manipolare dati distribuiti nel cluster. Questo permette agli utenti di sfruttare le proprie conoscenze SQL esistenti mentre lavorano con strutture dati distribuite.
+Hazelcast fornisce supporto SQL (non completo, ma con alcune estensioni) come modalità potente e familiare per interrogare e manipolare dati distribuiti nel cluster. Questo permette agli utenti di sfruttare le proprie conoscenze SQL esistenti mentre lavorano con strutture dati distribuite.
 
 == Metodi di Accesso ai Dati
 

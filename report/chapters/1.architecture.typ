@@ -89,7 +89,7 @@ I member Hazelcast comunicano tra loro attraverso un protocollo binario ottimizz
 La comunicazione interna utilizza:
 - Socket TCP per trasferimento dati affidabile
 - Heartbeat per rilevare member inattivi e misurare la latenza
-- Messaggi di gossip per propagare informazioni sullo stato del cluster
+- Messaggi per propagare informazioni sullo stato del cluster
 - Protocolli ottimizzati per minimizzare il traffico di rete
 
 === Meccanismi di Discovery
