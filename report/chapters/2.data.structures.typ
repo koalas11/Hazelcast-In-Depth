@@ -13,14 +13,14 @@ Hazelcast offre una caratteristica unica: supporta sia strutture dati AP (Availa
 
 === Strutture AP in Hazelcast
 
-Hazelcast offre numerose strutture dati distribuite che seguono il modello AP del teorema CAP, privilegiando l'alta disponibilità e la tolleranza alle partizioni, a scapito della consistenza forte in scenari di rete instabile o partizionata.
+Sono disponibili numerose strutture dati distribuite che seguono il modello AP del teorema CAP, privilegiando l'alta disponibilità e la tolleranza alle partizioni, a scapito della consistenza forte in scenari di rete instabile o partizionata.
 
-Principali strutture AP:
-- *Map / IMap / JCache:* garantiscono disponibilità anche durante le partizioni, ma con possibile lettura temporaneamente obsoleta (*eventually consistent*).
+Strutture AP:
+- *Map:* garantisce disponibilità anche durante le partizioni, ma con possibile lettura temporaneamente obsoleta (*eventually consistent*).
 
 - *ReplicatedMap:* mappa completamente replicata su tutti i nodi del cluster, ottimizzata per letture frequenti con aggiornamenti meno frequenti.
 
-- *Cache (JCache):* caching distribuito conforme a JSR-107, con semantica simile a IMap in ottica di disponibilità.
+- *Cache (JCache):* caching distribuito conforme a JSR-107, con semantica simile a Map in ottica di disponibilità.
 
 - *Topic / ReliableTopic:* consegna dei messaggi anche in presenza di partizioni. ReliableTopic aggiunge buffering locale e retry automatico.
 
@@ -35,7 +35,7 @@ Principali strutture AP:
 - *PN Counter:* contatore CRDT (Conflict-free Replicated Data Type) che supporta increment e decrement distribuiti, convergendo automaticamente verso un valore consistente anche in presenza di partizioni di rete.
 
 Alcune di queste strutture dati, come ad esempio List, Set e Queue, memorizzano tutti i dati su un unica partizione e prevedono repliche su altri nodi per garantire la disponibilità.
-Inoltre anche se Hazelcast offre tutte queste strutture dati distribuite, la principale è *IMap*, con molte funzionalità non presenti in altre strutture, come il TTL (Time to Live).
+Inoltre anche se Hazelcast offre tutte queste strutture dati distribuite, la principale è *Map*, con molte funzionalità non presenti in altre strutture, come il TTL (Time to Live).
 
 Queste strutture AP sono ideali per:
 - Caching distribuito e invalidazione efficiente
@@ -46,7 +46,7 @@ Queste strutture AP sono ideali per:
 
 === CP Subsystem
 
-Hazelcast offre anche un CP Subsystem, che implementa il paradigma CP del teorema CAP. Questa è una caratteristica distintiva di Hazelcast, poiché consente di scegliere il modello di consistenza più adatto per ogni caso d'uso all'interno della stessa piattaforma. Per quanto sia utile, questa funzionalità è disponibile solamente nella versione Enterprise di Hazelcast.
+Hazelcast offre anche un CP Subsystem, che implementa il paradigma CP del teorema CAP. Questa è una caratteristica distintiva, poiché consente di scegliere il modello di consistenza più adatto per ogni caso d'uso all'interno della stessa piattaforma. Per quanto sia utile, questa funzionalità è disponibile solamente nella versione Enterprise.
 
 Il CP Subsystem è basato sull'algoritmo Raft(@Raft) e fornisce:
 
@@ -75,7 +75,7 @@ L'approccio ibrido di Hazelcast offre vantaggi significativi:
 Hazelcast offre una struttura dati specializzata per gestire in modo efficiente i dati in streaming.
 
 === Event Journal
-L'Event Journal è una struttura dati distribuita che cattura automaticamente tutte le modifiche (inserimenti, aggiornamenti, cancellazioni) apportate a IMap e ICache, memorizzandole in un log ordinato e distribuito.
+L'Event Journal è una struttura dati distribuita che cattura automaticamente tutte le modifiche (inserimenti, aggiornamenti, cancellazioni) apportate a Map e ICache, memorizzandole in un log ordinato e distribuito.
 
 Caratteristiche principali:
 - *Capture automatico*: registra tutte le operazioni senza impatto sulle prestazioni
@@ -83,6 +83,7 @@ Caratteristiche principali:
 - *Retention configurabile*: politiche di ritenzione basate su tempo o dimensione
 - *Stream processing*: integrazione nativa con Hazelcast Jet per elaborazione in tempo reale
 
+/*
 == AI/ML Data Structures
 Strutture dati specializzate ottimizzate per carichi di lavoro di machine learning e intelligenza artificiale.
 
@@ -96,18 +97,19 @@ La Vector Collection è ottimizzata per memorizzare vettori di embedding utilizz
 - *Indexing avanzato*: supporto per indici vettoriali ad alte prestazioni
 - *Scalabilità orizzontale*: distribuzione automatica dei vettori nel cluster
 - *Integrazione ML*: compatibilità con framework di machine learning comuni
+*/
 
 == Strutture Dati per AI e Machine Learning
 
 === Vector Collection
-Un oggetto in Beta per interagire con lo storage vettoriale, che contiene informazioni sui vettori e metadati associati, disponibile in Hazelcast Enterprise.
+Un oggetto in Beta per interagire con lo storage vettoriale, che contiene informazioni sui vettori e metadati associati, disponibile nella versione Enterprise.
 
 ==== Caratteristiche
 - *Engine vettoriale specializzato*: Database engine specializzato ottimizzato per memorizzare, cercare e gestire embedding vettoriali e metadati aggiuntivi
 - *Ricerca per similarità*: Supporto per metriche come cosine similarity, euclidean distance, dot product
 - *Filtering integrato*: Possibilità di filtrare risultati basandosi sui metadati
 - *Indicizzazione avanzata*: Utilizzo di algoritmi di indicizzazione vettoriale ad alte prestazioni
-- *Distribuzione automatica*: I vettori sono automaticamente distribuiti nel cluster seguendo il modello di partizionamento di Hazelcast
+- *Distribuzione automatica*: I vettori sono automaticamente distribuiti nel cluster seguendo il modello di partizionamento
 
 ==== Algoritmi di Ricerca
 La Vector Collection utilizza algoritmi ottimizzati per la ricerca approssimativa del vicino più prossimo (ANN):
@@ -132,4 +134,4 @@ Struttura dati probabilistica basata sull'algoritmo HyperLogLog per stimare in m
 
 == Commenti
 
-Hazelcast fornisce un'ampia gamma di strutture dati distribuite che possono essere utilizzate per costruire applicazioni scalabili e resilienti. La possibilità di scegliere tra modelli di consistenza AP e CP consente agli sviluppatori di ottimizzare le prestazioni e consistenza in base ai requisiti specifici dell'applicazione. Inoltre le strutture dati specializzate per lo streaming e il machine learning offrono funzionalità avanzate per applicazioni .
+Hazelcast fornisce un'ampia gamma di strutture dati distribuite che possono essere utilizzate per costruire applicazioni scalabili e resilienti. La possibilità di scegliere tra modelli di consistenza AP e CP consente agli sviluppatori di ottimizzare le prestazioni e consistenza in base ai requisiti specifici dell'applicazione. Inoltre le strutture dati specializzate per lo streaming e il machine learning offrono funzionalità avanzate per applicazioni.

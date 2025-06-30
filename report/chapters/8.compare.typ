@@ -90,7 +90,7 @@ Hazelcast si posiziona in un ecosistema di tecnologie distribuite dove diverse s
 
 *Differenze:*
 - *Architettura*: Hazelcast è completamente peer-to-peer con tutti i nodi equivalenti, mentre Redis utilizza replicazione master-replica. Redis Cluster introduce sharding distribuito ma mantiene la replicazione master-replica all'interno di ogni partizione
-- *Distribuzione*: Hazelcast distribuisce automaticamente i dati, Redis Cluster richiede configurazione manuale dei nodi per lo sharding (automatico con Redis Enterprise)
+- *Distribuzione*: Hazelcast distribuisce automaticamente i dati, Redis Cluster richiede configurazione iniziale manuale dei nodi per lo sharding (automatico con Redis Enterprise)
 - *Computing*: Hazelcast ha capacità di computing distribuite native, Redis offre scripting Lua ma con limitazioni
 - *Linguaggio*: Hazelcast è basato su Java/JVM, Redis è scritto in C
 - *Consistenza*: Hazelcast offre un sottosistema CP, Redis offre strutture dati AP
@@ -292,8 +292,10 @@ Dall'analisi comparativa emergono alcune considerazioni architetturali:
 
 5. *L'architettura di streaming* integrata rappresenta un vantaggio rispetto a sistemi che richiedono componenti aggiuntivi per lo stream processing.
 
+/*
 Quando si seleziona tra queste tecnologie, la decisione dovrebbe basarsi su:
 - Requisiti di latenza vs throughput
 - Modello di consistenza necessario
 - Pattern di accesso ai dati
 - Requisiti di calcolo distribuito
+*/

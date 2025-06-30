@@ -42,22 +42,22 @@ I Lite Member sono particolarmente utili in scenari specifici:
 
 Hazelcast suddivide i dati in unità chiamate *partizioni*. Per impostazione predefinita, un cluster Hazelcast è configurato con 271 partizioni. Ogni member del cluster è responsabile di un sottoinsieme di queste partizioni.
 
-Quando si inseriscono dati in una struttura dati distribuita (come una Map), Hazelcast:
+Quando si inseriscono dati in una struttura dati distribuita (come una Map), avvengono questi step:
 
-1. Calcola l'hash della chiave
-2. Applica l'operazione modulo sul numero totale di partizioni per identificare la partizione di destinazione
-3. Localizza il member che possiede quella partizione
-4. Archivia il dato nel member corrispondente
+1. Calcolato l'hash della chiave
+2. Applicata l'operazione modulo sul numero totale di partizioni per identificare la partizione di destinazione
+3. Localizzato il member che possiede quella partizione
+4. Archiviato il dato nel member corrispondente
 
 Questo meccanismo di partizionamento garantisce una distribuzione uniforme dei dati e del carico di lavoro attraverso il cluster. Inoltre, la distribuzione delle partizioni viene ricalcolata automaticamente quando i member entrano o escono dal cluster, in un processo chiamato "repartitioning".
 
-Il sistema di partizionamento di Hazelcast include diverse sofisticazioni:
+Il sistema di partizionamento include diverse sofisticazioni:
 
 - *Distribuzione deterministica delle chiavi*: L'algoritmo di hashing utilizzato garantisce che la stessa chiave venga sempre assegnata alla stessa partizione, permettendo operazioni di ricerca efficaci.
 
-- *Bilanciamento dinamico del carico*: Durante il repartitioning, Hazelcast utilizza un algoritmo proprietario che minimizza il movimento dei dati, trasferendo solo le partizioni necessarie.
+- *Bilanciamento dinamico del carico*: Durante il repartitioning, viene utilizzato un algoritmo proprietario che minimizza il movimento dei dati, trasferendo solo le partizioni necessarie.
 
-- *Consistenza delle partizioni*: Hazelcast mantiene un "partition table" distribuito che viene sincronizzato tra tutti i member per garantire una vista coerente dell'assegnazione delle partizioni.
+- *Consistenza delle partizioni*: Viene mantenuto un "partition table" distribuito che viene sincronizzato tra tutti i member per garantire una vista coerente dell'assegnazione delle partizioni.
 
 - *Ottimizzazioni di accesso*: Le operazioni che coinvolgono chiavi nella stessa partizione sono eseguite in un'unica chiamata di rete, riducendo la latenza.
 
@@ -70,15 +70,15 @@ Il processo di backup è configurabile con diverse strategie:
 - *Asynchronous backup*: l'operazione di scrittura non attende la conferma del backup, offrendo maggiore throughput ma minori garanzie
 - *Zero backup*: massime prestazioni ma senza tolleranza ai guasti
 
-Il sistema di replicazione in Hazelcast include diverse sofisticazioni:
+Il sistema di replicazione include diverse sofisticazioni:
 
 - *Replica anti-affinità*: Le copie di backup vengono distribuite su nodi fisici diversi quando possibile, massimizzando la resilienza.
 
-- *Replicazione intelligente*: Durante il failover, Hazelcast seleziona la replica più velocemente accessibile per minimizzare l'impatto sulle prestazioni.
+- *Replicazione intelligente*: Durante il failover, viene selezionata la replica più velocemente accessibile per minimizzare l'impatto sulle prestazioni.
 
 - *Replica consistente*: Il sistema garantisce che le operazioni vengano applicate nello stesso ordine sia sulla partizione primaria che sui backup.
 
-- *Healing automatico*: Quando un member viene ripristinato o un nuovo member si unisce, Hazelcast ribilancia automaticamente le partizioni e ricrea i backup mancanti.
+- *Healing automatico*: Quando un member viene ripristinato o un nuovo member si unisce, vengono ribilanciate automaticamente le partizioni e ricrea i backup mancanti.
 
 == Topologia di Rete
 
@@ -94,7 +94,7 @@ La comunicazione interna utilizza:
 
 === Meccanismi di Discovery
 
-Hazelcast offre diversi meccanismi per la scoperta dei member in un cluster:
+Vengono offerti diversi meccanismi per la scoperta dei member in un cluster:
 
 - *TCP/IP*: configurazione manuale degli indirizzi IP e porte dei member. Ideale per ambienti con indirizzi IP statici o per test in ambienti di sviluppo.
 
@@ -110,11 +110,11 @@ Hazelcast offre diversi meccanismi per la scoperta dei member in un cluster:
 
 == Architettura Client-Server
 
-Hazelcast supporta due modelli di distribuzione principali: modalità Embedded e modalità Client-Server. Analizziamole nel dettaglio.
+Hazelcast supporta due modelli di distribuzione principali: modalità Embedded e modalità Client-Server.
 
 === Modalità Embedded
 
-In questa modalità, l'applicazione e Hazelcast condividono lo stesso JVM. L'applicazione diventa un member del cluster con tutti i diritti, gestendo partizioni e backup.
+In questa modalità, l'applicazione e uno o più member condividono lo stesso JVM. L'applicazione diventa un member del cluster con tutti i diritti, gestendo partizioni e backup.
 
 ==== Vantaggi dell'embedded mode
 - Accesso ai dati con latenza minima (accesso in-memory)
@@ -122,9 +122,10 @@ In questa modalità, l'applicazione e Hazelcast condividono lo stesso JVM. L'app
 - Partecipazione attiva nel cluster
 
 ==== Svantaggi
-- L'applicazione deve essere scritta in Java o altro linguaggio JVM
+- L'applicazione deve essere scritta in Java
 - Maggiore consumo di risorse
 - Il ciclo di vita e lo scaling dell'applicazione e del member Hazelcast sono strettamente legati
+- Sconsigliata per ambienti di produzione
 
 #codly.codly-disable()
 ```
@@ -140,7 +141,7 @@ Applicazione Java/C++/C#/Node.js/Go <-> Hazelcast Client <-> Hazelcast Cluster
 ```
 #codly.codly-enable()
 
-I client sono leggeri, non archiviano dati e non partecipano alla distribuzione delle partizioni. Hazelcast offre client per molteplici linguaggi: Java, .NET, C++, Node.js, Python, Go e REST.
+I client sono leggeri, non archiviano dati e non partecipano alla distribuzione delle partizioni. Sono offerti client per molteplici linguaggi: Java, .NET, C++, Node.js, Python e Go.
 
 Vantaggi della modalità client-server:
 - Supporto per applicazioni scritte in linguaggi e tecnologie differenti
@@ -154,7 +155,7 @@ Hazelcast è fondamentalmente una piattaforma di computing in-memory, con caratt
 
 === Architettura di Storage
 
-- *Memory Management nativo*: Hazelcast implementa il proprio memory manager per ottimizzare l'allocazione e la de-allocazione di memoria, riducendo i picchi di memoria non necessari e in generale la pressione sul garbage collector nativo di Java.
+- *Memory Management nativo*: Ha implementato il proprio memory manager per ottimizzare l'allocazione e la de-allocazione di memoria, riducendo i picchi di memoria non necessari e in generale la pressione sul garbage collector nativo di Java.
 
 - *Persistenza su disco*: Sistema di persistenza su disco basato su file logici append-only con garbage collection incrementale e ottimizzazione I/O per minimizzare l'impatto sulle prestazioni. (Solo Enterprise Edition)
 
@@ -172,7 +173,7 @@ Inoltre è possibile configurare Hazelcast per utilizzare storage esterni come d
 
 == Elasticità e Scalabilità
 
-L'architettura di Hazelcast è progettata per essere elastica, permettendo di:
+L'architettura è progettata per essere elastica, permettendo di:
 
 - *Hot Scaling*: aggiungere member a runtime senza interruzioni del servizio.
 - *Graceful Shutdown*: rimuovere member in modo sicuro con migrazione automatica dei dati.
@@ -180,11 +181,11 @@ L'architettura di Hazelcast è progettata per essere elastica, permettendo di:
 - *Smart Client Load Balancing*: distribuzione intelligente delle richieste client attraverso i member.
 - *Partitioning Strategies*: strategie personalizzate di partizionamento per ottimizzare la località dei dati.
 
-La scalabilità lineare di Hazelcast consente di aggiungere capacità di storage e calcolo proporzionalmente al numero di member aggiunti.
+La scalabilità lineare consente di aggiungere capacità di storage e calcolo proporzionalmente al numero di member aggiunti.
 
 == Protezione e Recupero da Split-Brain
 
-Una delle sfide nei sistemi distribuiti è la condizione di "split-brain" che si verifica quando il cluster si divide in sottogruppi che non possono comunicare tra loro. Hazelcast implementa due principali strategie di protezione:
+Una delle sfide nei sistemi distribuiti è la condizione di "split-brain" che si verifica quando il cluster si divide in sottogruppi che non possono comunicare tra loro. Sono implementate due principali strategie di protezione:
 
 - *Quorum basato su member*: richiede un numero minimo di member per operare. Ad esempio, in un cluster di 5 member, si può configurare un quorum di 3 member, garantendo che le operazioni siano eseguite solo se almeno 3 member sono attivi.
 
@@ -192,7 +193,7 @@ Una delle sfide nei sistemi distribuiti è la condizione di "split-brain" che si
 
 Esistono inoltre diversi meccanismi per identificare situazioni di partizionamento, tra cui uno basato su approcci probabilistici e un altro fondato sul monitoraggio degli heartbeat tra i nodi.
 
-Per quanto riguarda il recupero da uno split-brain, Hazelcast implementa un processo di merge che consente di combinare coerentemente i dati provenienti dai diversi sottogruppi. Questo processo è altamente configurabile e supporta diverse politiche di merge, che determinano il modo in cui vengono risolti i conflitti tra i dati.
+Per quanto riguarda il recupero da uno split-brain, è implementato un processo di merge che consente di combinare coerentemente i dati provenienti dai diversi sottogruppi. Questo processo è altamente configurabile e supporta diverse politiche di merge, che determinano il modo in cui vengono risolti i conflitti tra i dati.
 
 Ad esempio, è possibile utilizzare la politica LatestUpdateMergePolicy, che conserva il valore aggiornato più di recente, oppure la PutIfAbsentMergePolicy, che inserisce il valore solo se non esiste già nella partizione di destinazione.
 
@@ -254,13 +255,3 @@ Le finestre scorrevoli (sliding window) sono una tecnica fondamentale nell'elabo
 - *Gestione efficiente della memoria*: Anziché memorizzare tutti gli eventi all'interno di una finestra, Jet conserva solo gli aggregati parziali, riducendo così l'utilizzo di memoria.
 
 - *Fault tolerance*: Jet crea periodicamente punti di controllo (checkpoint) dello stato delle finestre, consentendo il ripristino in caso di problemi.
-
-== Commenti
-
-L'architettura di Hazelcast è progettata per offrire un sistema distribuito scalabile, resiliente e ad alte prestazioni.
-
-Attraverso il suo modello di partizionamento, la replicazione dei dati, i sofisticati meccanismi di discovery e la protezione split-brain, Hazelcast fornisce una piattaforma robusta per applicazioni distribuite che richiedono accesso ai dati a bassa latenza e alta disponibilità.
-
-La combinazione di un sistema di partizione robusto, storage in-memory ottimizzato e motore di elaborazione basato su cooperative multithreading fornisce una piattaforma completa per applicazioni che richiedono computazione distribuita ad alte prestazioni. Queste fondamenta architetturali permettono a Hazelcast di eccellere sia in scenari di caching distribuito che in casi d'uso di stream processing e analytics in tempo reale.
-
-Inoltre la capacità di poter configurare a piacere molte delle caratteristiche del cluster, come il numero di partizioni, il numero di backup e le politiche di merge, rende Hazelcast estremamente adattabile a diversi scenari operativi e requisiti di business, ma richiede anche una buona comprensione delle implicazioni di queste

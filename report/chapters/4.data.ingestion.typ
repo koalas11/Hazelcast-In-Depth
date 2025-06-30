@@ -1,8 +1,8 @@
 #import "../packages.typ": colorGrad
 
-= Data Ingestion in Hazelcast
+= Data Ingestion
 
-Hazelcast offre diverse opzioni per il data ingestion che permettono di trasferire dati da sistemi esterni a Hazelcast. Questi metodi di ingestione consentono di integrare Hazelcast con l'infrastruttura esistente e di costruire pipeline di dati complete (anche chiamate Jet pipelines).
+Hazelcast offre diverse opzioni per il data ingestion che permettono di trasferire dati da sistemi esterni. Questi metodi di ingestione consentono di integrare Hazelcast con l'infrastruttura esistente e di costruire pipeline di dati complete (anche chiamate Jet pipelines).
 
 == Pipeline di Dati e Connettori
 
@@ -44,9 +44,9 @@ Hazelcast fornisce numerosi connettori pronti all'uso per le pipeline di dati, c
 
 === Change Data Capture (CDC) con Pipeline
 
-Il Change Data Capture è un pattern implementato attraverso connettori specializzati nelle pipeline di dati di Hazelcast. CDC permette di catturare le modifiche apportate ai database e replicarle in tempo reale in Hazelcast.
+Il Change Data Capture è un pattern implementato attraverso connettori specializzati nelle pipeline di dati di Hazelcast. CDC permette di catturare le modifiche apportate ai database e replicarle in tempo reale.
 
-==== Connettori CDC in Hazelcast
+==== Connettori CDC
 
 Hazelcast fornisce connettori CDC che si integrano con:
 
@@ -77,7 +77,6 @@ MapStore è un meccanismo alternativo per l'integrazione con storage esterni, or
 ==== Configurazione di MapStore
 
 ```yaml
-# Esempio di configurazione MapStore in Hazelcast
 hazelcast:
   map:
     default:
@@ -121,4 +120,4 @@ Hazelcast offre diverse opzioni per il data ingestion, con le pipeline che forni
 
 Il MapStore rappresenta invece un'alternativa più semplice e specifica per scenari in cui Hazelcast viene utilizzato principalmente come cache con persistenza. La scelta del metodo dipende dalle esigenze specifiche dell'applicazione e dal modello di integrazione desiderato.
 
-Le numerose integrazioni con tecnologie esistenti rendono inoltre Hazelcast una scelta appetibile anche a chi ha infrastrutture già mature e sta cercando una soluzione che gli semplifichi la gestione.
+Le numerose integrazioni con tecnologie esistenti rendono Hazelcast una scelta appetibile anche a chi ha infrastrutture già mature e sta cercando una soluzione che gli semplifichi la gestione.

@@ -1,10 +1,10 @@
-= Query Distribuite in Hazelcast
+= Query Distribuite
 
-Hazelcast fornisce supporto SQL come modalità potente e familiare per interrogare e manipolare dati distribuiti nel cluster. Questo permette agli utenti di sfruttare le proprie conoscenze SQL esistenti mentre lavorano con strutture dati distribuite in Hazelcast.
+Hazelcast fornisce supporto SQL come modalità potente e familiare per interrogare e manipolare dati distribuiti nel cluster. Questo permette agli utenti di sfruttare le proprie conoscenze SQL esistenti mentre lavorano con strutture dati distribuite.
 
 == Metodi di Accesso ai Dati
 
-Hazelcast SQL può interrogare dati da molteplici fonti:
+SQL in Hazelcast può interrogare dati da molteplici fonti:
 
 #figure(caption: [Fonte dati e azione intrapresa da Hazelcast], table(
   columns: (auto,) * 2,
@@ -31,12 +31,12 @@ Il motore di query distribuito di Hazelcast utilizza un approccio multi-fase:
 SELECT AVG(stipendio) FROM dipendenti WHERE dipartimento = 'Ingegneria'
 ```
 
-Per questa query, Hazelcast:
-1. Analizza e ottimizza la query
-2. Invia i criteri di filtro a ciascun membro
-3. Esegue il filtro localmente su ogni partizione
-4. Calcola medie parziali su ogni membro
-5. Aggrega il risultato finale
+Per questa query, il processo di distribuzione avviene come segue:
+1. Analizzata e ottimizzata la query
+2. Inviati i criteri di filtro a ciascun membro
+3. Eseguito il filtro localmente su ogni partizione
+4. Calcolate le medie parziali su ogni membro
+5. Aggregato il risultato finale
 
 === Transparenza delle Query
 
@@ -51,7 +51,7 @@ Questa trasparenza permette agli sviluppatori di lavorare con dati distribuiti u
 
 === Join Distribuiti
 
-Hazelcast ottimizza i join distribuiti attraverso:
+I join distribuiti sono ottimizzati attraverso:
 
 - *Join Co-localizzati*: Quando possibile, i join vengono eseguiti su dati co-localizzati sullo stesso membro
 - *Join Partizionati*: I dati vengono temporaneamente ripartizionati per collocare insieme le chiavi di join
@@ -63,11 +63,11 @@ FROM ordini o JOIN clienti c ON o.id_cliente = c.id
 WHERE o.importo > 1000
 ```
 
-A seconda delle dimensioni e della distribuzione dei dati, Hazelcast seleziona la strategia di join ottimale.
+A seconda delle dimensioni e della distribuzione dei dati, viene selezionata la strategia di join ottimale.
 
 === Query Pushdown
 
-Hazelcast migliora le prestazioni delle query attraverso un aggressivo pushdown:
+Per ottimizzare le prestazioni delle query è utilizzato un aggressivo pushdown:
 
 - *Filter Pushdown*: Le clausole WHERE vengono spinte alle fonti dati
 - *Projection Pushdown*: Solo le colonne richieste vengono recuperate
@@ -95,7 +95,7 @@ Hazelcast supporta:
 
 === Caching delle Query Distribuite
 
-Hazelcast ottimizza query ripetute attraverso:
+Le query ripetute sono ottimizzate attraverso:
 
 - Caching di query parametrizzate
 - Caching del piano di esecuzione
@@ -103,7 +103,7 @@ Hazelcast ottimizza query ripetute attraverso:
 
 == SQL su Map
 
-Le map distribuite sono la struttura dati primaria in Hazelcast, e SQL fornisce un modo potente per interrogarle (la Map è l'unica struttura dati distribuita di Hazelcast con supporto completo di SQL).
+Le map distribuite sono la struttura dati primaria in Hazelcast, e SQL fornisce un modo potente per interrogarle (la Map è l'unica struttura dati distribuita con supporto completo di SQL).
 
 === Concetti di Mapping
 
@@ -151,7 +151,7 @@ Collection<Dipendente> ingegneriSenior = dipendenti.values(predicate);
 - *Predicati Personalizzati*: Implementazione di logica di filtro personalizzata
 - *Supporto per tipi complessi*: Predicati su mappe, liste e altri tipi di dati complessi
 
-Oltre a queste funzionalità è possibile anche aggregare i risultati utilizzando l'API `Aggregation` e trasformare i risultati con l'API `Projection`.
+Oltre a queste funzionalità è possibile anche aggregare i risultati utilizzando l'API `Aggregation` e trasformare i risultati dei predicati con l'API `Projection`.
 
 === Vantaggi dell'API `Predicate`
 
@@ -195,11 +195,11 @@ Come per SQL, i predicati vengono eseguiti in modo distribuito:
 
 == SQL su Fonti Dati Esterne
 
-Come estensione naturale delle capacità di data ingestion descritte nel Capitolo 4, Hazelcast permette di interrogare direttamente fonti dati esterne utilizzando SQL. Mentre nel Capitolo 4 abbiamo visto come inserire dati in Hazelcast attraverso pipeline e connettori, qui vedremo come SQL fornisce un'interfaccia unificata per accedere a questi stessi dati.
+Come estensione naturale delle capacità di data ingestion descritte nel Capitolo 4, Hazelcast permette di interrogare direttamente fonti dati esterne utilizzando SQL. Mentre nel Capitolo 4 abbiamo visto come inserire dati attraverso pipeline e connettori, qui vedremo come SQL fornisce un'interfaccia unificata per accedere a questi stessi dati.
 
 === Integrazione con Kafka
 
-Hazelcast può interrogare direttamente i topic Kafka tramite SQL:
+In Hazelcast è possibile interrogare direttamente i topic Kafka tramite SQL:
 
 ```sql
 CREATE MAPPING kafka_topic (
@@ -219,7 +219,7 @@ Questa integrazione complementa i connettori Kafka descritti nel Capitolo 4, off
 
 === Accesso ai File System
 
-Hazelcast SQL può interrogare file memorizzati in varie posizioni:
+SQL può anche interrogare file memorizzati in varie posizioni:
 
 - File locali
 - Hadoop Distributed File System (HDFS)
@@ -257,7 +257,7 @@ Questo meccanismo offre un'alternativa al pattern MapStore per l'integrazione co
 
 === Integrazione MongoDB
 
-Hazelcast può interrogare collezioni MongoDB:
+È possibile interrogare collezioni MongoDB attraverso il Mapping SQL:
 
 ```sql
 CREATE MAPPING collezione_mongo
@@ -272,7 +272,7 @@ Rispetto al connettore MongoDB descritto nel Capitolo 4, l'approccio SQL offre u
 
 == Lavorare con JSON
 
-Hazelcast fornisce un robusto supporto per lavorare con dati JSON:
+È presente anche un robusto supporto per lavorare con dati JSON:
 
 - Interrogare strutture JSON con notazione a punti
 - Estrarre campi e array annidati
@@ -286,7 +286,7 @@ WHERE cliente.ordini[0].stato = 'SPEDITO';
 
 == Elaborazione di Stream con SQL
 
-Hazelcast consente query continue sui dati in streaming non disponibile nell'API Predicate.
+In Hazelcast è possibile avere query continue sui dati in streaming (nell'API Predicate è necessario utilizzare un meccanismo diverso, il Continuous Query Cache).
 
 === Fondamenti di Streaming
 
@@ -305,7 +305,7 @@ Questa funzionalità si integra perfettamente con le pipeline di dati descritte 
 
 == Tipi di Dati SQL
 
-Hazelcast SQL supporta i tipi di dati SQL standard:
+SQL di Hazelcast supporta i tipi di dati SQL standard:
 
 #figure(caption: [Tipi supportati da Hazelcast SQL], table(
   columns: (auto,) * 8,
@@ -318,16 +318,44 @@ Hazelcast SQL supporta i tipi di dati SQL standard:
 
 == Tipi Definiti dall'Utente
 
-Hazelcast supporta tipi di dati personalizzati in SQL:
+Oltre a i tipi SQL Standard sono supportati tipi di dati personalizzati:
 
 - Oggetti Serializzabili
 - Oggetti compat serialization
 - Oggetti serializzabili personalizzati
 
-Per utilizzare efficacemente i tipi personalizzati:
+Per utilizzare efficacemente i tipi personalizzati è necessario:
 - Registrare i serializzatori con Hazelcast
 - Configurare le impostazioni di reflection se necessario
 - Creare mapping appropriati
+
+== Query su Collezioni e Array
+
+Data la possibilità di avere strutture dati complesse, Hazelcast SQL supporta query su collezioni e array sia per SQL che per l'API Predicate:
+
+```java
+class Motorbike {
+  Wheel[] wheels;
+}
+
+class Wheel {
+  String name;
+}
+```
+
+Ad esempio dato questo oggetto, è possibile eseguire query come:
+```sql
+SELECT m.wheels[0].name FROM Motorbike m WHERE m.wheels[0].name = 'front-wheel';
+```
+
+oppure utilizzare l'API Predicate per filtrare:
+
+```java
+Predicate<Integer, Motorbike> predicate = Predicates.equal("wheels[0].name", "front-wheel");
+Collection<Motorbike> result = motorbikes.values(predicate);
+```
+
+E se invece di un indice preciso si desidera verificare se l'elemento esiste in un array, si può impostare `any` come indice.
 
 == Transazioni Distribuite
 
@@ -335,7 +363,7 @@ Hazelcast fornisce un robusto supporto per transazioni distribuite che garantisc
 
 === Tipi di Transazioni
 
-È possibile eseguire transazioni distribuite in Hazelcast scegliendo tra due approcci:
+È possibile eseguire transazioni distribuite scegliendo tra due approcci:
 
 ==== Commit a Due Fasi (2PC)
 
@@ -386,7 +414,7 @@ TransactionContext contesto = hazelcastInstance.newTransactionContext(opzioni);
 
 === Livelli di Isolamento
 
-Hazelcast supporta diversi livelli di isolamento delle transazioni:
+Sono supportati diversi livelli di isolamento delle transazioni:
 
 - *READ_COMMITTED*: Livello predefinito, previene letture sporche
 - *REPEATABLE_READ*: Previene letture sporche e non ripetibili
@@ -443,7 +471,7 @@ Le opzioni di configurazione chiave includono:
 
 === Limitazioni delle Transazioni
 
-Le transazioni in Hazelcast hanno vincoli importanti:
+Le transazioni hanno vincoli importanti:
 - Non possono coinvolgere più cluster
 - C'è un overhead per mantenere lo stato transazionale
 - Transazioni di lunga durata possono impattare le prestazioni

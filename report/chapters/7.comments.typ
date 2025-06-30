@@ -108,7 +108,7 @@ hazelcast:
 
 ==== Configurazione di Partizionamento, Backup e Strutture Dati
 
-Hazelcast offre un controllo granulare su come i dati vengono distribuiti e replicati nel cluster. Possiamo configurare ogni struttura dati con politiche specifiche per il nostro caso d'uso:
+È disponibile anche un controllo granulare su come i dati vengono distribuiti e replicati nel cluster. Possiamo configurare ogni struttura dati con politiche specifiche per il nostro caso d'uso:
 
 ```yaml
 hazelcast:
@@ -150,7 +150,7 @@ hazelcast:
 
 ==== Configurazione di Prestazioni, Memoria e Comportamento Runtime
 
-Il controllo fine delle prestazioni e dell'utilizzo della memoria è fondamentale in sistemi distribuiti. Hazelcast offre numerose opzioni per ottimizzare questi aspetti:
+Il controllo fine delle prestazioni e dell'utilizzo della memoria è fondamentale in sistemi distribuiti. Sono disponibili numerose opzioni per ottimizzare questi aspetti:
 
 ```yaml
 hazelcast:
@@ -202,7 +202,7 @@ Queste configurazioni mostrano la flessibilità di Hazelcast nel gestire diversi
 
 === Impatto della Configurazione sulle Prestazioni
 
-La configurazione di Hazelcast ha un impatto significativo sulle prestazioni, sulla resilienza e sul consumo di risorse:
+La configurazione ha un impatto significativo sulle prestazioni, sulla resilienza e sul consumo di risorse:
 
 - *Numero di partizioni*: Il default di 271 è adeguato per la maggior parte dei casi, ma cluster molto grandi potrebbero beneficiare di un numero maggiore
 - *Backup count*: Più backup significano maggiore resilienza ma anche maggiore utilizzo di memoria e latenza di scrittura
@@ -212,7 +212,7 @@ La configurazione di Hazelcast ha un impatto significativo sulle prestazioni, su
 
 === Configurabilità come Vantaggio Competitivo
 
-La configurabilità estensiva di Hazelcast rappresenta un vantaggio significativo:
+La configurabilità estensiva rappresenta un vantaggio significativo:
 
 - *Adattabilità*: Possibilità di ottimizzare per scenari specifici
 - *Evoluzione incrementale*: Modificare il comportamento senza cambiare il codice
@@ -234,7 +234,7 @@ La documentazione di Hazelcast è strutturata in diverse sezioni principali:
 
 === Punti di Forza della Documentazione
 
-La documentazione di Hazelcast presenta diversi aspetti positivi:
+La documentazione presenta diversi aspetti positivi:
 
 - *Completezza*: Copre in modo approfondito le funzionalità del prodotto
 - *Esempi pratici*: Numerosi esempi di codice per illustrare i concetti

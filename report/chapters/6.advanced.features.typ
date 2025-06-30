@@ -1,12 +1,12 @@
-= Funzionalità Avanzate di Hazelcast
+= Funzionalità Avanzate
 
 == Serializzazione
 
 La serializzazione è un aspetto critico dell'architettura distribuita di Hazelcast. Quando i dati vengono memorizzati in un cluster Hazelcast o inviati tra i nodi, devono essere serializzati in un formato binario per la trasmissione e deserializzati alla ricezione.
 
-Per i tipi primitivi questo processo è gestito automaticamente da Hazelcast, ma per gli oggetti complessi è necessario implementare la serializzazione in modo esplicito.
+Per i tipi primitivi questo processo è gestito automaticamente, ma per gli oggetti complessi è necessario implementare la serializzazione in modo esplicito.
 
-Hazelcast fornisce diverse opzioni di serializzazione con differenti compromessi tra prestazioni, facilità d'uso e flessibilità, consigliando di utilizzare la serializzazione Compact per la maggior parte dei casi d'uso:
+Sono fornite diverse opzioni di serializzazione con differenti compromessi tra prestazioni, facilità d'uso e flessibilità, consigliando di utilizzare la serializzazione Compact per la maggior parte dei casi d'uso:
 
 - *Serializzazione integrata*: Serializzazione Java predefinita
 - *Serializzazione Compact*: Serializzazione basata su schema con supporto per il versioning e prestazioni elevate
@@ -39,7 +39,7 @@ La Serializzazione Compact è la strategia di serializzazione raccomandata da Ha
 
 ```java
 public class Dipendente {
-    private int id;
+    private long id;
     private String nome;
     private String dipartimento;
 
@@ -78,7 +78,7 @@ La serializzazione Compact funziona con un registro degli schemi che viene mante
 
 === HazelcastJsonValue
 
-Per scenari in cui JSON è il formato preferito, Hazelcast fornisce la classe `HazelcastJsonValue`:
+Per scenari in cui JSON è il formato preferito, è disponibile la classe `HazelcastJsonValue`:
 
 ```java
 Map<String, HazelcastJsonValue> clienti = hz.getMap("clienti");
@@ -144,7 +144,7 @@ clientService.addClientListener(new ClientListener() {
 
 === Eventi degli Oggetti Distribuiti
 
-Le strutture dati distribuite di Hazelcast emettono vari eventi che puoi ascoltare ad esempio:
+Le strutture dati distribuite emettono vari eventi che puoi ascoltare ad esempio:
 
 *Eventi delle Mappe:*
 ```java

@@ -2,7 +2,7 @@
 
 == Introduzione ai Test di Hazelcast
 
-In questo capitolo esploreremo i diversi approcci di testing utilizzati per verificare le funzionalità e le prestazioni di Hazelcast. La nostra strategia di testing si divide in tre filoni principali: test delle funzionalità in Java con Hazelcast embedded e test di prestazioni in Python attraverso il client.
+In questo capitolo esploreremo i diversi approcci di testing utilizzati per verificare le funzionalità e le prestazioni di Hazelcast. La nostra strategia di testing si divide in tre filoni principali: test delle funzionalità in Java con Hazelcast embedded e alcuni test di prestazioni in Python attraverso il client.
 
 == Test Funzionali in Java con Hazelcast Embedded
 
@@ -25,8 +25,4 @@ In questi test utilizziamo un approccio basato sul client Python con Hazelcast i
 - Analizzare i tempi di risposta dopo un failover e aggiunta di un nuovo nodo
 - Analizzare la CPU e la memoria utilizzata dal cluster mentre è in idle
 
-In questi test andiamo ad effettuare dei test semplici che non rispecchiano tutti i possibili scenari reali, questo data la mancanza di Hardware dedicato per eseguire i test più sofisticati.
-
-== Commenti
-
-I test in Java con Hazelcast embedded ci permettono di esplorare le funzionalità e l'integrazione con la JVM. I test con il client Python forniscono dati su prestazioni e scalabilità in ambienti distribuiti da una prospettiva client. Questa combinazione garantisce una valutazione approfondita sia delle funzionalità principali che delle prestazioni in diversi scenari d'uso.
+In questi test andiamo ad effettuare dei test semplici che non rispecchiano tutti i possibili scenari reali, questo data la mancanza di Hardware dedicato per eseguire test più sofisticati.

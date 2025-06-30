@@ -276,7 +276,7 @@ Il supporto di Hazelcast per pipeline di dati e Change Data Capture (CDC) rappre
 
 === Serializzazione e Query
 
-Oltre a consentire la serializzazione di oggetti complessi, Hazelcast offre un potente motore di query che consente di eseguire ricerche avanzate basate su tali oggetti. Consentendo l'esecuzione di query complesse su questi oggetti. Hazelcast si distingue da molte altre soluzioni in-memory che offrono solo operazioni CRUD di base.
+Oltre a consentire la serializzazione di oggetti complessi, Hazelcast offre un potente motore di query che permette di eseguire ricerche avanzate basate su tali oggetti, come illustrato nel Capitolo 5. Inoltre, grazie all'utilizzo del compat serializer, è possibile serializzare oggetti in modo compatibile tra diverse versioni della stessa classe, facilitando così l'evoluzione del modello dati senza compromettere la compatibilità con le versioni precedenti. Si tratta di una caratteristica particolarmente utile in scenari in cui le modifiche al modello dati sono frequenti e il supporto per la retrocompatibilità è fondamentale.
 
 === Lite Member
 
