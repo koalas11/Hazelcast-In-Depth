@@ -12,7 +12,7 @@ Hazelcast è una piattaforma di computing distribuito sviluppata in Java che com
 
 Un cluster Hazelcast è composto da più istanze chiamate *member* (membri). Questa terminologia è importante nell'ecosistema Hazelcast, dove i nodi del cluster sono sempre indicati come member. Questi member comunicano tra loro tramite rete e formano un sistema distribuito peer-to-peer.
 
-Ogni member è un peer con pari diritti: non ci sono master/slave che rimangano single point of failure. All'avvio del cluster Hazelcast elegge un “cluster coordinator” (inizialmente il member più anziano attraverso protocolli di gossip) che serializza le modifiche allo stato del cluster (join/leave, partizionamento, merge split-brain). Se il coordinator cade, ne viene subito eletto un altro, senza interruzione del servizio.
+Ogni member è un peer con pari diritti: non ci sono master/slave che rimangano single point of failure. All'avvio del cluster Hazelcast elegge un “cluster coordinator” (inizialmente il member più anziano) che serializza le modifiche allo stato del cluster (join/leave, partizionamento, merge split-brain). Se il coordinator cade, ne viene subito eletto un altro, senza interruzione del servizio.
 
 Un aspetto fondamentale è che ogni member è consapevole dell'esistenza di tutti gli altri member nel cluster, mantenendo una vista coerente dello stato del cluster attraverso protocolli di membership distribuiti.
 
@@ -68,7 +68,7 @@ Per garantire l'alta disponibilità, Hazelcast crea automaticamente copie di bac
 Il processo di backup è configurabile con diverse strategie:
 - *Synchronous backup*: l'operazione di scrittura attende la conferma che il backup sia stato completato
 - *Asynchronous backup*: l'operazione di scrittura non attende la conferma del backup, offrendo maggiore throughput ma minori garanzie
-- *Zero backup*: massime prestazioni ma senza tolleranza ai guasti
+- *Zero backup*: massime prestazioni ma senza tolleranza ai guasti (0 repliche)
 
 Il sistema di replicazione include diverse sofisticazioni:
 
@@ -125,7 +125,6 @@ In questa modalità, l'applicazione e uno o più member condividono lo stesso JV
 - L'applicazione deve essere scritta in Java
 - Maggiore consumo di risorse
 - Il ciclo di vita e lo scaling dell'applicazione e del member Hazelcast sono strettamente legati
-- Sconsigliata per ambienti di produzione
 
 #codly.codly-disable()
 ```

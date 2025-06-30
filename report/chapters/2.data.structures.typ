@@ -36,6 +36,7 @@ Strutture AP:
 
 Alcune di queste strutture dati, come ad esempio List, Set e Queue, memorizzano tutti i dati su un unica partizione e prevedono repliche su altri nodi per garantire la disponibilità.
 Inoltre anche se Hazelcast offre tutte queste strutture dati distribuite, la principale è *Map*, con molte funzionalità non presenti in altre strutture, come il TTL (Time to Live).
+È importante sottolineare che, se ad esempio si configura una mappa con il solo backup sincrono, questa assume il comportamento di una struttura CP, poiché le operazioni di inserimento e aggiornamento dei dati sulle repliche avvengono in modo sincrono.
 
 Queste strutture AP sono ideali per:
 - Caching distribuito e invalidazione efficiente
