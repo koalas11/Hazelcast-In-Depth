@@ -31,6 +31,7 @@ Hazelcast si posiziona in un ecosistema di tecnologie distribuite dove diverse s
     title,
     diagram(
       node-stroke: colorGrad + 1pt,
+      node-fill: white,
       edge-stroke: black + .75pt,
       node((0, 0), [Node1]),
       edge("<|-|>"),
@@ -65,6 +66,7 @@ Hazelcast si posiziona in un ecosistema di tecnologie distribuite dove diverse s
         import fletcher: *
         diagram(
           node-stroke: colorGrad + 1pt,
+          node-fill: white,
           edge-stroke: black + .75pt,
           node((0, 0), [Node1]),
           edge("<|-|>"),
@@ -95,7 +97,7 @@ Hazelcast si posiziona in un ecosistema di tecnologie distribuite dove diverse s
 - *Linguaggio*: Hazelcast è basato su Java/JVM, Redis è scritto in C
 - *Consistenza*: Hazelcast offre un sottosistema CP, Redis offre strutture dati AP
 
-#figure(caption: [Schema di confronto Sharding: Hazelcast vs Redis], {
+#figure(caption: [Schema di confronto Replicazione: Hazelcast vs Redis], {
   box(radius: 2pt, stroke: black.transparentize(90%) + 1pt, grid(
     columns: (auto,) * 2,
     column-gutter: 1em,
@@ -113,6 +115,7 @@ Hazelcast si posiziona in un ecosistema di tecnologie distribuite dove diverse s
         import fletcher: *
         diagram(
           node-stroke: colorGrad + 1pt,
+          node-fill: white,
           edge-stroke: black + .75pt,
           node((1, 0), [Master]),
           edge("<|-|>", corner: right),
