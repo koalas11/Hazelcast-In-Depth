@@ -232,15 +232,19 @@ Questo aspetto è importante da considerare quando si vuole utilizzare Hazelcast
 
 Hazelcast offre una configurazione altamente personalizzabile, che consente di adattare il comportamento del cluster alle specifiche esigenze dell'applicazione. Questo risulta particolarmente utile in scenari complessi in cui è necessario ottimizzare le prestazioni o la resilienza. Tuttavia, la configurazione risulta più complessa, richiedendo una buona comprensione delle opzioni disponibili.
 
-=== Tolleranza ai guasti (Strutture AP)
+=== Tolleranza ai guasti
 
-Dai test effettuati, abbiamo riscontrato che le query SQL e le transazioni 2PC non sono resilienti ai guasti. In caso di fallimento di un nodo durante l'esecuzione di una query o di una transazione, il sistema non riesce a completare l'operazione e restituisce un errore.
+Dai test effettuati, abbiamo riscontrato che:
 
-Perché le transazioni 2PC falliscono: Il protocollo Two-Phase Commit richiede che tutti i nodi partecipanti confermino l'operazione in entrambe le fasi (prepare e commit). Se un nodo fallisce durante questo processo, il coordinatore non può ottenere il consenso unanime necessario per garantire la consistenza ACID, causando l'abort della transazione. Questo comportamento è fondamentale per evitare stati inconsistenti nei dati distribuiti.
+Dai test condotti, è emerso quanto segue:
 
-Perché le query SQL falliscono: Le query SQL in Hazelcast spesso richiedono l'aggregazione di dati da multiple partizioni distribuite su diversi nodi. Durante l'esecuzione, se un nodo contenente partizioni necessarie per completare la query diventa non disponibile, il motore SQL non può produrre un risultato completo e accurato, preferendo fallire piuttosto che restituire dati parziali o potenzialmente inconsistenti.
+- Le transazioni Two-Phase Commit (2PC) non sono resilienti ai guasti. Il protocollo 2PC richiede l'approvazione unanime di tutti i partecipanti sia nella fase di prepare che in quella di commit. Se anche un solo nodo diventa irraggiungibile, il coordinatore non può completare la transazione, che viene quindi annullata per evitare stati inconsistenti.
 
-Al contrario, abbiamo osservato che l'utilizzo dell'API Predicate per le query offre una maggiore resilienza ai guasti. Le query Predicate operano in modalità "best effort": se un nodo fallisce durante l'esecuzione, il sistema riesce comunque a completare l'operazione sugli altri nodi disponibili, restituendo i risultati delle partizioni accessibili. Questo approccio privilegia la disponibilità (Availability) rispetto alla consistenza (Consistency), riflettendo i compromessi previsti dal teorema CAP in un sistema distribuito che sceglie di rimanere operativo anche in presenza di fallimenti.
+- Le query SQL distribuite falliscono in caso di indisponibilità di un nodo contenente partizioni necessarie. Hazelcast invia il piano di esecuzione a tutti i membri coinvolti e raccoglie le risposte da ciascuno. Se anche una sola risposta manca, viene sollevata un'eccezione, compromettendo la possibilità di garantire accuratezza e completezza dei risultati.
+
+. Le API Predicate non offrono tolleranza ai guasti. Anche queste richiedono che tutti i nodi contenenti le partizioni interessate siano operativi. La mancata risposta di uno solo di essi determina il fallimento dell'operazione.
+
+Per garantire la tolleranza ai guasti durante query o calcoli in esecuzione, è consigliabile spostare la logica su Hazelcast Jet, sfruttando checkpoint e retry automatici, oppure implementare a livello applicativo meccanismi di ritentativo in presenza di eccezioni.
 
 === Partizionamento Base
 

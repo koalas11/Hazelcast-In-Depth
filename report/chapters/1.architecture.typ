@@ -12,7 +12,7 @@ Hazelcast è una piattaforma di computing distribuito sviluppata in Java che com
 
 Un cluster Hazelcast è composto da più istanze chiamate *member* (membri). Questa terminologia è importante nell'ecosistema Hazelcast, dove i nodi del cluster sono sempre indicati come member. Questi member comunicano tra loro tramite rete e formano un sistema distribuito peer-to-peer.
 
-Ogni member funziona come un peer con pari diritti: non esistono member master o slave, eliminando così i single point of failure. Quando un nuovo member si unisce al cluster, aumenta automaticamente la capacità di storage e calcolo del sistema. L'unica eccezione è per il member più vecchio, che funge da inizializzatore del partizionamento e da coordinatore iniziale, ma non ha privilegi speciali.
+Ogni member è un peer con pari diritti: non ci sono master/slave che rimangano single point of failure. All'avvio del cluster Hazelcast elegge un “cluster coordinator” (inizialmente il member più anziano attraverso protocolli di gossip) che serializza le modifiche allo stato del cluster (join/leave, partizionamento, merge split-brain). Se il coordinator cade, ne viene subito eletto un altro, senza interruzione del servizio.
 
 Un aspetto fondamentale è che ogni member è consapevole dell'esistenza di tutti gli altri member nel cluster, mantenendo una vista coerente dello stato del cluster attraverso protocolli di membership distribuiti.
 
@@ -155,9 +155,9 @@ Hazelcast è fondamentalmente una piattaforma di computing in-memory, con caratt
 
 === Architettura di Storage
 
-- *Memory Management nativo*: Ha implementato il proprio memory manager per ottimizzare l'allocazione e la de-allocazione di memoria, riducendo i picchi di memoria non necessari e in generale la pressione sul garbage collector nativo di Java.
+- *Memory Management nativo (Enterprise)*: Hazelcast Enterprise integra un off-heap memory manager alternativo al GC della JVM, riducendo la pressione sul garbage collector e i picchi di pausa. Nella versione Open Source si fa invece affidamento al GC standard e al formato binario in-memory.
 
-- *Persistenza su disco*: Sistema di persistenza su disco basato su file logici append-only con garbage collection incrementale e ottimizzazione I/O per minimizzare l'impatto sulle prestazioni. (Solo Enterprise Edition)
+- *Persistenza su disco (Enterprise)*: Sistema di persistenza su disco basato su file logici append-only con garbage collection incrementale e ottimizzazione I/O per minimizzare l'impatto sulle prestazioni.
 
 - *Near Cache*: Meccanismo di caching lato client che mantiene copie locali dei dati frequentemente acceduti, riducendo drasticamente la latenza di lettura.
 

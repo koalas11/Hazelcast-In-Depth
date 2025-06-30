@@ -150,7 +150,7 @@ Ovviamente questo confronto è basato su una versione obsoleta di Redis e non ti
 *Similarità:*
 - *Distribuzione*: Entrambi sono sistemi distribuiti con partizionamento automatico
 - *Scalabilità*: Entrambi offrono scalabilità orizzontale
-- *Stream processing*: Entrambi supportano elaborazione di stream (Kafka Streams vs Jet)
+- *Stream processing*: Entrambi supportano l'elaborazione di stream (Kafka Streams vs Jet), ma ciò non implica che Hazelcast possa sostituire Kafka, in molti casi, i due sistemi sono complementari.
 
 *Differenze:*
 - *Caso d'uso primario*: Kafka è progettato come piattaforma di messaggistica e log di eventi, Hazelcast è un data grid con capacità di streaming

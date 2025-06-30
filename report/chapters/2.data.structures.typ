@@ -16,7 +16,7 @@ Hazelcast offre una caratteristica unica: supporta sia strutture dati AP (Availa
 Sono disponibili numerose strutture dati distribuite che seguono il modello AP del teorema CAP, privilegiando l'alta disponibilità e la tolleranza alle partizioni, a scapito della consistenza forte in scenari di rete instabile o partizionata.
 
 Strutture AP:
-- *Map:* garantisce disponibilità anche durante le partizioni, ma con possibile lettura temporaneamente obsoleta (*eventually consistent*).
+- *Map:* garantisce disponibilità anche durante le partizioni, ma con possibile lettura temporaneamente obsoleta (*eventually consistent*) (Questo è possibile influenzarlo attraverso le impostazioni della mappa).
 
 - *ReplicatedMap:* mappa completamente replicata su tutti i nodi del cluster, ottimizzata per letture frequenti con aggiornamenti meno frequenti.
 
